@@ -1,0 +1,1 @@
+<footer class="text-center text-7xl ">@ footer 2020</footer>

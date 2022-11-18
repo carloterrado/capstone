@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -51,6 +52,12 @@
         @apply w-full py-4 px-4 bg-white rounded-full text-sm text-center font-sans font-bold outline outline-accent-regular outline-1 outline-offset-[-3px] hover:bg-accent-regular text-accent-regular hover:text-white  hover:outline-accent-regular hover:shadow-md
         transform active:scale-75 transition-transform duration-700;
     }
+    ::-webkit-scrollbar {
+        @apply hidden
+      }
+   
+    @import '../../node_modules/boxicons/css/boxicons.min.css';
 }
+
 
 
