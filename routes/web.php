@@ -17,20 +17,31 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('front.home');
 });
-Route::get('/owner/dashboard', function () {
-    return view('owner.dashboard');
-});
+
+
+   // --- Admin login --- //
+   Route::match(['get','post'],'admin/login',[AdminController::class,'login']);
 
 // --- Admin routes --- //
-Route::prefix('admin')->group(function(){
+Route::prefix('admin')->group(function()
+{
 
-     // --- Admin login --- //
-    Route::match(['get','post'],'login',[AdminController::class,'login']);
     // --- Admin group with middleware auth guard --- //
-    Route::group(['middleware'=>['admin']], function(){
+    Route::group(['middleware'=>['admin']], function()
+    {
         
         Route::get('dashboard',[AdminController::class,'dashboard']);
         Route::get('logout',[AdminController::class,'logout']);
+    });
+});
+// --- Owner routes --- //
+Route::prefix('owner')->group(function()
+{
+
+    // --- Admin group with middleware auth guard --- //
+    Route::group(['middleware'=>['admin']], function()
+    {     
+        Route::get('dashboard',[AdminController::class,'dashboard']);
     });
 });
 
