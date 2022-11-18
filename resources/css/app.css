@@ -1,3 +1,56 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    /* debug */
+    .debug {
+        @apply border border-red-700;
+    }
+    /* Nav Bar styles */
+    .nav-list-container {
+        @apply hidden absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:mx-auto lg:flex lg:items-center lg:w-auto lg:space-x-10;
+    }
+    .nav-list {
+        @apply text-sm text-dark font-medium items-center;
+    }
+    .hover-nav {
+        @apply hover:text-accent-regular focus:text-accent-regular focus:underline underline-offset-8 decoration-inherit decoration-1;
+    }
+    .user-menu-list {
+        @apply block my-1 px-4 py-2 text-sm rounded-lg text-dark hover:text-accent-regular focus:bg-gray-100 focus:text-accent-regular;
+    }
+    /* Side Nav Bar Styles */
+    .sidebar-list {
+        @apply flex items-center p-2 text-base font-normal text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100;
+    }
+    .sidebar-container {
+        @apply mb-1 inline-flex hover:bg-accent-verylight rounded w-full;
+    }
+    .sidebar-stick {
+        @apply block w-1 group-hover:bg-accent-regular scale-y-0 group-hover:scale-100 transition-transform origin-top rounded-full duration-300 ease-in-out;
+    }
+    .sidebar-hover  {
+        @apply flex items-center p-2 text-base font-normal rounded-lg text-dark hover:text-accent-regular focus:bg-gray-100 focus:text-accent-regular;
+    }
+    /* Button Styles*/
+    .btn-1 {
+        @apply lg:inline-block py-3 px-7 rounded-full bg-white text-sm text-center font-bold hover:shadow-md transform active:scale-75 transition-transform duration-500;
+    }
+    .btn-orange-1 {
+        @apply bg-accent-regular text-white outline outline-gray-800 outline-1 outline-offset-[-2px] hover:drop-shadow-md;
+    }
+    .btn-non-orange {
+        @apply bg-transparent border outline outline-gray-800 outline-1;
+    }
+    .btn-orange-2 {
+        @apply text-white bg-accent-regular focus:ring-accent-regular
+        focus:ring-opacity-50 active:bg-accent-dark;
+    }
+    .btn-orange-sidebar {
+        @apply w-full py-4 px-4 bg-white rounded-full text-sm text-center font-sans font-bold outline outline-accent-regular outline-1 outline-offset-[-3px] hover:bg-accent-regular text-accent-regular hover:text-white  hover:outline-accent-regular hover:shadow-md
+        transform active:scale-75 transition-transform duration-700;
+    }
+}
+
+
