@@ -19,31 +19,27 @@ Route::get('/', function () {
 });
 
 
-   // --- Admin login --- //
-   Route::match(['get','post'],'admin/login',[AdminController::class,'login']);
+   
 
-// --- Admin routes --- //
+    //  Admin routes 
 Route::prefix('admin')->group(function()
 {
+    //  Admin and Owner login 
+   Route::match(['get','post'],'login',[AdminController::class,'login']);
 
-    // --- Admin group with middleware auth guard --- //
+    //  Admin group with middleware auth guard 
     Route::group(['middleware'=>['admin']], function()
-    {
-        
+    {       
         Route::get('dashboard',[AdminController::class,'dashboard']);
+        //  Admin update-password 
+        Route::match(['get','post'],'update-password',[AdminController::class,'updatePassword']);
+        //  Admin check-current-password 
+        Route::post('/check-admin-password',[AdminController::class,'checkPassword']);
         Route::get('logout',[AdminController::class,'logout']);
     });
 });
-// --- Owner routes --- //
-Route::prefix('owner')->group(function()
-{
 
-    // --- Admin group with middleware auth guard --- //
-    Route::group(['middleware'=>['admin']], function()
-    {     
-        Route::get('dashboard',[AdminController::class,'dashboard']);
-    });
-});
+
 
 
 Route::get('/dashboard', function () {
