@@ -106,12 +106,16 @@ $(function(){
                 if (resp === "false") {
                     $("#current-pass-error").html('Wrong password');
                 } else {
-                    $("#current-pass-error").html('');
-                    // validatePassword('#current-password','#current-pass-error');
+                    // $("#current-pass-error").html('');
+                    validatePassword('#current-password','#current-pass-error');
                 }
             },
             error: function () {
-                alert("Error to get the current password from database");
+                $('#error-message').show();
+                $("#error-text").html('Current password not found');
+                setTimeout(function(){
+                    $('#error-message').show();
+                },3000)
             },
         });
     });
@@ -123,6 +127,7 @@ $(function(){
     {
         validateConfirmPassword('#new-password','#confirm-password','#confirm-pass-error');
     })
+    // validate the form before the form upon submission 
     $('#change-pass-form').on('submit', function(event)
     {
         event.preventDefault();
@@ -178,9 +183,15 @@ $(function(){
                 },
             });
         }
-         const validated = validateChangePassForm()
+        const validated = validateChangePassForm()
         if(validated){
-            submitPassword();
+            submitPassword().catch(function(error){
+                $('#error-message').show();
+                $("#error-text").html('Update password failed!');
+                setTimeout(function(){
+                    $('#error-message').show();
+                },3000)
+            });
         }      
     });
 

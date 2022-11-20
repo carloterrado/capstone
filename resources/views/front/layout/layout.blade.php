@@ -7,16 +7,17 @@
    <meta name="csrf-token" content="{{ csrf_token() }}">
    <title>Chesca Chen's Car Rental</title>
   
-   <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-      rel="stylesheet">
-      <!-- <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.4/dist/flowbite.min.css" /> -->
-      <link rel="stylesheet" href="{{url('css/app.css')}}">
-      <script src="{{url('js/app.js')}}" defer></script>
+   
+   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+      
+   <link rel="stylesheet" href="{{url('css/app.css')}}">
+  
+      
  
 </head>
 
 <body>
+   <div class="max-w-[1500px] mx-auto">
    <!-- Header start -->
     @include('front.layout.header')
    <!-- Header end -->
@@ -31,8 +32,9 @@
    <!-- Footer start -->
     @include('front.layout.footer')
    <!-- Footer end -->
+   </div>
  
-   <!-- <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script> -->
+   <script src="{{url('js/app.js')}}"></script>
    <script src="{{url('front/js/index.js')}}"></script>
 </body>
 
