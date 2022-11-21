@@ -25,7 +25,7 @@
           <li>
             <a href="#" class="sidebar-hover">
                 <span class="flex-1 ml-3 whitespace-nowrap">Reserved Car</span>
-                <span class="inline-flex justify-center items-center p-3 ml-3 w-3 h-3 text-sm font-medium text-accent-regular bg-accent-light rounded-full">3</span>
+                <span class="inline-flex justify-center items-center p-3 ml-3 w-3 h-3 text-sm font-medium text-accent-regular bg-accent-verylight rounded-full">3</span>
             </a>
           </li>
         </div>
@@ -33,32 +33,32 @@
     
     <ul class="pt-4 mt-4 space-y-2 border-t border-gray-200 dark:border-gray-700">
         <li>
-          <a href="#" class="sidebar-list sidebar-hover">
+          <a href="javascript:void(0)" class="home navbar-close sidebar-list sidebar-hover">
               <span class="ml-3">Home</span>
           </a>
         </li>
         <li>
-          <a href="#" class="sidebar-list sidebar-hover">
+          <a href="javascript:void(0)" class="cars navbar-close sidebar-list sidebar-hover">
               <span class="ml-3">Cars</span>
           </a>
         </li>
         <li>
-          <a href="#" class="sidebar-list sidebar-hover">
+          <a href="javascript:void(0)" class="about navbar-close sidebar-list sidebar-hover">
               <span class="ml-3">About</span>
           </a>
         </li>
         <li>
-          <a href="#" class="sidebar-list sidebar-hover">
+          <a href="javascript:void(0)" class="contact navbar-close sidebar-list sidebar-hover">
               <span class="ml-3">Contacts</span>
           </a>
         </li>
         <li>
-          <a href="#" class="sidebar-list sidebar-hover">
+          <a href="javascript:void(0)" class="navbar-close sidebar-list sidebar-hover">
               <span class="ml-3">FAQs</span>
           </a>
         </li>
         <li>
-          <a href="#" class="sidebar-list sidebar-hover">
+          <a href="javascript:void(0)" class="navbar-close sidebar-list sidebar-hover">
               <span class="ml-3">Terms & Conditions</span>
           </a>
         </li>

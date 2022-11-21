@@ -1,5 +1,3 @@
-@extends('front.layout.layout')
-@section('content')
 <main>
     <!-- Hero section -->
     <section class="relative text-white h-[100vmin] md:h-[calc(100vmin-5.5rem)]">
@@ -155,4 +153,3 @@
         </form>
     </div> -->
 </main>
-@endsection

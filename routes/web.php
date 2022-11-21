@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\FrontController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +16,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('front.home');
+Route::prefix('/')->group(function()
+{
+
+    Route::get('',[FrontController::class,'home']);
+    Route::get('cars',[FrontController::class,'cars']);
+    Route::get('about',[FrontController::class,'about']);
+    Route::get('contact',[FrontController::class,'contact']);
+    Route::get('partial-content/{type?}',[FrontController::class,'partialContent']);
 });
 
 

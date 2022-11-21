@@ -21,12 +21,15 @@
    <!-- Header start -->
     @include('front.layout.header')
    <!-- Header end -->
+
    <!-- Sidebar start -->
     @include('front.layout.sidebar')
-   <!-- Sidebar end -->
+   <!-- Sidebar end -->  
 
    <!-- Main content start -->
-   @yield('content')
+   <div class="main-content">
+      @yield('content')
+   </div>
    <!-- Main content end -->
    
    <!-- Footer start -->
@@ -36,6 +39,9 @@
  
    <script src="{{url('js/app.js')}}"></script>
    <script src="{{url('front/js/index.js')}}"></script>
+   <script src="{{url('js/jquery.min.js')}}"></script>
+   <script src="{{url('front/js/custom.js')}}"></script>
+  
 </body>
 
 </html>

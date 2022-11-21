@@ -35,7 +35,7 @@
 
     </div>
     <div class="p-6 sm:px-14 bg-black">
-        <p>2022 All Rights Reserve <span class="text-accent-regular">Terms of Use</span></p>
+        <p class="text-center sm:text-left">2022 All Rights Reserve <span class="text-accent-regular whitespace-nowrap">Terms of Use</span></p>
 
     </div>
 </footer>

@@ -18,16 +18,16 @@
         <!-- Nav List -->
         <ul class="nav-list-container">
           <li>
-            <a class="nav-list hover-nav" href="#">Home</a>
+            <a class="home nav-list hover-nav" href="javascript:void(0)">Home</a>
           </li>
           <li>
-            <a class="nav-list hover-nav" href="#">Cars</a>    
+            <a class="cars nav-list hover-nav" href="javascript:void(0)">Cars</a>    
           </li>
           <li>
-            <a class="nav-list hover-nav" href="#">About Us</a>
+            <a class="about nav-list hover-nav" href="javascript:void(0)">About Us</a>
           </li>
           <li>
-            <a class="nav-list hover-nav" href="#">Contacts</a>
+            <a class="contact nav-list hover-nav" href="javascript:void(0)">Contacts</a>
           </li>
         </ul>
         <!-- Login and sign up button -->
@@ -38,7 +38,7 @@
         </div>
           <!-- Profile -->
             <div class="lg:flex items-center md:order-2 mr-[1rem]">
-              <button type="button" class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+              <button type="button" class="transform active:scale-75 transition-transform duration-500 text-sm " id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
                 <div class="inline-flex overflow-hidden relative justify-center items-center w-10 h-10 bg-gray-200 ring-2 ring-gray-300 rounded-full">
                   <span class="font-medium text-gray-600">JR</span>
                 </div>
@@ -53,7 +53,7 @@
                   <li>
                     <a href="#" class="user-menu-list flex justify-between items-center">
                       <span class="flex-1 whitespace-nowrap">Reserved Car</span>
-                      <span class="inline-flex justify-center items-center p-3 ml-3 w-3 h-3 text-sm font-medium text-accent-regular bg-accent-light rounded-full">3</span>
+                      <span class="inline-flex justify-center items-center p-3 ml-3 w-3 h-3 text-sm font-medium text-accent-regular bg-accent-verylight rounded-full">3</span>
                     </a>
                   </li>
                   <li>
