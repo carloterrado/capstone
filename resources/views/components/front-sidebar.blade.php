@@ -65,12 +65,12 @@
     </ul>
     <!-- Side Nav Bar Login Button -->
     <div class=" mt-12 px-3">
-      <div class="pt-6">
+      <div class="pt-6 hidden">
         <button class="btn-orange-sidebar">Log out</button>
       </div>
-      <div class="hidden  flex-col justify-between gap-3">
-        <button class="btn-1 btn-non-orange">Login</button>
-        <button class="btn-1 btn-orange-1">Sign up</button>
+      <div class="flex flex-col justify-between gap-3">
+        <button class="front-login navbar-close btn-1 btn-non-orange">Login</button>
+        <button class="front-signup navbar-close btn-1 btn-orange-1">Sign up</button>
       </div>
     </div>  
   </nav>

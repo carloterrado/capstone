@@ -52,10 +52,24 @@
         @apply w-full py-4 px-4 bg-white rounded-full text-sm text-center font-sans font-bold outline outline-accent-regular outline-1 outline-offset-[-3px] hover:bg-accent-regular text-accent-regular hover:text-white  hover:outline-accent-regular hover:shadow-md
         transform active:scale-75 transition-transform duration-700;
     }
+    .btn-orange-login {
+        @apply w-full py-3 px-4 rounded-full text-lg text-center font-sans bg-accent-regular text-white hover:bg-red-400 hover:shadow-md transform active:scale-75 transition-transform duration-700;
+    }
+
     ::-webkit-scrollbar {
         @apply hidden
       }
    
+      /* will removed blue square when tapping buttons */
+    button {
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    /* File input */
+    #file_input::-webkit-file-upload-button {
+        background-color: rgb(173, 141, 141);
+        /* min-width: 7.5rem; */
+    }
     @import '../../node_modules/boxicons/css/boxicons.min.css';
 }
 

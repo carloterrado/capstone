@@ -23,6 +23,8 @@ Route::prefix('/')->group(function()
     Route::get('cars',[FrontController::class,'cars']);
     Route::get('about',[FrontController::class,'about']);
     Route::get('contact',[FrontController::class,'contact']);
+    Route::get('arkilla-login',[FrontController::class,'login']);
+    Route::get('arkilla-signup',[FrontController::class,'signup']);
     Route::get('partial-content/{type?}',[FrontController::class,'partialContent']);
 });
 
