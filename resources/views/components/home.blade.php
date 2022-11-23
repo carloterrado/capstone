@@ -1,4 +1,4 @@
-<main>
+<main id="home">
     <!-- Hero section -->
     <section class="relative text-white h-[100vmin] md:h-[calc(100vmin-5.5rem)]">
         <img class="w-full h-full object-cover" src="{{url('front/images/redcar-home.jpg')}}" alt="hero image">

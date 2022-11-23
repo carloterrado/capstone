@@ -24,7 +24,6 @@ $(function(){
             url: "/"+ url,
             data: { CSRF_TOKEN },
             success: function (data) {  
-                console.log(data) 
                 $('.main-content').html(data)  
             },
             error: function (error) {
@@ -37,35 +36,41 @@ $(function(){
     $('.home').on('click',  function()
     {
         let url = 'partial-content/home';
-        ChangeUrl('Chesca Chen\'s Car Rental', '/'); 
         getPage(url);   
+        location.href = '#header';
+        ChangeUrl('Chesca Chen\'s Car Rental', '/'); 
     })
     $('.cars').on('click',  function()
     {
         let url = 'partial-content/cars';
+        getPage(url); 
+        location.href = '#header';
         ChangeUrl('Cars', '/cars'); 
-        getPage(url);   
     })
     $('.about').on('click', function()
     {
         let url = 'partial-content/about';
-        ChangeUrl('About Us', 'about');
         getPage(url);  
+        location.href = '#header';
+        ChangeUrl('About Us', 'about');
     })
     $('.contact').on('click',  function()
     {
         let url = 'partial-content/contact';
+        getPage(url); 
+        location.href = '#header';
         ChangeUrl('Contact Us', '/contact'); 
-        getPage(url);   
     })
     $('.front-login').on('click',  function()
     { 
+        console.log('click')
         let url = 'partial-content/login';
         ChangeUrl('Login', '/arkilla-login'); 
         getPage(url);   
     })
     $('.front-signup').on('click',  function()
     { 
+        console.log('click')
         let url = 'partial-content/signup';
         ChangeUrl('Signup', '/arkilla-signup'); 
         getPage(url);   

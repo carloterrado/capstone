@@ -17,7 +17,7 @@
       <div class="bg-white flex items-center w-full max-w-md px-6 mx-auto lg:w-2/6">
           <div class="flex-1">
               <div class="text-center">
-                  <h2 class="hidden sm:block text-4xl font-bold text-center mt-6"><img class="mx-auto" src="front/images/Chesca_logo.svg" alt=""></h2>
+                  <h2 class="text-4xl font-bold text-center mt-6"><img class="mx-auto" src="front/images/Chesca_logo.svg" alt=""></h2>
                   <p class="mt-3 text-gray-500">Create your account now, it's free.</p>
               </div>
 
@@ -115,11 +115,12 @@
                       <div class="mt-4 mb-6">
                           <!-- <button class="w-full px-4 py-2 tracking-wide btn-orange-login"> -->
                           <button class="btn-orange-login mt-4 scale-75 sm:scale-100">
-                              Sign up
+                              Submit
                           </button>
                       </div>
 
                   </form>
+                 
 
                  
           </div>

@@ -48,27 +48,27 @@ class FrontController extends Controller
         {
             if($type == 'home')
             {
-                return view('front.partial-content.home');
+                return view('components.home');
             }
             if($type == 'cars')
             {
-                return view('front.partial-content.cars');
+                return view('components.cars');
             }
             if($type == 'about')
             {
-                return view('front.partial-content.about');
+                return view('components.about');
             }
             if($type == 'contact')
             {
-                return view('front.partial-content.contact');
+                return view('components.contact');
             }
             if($type == 'login')
             {
-                return view('front.partial-content.login');
+                return view('components.front-login');
             }
             if($type == 'signup')
             {
-                return view('front.partial-content.signup');
+                return view('components.front-signup');
             }
             
         }

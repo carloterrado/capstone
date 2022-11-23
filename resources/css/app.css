@@ -64,6 +64,9 @@
     button {
         -webkit-tap-highlight-color: transparent;
     }
+    *{
+        scroll-behavior: smooth;
+    }
 
     /* File input */
     #file_input::-webkit-file-upload-button {
