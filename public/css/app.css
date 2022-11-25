@@ -1227,11 +1227,30 @@ input[type="range"]::-ms-fill-lower {
   display: none;
 }
 /* will removed blue square when tapping buttons */
-button {
+* {
         -webkit-tap-highlight-color: transparent;
-    }
-*{
         scroll-behavior: smooth;
+        font-family: 'Montserrat','Roboto',sans-serif;
+    }
+.loader-circle {
+  height: 11rem;
+  width: 11rem;
+  border-radius: 9999px;
+  border-width: 6px;
+  border-color: transparent;
+  --tw-border-opacity: 1;
+  border-top-color: rgb(0 0 0 / var(--tw-border-opacity));
+  --tw-bg-opacity: 1;
+  background-color: rgb(232 73 73 / var(--tw-bg-opacity));
+       animation: loader 1s infinite linear;
+}
+@keyframes loader {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
     }
 /* File input */
 #file_input::-webkit-file-upload-button {
@@ -1294,6 +1313,9 @@ button {
 .top-full {
   top: 100%;
 }
+.top-1\/2 {
+  top: 50%;
+}
 .top-2 {
   top: 0.5rem;
 }
@@ -1318,11 +1340,11 @@ button {
 .z-50 {
   z-index: 50;
 }
-.-z-10 {
-  z-index: -10;
-}
 .z-10 {
   z-index: 10;
+}
+.-z-10 {
+  z-index: -10;
 }
 .order-2 {
   order: 2;
@@ -1402,9 +1424,6 @@ button {
 .ml-2 {
   margin-left: 0.5rem;
 }
-.mb-0 {
-  margin-bottom: 0px;
-}
 .mt-2 {
   margin-top: 0.5rem;
 }
@@ -1468,18 +1487,12 @@ button {
 .h-\[200px\] {
   height: 200px;
 }
-.h-\[90vh\] {
-  height: 90vh;
+.h-20 {
+  height: 5rem;
 }
 .h-max {
   height: -moz-max-content;
   height: max-content;
-}
-.h-4 {
-  height: 1rem;
-}
-.h-20 {
-  height: 5rem;
 }
 .h-16 {
   height: 4rem;
@@ -1496,11 +1509,17 @@ button {
 .h-6 {
   height: 1.5rem;
 }
+.h-4 {
+  height: 1rem;
+}
 .min-h-\[100vh\] {
   min-height: 100vh;
 }
 .min-h-screen {
   min-height: 100vh;
+}
+.min-h-\[90vh\] {
+  min-height: 90vh;
 }
 .w-5 {
   width: 1.25rem;
@@ -1533,12 +1552,6 @@ button {
 .w-\[400px\] {
   width: 400px;
 }
-.w-4 {
-  width: 1rem;
-}
-.w-44 {
-  width: 11rem;
-}
 .w-20 {
   width: 5rem;
 }
@@ -1553,6 +1566,9 @@ button {
 }
 .w-6 {
   width: 1.5rem;
+}
+.w-4 {
+  width: 1rem;
 }
 .max-w-\[400px\] {
   max-width: 400px;
@@ -1571,6 +1587,9 @@ button {
 }
 .max-w-7xl {
   max-width: 80rem;
+}
+.max-w-sm {
+  max-width: 24rem;
 }
 .flex-1 {
   flex: 1 1 0%;
@@ -1602,6 +1621,14 @@ button {
   --tw-translate-y: -70%;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
+.-translate-x-1\/2 {
+  --tw-translate-x: -50%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.-translate-y-1\/2 {
+  --tw-translate-y: -50%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
 .-translate-y-4 {
   --tw-translate-y: -1rem;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -1613,6 +1640,11 @@ button {
 .scale-75 {
   --tw-scale-x: .75;
   --tw-scale-y: .75;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.scale-50 {
+  --tw-scale-x: .5;
+  --tw-scale-y: .5;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 .scale-95 {
@@ -1731,10 +1763,6 @@ button {
   border-top-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)));
   border-bottom-width: calc(1px * var(--tw-divide-y-reverse));
 }
-.divide-gray-100 > :not([hidden]) ~ :not([hidden]) {
-  --tw-divide-opacity: 1;
-  border-color: rgb(243 244 246 / var(--tw-divide-opacity));
-}
 .divide-gray-200 > :not([hidden]) ~ :not([hidden]) {
   --tw-divide-opacity: 1;
   border-color: rgb(229 231 235 / var(--tw-divide-opacity));
@@ -1776,9 +1804,6 @@ button {
 }
 .border {
   border-width: 1px;
-}
-.border-2 {
-  border-width: 2px;
 }
 .border-l-4 {
   border-left-width: 4px;
@@ -1869,6 +1894,14 @@ button {
   --tw-bg-opacity: 1;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
 }
+.bg-red-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(253 232 232 / var(--tw-bg-opacity));
+}
+.bg-green-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(132 225 188 / var(--tw-bg-opacity));
+}
 .bg-\[\#1F1F1F\] {
   --tw-bg-opacity: 1;
   background-color: rgb(31 31 31 / var(--tw-bg-opacity));
@@ -1887,10 +1920,6 @@ button {
 .bg-gray-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
-}
-.bg-red-100 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(253 232 232 / var(--tw-bg-opacity));
 }
 .bg-green-100 {
   --tw-bg-opacity: 1;
@@ -2029,11 +2058,11 @@ button {
 .align-text-bottom {
   vertical-align: text-bottom;
 }
-.font-\[Montserrat\] {
-  font-family: Montserrat;
+.font-\[\'Montserrat\'\2c sans-serif\] {
+  font-family: 'Montserrat',sans-serif;
 }
-.font-\[Roboto\] {
-  font-family: Roboto;
+.font-\[\'Roboto\'\2c sans-serif\] {
+  font-family: 'Roboto',sans-serif;
 }
 .font-sans {
   font-family: Nunito, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -2074,12 +2103,19 @@ button {
 .text-\[2\.5rem\] {
   font-size: 2.5rem;
 }
+.text-\[125\%\] {
+  font-size: 125%;
+}
 .text-\[1\.75rem\] {
   font-size: 1.75rem;
 }
 .text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem;
+}
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
 }
 .text-4xl {
   font-size: 2.25rem;
@@ -2096,10 +2132,6 @@ button {
 .text-2xl {
   font-size: 1.5rem;
   line-height: 2rem;
-}
-.text-3xl {
-  font-size: 1.875rem;
-  line-height: 2.25rem;
 }
 .font-medium {
   font-weight: 500;
@@ -2143,11 +2175,11 @@ button {
 .leading-tight {
   line-height: 1.25;
 }
-.tracking-wide {
-  letter-spacing: 0.025em;
-}
 .tracking-widest {
   letter-spacing: 0.1em;
+}
+.tracking-wide {
+  letter-spacing: 0.025em;
 }
 .tracking-wider {
   letter-spacing: 0.05em;
@@ -2184,6 +2216,14 @@ button {
   --tw-text-opacity: 1;
   color: rgb(5 122 85 / var(--tw-text-opacity));
 }
+.text-red-700 {
+  --tw-text-opacity: 1;
+  color: rgb(200 30 30 / var(--tw-text-opacity));
+}
+.text-green-700 {
+  --tw-text-opacity: 1;
+  color: rgb(4 108 78 / var(--tw-text-opacity));
+}
 .text-gray-300 {
   --tw-text-opacity: 1;
   color: rgb(209 213 219 / var(--tw-text-opacity));
@@ -2192,6 +2232,10 @@ button {
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity));
 }
+.text-\[lightcoral\] {
+  --tw-text-opacity: 1;
+  color: rgb(240 128 128 / var(--tw-text-opacity));
+}
 .text-red-600 {
   --tw-text-opacity: 1;
   color: rgb(224 36 36 / var(--tw-text-opacity));
@@ -2199,14 +2243,6 @@ button {
 .text-gray-200 {
   --tw-text-opacity: 1;
   color: rgb(229 231 235 / var(--tw-text-opacity));
-}
-.text-red-700 {
-  --tw-text-opacity: 1;
-  color: rgb(200 30 30 / var(--tw-text-opacity));
-}
-.text-green-700 {
-  --tw-text-opacity: 1;
-  color: rgb(4 108 78 / var(--tw-text-opacity));
 }
 .text-indigo-600 {
   --tw-text-opacity: 1;
@@ -2397,9 +2433,6 @@ button {
   --tw-content: '';
   content: var(--tw-content);
 }
-.hover\:rounded-lg:hover {
-  border-radius: 0.5rem;
-}
 .hover\:border-gray-300:hover {
   --tw-border-opacity: 1;
   border-color: rgb(209 213 219 / var(--tw-border-opacity));
@@ -2412,16 +2445,13 @@ button {
   --tw-bg-opacity: 1;
   background-color: rgb(232 73 73 / var(--tw-bg-opacity));
 }
-.hover\:bg-accent-verylight:hover {
-  background-color: rgba(232, 73, 73, 0.10);
+.hover\:bg-gray-700:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(55 65 81 / var(--tw-bg-opacity));
 }
 .hover\:bg-gray-100:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
-}
-.hover\:bg-gray-700:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(55 65 81 / var(--tw-bg-opacity));
 }
 .hover\:text-gray-500:hover {
   --tw-text-opacity: 1;
@@ -2498,9 +2528,6 @@ button {
   --tw-bg-opacity: 1;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
 }
-.focus\:bg-accent-verylight:focus {
-  background-color: rgba(232, 73, 73, 0.10);
-}
 .focus\:bg-gray-100:focus {
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
@@ -2513,6 +2540,10 @@ button {
   --tw-text-opacity: 1;
   color: rgb(31 41 55 / var(--tw-text-opacity));
 }
+.focus\:text-gray-50:focus {
+  --tw-text-opacity: 1;
+  color: rgb(249 250 251 / var(--tw-text-opacity));
+}
 .focus\:text-accent-regular:focus {
   --tw-text-opacity: 1;
   color: rgb(232 73 73 / var(--tw-text-opacity));
@@ -2521,16 +2552,9 @@ button {
   --tw-text-opacity: 1;
   color: rgb(55 65 81 / var(--tw-text-opacity));
 }
-.focus\:text-gray-50:focus {
-  --tw-text-opacity: 1;
-  color: rgb(249 250 251 / var(--tw-text-opacity));
-}
 .focus\:text-gray-500:focus {
   --tw-text-opacity: 1;
   color: rgb(107 114 128 / var(--tw-text-opacity));
-}
-.focus\:underline:focus {
-  text-decoration-line: underline;
 }
 .focus\:outline-none:focus {
   outline: 2px solid transparent;
@@ -2714,11 +2738,6 @@ button {
 
   .sm\:order-2 {
     order: 2;
-  }
-
-  .sm\:my-auto {
-    margin-top: auto;
-    margin-bottom: auto;
   }
 
   .sm\:-my-px {

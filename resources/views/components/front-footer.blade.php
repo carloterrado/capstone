@@ -1,3 +1,30 @@
+<div id="modal-message" class="hidden fixed inset-0 flex items-center justify-center">
+
+  <!-- Alert danger -->
+    <div id="error-message" class="hidden w-full max-w-sm p-4  bg-red-100 rounded-lg " role="alert">
+        <div id="error-text" class="ml-3 font-bold text-red-700 text-center ">error</div>
+    </div>
+    
+    
+    <!-- Alert Succes -->
+    <div id="success-message" class="hidden w-full max-w-sm p-4 bg-green-300 rounded-lg" role="alert">
+        <div id="success-text" class="ml-3 font-bold  text-green-700 text-center">succes</div>
+    </div>
+    
+    
+    <div id="loader" class="hidden place-items-center fixed inset-0 scale-50 sm:scale-100">
+        <div class="loader-circle"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 z-10 -translate-y-1/2 text-[125%] font-['Montserrat',sans-serif] uppercase font-bold text-white tracking-widest">Loading</div>
+    </div>
+
+</div>
+
+     
+
+  
+
+
+
 <footer class="bg-[#1F1F1F] text-white">
     <div class="grid md:grid-cols-3 p-6 sm:p-14">
         <div class="text-center md:text-left mb-12 md:mb-0">

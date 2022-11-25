@@ -61,12 +61,32 @@
       }
    
       /* will removed blue square when tapping buttons */
-    button {
+    * {
         -webkit-tap-highlight-color: transparent;
     }
     *{
         scroll-behavior: smooth;
+        font-family: 'Montserrat','Roboto',sans-serif;
     }
+  
+    
+    .loader-circle {
+       @apply rounded-full bg-accent-regular w-44 h-44 border-[6px] border-transparent border-t-black ;
+       animation: loader 1s infinite linear;
+       
+       
+    }
+    
+    @keyframes loader {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+    
+   
 
     /* File input */
     #file_input::-webkit-file-upload-button {

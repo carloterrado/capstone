@@ -1,10 +1,10 @@
 <main id="home">
     <!-- Hero section -->
     <section class="relative text-white h-[100vmin] md:h-[calc(100vmin-5.5rem)]">
-        <img class="w-full h-full object-cover" src="{{url('front/images/redcar-home.jpg')}}" alt="hero image">
+        <img class="w-full h-full object-cover" src="{{url('front/images/red-car-home.jpg')}}" alt="hero image">
         <div class="absolute inset-0 bg-black/10"></div>
-        <div class="flex flex-col gap-4 w-auto sm:w-1/2  absolute top-1/3 -translate-y-1/3 left-8 md:left-32 font-[800] font-[Montserrat]">
-            <h1 class="text-[2rem] sm:text-[3rem] lg:text-[4.5rem] leading-none font-[Roboto] font-[600] ">Welcome</h1>
+        <div class="flex flex-col gap-4 w-auto sm:w-1/2  absolute top-1/3 -translate-y-1/3 left-8 md:left-32 font-[800] font-['Montserrat',sans-serif]">
+            <h1 class="text-[2rem] sm:text-[3rem] lg:text-[4.5rem] leading-none font-['Roboto',sans-serif] font-[600] ">Welcome</h1>
             <h2 class="text-[.8rem] sm:text-[1.2rem] leading-6">Find the best deal on rental cars <br> and drive to your destination</h2>
             <p class="text-[.8rem] sm:text-[1rem] font-[400]">Sedan cars at low cost, <br> starts at ₱1500.00</p>
             <button class="btn-1 bg-accent-regular uppercase border-none w-[fit-content] sm:mt-6 text-[.7rem] lg:text-[1rem]">Find a car</button>

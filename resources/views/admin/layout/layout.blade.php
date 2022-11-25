@@ -28,7 +28,7 @@
    <!-- Main content end -->
    
    <!-- Footer start -->
-   <x-admin-footer />
+   <x-front-footer />
    <!-- Footer end -->
 
    <script src="{{url('js/app.js')}}"></script>
