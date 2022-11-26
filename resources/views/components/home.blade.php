@@ -7,7 +7,7 @@
             <h1 class="text-[2rem] sm:text-[3rem] lg:text-[4.5rem] leading-none font-['Roboto',sans-serif] font-[600] ">Welcome</h1>
             <h2 class="text-[.8rem] sm:text-[1.2rem] leading-6">Find the best deal on rental cars <br> and drive to your destination</h2>
             <p class="text-[.8rem] sm:text-[1rem] font-[400]">Sedan cars at low cost, <br> starts at ₱1500.00</p>
-            <button class="btn-1 bg-accent-regular uppercase border-none w-[fit-content] sm:mt-6 text-[.7rem] lg:text-[1rem]">Find a car</button>
+            <a href="{{url('/cars')}}"><button class="btn-1 bg-accent-regular uppercase border-none w-[fit-content] sm:mt-6 text-[.7rem] lg:text-[1rem]">Find a car</button></a>
         </div>
     </section>
 
@@ -74,21 +74,21 @@
             </div>
             <div>
                 <ul class="grid sm:grid-cols-2 gap-y-8 gap-x-4">
-                    <li class="flex gap-2 items-center"><i class='bx bxs-check-circle text-[2.5rem] text-accent-regular'></i><span>Lorem ipsum dolor sit amet consectetur.</span></li>
-                    <li class="flex gap-2 items-center"><i class='bx bxs-check-circle text-[2.5rem] text-accent-regular'></i><span>Lorem ipsum dolor sit amet consectetur.</span></li>
-                    <li class="flex gap-2 items-center"><i class='bx bxs-check-circle text-[2.5rem] text-accent-regular'></i><span>Lorem ipsum dolor sit amet consectetur.</span></li>
-                    <li class="flex gap-2 items-center"><i class='bx bxs-check-circle text-[2.5rem] text-accent-regular'></i><span>Lorem ipsum dolor sit amet consectetur.</span></li>
-                    <li class="flex gap-2 items-center"><i class='bx bxs-check-circle text-[2.5rem] text-accent-regular'></i><span>Lorem ipsum dolor sit amet consectetur.</span></li>
-                    <li class="flex gap-2 items-center"><i class='bx bxs-check-circle text-[2.5rem] text-accent-regular'></i><span>Lorem ipsum dolor sit amet consectetur.</span></li>
+                    <li class="flex gap-2 items-center"><i class='bx bxs-check-circle  text-[1.5rem] md:text-[2.5rem] text-accent-regular'></i><span>Lorem ipsum dolor sit amet consectetur.</span></li>
+                    <li class="flex gap-2 items-center"><i class='bx bxs-check-circle  text-[1.5rem] md:text-[2.5rem] text-accent-regular'></i><span>Lorem ipsum dolor sit amet consectetur.</span></li>
+                    <li class="flex gap-2 items-center"><i class='bx bxs-check-circle  text-[1.5rem] md:text-[2.5rem] text-accent-regular'></i><span>Lorem ipsum dolor sit amet consectetur.</span></li>
+                    <li class="flex gap-2 items-center"><i class='bx bxs-check-circle  text-[1.5rem] md:text-[2.5rem] text-accent-regular'></i><span>Lorem ipsum dolor sit amet consectetur.</span></li>
+                    <li class="flex gap-2 items-center"><i class='bx bxs-check-circle  text-[1.5rem] md:text-[2.5rem] text-accent-regular'></i><span>Lorem ipsum dolor sit amet consectetur.</span></li>
+                    <li class="flex gap-2 items-center"><i class='bx bxs-check-circle  text-[1.5rem] md:text-[2.5rem] text-accent-regular'></i><span>Lorem ipsum dolor sit amet consectetur.</span></li>
                 </ul>
             </div>
         </div>
-        <div class="h-[400px] sm:h-[100vh] relative">
+        <div class="max-h-[500px] relative">
             <img class="w-full h-full object-cover" src="{{url('front/images/become.jpg')}}" alt="">
             <div class="absolute inset-0 bg-black/40"></div>
-            <div class="absolute top-1/4 lg:top-1/2 left-1/2 translate-x-[-50%] w-[90%] md:w-9/12 ">
-                <p class="text-center text-white mb-8">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum quaerat accusantium dolor assumenda fuga qui illum maxime deleniti dolorum impedit! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit, sit. </p>
-                <button class="scale-75 lg:scale-100 btn-orange-sidebar w-[fit-content] lg:w-[300px] outline-offset-0 whitespace-nowrap mx-auto block">Become a car rental owner</button>
+            <div class="absolute top-[10%] sm:top-1/4 lg:top-1/2 left-1/2 translate-x-[-50%] w-[90%] md:w-9/12 ">
+                <p class="text-center text-white mb-4 lg:mb-8">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum quaerat accusantium dolor assumenda fuga qui illum maxime deleniti dolorum impedit! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit, sit. </p>
+                <a href="{{url('admin/login')}}"><button class=" btn-orange-sidebar w-[fit-content] lg:w-[300px] outline-offset-0 whitespace-nowrap mx-auto block">Become a car rental owner</button></a>
             </div>
         </div>
 

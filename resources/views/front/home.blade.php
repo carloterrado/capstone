@@ -1,21 +1,29 @@
 @extends('front.layout')
 @section('content')
-<div id="front-signup" class="pages hidden">
-    <x-front-signup />
-</div>
-<div id="about" class="pages hidden">
-    <x-about />
-</div>
-<div id="home" class="pages">
-    <x-home />
-</div>
-<div id="cars" class="pages hidden">
-    <x-cars />
-</div>
-<div id="contact" class="pages hidden">
-    <x-contact />
-</div>
-<div id="front-login" class="pages hidden">
-    <x-front-login />
-</div>
+
+@if (Session::get('page') === 'home')
+
+        <x-home />
+
+@elseif (Session::get('page') === 'about')
+
+        <x-about />
+
+@elseif (Session::get('page') === 'cars')
+
+        <x-cars />
+
+@elseif (Session::get('page') === 'contact')
+
+        <x-contact />
+
+@elseif (Session::get('page') === 'login')
+
+        <x-front-login />
+
+@elseif (Session::get('page') === 'signup')
+
+        <x-front-signup />
+@endif
+
 @endsection

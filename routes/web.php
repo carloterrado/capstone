@@ -18,24 +18,27 @@ use Illuminate\Support\Facades\Session;
 
 Route::prefix('/')->group(function()
 {
-
     Route::get('',[FrontController::class,'home']);
-    Route::get('cars',[FrontController::class,'cars']);
+    Route::group(['middleware'=>['auth']],function(){   
+        Route::get('cars',[FrontController::class,'cars']);
+        Route::get('arkilla-logout',[FrontController::class,'logout']);
+    });
     Route::get('about',[FrontController::class,'about']);
     Route::get('contact',[FrontController::class,'contact']);
-    Route::match(['get','post'],'arkilla-login',[FrontController::class,'login']);
-    Route::match(['get','post'],'arkilla-signup',[FrontController::class,'signup']);
+
+    Route::get('login',[FrontController::class,'getLogin'])->name('login');
+    Route::post('arkilla-login',[FrontController::class,'login']);
+    Route::match(['get','post'],'signup',[FrontController::class,'signup']);
 
 });
 
 
-   
-
     //  Admin routes 
 Route::prefix('admin')->group(function()
 {
-    //  Admin and Owner login 
+    //  Admin and Owner login / signup
    Route::match(['get','post'],'login',[AdminController::class,'login']);
+   Route::match(['get','post'],'signup',[AdminController::class,'signup']);
 
     //  Admin group with middleware auth guard 
     Route::group(['middleware'=>['admin']], function()
@@ -50,10 +53,5 @@ Route::prefix('admin')->group(function()
 });
 
 
-
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';

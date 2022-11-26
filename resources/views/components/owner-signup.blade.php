@@ -1,6 +1,6 @@
 
   <div class="flex justify-center h-max relative p-4 lg:p-0">
-      <div class="absolute inset-0 -z-10 lg:relative bg-cover lg:w-2/3">
+      <div class="absolute inset-0 -z-10 lg:relative  lg:w-2/3" >
       <img src="{{url('front/images/road.jpg')}}" class="absolute inset-0 w-full h-full object-cover -z-10" alt="">
           <div class="flex items-center h-full px-20 bg-gray-900 bg-opacity-40 ">
               <div>
@@ -20,19 +20,7 @@
       <div class="bg-white flex items-center w-full max-w-md px-6 mx-auto lg:w-2/6">
           <div class="flex-1">
               <div class="text-center">
-                @if ($errors->any())
-                      <div id="alert-2" class="flex p-4 mb-2 mt-4 bg-red-100 rounded-lg " role="alert">
-                      @foreach ($errors->all() as $error)
-                          <div class="ml-3 text-sm font-medium text-red-700 dark:text-red-800">
-                          {{ $error }}
-                          </div> 
-                      @endforeach
-                          <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-red-100 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 p-1.5 hover:bg-red-200 inline-flex h-8 w-8 dark:bg-red-200 dark:text-red-600 dark:hover:bg-red-300" data-dismiss-target="#alert-2" aria-label="Close">
-                          <span class="sr-only">Close</span>
-                          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></button>
-                      </div>
-                  @endif
-                  <h2 class="text-4xl font-bold text-center mt-6"><img class="mx-auto" src="front/images/Chesca_logo.svg" alt=""></h2>
+                  <h2 class="text-4xl font-bold text-center mt-6"><img class="mx-auto" src="{{url('front/images/Chesca_logo.svg')}}" alt=""></h2>
                   <p class="mt-3 text-gray-500">Create your account now, it's free.</p>
               </div>
              
@@ -126,20 +114,17 @@
                        
                       </div>
                       
-
                       <div class="mt-4 mb-6">
                       <label id="front-signup-submit-form-error" for="front-signup-id-file" class=" hidden pb-1 text-sm font-semibold lg:pl-2 text-[lightcoral]"></label>
-                          <!-- <button class="w-full px-4 py-2 tracking-wide btn-orange-login"> -->
+                         
                           <button type="submit" class="btn-orange-login mt-4 scale-100">
                               Submit
                           </button>
                       </div>
 
                   </form>
-                  
-                 
-
-                 
+                  <p class="mt-4 text-sm text-center text-gray-400 mb-6">Have an account already? <a href="{{url('admin/login')}}" class="text-accent-regular focus:outline-none focus:underline hover:underline">Login</a>.</p>
+                     
           </div>
       </div>
       </div>

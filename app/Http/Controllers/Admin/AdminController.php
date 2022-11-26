@@ -7,6 +7,7 @@ use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class AdminController extends Controller
 {
@@ -47,23 +48,60 @@ class AdminController extends Controller
         }
         return 'false';
     }
-
-    public function login(Request $request)
-    {
-        if($request->isMethod('POST')){
+    public function signup(Request $request)
+    { 
+        if($request->ajax()){
             $data = $request->all();
             // echo '<pre>'; print_r($data); die;
-            if(Auth::guard('admin')->attempt(['email'=>$data['email'],'password'=>$data['password'],'status'=>1]))
+            if(Auth::guard('admin')->attempt(['email'=>$data['admin-login-email'],'password'=>$data['admin-login-password'],'status'=>1]))
             {   
-                    return redirect('admin/dashboard');
+                $firstName = strtoupper(Auth::guard('admin')->user()->first_name);
+                $lastName = strtoupper(Auth::guard('admin')->user()->last_name);
+                $initials =  mb_substr($firstName,0,1).mb_substr($lastName,0,1);
+                $fullname = strtolower($firstName.' '.$lastName);
+                Session::put('fullname',$fullname);
+                Session::put('initials',$initials);
+                return response()->json(['status'=>'success']);
             }
             else 
             {
-                return redirect()->back()->with('error_msg','invalid email or password');
+                return response()->json(['status'=>'failed']);
             }
         }
-        return view('front.home');
+        return view('owner.signup');
     }
+
+    public function login(Request $request)
+    {
+        
+        if($request->isMethod('POST')){
+
+            $data = $request->all();  
+             
+            if(Auth::guard('admin')->attempt(['email'=>$data['admin-login-email'],'password'=>$data['admin-login-password'],'status'=>1]))
+            {   
+                $firstName = strtoupper(Auth::guard('admin')->user()->first_name);
+                $lastName = strtoupper(Auth::guard('admin')->user()->last_name);
+                $initials =  mb_substr($firstName,0,1).mb_substr($lastName,0,1);
+                $fullname = strtolower($firstName.' '.$lastName);
+                Session::put('fullname',$fullname);
+                Session::put('initials',$initials);
+               
+                return redirect('admin/dashboard');
+            }
+            else 
+            {
+                return redirect()->back()->with('owner_error_message','Invalid email or password');
+             
+            }
+        }
+        
+        
+
+        return view('owner.login');
+    }
+
+   
 
     public function logout()
     {

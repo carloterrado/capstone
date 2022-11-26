@@ -1,11 +1,3 @@
- <?php 
-  use Illuminate\Support\Facades\Auth;
-  $name = strtoupper(Auth::guard('admin')->user()->name);
-  $nameParts = explode(' ', trim($name));
-  $firstName = array_shift($nameParts);
-  $lastName = array_pop($nameParts);
-  $initials =  mb_substr($firstName,0,1).mb_substr($lastName,0,1);
- ?> 
  <!-- Side navbar -->
  <div class="navbar-menu  relative z-50 w-[20rem] hidden" aria-label="Sidebar">
   <div class="navbar-backdrop fixed inset-0 bg-gray-800 opacity-25"></div>
@@ -21,9 +13,9 @@
       <div class="">
         <li class="flex justify-evenly items-center">
             <div class="inline-flex overflow-hidden relative justify-center items-center w-12 h-12 bg-gray-200 ring-2 ring-gray-300 rounded-full">
-              <span class="font-medium text-gray-600">{{strtoupper($initials)}}</span>
+              <span class="font-medium text-gray-600">{{Session::get('initials')}}</span>
             </div>
-            <div href="#" class="p-2 text-base font-semibold text-gray-900 rounded-lg">{{Auth::guard('admin')->user()->name}}</div>
+            <div href="#" class="p-2 text-base font-semibold text-gray-900 rounded-lg capitalize ">{{Session::get('fullname')}}</div>
           </li>
           <li>
             <a href="#" class="sidebar-hover mt-8 ">

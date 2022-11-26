@@ -17,20 +17,22 @@ $(function(){
     }  
 
 
-    $('.home').on('click',  function()
+    $('.home').on('click', async function()
     {
-
-        location.href = '#header';
-        ChangeUrl('Chesca Chen\'s Car Rental', '/'); 
-        $('.pages').hide();
-        $('#home').show();
+        // location.href = '#header';
+        // ChangeUrl('Chesca Chen\'s Car Rental', '/'); 
+        // $('.pages').hide();
+        // $('#home').show();
+       
+ 
     })
-    $('.cars').on('click',  function()
+    $('.cars').on('click', async function()
     {
-        location.href = '#header';
-        ChangeUrl('Cars', '/cars'); 
-        $('.pages').hide();
-        $('#cars').show();
+        // location.href = '#header';
+        // ChangeUrl('Cars', '/cars'); 
+        // $('.pages').hide();
+        // $('#cars').show();
+       
     })
     $('.about').on('click', function()
     {
@@ -41,24 +43,24 @@ $(function(){
     })
     $('.contact').on('click',  function()
     {
-        location.href = '#header';
-        ChangeUrl('Contact Us', '/contact'); 
-        $('.pages').hide();
-        $('#contact').show();
+        // location.href = '#header';
+        // ChangeUrl('Contact Us', '/contact'); 
+        // $('.pages').hide();
+        // $('#contact').show();
     })
     $('.front-login').on('click',  function()
     {        
-        location.href = '#header';
-        ChangeUrl('Login', '/arkilla-login');        
-        $('.pages').hide();
-        $('#front-login').show();
+        // location.href = '#header';
+        // ChangeUrl('Login', '/arkilla-login');        
+        // $('.pages').hide();
+        // $('#front-login').show();
     })
     $('.front-signup').on('click',  function()
     { 
-        location.href = '#header';
-        ChangeUrl('Signup', '/arkilla-signup');   
-        $('.pages').hide();
-        $('#front-signup').show();
+        // location.href = '#header';
+        // ChangeUrl('Signup', '/arkilla-signup');   
+        // $('.pages').hide();
+        // $('#front-signup').show();
 })
     
     // End Navigation
@@ -267,20 +269,6 @@ $(function(){
         return true;
     }
 
-    //   Validation for license input
-    function validateLicense(licenseID,errorElementID)
-    {
-    let license = $(licenseID).val();
-    if(license.length === 0)
-    {
-        $(errorElementID).html('License is required!');
-        $(errorElementID).css('color','lightcoral');
-        return false; 
-    }
-    $(errorElementID).html('License');
-    $(errorElementID).css('color','black');
-    return true;
-    }
 
     //   Validation for valid id choice
     function validateValidID(validID,errorElementID)
@@ -297,10 +285,10 @@ $(function(){
         return true;
     }
 
-    //   Validation for valid id file
-    function validateIDFile(fileID,errorElementID)
+    //   Validation for valid image file
+    function validateImageFile(imageID,errorElementID)
     {
-        let validID = $(fileID).val();
+        let validID = $(imageID).val();
         if(validID.length === 0)
         {
         
@@ -361,9 +349,10 @@ $(function(){
 
         function validateSignupForm(){
             let valid = validateName('#front-signup-first-name','#front-signup-first-name-error','First name') && validateName('#front-signup-last-name','#front-signup-last-name-error', 'Last name') && validateEmail('#front-signup-email','#front-signup-email-error') && validateBirthdate('#front-signup-birthdate','#front-signup-birthdate-error') && validateContact('#front-signup-contact','#front-signup-contact-error') &&      validateAddress('#front-signup-address','#front-signup-address-error') &&
-            validatePassword('#front-signup-password','#front-signup-password-error') &&  validateConfirmPassword('#front-signup-password','#front-signup-confirm-password','#front-signup-confirm-password-error') && validateLicense('#front-signup-license','#front-signup-license-error');
+            validatePassword('#front-signup-password','#front-signup-password-error') &&  validateConfirmPassword('#front-signup-password','#front-signup-confirm-password','#front-signup-confirm-password-error')  && validateImageFile('#front-signup-license','#front-signup-license-error') && validateValidID('#front-signup-valid-id','#front-signup-valid-id-error') && validateImageFile('#front-signup-id-file','#front-signup-id-file-error');
             if(!valid)
             {  
+                //  event.preventDefault();
                 $('#front-signup-submit-form-error').show();
                 $('#front-signup-submit-form-error').text('Please fill up the form correctly');
                 setTimeout(function()
@@ -374,8 +363,9 @@ $(function(){
             }
             return true;
         }
+        
 
-        var formData = new FormData($(this)[0]);
+        let formData = new FormData($(this)[0]);
 
         async function submitSignupForm()
         {
@@ -384,40 +374,18 @@ $(function(){
                     "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
                 },
                 type: 'POST',
-                url:'/arkilla-signup',
+                url:'/signup',
                 data:formData,
                 processData: false,
                 contentType: false,
                 success:function(resp){
-                   
-                    if (resp["status"] === 'failed') 
-                    {
-                        $('#modal-message').removeClass('hidden')
-                        $('#modal-message').addClass('grid')
-                        $('#loader').removeClass('hidden');
-                        $('#loader').addClass('grid')
-                        setTimeout(function(){
-                            $('#loader').removeClass('grid');
-                            $('#loader').addClass('hidden')
-                            $('#error-message').show();
-                            $("#error-text").html('Account registration failed!');
-                        },1000)
-                       
-                        setTimeout(function(){
-                            $('#modal-message').removeClass('grid')
-                            $('#modal-message').addClass('hidden')
-                        },1000)
-                        
-                    }
+
                     if(resp["status"] === 'success')
                     {
                         $('#modal-message').removeClass('hidden')
                         $('#modal-message').addClass('grid')
-                        $('#loader').removeClass('hidden');
-                        $('#loader').addClass('grid')
+                      
                         setTimeout(function(){
-                            $('#loader').removeClass('grid');
-                            $('#loader').addClass('hidden')
                             $('#success-message').show();
                             $("#success-text").html('Account created successfully!');
                         },1000)
@@ -427,20 +395,15 @@ $(function(){
                     }
                 },
                 error: function(){
-                
+                    $("#error-text").html('Email already registered!');
                     $('#modal-message').removeClass('hidden')
                     $('#modal-message').addClass('grid')
-                    $('#loader').removeClass('hidden');
-                    $('#loader').addClass('grid')
-                    setTimeout(function(){
-                        $('#loader').removeClass('grid');
-                        $('#loader').addClass('hidden')
+                    setTimeout(function(){ 
                         $('#error-message').show();
-                        $("#error-text").html('Account registration failed!');
-                    },1000)
+                    },2000)
+                   
                     setTimeout(function(){
-                        $('#modal-message').removeClass('grid')
-                        $('#modal-message').addClass('hidden')
+                        window.location.href = '/signup'; 
                     },2000)
                 }
             })
@@ -450,17 +413,15 @@ $(function(){
         if(validated){
             submitSignupForm().catch(function(error){
                
+                $("#error-text").html('Email throws error!');
                 $('#modal-message').removeClass('hidden')
                 $('#modal-message').addClass('grid')
-                $('#loader').removeClass('hidden');
-                $('#loader').addClass('grid')
-                setTimeout(function(){
-                    $('#loader').removeClass('grid');
-                    $('#loader').addClass('hidden')
-                    $('#error-message').show();
-                    $("#error-text").html('Account registration failed!');
-                },1000)
               
+                setTimeout(function(){
+                   
+                    $('#error-message').show();
+                },2000)
+               
                 setTimeout(function(){
                     $('#modal-message').removeClass('grid')
                     $('#modal-message').addClass('hidden')
@@ -480,15 +441,17 @@ $(function(){
     })
 
     $('#front-login-form').on('submit',function(event){
+        event.preventDefault();
     
     function validateLoginForm()
     {
+        
         let valid = validateEmail('#front-login-email','#front-login-email-error') &&
         validatePassword('#front-login-password','#front-login-password-error');
 
         if(!valid)
         { 
-            event.preventDefault();
+          
             $('#front-login-submit-form-error').show();
             $('#front-login-submit-form-error').text('Please fill up the form correctly!');
             setTimeout(function()
@@ -499,44 +462,59 @@ $(function(){
         }
         return true;
     }
+    let formData = new FormData($(this)[0]);
+    
+   
     async function submitLoginForm()
     {
-        
-        const email = $('#front-login-email').val()
-        const password = $('#front-login-password').val()
-
         await $.ajax({
             headers: {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
             },
             type: "POST",
             url: "/arkilla-login",
-            data: { 
-                email : email,
-                password: password 
-                },
+            data: formData,
+            processData: false,
+            contentType: false,
             success: function (resp) {
-                if (resp["status"] === 'false') {
-                    $('#error-login-message').show();
-                    $("#error-login-text").html('Current password is invalid!');
+                
+                $('#modal-message').removeClass('hidden')
+                $('#modal-message').addClass('grid')
+                if(resp['status'] === 'success')
+                {
+                    setTimeout(function(){ 
+                            $('#success-message').show();
+                            $("#success-text").html('Login successfully!');
+                    },1000)
                     setTimeout(function(){
-                        $('#error-login-message').hide();
-                    },3000)
-                } else {
-                    $('#success-login-message').show();
-                    $("#success-login-text").html('Password updated successfully!');
-                    $('input').val('');
-                    setTimeout(function(){
-                        $('#success-login-message').hide();
-                    },3000)
+                        window.location.href = '/'; 
+                    },2000)
                 }
+                else
+                {  
+                    $('#error-message').show();
+                    $("#error-text").html('Invalid email or password!');
+                    setTimeout(function(){ 
+                        window.location.href = '/login'; 
+                    },2000)
+                }
+                
+               
             },
             error: function () {
-                $('#error-login-message').show();
-                $("#error-login-text").html('Update password failed!');
+               
+                $('#modal-message').removeClass('hidden')
+                $('#modal-message').addClass('grid')
+               
                 setTimeout(function(){
-                    $('#error-login-message').show();
-                },3000)
+                    $('#error-message').show();
+                    $("#error-text").html('Invalid email or password!');
+                },1000)
+                setTimeout(function(){
+                    $('#modal-message').removeClass('grid')
+                    $('#modal-message').addClass('hidden')
+                },2000)
+               
             },
         });
     }
@@ -546,11 +524,20 @@ $(function(){
     if(validated)
     {
         submitLoginForm().catch(function(error){
-            $('#error-login-message').show();
-            $("#error-login-text").html('Registration Failed!');
+           
+            $('#modal-message').removeClass('hidden')
+            $('#modal-message').addClass('grid')
             setTimeout(function(){
-                $('#error-login-message').show();
-            },3000)
+            
+                $('#error-message').show();
+                $("#error-text").html('Account login failed!');
+            },1000)
+            
+            setTimeout(function(){
+                $('#modal-message').removeClass('grid')
+                $('#modal-message').addClass('hidden')
+            },2000)
+           
         });
     }
     });
