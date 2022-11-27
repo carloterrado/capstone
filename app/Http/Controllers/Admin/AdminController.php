@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use App\Models\OwnerDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Intervention\Image\Facades\Image;
 
 class AdminController extends Controller
 {
@@ -52,21 +54,70 @@ class AdminController extends Controller
     { 
         if($request->ajax()){
             $data = $request->all();
-            // echo '<pre>'; print_r($data); die;
-            if(Auth::guard('admin')->attempt(['email'=>$data['admin-login-email'],'password'=>$data['admin-login-password'],'status'=>1]))
-            {   
-                $firstName = strtoupper(Auth::guard('admin')->user()->first_name);
-                $lastName = strtoupper(Auth::guard('admin')->user()->last_name);
-                $initials =  mb_substr($firstName,0,1).mb_substr($lastName,0,1);
-                $fullname = strtolower($firstName.' '.$lastName);
-                Session::put('fullname',$fullname);
-                Session::put('initials',$initials);
-                return response()->json(['status'=>'success']);
+            
+
+            $rules = [
+                'email' => 'email',
+            ];
+             //  custom messages for validation rules 
+             $customMsg = [
+                'email.email' => 'Invalid email!',
+            ];
+             //  validate request 
+             $this->validate($request,$rules,$customMsg);
+            
+             
+             if($request->hasFile('owner-signup-license') && $request->hasFile('owner-signup-id-file'))
+             {
+                $img_tmp1 = $request->file('owner-signup-license'); 
+                $img_tmp2 = $request->file('owner-signup-id-file');
+                if($img_tmp1->isValid() && $img_tmp2->isValid()){
+                    // --- Get image extension --- //
+                    $extension1 = $img_tmp1->getClientOriginalExtension(); 
+                     $extension2 = $img_tmp1->getClientOriginalExtension(); 
+                    // --- Generate new image name --- //
+                    $imgName1 = rand(111,99999).'.'.$extension1; 
+                    $imgPath1 ='owner/images/license/'.$imgName1;
+                    $imgName2 = rand(111,99999).'.'.$extension2;
+                    $imgPath2 ='owner/images/id/'.$imgName2;
+                
+                    // --- Upload and resize the image --- //
+                    Image::make($img_tmp1)->resize(500,500,function($constraint){
+                            $constraint->aspectRatio();
+                        })->save($imgPath1);
+                    Image::make($img_tmp2)->resize(500,500,function($constraint){
+                            $constraint->aspectRatio();
+                        })->save($imgPath2);
+                 
+                }
             }
-            else 
-            {
-                return response()->json(['status'=>'failed']);
-            }
+
+            $owner = new OwnerDetail;
+            $owner->contact = $data['owner-signup-contact'];
+            $owner->address = $data['owner-signup-address'];
+            // convert birthdate input from dd/mm/yyyy to yyyy-mm-dd
+            $inputDate = explode('/', $data['owner-signup-birthdate'] ); 
+            $birthdate = $inputDate[2].'-'.$inputDate[1].'-'.$inputDate[0];
+            $owner->birthdate = $birthdate ;
+            $owner->license =  $imgName1;
+            $owner->valid_id = $data['owner-signup-valid-id'];
+            $owner->valid_id_file =  $imgName2;
+            $owner->terms = $data['owner-signup-terms'];
+            $owner->save();
+
+            $newOwner = $owner;
+            
+
+            $admin = new Admin;
+            $admin->type = 'owner';
+            $admin->first_name = $data['owner-signup-first-name'];
+            $admin->last_name = $data['owner-signup-last-name'];
+            $admin->email = $data['owner-signup-email'];
+            $admin->password = bcrypt($data['owner-signup-password']);
+            $admin->owner_id = $newOwner->id;
+            $admin->save();
+            return response()->json(['status'=>'success']);
+        
         }
         return view('owner.signup');
     }
@@ -74,11 +125,12 @@ class AdminController extends Controller
     public function login(Request $request)
     {
         
-        if($request->isMethod('POST')){
+        if($request->ajax()){
 
             $data = $request->all();  
-             
-            if(Auth::guard('admin')->attempt(['email'=>$data['admin-login-email'],'password'=>$data['admin-login-password'],'status'=>1]))
+            // return response()->json(['status'=>$data]);
+                
+            if(Auth::guard('admin')->attempt(['email'=>$data['email'],'password'=>$data['password'],'account'=>'verified']))
             {   
                 $firstName = strtoupper(Auth::guard('admin')->user()->first_name);
                 $lastName = strtoupper(Auth::guard('admin')->user()->last_name);
@@ -87,17 +139,14 @@ class AdminController extends Controller
                 Session::put('fullname',$fullname);
                 Session::put('initials',$initials);
                
-                return redirect('admin/dashboard');
+                return response()->json(['status'=>'success']);
             }
-            else 
+            else
             {
-                return redirect()->back()->with('owner_error_message','Invalid email or password');
-             
+                return response()->json(['status'=>'error']);
             }
         }
-        
-        
-
+         
         return view('owner.login');
     }
 

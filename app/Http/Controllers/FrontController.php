@@ -81,13 +81,10 @@ class FrontController extends Controller
             $data = $request->all();
            
             $rules = [
-                'email' => 'email|max:255',
-                'front-signup-license' => 'image|mimes:jpeg,jpg,png,gif',
-                'front-signup-id-file' => 'image|mimes:jpeg,jpg,png,gif',
+                'email' => 'email|unique:users',
             ];
              //  custom messages for validation rules 
              $customMsg = [
-                'email.required' => 'Email is required!',
                 'email.email' => 'Invalid email!',
             ];
              //  validate request 
@@ -135,6 +132,7 @@ class FrontController extends Controller
             $user->license =  $imgName1;
             $user->valid_id = $data['front-signup-valid-id'];
             $user->valid_id_file =  $imgName2;
+            $user->terms = $data['front-signup-terms'];
             $user->status = 1;
             $user->save();       
            

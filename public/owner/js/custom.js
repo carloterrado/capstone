@@ -1,4 +1,3 @@
-const { isEmpty } = require("lodash");
 
 $(function(){
     
@@ -238,12 +237,149 @@ $(function(){
             $(errorElementID).css('color','lightcoral');
             return false; 
         }
+        if(!validID.match(/\.(jpg|jpeg|gif|png)$/))
+        {
+            $(errorElementID).removeClass('hidden');
+            $(errorElementID).html('Invalid ID file');
+            $(errorElementID).css('color','lightcoral');
+            return false; 
+        }
         $(errorElementID).html('ID file');
         $(errorElementID).css('color','black');
         return true;
     }
+    //   Validation for terms and conditions
+    function validateTerms(termsID,errorElementID)
+    {  
+        if(!$(termsID).is(':checked'))
+        {
+            $(errorElementID).show();
+            $(errorElementID).html('Check terms and conditions!');
+            $(errorElementID).css('color','lightcoral');
+            return false;  
+        }
+        $(errorElementID).hide();
+        return true;
+    }
 
+
+            
+    //    Signup form validation for input value
         
+    $('#owner-signup-first-name').on('keyup keypress',function()
+    {
+        validateName('#owner-signup-first-name','#owner-signup-first-name-error','Name');
+    })
+    $('#owner-signup-last-name').on('keyup keypress',function()
+    {
+        validateName('#owner-signup-last-name','#owner-signup-last-name-error','Lastname');
+    })
+    $('#owner-signup-email').on('keyup keypress',function()
+    {
+        validateEmail('#owner-signup-email','#owner-signup-email-error');
+    })
+    $('#owner-signup-birthdate').on('keyup keypress',function()
+    {
+        validateBirthdate('#owner-signup-birthdate','#owner-signup-birthdate-error');
+    })
+    $('#owner-signup-contact').on('keyup keypress',function()
+    {
+        validateContact('#owner-signup-contact','#owner-signup-contact-error');
+    })
+    $('#owner-signup-address').on('keyup keypress',function()
+    {
+        validateAddress('#owner-signup-address','#owner-signup-address-error');
+    })
+    $('#owner-signup-password').on('keyup keypress',function()
+    {
+        validatePassword('#owner-signup-password','#owner-signup-password-error');
+    })
+    $('#owner-signup-confirm-password').on('keyup keydown',function()
+    {
+        validateConfirmPassword('#owner-signup-password','#owner-signup-confirm-password','#owner-signup-confirm-password-error');
+    }) 
+    $('#owner-signup-valid-id').on('click keypress',function(event)
+    {
+        validateValidID('#owner-signup-valid-id','#owner-signup-valid-id-error');
+    })
+   
+
+        // Validate form upon submission
+    $('#owner-signup-form').on('submit', function(event)
+    {
+        event.preventDefault();
+
+        function validateSignupForm(){
+            let valid = validateName('#owner-signup-first-name','#owner-signup-first-name-error','First name') && validateName('#owner-signup-last-name','#owner-signup-last-name-error', 'Last name') && validateEmail('#owner-signup-email','#owner-signup-email-error') && validateBirthdate('#owner-signup-birthdate','#owner-signup-birthdate-error') && validateContact('#owner-signup-contact','#owner-signup-contact-error') &&      validateAddress('#owner-signup-address','#owner-signup-address-error') &&
+            validatePassword('#owner-signup-password','#owner-signup-password-error') &&  validateConfirmPassword('#owner-signup-password','#owner-signup-confirm-password','#owner-signup-confirm-password-error')  && validateImageFile('#owner-signup-license','#owner-signup-license-error') && validateValidID('#owner-signup-valid-id','#owner-signup-valid-id-error') && validateImageFile('#owner-signup-id-file','#owner-signup-id-file-error') && validateTerms('#owner-signup-terms','#owner-signup-terms-error');
+            if(!valid)
+            {  
+                //  event.preventDefault();
+                $('#owner-signup-submit-form-error').show();
+                $('#owner-signup-submit-form-error').text('Please fill up the form correctly');
+                setTimeout(function()
+                {
+                    $('#owner-signup-submit-form-error').hide();
+                },3000);
+                return false;
+            }
+            return true;
+        }
+        
+
+        let formData = new FormData($(this)[0]);
+       
+
+        async function submitSignupForm()
+        {
+            $.ajax({
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                },
+                type: 'POST',
+                url:'/admin/signup',
+                data:formData,
+                processData: false,
+                contentType: false,
+                success:function(resp){
+                    
+                    if(resp["status"] === 'success')
+                    {
+                        $('#success-container').show()
+                        $('#success-message').html('We send you a confirmation email and wait for admin to verify your account')
+                    }
+                    else
+                    {  
+                        $('#error-container').show()
+                        $('#error-message').html('Email is already registered!')
+                        setTimeout(function(){
+                            window.location.href = '/admin/signup';  
+                        },3000)
+                    }
+                    
+                },
+                error: function(){
+                    $('#error-container').show()
+                    $('#error-message').html('Email is already registered!')
+                    setTimeout(function(){
+                        window.location.href = '/admin/signup';  
+                    },3000)
+                }
+            })
+        }
+        let validated = validateSignupForm()
+       
+        if(validated){
+            submitSignupForm().catch(function(error){
+               
+                $('#error-container').show()
+                $('#error-message').html('Registration failed!')
+                setTimeout(function(){
+                    window.location.href = '/admin/signup';  
+                },3000)
+            })
+        } 
+    })
     
 
     //    Login form validation for input value
@@ -307,12 +443,28 @@ $(function(){
                      email: email,
                      password: password 
                  },
-                 success: function(data){
-                    alert(data['status'])
-                         window.location.href = '/admin/dashboard';  
+                 success: function(resp){
+                   
+                        //  alert(JSON.stringify(resp))
+                    if(resp['status'] === 'success')
+                    {
+                        window.location.href = '/admin/dashboard';  
+                    }
+                    else
+                    {
+                        $('#error-container').show()
+                        $('#error-message').html('Invalid  password')
+                        setTimeout(function(){ 
+                            $('#error-container').hide()   
+                        },3000) 
+                    }
                  },
                  error: function(data){
-                    alert(data['status'])
+                    $('#error-container').show()
+                    $('#error-message').html('Invalid Email or password')
+                    setTimeout(function(){ 
+                        $('#error-container').hide()   
+                    },3000) 
                  }
              })
         

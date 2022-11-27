@@ -292,13 +292,33 @@ $(function(){
         if(validID.length === 0)
         {
         
-            $(errorElementID).removeClass('hidden');
+            $(errorElementID).show();
             $(errorElementID).html('ID file is required!');
             $(errorElementID).css('color','lightcoral');
             return false; 
         }
-        $(errorElementID).html('ID file');
-        $(errorElementID).css('color','black');
+        if(!validID.match(/\.(jpg|jpeg|gif|png)$/))
+        {
+            $(errorElementID).show();
+            $(errorElementID).html('Invalid ID file');
+            $(errorElementID).css('color','lightcoral');
+            return false; 
+        }
+        $(errorElementID).hide();
+        return true;
+    }
+
+    //   Validation for terms and conditions
+    function validateTerms(termsID,errorElementID)
+    {  
+        if(!$(termsID).is(':checked'))
+        {
+            $(errorElementID).show();
+            $(errorElementID).html('Check terms and conditions!');
+            $(errorElementID).css('color','lightcoral');
+            return false;  
+        }
+        $(errorElementID).hide();
         return true;
     }
 
@@ -349,7 +369,7 @@ $(function(){
 
         function validateSignupForm(){
             let valid = validateName('#front-signup-first-name','#front-signup-first-name-error','First name') && validateName('#front-signup-last-name','#front-signup-last-name-error', 'Last name') && validateEmail('#front-signup-email','#front-signup-email-error') && validateBirthdate('#front-signup-birthdate','#front-signup-birthdate-error') && validateContact('#front-signup-contact','#front-signup-contact-error') &&      validateAddress('#front-signup-address','#front-signup-address-error') &&
-            validatePassword('#front-signup-password','#front-signup-password-error') &&  validateConfirmPassword('#front-signup-password','#front-signup-confirm-password','#front-signup-confirm-password-error')  && validateImageFile('#front-signup-license','#front-signup-license-error') && validateValidID('#front-signup-valid-id','#front-signup-valid-id-error') && validateImageFile('#front-signup-id-file','#front-signup-id-file-error');
+            validatePassword('#front-signup-password','#front-signup-password-error') &&  validateConfirmPassword('#front-signup-password','#front-signup-confirm-password','#front-signup-confirm-password-error')  && validateImageFile('#front-signup-license','#front-signup-license-error') && validateValidID('#front-signup-valid-id','#front-signup-valid-id-error') && validateImageFile('#front-signup-id-file','#front-signup-id-file-error') && validateTerms('#front-signup-terms','#front-signup-terms-error');
             if(!valid)
             {  
                 //  event.preventDefault();
@@ -379,11 +399,10 @@ $(function(){
                 processData: false,
                 contentType: false,
                 success:function(resp){
-
+                    $('#modal-message').removeClass('hidden')
+                    $('#modal-message').addClass('grid')
                     if(resp["status"] === 'success')
                     {
-                        $('#modal-message').removeClass('hidden')
-                        $('#modal-message').addClass('grid')
                       
                         setTimeout(function(){
                             $('#success-message').show();
@@ -391,6 +410,14 @@ $(function(){
                         },1000)
                         setTimeout(function(){
                             window.location.href = '/'; 
+                        },2000)
+                    }
+                    else
+                    {  
+                        $('#error-message').show();
+                        $("#error-text").html('Email already registered!');
+                        setTimeout(function(){ 
+                            window.location.href = '/login'; 
                         },2000)
                     }
                 },
