@@ -66,7 +66,7 @@
 
     <!-- Become a car owner section -->
     <section class="bg-white p-6 sm:p-14 grid gap-8 md:grid-cols-2">
-        <div class="sm:h-[100vh] relative">
+        <div class="sm:h-[fit-content] relative">
             <div class="mb-16 lg:-translate-y-6">
                 <h2 class="text-[1.5rem] sm:text-[2rem] lg:text-[3rem] font-bold whitespace-nowrap ">Lorem ipsum <br>
                  dolor sit amet, <br>
@@ -96,12 +96,12 @@
 
     <!-- Book Now section -->
     <section class="bg-white p-6 sm:p-14 sm:pb-28 grid gap-16 md:grid-cols-2">  
-        <div class=" h-[200px] sm:h-[100vh] relative">
+        <div class="h-[200px] sm:h-[fit-content] lg:h-screen relative">
             <img class="w-full h-full object-cover" src="{{url('front/images/booknow.png')}}" alt="">
             <div class="absolute inset-0 bg-black/40"></div>
             <img class="absolute top-full left-0 w-full -translate-y-[70%]" src="{{url('front/images/red_car_booknow.png')}}" alt="">
         </div>
-        <div class="sm:h-[100vh] relative ">
+        <div class="h-[fit-content] lg:h-screen relative ">
             <div class="mb-16 lg:-translate-y-6">
                 <h2 class="text-[1.5rem] sm:text-[2rem] lg:text-[3rem] font-bold whitespace-nowrap ">Lorem ipsum <br>
                  dolor sit amet, <br>
@@ -115,7 +115,7 @@
     </section>
 
     <!-- Frequently ask section -->
-    <section class="bg-white p-6 sm:p-14 grid gap-8 sm:grid-cols-2">  
+    <section class="bg-white p-6 sm:p-14 grid gap-8 md:grid-cols-2">  
         <div class="sm:h-[100vh] relative order-2 sm:order-1">
             <div class="mb-16 lg:-translate-y-6">
                 <h2 class="text-[1.5rem] sm:text-[2rem] lg:text-[3rem] font-bold whitespace-nowrap">

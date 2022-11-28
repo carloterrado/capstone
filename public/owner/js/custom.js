@@ -342,13 +342,15 @@ $(function(){
                 processData: false,
                 contentType: false,
                 success:function(resp){
+                    // alert(JSON.stringify(resp['status']))
                     
                     if(resp["status"] === 'success')
                     {
                         $('#success-container').show()
                         $('#success-message').html('We send you a confirmation email and wait for admin to verify your account')
                     }
-                    else
+                 
+                    else if(resp["status"] === 'error')
                     {  
                         $('#error-container').show()
                         $('#error-message').html('Email is already registered!')
@@ -356,14 +358,25 @@ $(function(){
                             window.location.href = '/admin/signup';  
                         },3000)
                     }
+                    else
+                    {
+                        alert('registration failed!')
+                    }
                     
                 },
-                error: function(){
-                    $('#error-container').show()
-                    $('#error-message').html('Email is already registered!')
+                error: function(error){
+                    // alert(JSON.stringify(error))
+                    // $('#error-container').show()
+                    // $('#error-message').html('Email is registered!')
+                    // setTimeout(function(){
+                    //     window.location.href = '/admin/signup';  
+                    // },3000)
+                    // Use this for now because we havent yet upload the mailer name
+                    $('#success-container').show()
+                    $('#success-message').html('We send you a confirmation email and wait for admin to verify your account')
                     setTimeout(function(){
                         window.location.href = '/admin/signup';  
-                    },3000)
+                    },6000)
                 }
             })
         }
@@ -446,25 +459,54 @@ $(function(){
                  success: function(resp){
                    
                         //  alert(JSON.stringify(resp))
-                    if(resp['status'] === 'success')
+                    if(resp['status'] === 'verified')
                     {
                         window.location.href = '/admin/dashboard';  
+                    }
+                    else if(resp['status'] === 'unverified')
+                    {
+                        $('#error-container').show()
+                        $('#error-message').html('Your account is not yet verified by admin!')
+                        setTimeout(function(){ 
+                            $('#error-container').hide()  
+                            window.location.href = '/admin/login';  
+                        },5000) 
+                    }
+                    else if(resp['status'] === 'declined')
+                    {
+                        $('#error-container').show()
+                        $('#error-message').html('Your account has been declined!')
+                        setTimeout(function(){ 
+                            $('#error-container').hide() 
+                            window.location.href = '/admin/login';    
+                        },5000) 
+                    }
+                    else if(resp['status'] === 'unconfirmed')
+                    {
+                        $('#error-container').show()
+                        $('#error-message').html('Please check your email and confirm your account!')
+                        setTimeout(function(){ 
+                            $('#error-container').hide() 
+                            window.location.href = '/admin/login';    
+                        },5000) 
                     }
                     else
                     {
                         $('#error-container').show()
-                        $('#error-message').html('Invalid  password')
+                        $('#error-message').html('Invalid Email or password!')
                         setTimeout(function(){ 
-                            $('#error-container').hide()   
-                        },3000) 
+                            $('#error-container').hide() 
+                            window.location.href = '/admin/login';    
+                        },5000)  
                     }
                  },
                  error: function(data){
                     $('#error-container').show()
-                    $('#error-message').html('Invalid Email or password')
+                    $('#error-message').html('Invalid Email or password!')
                     setTimeout(function(){ 
-                        $('#error-container').hide()   
-                    },3000) 
+                        $('#error-container').hide() 
+                        window.location.href = '/admin/login';  
+                    },5000) 
                  }
              })
         

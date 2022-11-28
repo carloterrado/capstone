@@ -40,6 +40,9 @@ Route::prefix('admin')->group(function()
    Route::match(['get','post'],'login',[AdminController::class,'login']);
    Route::match(['get','post'],'signup',[AdminController::class,'signup']);
 
+    //    Owner confirmation route
+    Route::get('confirm/{code}',[AdminController::class, 'confirmEmail']);
+
     //  Admin group with middleware auth guard 
     Route::group(['middleware'=>['admin']], function()
     {       
