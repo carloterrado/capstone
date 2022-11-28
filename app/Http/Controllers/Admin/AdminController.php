@@ -8,6 +8,7 @@ use App\Models\OwnerDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Intervention\Image\Facades\Image;
 
@@ -55,71 +56,132 @@ class AdminController extends Controller
         if($request->ajax()){
             $data = $request->all();
             
-
-            $rules = [
-                'email' => 'email',
-            ];
-             //  custom messages for validation rules 
-             $customMsg = [
-                'email.email' => 'Invalid email!',
-            ];
-             //  validate request 
-             $this->validate($request,$rules,$customMsg);
-            
-             
-             if($request->hasFile('owner-signup-license') && $request->hasFile('owner-signup-id-file'))
+             $registeredEmail = Admin::where('email',$data['owner-signup-email'])->count();
+             if($registeredEmail > 0)
              {
-                $img_tmp1 = $request->file('owner-signup-license'); 
-                $img_tmp2 = $request->file('owner-signup-id-file');
-                if($img_tmp1->isValid() && $img_tmp2->isValid()){
-                    // --- Get image extension --- //
-                    $extension1 = $img_tmp1->getClientOriginalExtension(); 
-                     $extension2 = $img_tmp1->getClientOriginalExtension(); 
-                    // --- Generate new image name --- //
-                    $imgName1 = rand(111,99999).'.'.$extension1; 
-                    $imgPath1 ='owner/images/license/'.$imgName1;
-                    $imgName2 = rand(111,99999).'.'.$extension2;
-                    $imgPath2 ='owner/images/id/'.$imgName2;
+                return response()->json(['status'=>'error']);
+             }
+            else
+            {
+ 
+                $rules = [
+                    'email' => 'email',
+                ];
+                //  custom messages for validation rules 
+                $customMsg = [
+                    'email.email' => 'Invalid email!',
+                ];
+                //  validate request 
+                $this->validate($request,$rules,$customMsg);
                 
-                    // --- Upload and resize the image --- //
-                    Image::make($img_tmp1)->resize(500,500,function($constraint){
-                            $constraint->aspectRatio();
-                        })->save($imgPath1);
-                    Image::make($img_tmp2)->resize(500,500,function($constraint){
-                            $constraint->aspectRatio();
-                        })->save($imgPath2);
-                 
+                if($request->hasFile('owner-signup-license') && $request->hasFile('owner-signup-id-file'))
+                {
+                    $img_tmp1 = $request->file('owner-signup-license'); 
+                    $img_tmp2 = $request->file('owner-signup-id-file');
+                    if($img_tmp1->isValid() && $img_tmp2->isValid()){
+                        // --- Get image extension --- //
+                        $extension1 = $img_tmp1->getClientOriginalExtension(); 
+                        $extension2 = $img_tmp1->getClientOriginalExtension(); 
+                        // --- Generate new image name --- //
+                        $imgName1 = rand(111,99999).'.'.$extension1; 
+                        $imgPath1 ='owner/images/license/'.$imgName1;
+                        $imgName2 = rand(111,99999).'.'.$extension2;
+                        $imgPath2 ='owner/images/id/'.$imgName2;
+                    
+                        // --- Upload and resize the image --- //
+                        Image::make($img_tmp1)->resize(500,500,function($constraint){
+                                $constraint->aspectRatio();
+                            })->save($imgPath1);
+                        Image::make($img_tmp2)->resize(500,500,function($constraint){
+                                $constraint->aspectRatio();
+                            })->save($imgPath2);
+                    
+                    }
                 }
+
+                $owner = new OwnerDetail;
+                $owner->contact = $data['owner-signup-contact'];
+                $owner->address = $data['owner-signup-address'];
+                // convert birthdate input from dd/mm/yyyy to yyyy-mm-dd
+                $inputDate = explode('/', $data['owner-signup-birthdate'] ); 
+                $birthdate = $inputDate[2].'-'.$inputDate[1].'-'.$inputDate[0];
+                $owner->birthdate = $birthdate ;
+                $owner->license =  $imgName1;
+                $owner->valid_id = $data['owner-signup-valid-id'];
+                $owner->valid_id_file =  $imgName2;
+                $owner->terms = $data['owner-signup-terms'];
+                $owner->save();
+
+                $newOwner = $owner;  
+
+                $admin = new Admin;
+                $admin->type = 'owner';
+                $admin->first_name = $data['owner-signup-first-name'];
+                $admin->last_name = $data['owner-signup-last-name'];
+                $admin->email = $data['owner-signup-email'];
+                $admin->password = bcrypt($data['owner-signup-password']);
+                $admin->owner_id = $newOwner->id;
+                $admin->save();
+
+                // Send confirmation email to owner email
+                $email = $data['owner-signup-email'];
+                $name = $data['owner-signup-first-name']. ' ' .$data['owner-signup-last-name']; 
+                
+                $messageData = [
+                    'email' => $email,
+                    'name' => $name,
+                    'code' => base64_encode($email),
+                ];
+
+                 Mail::send('emails.owner.owner_confirmation',$messageData, function($message)use($email){
+                    $message->to($email)->subject('Confirm your Owner Account');
+                });
+               
+                return response()->json(['status'=>'success']);
+              
+
             }
-
-            $owner = new OwnerDetail;
-            $owner->contact = $data['owner-signup-contact'];
-            $owner->address = $data['owner-signup-address'];
-            // convert birthdate input from dd/mm/yyyy to yyyy-mm-dd
-            $inputDate = explode('/', $data['owner-signup-birthdate'] ); 
-            $birthdate = $inputDate[2].'-'.$inputDate[1].'-'.$inputDate[0];
-            $owner->birthdate = $birthdate ;
-            $owner->license =  $imgName1;
-            $owner->valid_id = $data['owner-signup-valid-id'];
-            $owner->valid_id_file =  $imgName2;
-            $owner->terms = $data['owner-signup-terms'];
-            $owner->save();
-
-            $newOwner = $owner;
-            
-
-            $admin = new Admin;
-            $admin->type = 'owner';
-            $admin->first_name = $data['owner-signup-first-name'];
-            $admin->last_name = $data['owner-signup-last-name'];
-            $admin->email = $data['owner-signup-email'];
-            $admin->password = bcrypt($data['owner-signup-password']);
-            $admin->owner_id = $newOwner->id;
-            $admin->save();
-            return response()->json(['status'=>'success']);
         
         }
         return view('owner.signup');
+    }
+
+    public function confirmEmail($email)
+    {
+        // Decode owner email
+         $ownerEmail = base64_decode($email); 
+         $ownerCount = Admin::where('email',$ownerEmail)->count();
+         if($ownerCount > 0)
+         {
+            $ownerDetails =  Admin::where('email',$ownerEmail)->first();
+            if($ownerDetails->status === 1)
+            {
+                $message = 'Your owner account is already confirmed!';
+            }
+            else
+            {
+                
+                Admin::where('email',$ownerEmail)->update(['status'=>1, 'email_verified_at'=>now()]);
+                $message = 'Your owner account is already confirmed! Wait for admin to verify your credentials, Thank you!';
+
+                $messageData = [
+                    'email' => $ownerEmail,
+                    'name' => $ownerDetails->first_name. ' '.$ownerDetails->last_name,
+                    'code' => base64_encode($email),
+                ];
+    
+               Mail::send('emails.owner.owner_confirmed',$messageData, function($message)use($email){
+                    $message->to($email)->subject('Confirmed Owner Account');
+                });
+            } 
+
+            return redirect('admin/login')->with('success_message',$message);
+           
+         }
+         else
+         {
+            abort(404);
+         }
     }
 
     public function login(Request $request)
@@ -130,7 +192,7 @@ class AdminController extends Controller
             $data = $request->all();  
             // return response()->json(['status'=>$data]);
                 
-            if(Auth::guard('admin')->attempt(['email'=>$data['email'],'password'=>$data['password'],'account'=>'verified']))
+            if(Auth::guard('admin')->attempt(['email'=>$data['email'],'password'=>$data['password'],'status'=>1]))
             {   
                 $firstName = strtoupper(Auth::guard('admin')->user()->first_name);
                 $lastName = strtoupper(Auth::guard('admin')->user()->last_name);
@@ -138,12 +200,28 @@ class AdminController extends Controller
                 $fullname = strtolower($firstName.' '.$lastName);
                 Session::put('fullname',$fullname);
                 Session::put('initials',$initials);
+                if(Auth::guard('admin')->user()->account === 'verified')
+                {
+                    return response()->json(['status'=>'verified']);
+                }
+                else if(Auth::guard('admin')->user()->account === 'declined')
+                {
+                    return response()->json(['status'=>'declined']);    
+                }
+                else
+                {
+                    return response()->json(['status'=>'unverified']);
+                }
                
-                return response()->json(['status'=>'success']);
+            }
+            else if(Auth::guard('admin')->attempt(['email'=>$data['email'],'password'=>$data['password'],'status'=>0]))
+            {
+                return response()->json(['status'=>'unconfirmed']);
             }
             else
             {
-                return response()->json(['status'=>'error']);
+                return response()->json(['status'=>'invalid']);
+
             }
         }
          
