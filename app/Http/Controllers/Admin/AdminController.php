@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\OwnerDetail;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -63,7 +64,6 @@ class AdminController extends Controller
              }
             else
             {
- 
                 $rules = [
                     'email' => 'email',
                 ];
@@ -139,7 +139,6 @@ class AdminController extends Controller
                
                 return response()->json(['status'=>'success']);
               
-
             }
         
         }
@@ -148,19 +147,46 @@ class AdminController extends Controller
 
     public function confirmEmail($email)
     {
-        // Decode owner email
-         $ownerEmail = base64_decode($email); 
+       
+         // Decode owner email
+         $ownerEmail = base64_decode($email);
+         $created = Admin::where('email',$ownerEmail)->get(['created_at','owner_id']);
+
+        //  check if the regitered email is existing if not tell the car owner that it is been deleted
+         if(count($created) === 0)
+         { 
+             return redirect('/admin/login')->with('error_message','The account has been deleted!');
+         }
+
+        //   check if car owner account is not yet confirm, if email_verified_at is not null tell the car owner that account is already been confirmed
+         $verified_at = Admin::where('email',$ownerEmail)->get('email_verified_at');
+         if($verified_at[0]['email_verified_at'] !== null)
+         {
+             return redirect('/admin/login')->with('error_message','The account had already been confirmed!');
+         }
+         
+         $getCreatedDate = Carbon::createFromFormat('Y-m-d H:s:i',$created[0]['created_at']); 
+         $confirmDate = Carbon::createFromFormat('Y-m-d H:s:i',now()); 
+         $expiry =  $getCreatedDate->diffInHours($confirmDate); 
+
+        //  Check the registered time of car owner and if takes past more than 2 hrs the link will get expired then delete the account if the car owner try to confirm.
+         if($expiry > 1)
+         {
+             Admin::where('email',$ownerEmail)->delete(); 
+             OwnerDetail::where('id',$created[0]['owner_id'])->delete();
+             return redirect('/admin/signup')->with('error_message','The link is expired');
+         }
+          
          $ownerCount = Admin::where('email',$ownerEmail)->count();
          if($ownerCount > 0)
          {
             $ownerDetails =  Admin::where('email',$ownerEmail)->first();
             if($ownerDetails->status === 1)
             {
-                $message = 'Your owner account is already confirmed!';
+                $message = 'Your owner account is already confirmed! Check your email if your account has been verified. Thank you!';
             }
             else
-            {
-                
+            {  
                 Admin::where('email',$ownerEmail)->update(['status'=>1, 'email_verified_at'=>now()]);
                 $message = 'Your owner account is already confirmed! Wait for admin to verify your credentials, Thank you!';
 
@@ -170,8 +196,9 @@ class AdminController extends Controller
                     'code' => base64_encode($email),
                 ];
     
-               Mail::send('emails.owner.owner_confirmed',$messageData, function($message)use($email){
-                    $message->to($email)->subject('Confirmed Owner Account');
+               Mail::send('emails.owner.owner_confirmed',$messageData, function($message)use($ownerEmail){
+               
+                    $message->to($ownerEmail)->subject('Confirmed Owner Account!');
                 });
             } 
 
@@ -216,6 +243,7 @@ class AdminController extends Controller
             }
             else if(Auth::guard('admin')->attempt(['email'=>$data['email'],'password'=>$data['password'],'status'=>0]))
             {
+                Auth::guard('admin')->logout();
                 return response()->json(['status'=>'unconfirmed']);
             }
             else

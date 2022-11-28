@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,13 +16,12 @@
 
 <body>
    <div class="max-w-[1500px] mx-auto">
-    <div class="h-screen grid place-items-center bg-white">
-      <h1 class="text-base font-normal">Dear <span class="font-bold">{{ $name }},</span></h1>
-        <p>Your email is confirmed </p>
-        <p>Please wait for admin to verify your credentials.</p>
-        <p>Thanks and Regards,</p>
-      <h2 class="text-base font-normal">Chesca Chen's Car Rental</h2>
-    </div>
+      <div class="h-screen grid place-items-center bg-white">
+        <h1 class="text-base"> Dear <span class="font-bold">{{ $name }}, </span></h1> 
+       <p> Please click on below link to confirm your account: <span><a class="font-bold"  href="{{url('confirm/'.$code)}}">{{ $email }}</a></span> </p>
+       <p> Thanks and Regards,</p>
+        <h2 class="text-base">Chesca Chen's Car Rental</h2>
+      </div>
    </div>
  
    <script src="{{url('js/app.js')}}"></script>

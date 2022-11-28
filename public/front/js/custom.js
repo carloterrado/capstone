@@ -399,39 +399,35 @@ $(function(){
                 processData: false,
                 contentType: false,
                 success:function(resp){
-                    $('#modal-message').removeClass('hidden')
-                    $('#modal-message').addClass('grid')
+                    //  alert(JSON.stringify(resp))
                     if(resp["status"] === 'success')
                     {
-                      
+                        $('#success-container').show()
+                        $('#success-message').html('Account created successfully! Check your email to activate your account.')
+                    }
+                    else if(resp["status"] === 'error')
+                    {  
+                        $('#error-container').show()
+                        $('#error-message').html('Email is already registered!')
                         setTimeout(function(){
-                            $('#success-message').show();
-                            $("#success-text").html('Account created successfully!');
-                        },1000)
-                        setTimeout(function(){
-                            window.location.href = '/'; 
-                        },2000)
+                            window.location.href = '/signup';  
+                        },3000)
                     }
                     else
-                    {  
-                        $('#error-message').show();
-                        $("#error-text").html('Email already registered!');
-                        setTimeout(function(){ 
-                            window.location.href = '/login'; 
-                        },2000)
+                    {
+                        $('#error-container').show()
+                        $('#error-message').html('Email is already registered!')
+                        setTimeout(function(){
+                            window.location.href = '/signup';  
+                        },3000)
                     }
                 },
                 error: function(){
-                    $("#error-text").html('Email already registered!');
-                    $('#modal-message').removeClass('hidden')
-                    $('#modal-message').addClass('grid')
-                    setTimeout(function(){ 
-                        $('#error-message').show();
-                    },2000)
-                   
+                    $('#error-container').show()
+                    $('#error-message').html('Email  already registered!')
                     setTimeout(function(){
-                        window.location.href = '/signup'; 
-                    },2000)
+                        window.location.href = '/signup';  
+                    },3000)
                 }
             })
         }
@@ -439,20 +435,11 @@ $(function(){
        
         if(validated){
             submitSignupForm().catch(function(error){
-               
-                $("#error-text").html('Email throws error!');
-                $('#modal-message').removeClass('hidden')
-                $('#modal-message').addClass('grid')
-              
+                $('#error-container').show()
+                $('#error-message').html('Registration failed!')
                 setTimeout(function(){
-                   
-                    $('#error-message').show();
-                },2000)
-               
-                setTimeout(function(){
-                    $('#modal-message').removeClass('grid')
-                    $('#modal-message').addClass('hidden')
-                },2000)
+                    window.location.href = '/signup';  
+                },3000)
             })
         } 
     })
@@ -505,43 +492,35 @@ $(function(){
             contentType: false,
             success: function (resp) {
                 
-                $('#modal-message').removeClass('hidden')
-                $('#modal-message').addClass('grid')
-                if(resp['status'] === 'success')
+                if(resp['status'] === 'active')
                 {
-                    setTimeout(function(){ 
-                            $('#success-message').show();
-                            $("#success-text").html('Login successfully!');
-                    },1000)
-                    setTimeout(function(){
-                        window.location.href = '/'; 
-                    },2000)
+                        window.location.href = '/';    
                 }
-                else
+                else if(resp['status'] === 'inactive')
                 {  
-                    $('#error-message').show();
-                    $("#error-text").html('Invalid email or password!');
+                    $('#error-container').show();
+                    $("#error-message").html('Please check your email first and verify your account!');
                     setTimeout(function(){ 
-                        window.location.href = '/login'; 
-                    },2000)
+                        $('#error-container').hide();
+                    },3000)
+                }
+                else 
+                {  
+                    $('#error-container').show();
+                    $("#error-message").html('Invalid email or password!');
+                    setTimeout(function(){ 
+                        $('#error-container').hide();
+                    },3000)
                 }
                 
                
             },
             error: function () {
-               
-                $('#modal-message').removeClass('hidden')
-                $('#modal-message').addClass('grid')
-               
-                setTimeout(function(){
-                    $('#error-message').show();
-                    $("#error-text").html('Invalid email or password!');
-                },1000)
-                setTimeout(function(){
-                    $('#modal-message').removeClass('grid')
-                    $('#modal-message').addClass('hidden')
-                },2000)
-               
+                $('#error-container').show();
+                $("#error-message").html('Login failed!');
+                setTimeout(function(){ 
+                    $('#error-container').hide();
+                },3000)
             },
         });
     }
@@ -551,20 +530,11 @@ $(function(){
     if(validated)
     {
         submitLoginForm().catch(function(error){
-           
-            $('#modal-message').removeClass('hidden')
-            $('#modal-message').addClass('grid')
-            setTimeout(function(){
-            
-                $('#error-message').show();
-                $("#error-text").html('Account login failed!');
-            },1000)
-            
-            setTimeout(function(){
-                $('#modal-message').removeClass('grid')
-                $('#modal-message').addClass('hidden')
-            },2000)
-           
+            $('#error-container').show();
+            $("#error-message").html('Login failed!');
+            setTimeout(function(){ 
+                $('#error-container').hide();
+            },3000)
         });
     }
     });

@@ -1,24 +1,3 @@
-<div id="modal-message" class="hidden fixed inset-0 flex items-center justify-center">
-
-  <!-- Alert danger -->
-    <div id="error-message" class="hidden w-full max-w-sm p-4  bg-red-100 rounded-lg " role="alert">
-        <div id="error-text" class="ml-3 font-bold text-red-700 text-center ">error</div>
-    </div>
-    
-    
-    <!-- Alert Succes -->
-    <div id="success-message" class="hidden w-full max-w-sm p-4 bg-green-300 rounded-lg" role="alert">
-        <div id="success-text" class="ml-3 font-bold  text-green-700 text-center">succes</div>
-    </div>
-    
-
-</div>
-
-     
-
-  
-
-
 
 <footer class="bg-[#1F1F1F] text-white">
     <div class="grid md:grid-cols-3 p-6 sm:p-14">

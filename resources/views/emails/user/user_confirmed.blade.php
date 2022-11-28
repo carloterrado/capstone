@@ -18,16 +18,19 @@
 <body>
    <div class="max-w-[1500px] mx-auto">
     <div class="h-screen grid place-items-center bg-white">
-      <h1 class="text-base font-normal">Dear <span class="font-bold">{{ $name }},</span></h1>
+        <h1>Dear <span class="font-bold">{{ $name }},</span></h1>
         <p>Your email is confirmed </p>
-        <p>Please wait for admin to verify your credentials.</p>
         <p>Thanks and Regards,</p>
-      <h2 class="text-base font-normal">Chesca Chen's Car Rental</h2>
+      <h2>Chesca Chen's Car Rental</h2>
     </div>
+
+ 
+   
    </div>
  
    <script src="{{url('js/app.js')}}"></script>
- 
+   <script src="{{url('js/jquery.min.js')}}"></script>
+   <script src="{{url('admin/js/custom.js')}}"></script>
   
 </body>
 

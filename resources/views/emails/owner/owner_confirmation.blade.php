@@ -17,13 +17,10 @@
 <body>
    <div class="max-w-[1500px] mx-auto">
     <div class="h-screen grid place-items-center bg-white">
-        <tr><td>Dear {{ $name }},</td></tr>
-        <tr><td>&nbsp;</td></tr>
-        <tr><td>Please click on below link to confirm your owner account: </td></tr>
-        <tr><td><a href="{{url('admin/confirm/'.$code)}}">Confirm account</a></td></tr>
-        <tr><td>&nbsp;</td></tr>
-        <tr><td>Thanks and Regards,</td></tr>
-        <tr><td>Chesca Chen's Car Rental</td></tr>
+        <h1 class="text-base> Dear <span class="font-bold">{{ $name }}, </span></h1> 
+       <p> Please click on below link to confirm your owner account: <span><a class="font-bold"  href="{{url('admin/confirm/'.$code)}}">{{ $email }}</a></span> </p>
+       <p> Thanks and Regards,</p>
+        <h2 class="text-base">Chesca Chen's Car Rental</h2>
     </div>
 
  

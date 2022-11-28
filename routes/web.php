@@ -29,6 +29,8 @@ Route::prefix('/')->group(function()
     Route::get('login',[FrontController::class,'getLogin'])->name('login');
     Route::post('arkilla-login',[FrontController::class,'login']);
     Route::match(['get','post'],'signup',[FrontController::class,'signup']);
+      //    Owner confirmation route
+    Route::get('confirm/{code}',[FrontController::class, 'confirmEmail']);
 
 });
 

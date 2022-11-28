@@ -360,23 +360,23 @@ $(function(){
                     }
                     else
                     {
-                        alert('registration failed!')
+                        $('#error-container').show()
+                        $('#error-message').html('Email is already registered!')
+                        setTimeout(function(){
+                            window.location.href = '/admin/signup';  
+                        },3000)
                     }
                     
                 },
                 error: function(error){
                     // alert(JSON.stringify(error))
-                    // $('#error-container').show()
-                    // $('#error-message').html('Email is registered!')
-                    // setTimeout(function(){
-                    //     window.location.href = '/admin/signup';  
-                    // },3000)
-                    // Use this for now because we havent yet upload the mailer name
-                    $('#success-container').show()
-                    $('#success-message').html('We send you a confirmation email and wait for admin to verify your account')
+                    $('#error-container').show()
+                    $('#error-message').html('Email is registered!')
                     setTimeout(function(){
                         window.location.href = '/admin/signup';  
-                    },6000)
+                    },3000)
+                    // Use this for now because we havent yet upload the mailer name
+                    
                 }
             })
         }
