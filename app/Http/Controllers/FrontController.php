@@ -10,19 +10,22 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 
 
 class FrontController extends Controller
 {
     public function home(Request $request)
-    {
+    {   
+        Session::forget('error_message');
         Session::put('page','home');
         Session::put('title','Chesca Chen\'s Car Rental');
         return view('front.home');
     }
     public function cars(Request $request)
     {
+        Session::forget('error_message');
         Session::put('page','cars');
         Session::put('title','Cars');
        return view('front.home');
@@ -30,6 +33,7 @@ class FrontController extends Controller
     }
     public function about(Request $request)
     {
+        Session::forget('error_message');
         Session::put('page','about');
         Session::put('title','About Us');
        return view('front.home');
@@ -37,6 +41,7 @@ class FrontController extends Controller
     }
     public function contact(Request $request)
     {
+        Session::forget('error_message');
         Session::put('page','contact');
         Session::put('title','Contact Us');
        return view('front.home');
@@ -166,7 +171,9 @@ class FrontController extends Controller
                  Mail::send('emails.user.user_confirmation',$messageData, function($message)use($email){
                     $message->to($email)->subject('Confirm your registered account');
                 });
-               
+
+                Session::put('message', 'Congratulations! Your account has been successfully created. Check your email and verify your account. Thank you.');
+
                 return response()->json(['status'=>'success']);
             }
         
@@ -175,6 +182,14 @@ class FrontController extends Controller
         Session::put('title','Signup');
        return view('front.home');
 
+    }
+
+    public function success()
+    {
+        Session::put('page','success');
+        Session::put('title','Success Page');
+       
+        return view('front.home');
     }
 
     public function confirmEmail($email)
@@ -200,7 +215,7 @@ class FrontController extends Controller
         if($expiry > 1)
         {
             User::where('email',$userEmail)->delete(); 
-            return redirect('/signup')->with('error_message','The link is expired');
+            return redirect('/signup')->with('error_message','The link is expired! The account has already been deleted.');
         }
         
          $userCount = User::where('email',$userEmail)->count();
@@ -235,6 +250,40 @@ class FrontController extends Controller
          {
             abort(404);
          }
+    }
+
+    public function forgotPassword(Request $request)
+    {
+        
+        if($request->ajax())
+        {
+
+            $data = $request->all();
+           $userEmail = User::where('email',$data['email'])->exists();
+            if($userEmail)
+            {
+                $email = $data['email'];
+                $tempPassword =  Str::random(10);
+                
+                $messageData = [
+                    'email' => $email,
+                    'code' =>  $tempPassword,
+                ];
+
+                 Mail::send('emails.user.forgot_password',$messageData, function($message)use($email){
+                    $message->to($email)->subject('Temporary password reset');
+                });
+                User::where('email',$email)->update(['password'=>bcrypt($tempPassword)]);
+
+                return response()->json(['status'=>'found']);
+            }
+          
+            return response()->json(['status'=>'notfound']);
+            
+        }
+        Session::put('page','forgot-password');
+        Session::put('title','Forgot Password');
+        return view('front.home');
     }
 
     public function logout(Request $request)

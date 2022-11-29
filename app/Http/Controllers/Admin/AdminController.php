@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
@@ -209,6 +210,40 @@ class AdminController extends Controller
          {
             abort(404);
          }
+    }
+
+    public function forgotPassword(Request $request)
+    {
+        
+        if($request->ajax())
+        {
+
+            $data = $request->all();
+           $userEmail = Admin::where('email',$data['email'])->exists();
+            if($userEmail)
+            {
+                $email = $data['email'];
+                $tempPassword =  Str::random(10);
+                
+                $messageData = [
+                    'email' => $email,
+                    'code' =>  $tempPassword,
+                ];
+
+                 Mail::send('emails.user.forgot_password',$messageData, function($message)use($email){
+                    $message->to($email)->subject('Temporary password reset');
+                });
+                Admin::where('email',$email)->update(['password'=>bcrypt($tempPassword)]);
+
+                return response()->json(['status'=>'found']);
+            }
+          
+            return response()->json(['status'=>'notfound']);
+            
+        }
+        Session::put('page','forgot-password');
+        Session::put('title','Forgot Password');
+        return view('owner.forgot-password');
     }
 
     public function login(Request $request)

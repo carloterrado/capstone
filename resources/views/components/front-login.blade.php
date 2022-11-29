@@ -4,7 +4,7 @@
     
     <div class="absolute lg:relative -z-10  inset-0 bg-cover  lg:w-2/3" >
     <img src="{{url('front/images/road.jpg')}}" class="absolute w-full h-full object-cover inset-0 -z-10" alt="">
-        <div class="flex items-center h-full px-20 bg-gray-900 bg-opacity-40">
+        <div class="flex items-center h-full px-20">
             <div>
                 <h2 class="text-4xl font-bold text-white">Brand</h2>
 
@@ -20,6 +20,7 @@
     <div class="bg-white flex items-center w-full max-w-md px-6 m-auto lg:w-2/6">
         <div class="flex-1">
             <div class="text-center">
+                
                 <x-session-error />
                 <x-session-success />
                 <x-ajax-error />
@@ -46,7 +47,7 @@
                         <label id="front-login-password-error" for="front-login-password" class="pointer-events-none absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-gray-900 peer-focus:font-semibold peer-placeholder-shown:scale-100 
                         peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Password</label>
                     </div>
-                    <a href="#" class="text-xs ml-2 text-gray-400 focus:text-accent-regular hover:text-accent-regular hover:underline">Forgot password?</a>
+                    <a href="{{url('forgot-password')}}" class="text-xs ml-2 text-gray-400 focus:text-accent-regular hover:text-accent-regular hover:underline">Forgot password?</a>
                     </div>
                     </div>
 

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,20 +16,16 @@
 
 <body>
    <div class="max-w-[1500px] mx-auto">
-    <div class="h-screen grid place-items-center bg-white">
-        <p>Dear <em class="font-bold">{{ $name }},</em></p>
-        <p>Your email is confirmed </p>
-        <p>Thanks and Regards,</p>
-      <p>Chesca Chen's Car Rental</p>
-    </div>
-
- 
-   
+      <div class="h-screen grid place-items-center bg-white">
+        <p class="text-base"> Dear <b class="font-bold">{{ $email }}, </b></p> 
+       <p> We provided you a temporary password: <b>{{ $code }}</b> </p>
+       <p> Thanks and Regards,</p>
+        <p class="text-base">Chesca Chen's Car Rental</p>
+      </div>
    </div>
  
    <script src="{{url('js/app.js')}}"></script>
-   <script src="{{url('js/jquery.min.js')}}"></script>
-   <script src="{{url('admin/js/custom.js')}}"></script>
+ 
   
 </body>
 

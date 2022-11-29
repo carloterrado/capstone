@@ -21,7 +21,7 @@ Route::prefix('/')->group(function()
     Route::get('',[FrontController::class,'home']);
     Route::group(['middleware'=>['auth']],function(){   
         Route::get('cars',[FrontController::class,'cars']);
-        Route::get('arkilla-logout',[FrontController::class,'logout']);
+        Route::get('arkilla-logout',[FrontController::class,'logout'])->name('logout');
     });
     Route::get('about',[FrontController::class,'about']);
     Route::get('contact',[FrontController::class,'contact']);
@@ -29,6 +29,8 @@ Route::prefix('/')->group(function()
     Route::get('login',[FrontController::class,'getLogin'])->name('login');
     Route::post('arkilla-login',[FrontController::class,'login']);
     Route::match(['get','post'],'signup',[FrontController::class,'signup']);
+    Route::get('success',[FrontController::class,'success']);
+    Route::match(['get','post'],'forgot-password',[FrontController::class, 'forgotPassword']);
       //    Owner confirmation route
     Route::get('confirm/{code}',[FrontController::class, 'confirmEmail']);
 
@@ -44,6 +46,7 @@ Route::prefix('admin')->group(function()
 
     //    Owner confirmation route
     Route::get('confirm/{code}',[AdminController::class, 'confirmEmail']);
+    Route::match(['get','post'],'forgot-password',[AdminController::class, 'forgotPassword']);
 
     //  Admin group with middleware auth guard 
     Route::group(['middleware'=>['admin']], function()

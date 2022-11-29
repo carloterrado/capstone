@@ -17,10 +17,10 @@
 <body>
    <div class="max-w-[1500px] mx-auto">
       <div class="h-screen grid place-items-center bg-white">
-        <h1 class="text-base"> Dear <span class="font-bold">{{ $name }}, </span></h1> 
+        <p class="text-base"> Dear <em class="font-bold">{{ $name }}, </em></p> 
        <p> Please click on below link to confirm your account: <span><a class="font-bold"  href="{{url('confirm/'.$code)}}">{{ $email }}</a></span> </p>
        <p> Thanks and Regards,</p>
-        <h2 class="text-base">Chesca Chen's Car Rental</h2>
+        <p class="text-base">Chesca Chen's Car Rental</p>
       </div>
    </div>
  

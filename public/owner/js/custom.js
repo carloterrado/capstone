@@ -513,5 +513,66 @@ $(function(){
        
     
     });
+
+    // Forgot password form validation
+    $('#forgot-password-email').on('keyup keypress',function()
+    {
+        validateEmail('#forgot-password-email','#forgot-password-email-error');
+    })
+
+    $('#forgot-password-form').on('submit', function(event)
+    {
+        event.preventDefault();
+        let valid = validateEmail('#forgot-password-email','#forgot-password-email-error');
+        let email = $('#forgot-password-email').val();
+        if(valid)
+        {
+            
+            $.ajax({
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                },
+                type: 'POST',
+                url:'/admin/forgot-password',
+                data: {email:email},
+                success: function(resp)
+                {
+                    // alert(JSON.stringify(resp['status']));
+                    if(resp['status'] === 'found')
+                    {
+                        $('#success-container').show()
+                        $('#success-message').html('A temporary password was sent to your email!')
+                        setTimeout(function(){
+                            $('#success-container').hide()
+                        },3000)
+                    }
+                    else if (resp['status'] === 'notfound')
+                    {
+                        $('#error-container').show()
+                        $('#error-message').html('Email is not yet registered!')
+                        setTimeout(function(){
+                            $('#error-container').hide()
+                        },3000)
+                    } 
+                    else 
+                    {
+                        $('#error-container').show()
+                        $('#error-message').html('Invalid email!')
+                        setTimeout(function(){
+                            $('#error-container').hide()
+                        },3000)
+                    }
+                },
+                error: function()
+                {
+                    $('#error-container').show()
+                    $('#error-message').html('Invalid email!')
+                    setTimeout(function(){
+                        $('#error-container').hide()
+                    },3000)
+                }
+            });
+        }
+    });
    
 });

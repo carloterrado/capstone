@@ -24,6 +24,15 @@
 @elseif (Session::get('page') === 'signup')
 
         <x-front-signup />
+
+@elseif (Session::get('page') === 'success')
+
+        <x-signup-success-page />
+
+@elseif (Session::get('page') === 'forgot-password')
+
+        <x-forgot-password />
+        
 @endif
 
 @endsection

@@ -1,69 +1,6 @@
 
 $(function(){
     
-    
-    // Navigation part
-
-   
-    function  ChangeUrl(title, url) {  
-        if (typeof(history.pushState) != "undefined") {  
-           
-            var obj = { Title: title, Url: url };  
-            history.pushState( obj,obj.Title, obj.Url); 
-            document.title = title; 
-        } else {  
-            alert("error loading the requested URL");  
-        }  
-    }  
-
-
-    $('.home').on('click', async function()
-    {
-        // location.href = '#header';
-        // ChangeUrl('Chesca Chen\'s Car Rental', '/'); 
-        // $('.pages').hide();
-        // $('#home').show();
-       
- 
-    })
-    $('.cars').on('click', async function()
-    {
-        // location.href = '#header';
-        // ChangeUrl('Cars', '/cars'); 
-        // $('.pages').hide();
-        // $('#cars').show();
-       
-    })
-    $('.about').on('click', function()
-    {
-        location.href = '#header';
-        ChangeUrl('About Us', 'about');
-        $('.pages').hide();
-        $('#about').show();
-    })
-    $('.contact').on('click',  function()
-    {
-        // location.href = '#header';
-        // ChangeUrl('Contact Us', '/contact'); 
-        // $('.pages').hide();
-        // $('#contact').show();
-    })
-    $('.front-login').on('click',  function()
-    {        
-        // location.href = '#header';
-        // ChangeUrl('Login', '/arkilla-login');        
-        // $('.pages').hide();
-        // $('#front-login').show();
-    })
-    $('.front-signup').on('click',  function()
-    { 
-        // location.href = '#header';
-        // ChangeUrl('Signup', '/arkilla-signup');   
-        // $('.pages').hide();
-        // $('#front-signup').show();
-})
-    
-    // End Navigation
 
     // Form Validation
 
@@ -402,8 +339,9 @@ $(function(){
                     //  alert(JSON.stringify(resp))
                     if(resp["status"] === 'success')
                     {
-                        $('#success-container').show()
-                        $('#success-message').html('Account created successfully! Check your email to activate your account.')
+                        window.location.href = '/success';  
+                        // $('#success-container').show()
+                        // $('#success-message').html('Account created successfully! Check your email to activate your account.')
                     }
                     else if(resp["status"] === 'error')
                     {  
@@ -537,6 +475,67 @@ $(function(){
             },3000)
         });
     }
+    });
+
+    // Forgot password form validation
+    $('#forgot-password-email').on('keyup keypress',function()
+    {
+        validateEmail('#forgot-password-email','#forgot-password-email-error');
+    })
+
+    $('#forgot-password-form').on('submit', function(event)
+    {
+        event.preventDefault();
+        let valid = validateEmail('#forgot-password-email','#forgot-password-email-error');
+        let email = $('#forgot-password-email').val();
+        if(valid)
+        {
+            
+            $.ajax({
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                },
+                type: 'POST',
+                url:'/forgot-password',
+                data: {email:email},
+                success: function(resp)
+                {
+                    // alert(JSON.stringify(resp['status']));
+                    if(resp['status'] === 'found')
+                    {
+                        $('#success-container').show()
+                        $('#success-message').html('A temporary password was sent to your email!')
+                        setTimeout(function(){
+                            $('#success-container').hide()
+                        },3000)
+                    }
+                    else if (resp['status'] === 'notfound')
+                    {
+                        $('#error-container').show()
+                        $('#error-message').html('Email is not yet registered!')
+                        setTimeout(function(){
+                            $('#error-container').hide()
+                        },3000)
+                    } 
+                    else 
+                    {
+                        $('#error-container').show()
+                        $('#error-message').html('Invalid email!')
+                        setTimeout(function(){
+                            $('#error-container').hide()
+                        },3000)
+                    }
+                },
+                error: function()
+                {
+                    $('#error-container').show()
+                    $('#error-message').html('Invalid email!')
+                    setTimeout(function(){
+                        $('#error-container').hide()
+                    },3000)
+                }
+            });
+        }
     });
    
 });
