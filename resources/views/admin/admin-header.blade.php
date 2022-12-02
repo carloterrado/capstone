@@ -1,6 +1,6 @@
 
     <nav class="relative px-4 md:px-12 flex justify-between items-center bg-white shadow-sm">
-        <a class="flex items-center text-3xl font-bold leading-none"  href="#">
+        <a class="flex items-center text-3xl font-bold leading-none"  href="{{url('admin/dashboard')}}">
             <img src="{{url('front/images/Chesca_logo.svg')}}" class="h-20 md:h-[5.5rem]" alt="Chesca Logo">
         </a>
        

@@ -143,8 +143,8 @@
     
    
    
+@include('admin.admin-add-admins')
 
-<x-admin-add-admins />
 
 
 

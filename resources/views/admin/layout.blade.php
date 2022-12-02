@@ -18,13 +18,11 @@
 
 <body>
     <!-- Header start -->
-    <x-admin-header />
+    @include('admin.admin-header')
    <!-- Header end -->
-   <!-- Sidebar start -->
-   
 
-      <x-admin-sidebar />
-  
+   <!-- Sidebar start -->
+   @include('admin.admin-sidebar')
    <!-- Sidebar end -->
 
    <!-- Main content start -->
@@ -32,7 +30,7 @@
    <!-- Main content end -->
    
    <!-- Footer start -->
-    <x-admin-footer />
+   @include('admin.admin-footer')
    <!-- Footer end -->
 
 
