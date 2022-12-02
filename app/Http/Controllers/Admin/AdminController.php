@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\OwnerDetail;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,16 +19,178 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
+        Session::put('title','Chesca Chen\'s Car Rental');
+        Session::put('page','dashboard');
         if(Auth::guard('admin')->user()->type === 'owner')
         {
             return view('owner.dashboard');
         }
-        else
-        {
-            return view('admin.dashboard');
-        }
+        
+        return view('admin.dashboard');
+        
     }
+    public function cars()
+    {
+        Session::put('title','Cars');
+        Session::put('page','cars');
+        if(Auth::guard('admin')->user()->type === 'owner')
+        {
+            return view('owner.dashboard');
+        }
+        return view('admin.dashboard');
 
+    }
+    public function ownerCars()
+    {
+        Session::put('title','Owner Cars');
+        Session::put('page','owner-cars');
+        if(Auth::guard('admin')->user()->type === 'owner')
+        {
+            return view('owner.dashboard');
+        }
+        return view('admin.dashboard');
+
+    }
+    public function carRequest()
+    {
+        Session::put('title','Car Request');
+        Session::put('page','car-request');
+        if(Auth::guard('admin')->user()->type === 'owner')
+        {
+            return view('owner.dashboard');
+        }
+        return view('admin.dashboard');
+
+    }
+    public function carDeclined()
+    {
+        Session::put('title','Declined Car');
+        Session::put('page','car-declined');
+        if(Auth::guard('admin')->user()->type === 'owner')
+        {
+            return view('owner.dashboard');
+        }
+        return view('admin.dashboard');
+
+    }
+    public function allAdmins()
+    {
+        if(Auth::guard('admin')->user()->type === 'owner')
+        {
+            return view('owner.dashboard');
+        }
+        Session::put('title','All Admins');
+        Session::put('page','all-admins');
+        $admins = Admin::where([['type','!=','systemadmin'],['account','verified']])->with('admins')->get()->toArray();
+        // echo '<pre>'; print_r($admins); die;
+        return view('admin.dashboard')->with(compact('admins'));
+
+    }
+    public function addAdmin(Request $request)
+    {
+        if($request->ajax())
+        {
+            $data = $request->all();
+            // return response()->json(['status'=>$data]);
+            $adminEmail = Admin::where('email',$data['add-admin-email'])->exists();
+            if($adminEmail)
+            {
+                return response()->json(['status'=>'error']);
+            }
+            $admin = new Admin;
+            $admin->type = $data['add-admin-type'];
+            $admin->first_name = $data['add-admin-first-name'];
+            $admin->last_name = $data['add-admin-last-name'];
+            $admin->email = $data['add-admin-email'];
+            $admin->password = bcrypt($data['add-admin-password']);
+            $admin->status = 1;
+            $admin->account = 'verified';
+            $admin->email_verified_at = now();
+            $admin->owner_id = 0;
+            $admin->save();
+            return response()->json(['status'=>'success']);
+
+        }
+        return response()->json(['status'=>'error']);
+    }
+    public function admins()
+    {
+        if(Auth::guard('admin')->user()->type === 'owner')
+        {
+            return view('owner.dashboard');
+        }
+        Session::put('title','Admins');
+        Session::put('page','admins');
+        $admins = Admin::where([['type','admin'],['account','verified']])->get()->toArray();
+   
+        return view('admin.dashboard')->with(compact('admins'));
+
+    }
+    public function staff()
+    {
+        if(Auth::guard('admin')->user()->type === 'owner')
+        {
+            return view('owner.dashboard');
+        }
+        Session::put('title','Staff');
+        Session::put('page','staff');
+        $admins = Admin::where([['type','staff'],['account','verified']])->get()->toArray();
+        return view('admin.dashboard')->with(compact('admins'));
+
+    }
+    public function owners()
+    {
+        if(Auth::guard('admin')->user()->type === 'owner')
+        {
+            return view('owner.dashboard');
+        }
+        Session::put('title','Owners');
+        Session::put('page','owner');
+        $admins = Admin::where([['type','owner'],['account','verified']])->with('admins')->get()->toArray();
+       
+        return view('admin.dashboard')->with(compact('admins'));
+
+    }
+    public function newOwners()
+    {
+        if(Auth::guard('admin')->user()->type === 'owner')
+        {
+            return view('owner.dashboard');
+        }
+        Session::put('title','New Owners');
+        Session::put('page','new-owners');
+        $admins = Admin::where([['type','owner'],['status',1],['account','unverified']])->with('admins')->get()->toArray();
+       
+        return view('admin.dashboard')->with(compact('admins'));
+
+    }
+    public function declinedOwners()
+    {
+        if(Auth::guard('admin')->user()->type === 'owner')
+        {
+            return view('owner.dashboard');
+        }
+        Session::put('title','Declined Owners');
+        Session::put('page','declined-owners');
+        $admins = Admin::where([['type','owner'],['account','declined']])->with('admins')->get()->toArray();
+       
+        return view('admin.dashboard')->with(compact('admins'));
+
+    }
+    public function users()
+    {
+        if(Auth::guard('admin')->user()->type === 'owner')
+        {
+            return view('owner.dashboard');
+        }
+        Session::put('title','Users');
+        Session::put('page','users');
+        $users = User::get()->toArray();
+       
+        return view('admin.dashboard')->with(compact('users'));
+   
+
+    }
     public function updatePassword(Request $request)
     {
         if($request->ajax()){
@@ -43,7 +206,6 @@ class AdminController extends Controller
         }
         
     }
-
     public function checkPassword(Request $request)
     {
         $data = $request->all();
@@ -65,15 +227,6 @@ class AdminController extends Controller
              }
             else
             {
-                $rules = [
-                    'email' => 'email',
-                ];
-                //  custom messages for validation rules 
-                $customMsg = [
-                    'email.email' => 'Invalid email!',
-                ];
-                //  validate request 
-                $this->validate($request,$rules,$customMsg);
                 
                 if($request->hasFile('owner-signup-license') && $request->hasFile('owner-signup-id-file'))
                 {
@@ -137,6 +290,8 @@ class AdminController extends Controller
                  Mail::send('emails.owner.owner_confirmation',$messageData, function($message)use($email){
                     $message->to($email)->subject('Confirm your Owner Account');
                 });
+
+                Session::put('message', 'Congratulations! Your account has been successfully created. Check your email and verify your account. Wait for admin to verify your account first. Thank you.');
                
                 return response()->json(['status'=>'success']);
               
@@ -145,7 +300,6 @@ class AdminController extends Controller
         }
         return view('owner.signup');
     }
-
     public function confirmEmail($email)
     {
        
@@ -211,7 +365,6 @@ class AdminController extends Controller
             abort(404);
          }
     }
-
     public function forgotPassword(Request $request)
     {
         
@@ -245,7 +398,6 @@ class AdminController extends Controller
         Session::put('title','Forgot Password');
         return view('owner.forgot-password');
     }
-
     public function login(Request $request)
     {
         
@@ -287,6 +439,7 @@ class AdminController extends Controller
 
             }
         }
+        
          
         return view('owner.login');
     }

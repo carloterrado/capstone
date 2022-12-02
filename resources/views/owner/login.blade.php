@@ -19,13 +19,9 @@
 <body>
 
 
-    <x-owner-login />
-
-   
- 
+   @include('owner.owner-login')
  
    <script src="{{url('js/app.js')}}"></script>
-   <script src="{{url('front/js/index.js')}}"></script>
    <script src="{{url('js/jquery.min.js')}}"></script>
    <script src="{{url('owner/js/custom.js')}}"></script>
  

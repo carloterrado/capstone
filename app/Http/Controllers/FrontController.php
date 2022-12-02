@@ -6,7 +6,6 @@ use App\Models\Admin;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
@@ -47,8 +46,6 @@ class FrontController extends Controller
        return view('front.home');
 
     }
-
- 
     public function login(Request $request)
     {
         if($request->ajax()){
@@ -75,8 +72,7 @@ class FrontController extends Controller
             {
                 return response()->json(['status'=>'invalid']);
             }
-        }
-        
+        } 
     }
     public function getLogin()
     {
@@ -85,13 +81,13 @@ class FrontController extends Controller
         Session::put('title','Login');
        return view('front.home'); 
     }
-  
     public function signup(Request $request)
     { 
+       
+       
         if( $request->ajax())
         {
             $data = $request->all();
-            
             
             $registeredEmail = User::where('email',$data['front-signup-email'])->count();
             if($registeredEmail > 0)
@@ -100,19 +96,6 @@ class FrontController extends Controller
             }
             else
             {
-                
-            
-                $rules = [
-                    'email' => 'email|unique:users',
-                ];
-                //  custom messages for validation rules 
-                $customMsg = [
-                    'email.email' => 'Invalid email!',
-                ];
-                //  validate request 
-                $this->validate($request,$rules,$customMsg);
-
-
                 if($request->hasFile('front-signup-license') && $request->hasFile('front-signup-id-file'))
                 {
                     $img_tmp1 = $request->file('front-signup-license'); 
@@ -168,9 +151,11 @@ class FrontController extends Controller
                     'code' => base64_encode($email),
                 ];
 
-                 Mail::send('emails.user.user_confirmation',$messageData, function($message)use($email){
+               
+                Mail::send('emails.user.user_confirmation',$messageData, function($message)use($email){
                     $message->to($email)->subject('Confirm your registered account');
                 });
+                
 
                 Session::put('message', 'Congratulations! Your account has been successfully created. Check your email and verify your account. Thank you.');
 
@@ -183,15 +168,12 @@ class FrontController extends Controller
        return view('front.home');
 
     }
-
     public function success()
     {
         Session::put('page','success');
-        Session::put('title','Success Page');
-       
+        Session::put('title','Success Page');  
         return view('front.home');
     }
-
     public function confirmEmail($email)
     {
         // Decode owner email
@@ -251,7 +233,6 @@ class FrontController extends Controller
             abort(404);
          }
     }
-
     public function forgotPassword(Request $request)
     {
         
@@ -285,7 +266,6 @@ class FrontController extends Controller
         Session::put('title','Forgot Password');
         return view('front.home');
     }
-
     public function logout(Request $request)
     {
         Auth::guard('web')->logout();

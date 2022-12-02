@@ -60,7 +60,7 @@
                     </div>
 
                 </form>
-                <p class="mt-6 text-sm text-center text-gray-400">Don&#x27;t have an account yet? <a href="{{url('admin/signup')}}" class="text-accent-regular focus:outline-none focus:underline hover:underline">Sign up</a>.</p>
+                <p class="mt-6 text-sm text-center text-gray-400 mb-6">Don&#x27;t have an account yet? <a href="{{url('admin/signup')}}" class="text-accent-regular focus:outline-none focus:underline hover:underline">Sign up</a>.</p>
                
               
         </div>

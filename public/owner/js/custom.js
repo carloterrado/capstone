@@ -1,11 +1,13 @@
 
 $(function(){
     
- 
-  
-    
+    $('.menu').on('click', function()
+    {
+        $(this).next('.sub-menu').slideToggle();
+        $(this).find('.bx-chevron-right').toggleClass('rotate-90');
+    });
 
-
+   
     // Form Validation
 
     // Validation for name input
@@ -304,7 +306,7 @@ $(function(){
     })
    
 
-        // Validate form upon submission
+        // Validate signup form upon submission
     $('#owner-signup-form').on('submit', function(event)
     {
         event.preventDefault();
@@ -332,7 +334,7 @@ $(function(){
 
         async function submitSignupForm()
         {
-            $.ajax({
+            await  $.ajax({
                 headers: {
                     "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
                 },
@@ -348,6 +350,9 @@ $(function(){
                     {
                         $('#success-container').show()
                         $('#success-message').html('We send you a confirmation email and wait for admin to verify your account')
+                        setTimeout(function(){
+                            window.location.href = '/success';  
+                        },3000)
                     }
                  
                     else if(resp["status"] === 'error')
@@ -393,7 +398,35 @@ $(function(){
             })
         } 
     })
+
+    // toggle table modal
+    $('.details').on('click', function(event){
+        if(event.target === this)
+        {
+            let id = $(this).attr('data-modal-toggle');
+            $('#'+ id).removeClass('hidden');
+            $('#'+ id).addClass('flex');
+
+        }
+    });
+   
+    $('.close').on('click',function(event){
+        
+        if(event.target === this)
+        {
+            let id = $(this).attr('data-modal-toggle');
+            $('#'+ id).removeClass('flex');
+            $('#'+ id).addClass('hidden');
+
+        }  
+            
+    });
+  
     
+
+
+
+
 
     //    Login form validation for input value
     $('#admin-login-email').on('keyup keypress',function()
@@ -406,27 +439,9 @@ $(function(){
     })
 
 
-    // $('#admin-login-form').on('submit',function(event){
-        
-    //     let valid = validateEmail('#admin-login-email','#admin-login-email-error') &&
-    //     validatePassword('#admin-login-password','#admin-login-password-error');
 
-    //     if(!valid)
-    //     { 
-    //         event.preventDefault();
-    //         $('#admin-login-submit-form-error').show();
-    //         $('#admin-login-submit-form-error').text('Please fill up the form correctly!');
-    //         setTimeout(function()
-    //         {
-    //             $('#admin-login-submit-form-error').hide();
-    //         },3000);
-    //         return false;
-    //     }
-       
-    
-    // });
-
-    $('#admin-login-form').on('submit',   function(event){
+    // Validate login form upon submission
+    $('#admin-login-form').on('submit', async function(event){
         event.preventDefault();
         let valid = validateEmail('#admin-login-email','#admin-login-email-error') &&
         validatePassword('#admin-login-password','#admin-login-password-error');
@@ -446,7 +461,7 @@ $(function(){
        
             let email = $('#admin-login-email').val();
             let password = $('#admin-login-password').val();
-             $.ajax({
+            await  $.ajax({
                  headers: {
                      "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
                  },
@@ -457,7 +472,7 @@ $(function(){
                      password: password 
                  },
                  success: function(resp){
-                   
+                                 
                         //  alert(JSON.stringify(resp))
                     if(resp['status'] === 'verified')
                     {
@@ -501,6 +516,7 @@ $(function(){
                     }
                  },
                  error: function(data){
+                   
                     $('#error-container').show()
                     $('#error-message').html('Invalid Email or password!')
                     setTimeout(function(){ 
@@ -514,13 +530,20 @@ $(function(){
     
     });
 
+
+
+
+
+
+
     // Forgot password form validation
     $('#forgot-password-email').on('keyup keypress',function()
     {
         validateEmail('#forgot-password-email','#forgot-password-email-error');
     })
 
-    $('#forgot-password-form').on('submit', function(event)
+    // Validate forgot password form upon submission
+    $('#forgot-password-form').on('submit', async function(event)
     {
         event.preventDefault();
         let valid = validateEmail('#forgot-password-email','#forgot-password-email-error');
@@ -528,7 +551,7 @@ $(function(){
         if(valid)
         {
             
-            $.ajax({
+           await $.ajax({
                 headers: {
                     "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
                 },
@@ -573,6 +596,120 @@ $(function(){
                 }
             });
         }
+    });
+
+
+
+    
+
+    //  check if admin current password input is correct
+    $("#current-password").on("keyup", async function () 
+    {
+        var current_password = $("#current-password").val();
+       await $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            type: "POST",
+            url: "/admin/check-admin-password",
+            data: { current_password: current_password },
+            success: function (resp) {
+                if (resp === "false") {
+                    $("#current-password-error").html('Wrong password');
+                    $("#current-password-error").css('color','lightcoral');
+                } else {
+                    // $("#current-pass-error").html('');
+                    validatePassword('#current-password','#current-password-error');
+                }
+            },
+            error: function () {
+                $('#error-message').show();
+                $("#error-text").html('Current password not found');
+                setTimeout(function(){
+                    $('#error-message').show();
+                },3000)
+            },
+        });
+    });
+
+    // Change password form validation
+    $('#new-password').on('keyup keypress',function()
+    {
+        validatePassword('#new-password','#new-password-error');
+    })
+    $('#confirm-password').on('keyup keydown',function()
+    {
+        validateConfirmPassword('#new-password','#confirm-password','#confirm-password-error');
+    })
+
+
+
+    // validate change password form upon submission 
+    $('#change-pass-form').on('submit', function(event)
+    {
+        event.preventDefault();
+
+        function validateChangePassForm()
+        {  
+            let valid = validatePassword('#current-password','#current-password-error') &&  validatePassword('#new-password','#new-password-error') && validateConfirmPassword('#new-password','#confirm-password','#confirm-password-error');
+                if(!valid)
+                { 
+                    $('#submit-error').show();
+                    $('#submit-error').text('Please fill up the form correctly');
+                    setTimeout(function()
+                    {
+                        $('#submit-error').hide();
+                    },3000);
+                    return false;
+                }
+                return true;
+        }
+       async function submitPassword()
+       {
+            var new_password = $("#new-password").val();
+            var current_password = $("#current-password").val();
+            await $.ajax({
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                },
+                type: "POST",
+                url: "/admin/update-password",
+                data: { new_password: new_password, current_password: current_password},
+                success: function (resp) {
+                    if (resp["status"] === 'false') {
+                        $('#error-message').show();
+                        $("#error-text").html('Current password is invalid!');
+                        setTimeout(function(){
+                            $('#error-message').hide();
+                        },3000)
+                    } else {
+                        $('#success-message').show();
+                        $("#success-text").html('Password updated successfully!');
+                        $('input').val('');
+                        setTimeout(function(){
+                            $('#success-message').hide();
+                        },3000)
+                    }
+                },
+                error: function () {
+                    $('#error-message').show();
+                    $("#error-text").html('Update password failed!');
+                    setTimeout(function(){
+                        $('#error-message').show();
+                    },3000)
+                },
+            });
+        }
+        const validated = validateChangePassForm()
+        if(validated){
+            submitPassword().catch(function(error){
+                $('#error-message').show();
+                $("#error-text").html('Update password failed!');
+                setTimeout(function(){
+                    $('#error-message').show();
+                },3000)
+            });
+        }      
     });
    
 });

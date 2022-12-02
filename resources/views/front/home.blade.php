@@ -2,36 +2,28 @@
 @section('content')
 
 @if (Session::get('page') === 'home')
-
-        <x-home />
-
+        @include('front.front-home')
+       
 @elseif (Session::get('page') === 'about')
-
-        <x-about />
+        @include('front.front-about')
 
 @elseif (Session::get('page') === 'cars')
-
-        <x-cars />
+        @include('front.front-cars')
 
 @elseif (Session::get('page') === 'contact')
-
-        <x-contact />
+        @include('front.front-contact')
 
 @elseif (Session::get('page') === 'login')
-
-        <x-front-login />
+        @include('front.front-login')
 
 @elseif (Session::get('page') === 'signup')
-
-        <x-front-signup />
+        @include('front.front-signup')
 
 @elseif (Session::get('page') === 'success')
-
-        <x-signup-success-page />
+        @include('front.front-signup-success-page')
 
 @elseif (Session::get('page') === 'forgot-password')
-
-        <x-forgot-password />
+        @include('front.front-forgot-password')
         
 @endif
 

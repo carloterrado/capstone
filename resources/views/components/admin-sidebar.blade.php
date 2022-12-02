@@ -16,7 +16,7 @@
                   <div class="inline-flex overflow-hidden relative justify-center items-center w-12 h-12 bg-gray-200 ring-2 ring-gray-300 rounded-full">
                     <span class="font-medium text-gray-600 ">{{Session::get('initials')}}</span>
                   </div>
-                  <div href="#" class="p-2 text-base font-semibold text-gray-900 rounded-lg capitalize">{{Session::get('fullname')}}</div>
+                  <div  class="p-2 text-base font-semibold text-gray-900 rounded-lg capitalize">{{Session::get('fullname')}}</div>
                 </li>
                 <li>
                   <a href="#" class="sidebar-hover mt-8 ">
@@ -45,17 +45,22 @@
                     </a>
                   </li>
                   <li>
-                    <a href="#" class="sidebar-list sidebar-hover flex justify-between">
+                    <a href="{{url('admin/cars')}}" class="sidebar-list sidebar-hover flex justify-between">
                       <span class="ml-12">cars</span>
                     </a>
                   </li>
                   <li>
-                    <a href="#" class="sidebar-list sidebar-hover flex justify-between">
+                    <a href="{{url('admin/owner-cars')}}" class="sidebar-list sidebar-hover flex justify-between">
+                      <span class="ml-12">owner cars</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{{url('admin/car-request')}}" class="sidebar-list sidebar-hover flex justify-between">
                       <span class="ml-12">car request</span>
                     </a>
                   </li>
                   <li>
-                    <a href="#" class="sidebar-list sidebar-hover flex justify-between">
+                    <a href="{{url('admin/car-declined')}}" class="sidebar-list sidebar-hover flex justify-between">
                       <span class="ml-12">decline cars</span>
                     </a>
                   </li>
@@ -68,27 +73,32 @@
                 </a>
                 <ul class="sub-menu hidden">
                   <li>
-                    <a href="#" class="sidebar-list sidebar-hover flex justify-between">
+                    <a href="{{url('admin/all-admins')}}" class="sidebar-list sidebar-hover flex justify-between">
                       <span class="ml-12">all admins</span>
                     </a>
                   </li>
                   <li>
-                    <a href="#" class="sidebar-list sidebar-hover flex justify-between">
-                      <span class="ml-12">sub admins</span>
+                    <a href="{{url('admin/admins')}}" class="sidebar-list sidebar-hover flex justify-between">
+                      <span class="ml-12">admins</span>
                     </a>
                   </li>
                   <li>
-                    <a href="#" class="sidebar-list sidebar-hover flex justify-between">
+                    <a href="{{url('admin/staff')}}" class="sidebar-list sidebar-hover flex justify-between">
+                      <span class="ml-12">staff</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{{url('admin/owners')}}" class="sidebar-list sidebar-hover flex justify-between">
                       <span class="ml-12">owners</span>
                     </a>
                   </li>
                   <li>
-                    <a href="#" class="sidebar-list sidebar-hover flex justify-between">
+                    <a href="{{url('admin/new-owners')}}" class="sidebar-list sidebar-hover flex justify-between">
                       <span class="ml-12">new owners</span>
                     </a>
                   </li>
                   <li>
-                    <a href="#" class="sidebar-list sidebar-hover flex justify-between">
+                    <a href="{{url('admin/declined-owners')}}" class="sidebar-list sidebar-hover flex justify-between">
                       <span class="ml-12">declined owners</span>
                     </a>
                   </li>
@@ -101,7 +111,7 @@
                 </a>
                 <ul class="sub-menu hidden">
                   <li>
-                    <a href="#" class="sidebar-list sidebar-hover flex justify-between">
+                    <a href="{{url('admin/users')}}" class="sidebar-list sidebar-hover flex justify-between">
                       <span class="ml-12">users</span>
                     </a>
                   </li>

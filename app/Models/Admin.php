@@ -10,4 +10,9 @@ class Admin extends  Authenticatable
 {
     use HasFactory;
     protected $guard = 'admin';
+
+    public function admins()
+    {
+        return $this->belongsTo(OwnerDetail::class,'owner_id');
+    }
 }

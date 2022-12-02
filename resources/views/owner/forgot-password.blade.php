@@ -19,10 +19,9 @@
 <body>
 
 
-    <x-admin-forgot-password />
-
+   @include('owner.admin-forgot-password')
    
- 
+
  
    <script src="{{url('js/app.js')}}"></script>
    <script src="{{url('front/js/index.js')}}"></script>

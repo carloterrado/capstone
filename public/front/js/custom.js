@@ -362,7 +362,7 @@ $(function(){
                 },
                 error: function(){
                     $('#error-container').show()
-                    $('#error-message').html('Email  already registered!')
+                    $('#error-message').html('Account registration failed!')
                     setTimeout(function(){
                         window.location.href = '/signup';  
                     },3000)
