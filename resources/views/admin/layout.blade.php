@@ -33,15 +33,16 @@
    @include('admin.admin-footer')
    <!-- Footer end -->
 
-
+   
    <script src="{{url('js/app.js')}}"></script>
    <script src="{{url('js/jquery.min.js')}}"></script>
    <script src="{{url('front/js/index.js')}}"></script>
    <script src="{{url('js/jquery.Datatable.js')}}"></script>
-   <script src="{{url('admins/js/custom.js')}}"></script>
    <script>
        $('#arkilla-table').DataTable();
    </script>
+   <script src="{{url('admins/js/custom.js')}}"></script>
+   
 </body>
 
 </html>

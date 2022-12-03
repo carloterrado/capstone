@@ -20,10 +20,10 @@
       <div class="bg-white flex items-center w-full max-w-md px-6 mx-auto lg:w-2/6">
           <div class="flex-1">
               <div class="text-center">
-                <x-session-error />
-                <x-session-success />
-                <x-ajax-error />
-                <x-ajax-success />
+              @include('message.session-error')
+              @include('message.session-success')
+              @include('message.ajax-error')
+              @include('message.ajax-success')
              
                   <h2 class="text-4xl font-bold text-center mt-6"><img class="mx-auto" src="{{url('front/images/Chesca_logo.svg')}}" alt=""></h2>
                   <p class="mt-3 text-gray-500">Create your car owner account now, it's free.</p>

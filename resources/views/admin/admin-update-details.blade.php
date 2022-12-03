@@ -21,10 +21,10 @@
           <div class="flex-1">
               <div class="text-center">
                   
-                  <x-session-error />
-                  <x-session-success />
-                  <x-ajax-error />
-                  <x-ajax-success />
+              @include('message.ajax-success')
+              @include('message.ajax-error')
+              @include('message.session-success')
+              @include('message.session-error')
                   
                   <h2 class="text-4xl font-bold text-center mt-6"><img class="mx-auto" src="front/images/Chesca_logo.svg" alt=""></h2>
                   <p class="mt-3 text-gray-500">Update details</p>

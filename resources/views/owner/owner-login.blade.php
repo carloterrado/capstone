@@ -23,10 +23,10 @@
         <div class="flex-1">
             <div class="text-center">
                 
-                <x-session-error />
-                <x-session-success />
-                <x-ajax-error />
-                <x-ajax-success />
+            @include('message.session-error')
+            @include('message.session-success')
+            @include('message.ajax-error')
+            @include('message.ajax-success')
               
                 <h2 class="text-4xl font-bold text-center"><img class="mx-auto" src="{{url('front/images/Chesca_logo.svg')}}" alt=""></h2>
                 <p class="mt-3 text-gray-500">Welcome back, please sign to your account</p>

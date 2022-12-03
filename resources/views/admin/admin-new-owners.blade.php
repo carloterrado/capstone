@@ -51,8 +51,6 @@
             <tbody>
              
                 @foreach($admins as $admin)
-                    
-                
                     <tr class="bg-white border-b  hover:bg-gray-50  ">
                         
                         <td class="p-4 px-6  font-semibold text-gray-900">

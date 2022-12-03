@@ -191,6 +191,34 @@ class AdminController extends Controller
    
 
     }
+    public function updateAdminStatus(Request $request)
+    {      
+        if($request->ajax()){
+            $data = $request->all();
+            // return response()->json(['status'=>$data]);
+         
+            if($data['status'] === 'Active'){
+                $status = 0;
+            }else{
+                $status = 1;
+            }
+            Admin::where('id',$data['admin_id'])->update(['status'=>$status]);
+            // $ownerID = Car::select('owner_id')->where('admin_id',$data['admin_id'])->first();
+            // if($ownerID['owner_id'] !== 0){
+            //     Car::where('admin_id',$data['admin_id'])->update(['status'=>$status]);
+            // }
+            return response()->json(['status'=>$status,'admin_id'=>$data['admin_id']]);
+        }
+    }
+    public function deleteAdminAccount(Request $request)
+    {
+       if($request->ajax())
+       {
+            $data = $request->all();
+           Admin::where('id',$data['admin_id'])->delete();  
+           return response()->json(['status'=>'deleted']);
+       }
+    }
     public function updatePassword(Request $request)
     {
         if($request->ajax()){

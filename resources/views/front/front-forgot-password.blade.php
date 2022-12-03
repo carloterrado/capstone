@@ -23,8 +23,8 @@
         <div class="flex-1">
             <div class="text-center">
                 
-                <x-ajax-error />
-                <x-ajax-success />
+                @include('message.ajax-success')
+                @include('message.ajax-error')
               
                 <h2 class="text-4xl font-bold text-center"><img class="mx-auto" src="{{url('front/images/Chesca_logo.svg')}}" alt=""></h2>
                 <p class="mt-3 text-gray-500">Forgot Password</p>

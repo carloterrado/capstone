@@ -340,29 +340,27 @@ $(function(){
                     if(resp["status"] === 'success')
                     {
                         window.location.href = '/success';  
-                        // $('#success-container').show()
-                        // $('#success-message').html('Account created successfully! Check your email to activate your account.')
                     }
                     else if(resp["status"] === 'error')
                     {  
-                        $('#error-container').show()
-                        $('#error-message').html('Email is already registered!')
+                        $('.error-container').show()
+                        $('.error-message').html('Email is already registered!')
                         setTimeout(function(){
                             window.location.href = '/signup';  
                         },3000)
                     }
                     else
                     {
-                        $('#error-container').show()
-                        $('#error-message').html('Email is already registered!')
+                        $('.error-container').show()
+                        $('.error-message').html('Email is already registered!')
                         setTimeout(function(){
                             window.location.href = '/signup';  
                         },3000)
                     }
                 },
                 error: function(){
-                    $('#error-container').show()
-                    $('#error-message').html('Account registration failed!')
+                    $('.error-container').show()
+                    $('.error-message').html('Account registration failed!')
                     setTimeout(function(){
                         window.location.href = '/signup';  
                     },3000)
@@ -373,8 +371,8 @@ $(function(){
        
         if(validated){
             submitSignupForm().catch(function(error){
-                $('#error-container').show()
-                $('#error-message').html('Registration failed!')
+                $('.error-container').show()
+                $('.error-message').html('Registration failed!')
                 setTimeout(function(){
                     window.location.href = '/signup';  
                 },3000)
@@ -436,28 +434,28 @@ $(function(){
                 }
                 else if(resp['status'] === 'inactive')
                 {  
-                    $('#error-container').show();
-                    $("#error-message").html('Please check your email first and verify your account!');
+                    $('.error-container').show();
+                    $(".error-message").html('Please check your email first and verify your account!');
                     setTimeout(function(){ 
-                        $('#error-container').hide();
+                        $('.error-container').hide();
                     },3000)
                 }
                 else 
                 {  
-                    $('#error-container').show();
-                    $("#error-message").html('Invalid email or password!');
+                    $('.error-container').show();
+                    $(".error-message").html('Invalid email or password!');
                     setTimeout(function(){ 
-                        $('#error-container').hide();
+                        $('.error-container').hide();
                     },3000)
                 }
                 
                
             },
             error: function () {
-                $('#error-container').show();
-                $("#error-message").html('Login failed!');
+                $('.error-container').show();
+                $(".error-message").html('Login failed!');
                 setTimeout(function(){ 
-                    $('#error-container').hide();
+                    $('.error-container').hide();
                 },3000)
             },
         });
@@ -468,10 +466,10 @@ $(function(){
     if(validated)
     {
         submitLoginForm().catch(function(error){
-            $('#error-container').show();
-            $("#error-message").html('Login failed!');
+            $('.error-container').show();
+            $(".error-message").html('Login failed!');
             setTimeout(function(){ 
-                $('#error-container').hide();
+                $('.error-container').hide();
             },3000)
         });
     }
@@ -503,35 +501,35 @@ $(function(){
                     // alert(JSON.stringify(resp['status']));
                     if(resp['status'] === 'found')
                     {
-                        $('#success-container').show()
-                        $('#success-message').html('A temporary password was sent to your email!')
+                        $('.success-container').show()
+                        $('.success-message').html('A temporary password was sent to your email!')
                         setTimeout(function(){
-                            $('#success-container').hide()
+                            $('.success-container').hide()
                         },3000)
                     }
                     else if (resp['status'] === 'notfound')
                     {
-                        $('#error-container').show()
-                        $('#error-message').html('Email is not yet registered!')
+                        $('.error-container').show()
+                        $('.error-message').html('Email is not yet registered!')
                         setTimeout(function(){
-                            $('#error-container').hide()
+                            $('.error-container').hide()
                         },3000)
                     } 
                     else 
                     {
-                        $('#error-container').show()
-                        $('#error-message').html('Invalid email!')
+                        $('.error-container').show()
+                        $('.error-message').html('Invalid email!')
                         setTimeout(function(){
-                            $('#error-container').hide()
+                            $('.error-container').hide()
                         },3000)
                     }
                 },
                 error: function()
                 {
-                    $('#error-container').show()
-                    $('#error-message').html('Invalid email!')
+                    $('.error-container').show()
+                    $('.error-message').html('Invalid email!')
                     setTimeout(function(){
-                        $('#error-container').hide()
+                        $('.error-container').hide()
                     },3000)
                 }
             });

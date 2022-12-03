@@ -5,40 +5,6 @@ $(function(){
         $(this).find('.bx-chevron-right').toggleClass('rotate-90');
     });
 
-    // toggle for table modal
-    // $('.details').on('click', function(event){
-    //     if(event.target === this)
-    //     {
-    //         let id = $('.modal-detail').attr('id');
-    //         $('#'+ id).removeClass('hidden');
-    //         $('#'+ id).addClass('flex');
-
-    //     }
-    // });
-   
-    // $('.modal-detail').on('click',function(event){
-        
-    //     if(event.target === this)
-    //     {
-    //         let id = $('.modal-detail').attr('id');
-    //         $('#'+ id).removeClass('flex');
-    //         $('#'+ id).addClass('hidden');
-
-    //     }  
-            
-    // });
-    // $('.close').on('click',function(event){
-        
-    //     if(event.target === this)
-    //     {
-    //         let id = $('.modal-detail').attr('id');
-    //         $('#'+ id).removeClass('flex');
-    //         $('#'+ id).addClass('hidden');
-
-    //     }  
-            
-    // });
-
 
     // Form Validation
 
@@ -246,38 +212,38 @@ $(function(){
                 success:function(resp){ 
                     if(resp["status"] === 'success')
                     {
-                        $('#success-container').show()
-                        $('#success-message').html('New admin account created successfully!')
+                        $('.success-container').show()
+                        $('.success-message').text('New admin account created successfully!')
                         setTimeout(function(){
-                            $('#success-container').hide()
+                            $('.success-container').hide()
                             $('#add-admin-form input').val('')
                         },3000)
                     }
                     
                     else if(resp["status"] === 'error')
                     {  
-                        $('#error-container').show()
-                        $('#error-message').html('Email is already registered!')
+                        $('.error-container').show()
+                        $('.error-message').html('Email is already registered!')
                         setTimeout(function(){
-                            $('#error-container').hide()
+                            $('.error-container').hide()
                         },3000)
                     }
                     else
                     {
-                        $('#error-container').show()
-                        $('#error-message').html('Email is already registered!')
+                        $('.error-container').show()
+                        $('.error-message').html('Email is already registered!')
                         setTimeout(function(){
-                            $('#error-container').hide()
+                            $('.error-container').hide()
                         },3000)
                     }
                     
                 },
                 error: function(error){
                     // alert(JSON.stringify(error))
-                    $('#error-container').show()
-                    $('#error-message').html('Email is already registered!')
+                    $('.error-container').show()
+                    $('.error-message').html('Email is already registered!')
                     setTimeout(function(){
-                        $('#error-container').hide()  
+                        $('.error-container').hide()  
                     },3000)
                     
                     
@@ -289,10 +255,10 @@ $(function(){
         if(validated){
             submitSignupForm().catch(function(error){
                 
-                $('#error-container').show()
-                $('#error-message').html('Add admin failed!')
+                $('.error-container').show()
+                $('.error-message').html('Add admin failed!')
                 setTimeout(function(){
-                    $('#error-container').hide()  
+                    $('.error-container').hide()  
                 },3000)
             })
         } 
@@ -385,25 +351,25 @@ $(function(){
                 data: { new_password: new_password, current_password: current_password},
                 success: function (resp) {
                     if (resp["status"] === 'false') {
-                        $('#error-message').show();
-                        $("#error-text").html('Current password is invalid!');
+                        $('.error-container').show();
+                        $(".error-message").html('Current password is invalid!');
                         setTimeout(function(){
-                            $('#error-message').hide();
+                            $('.error-container').hide();
                         },3000)
                     } else {
-                        $('#success-message').show();
-                        $("#success-text").html('Password updated successfully!');
+                        $('.success-container').show();
+                        $(".success-message").text('Password updated successfully!');
                         $('input').val('');
                         setTimeout(function(){
-                            $('#success-message').hide();
+                            $('.success-container').hide();
                         },3000)
                     }
                 },
                 error: function () {
-                    $('#error-message').show();
-                    $("#error-text").html('Update password failed!');
+                    $('.error-container').show();
+                    $(".error-message").html('Update password failed!');
                     setTimeout(function(){
-                        $('#error-message').show();
+                        $('.error-container').show();
                     },3000)
                 },
             });
@@ -411,10 +377,10 @@ $(function(){
         const validated = validateChangePassForm()
         if(validated){
             submitPassword().catch(function(error){
-                $('#error-message').show();
-                $("#error-text").html('Update password failed!');
+                $('.error-container').show();
+                $(".error-message").html('Update password failed!');
                 setTimeout(function(){
-                    $('#error-message').show();
+                    $('.error-container').show();
                 },3000)
             });
         }      
@@ -422,5 +388,70 @@ $(function(){
 
 
 
+    // Update admin status
+    $('#arkilla-table').on("click",".updateAdminStatus", async function () 
+    {
+        var status = $(this).children("i").attr("status");
+        var admin_id = $(this).attr("admin_id");
+        var newStatus;
+        if (status === "Inactive") newStatus = "Active";
+        else newStatus = "Inactive";
+        if(!confirm("Update status to "+ newStatus + "?")) return false
+    
+    await $.ajax({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                "content"
+            ),
+        },
+        type: "post",
+        url: "/admin/update-admin-status",
+        data: { status: status, admin_id: admin_id },
+        success: function (resp) {
+            // alert(JSON.stringify(resp['status']))
+            if (resp["status"] === 0) {
+                $("#admin-" + admin_id).html(
+                    '<i status="Inactive" class="bx bxs-user-x text-4xl text-accent-regular cursor-pointer"></i>'
+                );
+            } else if (resp["status"] === 1) {
+                $("#admin-" + admin_id).html(
+                    '<i status="Active" class="bx bxs-user-check text-4xl text-accent-regular cursor-pointer">'
+                );
+            }
+        },
+        error: function (resp) {
+            alert("error");
+        },
+    });
+        
+    });
+
+    // Delete admin
+    $("#arkilla-table").on("click",".confirmDelete", async function () 
+    {
+        var row = $(this).parentsUntil("tbody");
+        var module = $(this).attr("module");
+        var admin_id = $(this).attr("moduleid");
+
+        if(!confirm("Want to delete this "+ module + "?")) return false
+
+      await  $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                    "content"
+                ),
+            },
+            type: "post",
+            url: "/admin/delete-" + module,
+            data: { admin_id:admin_id },
+            success: function (resp) {
+                if(resp['status'] === 'deleted') row.remove()
+                else alert('Failed to delete admin!')
+            },
+            error: function (resp) {
+                alert("Delete failed! System error.")
+            },
+        });
+    });
 
 });

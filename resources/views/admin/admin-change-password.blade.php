@@ -9,18 +9,10 @@
             <div class="py-6 px-6 lg:px-8">
                 <h3 class="mb-4 text-base text-gray-900 dark:text-white">Change password</h3>
 
-            
-                <div id="error-message" class="hidden p-4 mb-4 bg-red-100 rounded-lg " role="alert">
-                <div id="error-text" class="ml-3 text-sm font-medium text-red-700 text-center ">error</div>
-                </div>
 
-            
-                <div id="success-message" class="hidden p-4 mb-4 bg-green-100 rounded-lg" role="alert">
-                <div id="success-text" class="ml-3 text-sm font-medium text-green-700 text-center">succes</div>
-                </div>
-
-
-            
+                @include('message.ajax-success')
+                @include('message.ajax-error')
+                
                 <form class="space-y-6" method="POST" id="change-pass-form">
                 @csrf
                     <div>
