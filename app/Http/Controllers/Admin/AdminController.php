@@ -31,7 +31,7 @@ class AdminController extends Controller
     }
     public function cars()
     {
-        Session::put('title','Cars');
+        Session::put('title','All Cars');
         Session::put('page','cars');
         if(Auth::guard('admin')->user()->type === 'owner')
         {
