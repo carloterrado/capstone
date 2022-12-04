@@ -52,15 +52,15 @@
                     </td>
                    
                     <td class="py-4 px-6 font-semibold text-gray-900 ">
-                        @if ($admin['status'] === 1)     
-                        Active
-                        @else
-                        Inactive
+                        @if ($admin['status'] === 1) 
+                        <a id="admin-{{$admin['id']}}" admin_id="{{$admin['id']}}" class="updateAdminStatus"><i status="Active" class='bx bxs-user-check text-4xl text-accent-regular cursor-pointer'></i></a>    
+                        @else 
+                        <a id="admin-{{$admin['id']}}" admin_id="{{$admin['id']}}" class="updateAdminStatus"><i status="Inactive"  class='bx bxs-user-x text-4xl text-accent-regular cursor-pointer'></i></a>
                         @endif
                     </td>
                     <td class="py-4 px-6">
                         <div class="flex items-center space-x-3 py-6">
-                            <i class='bx bxs-trash text-2xl text-accent-regular '></i>
+                        <a module="admin" admin-type="{{$admin['type']}}"  moduleid="{{$admin['id']}}" class="confirmDelete"><i  class='bx bxs-trash text-3xl text-accent-regular cursor-pointer '></i></a>
                         </div>
                     </td>
                 </tr>

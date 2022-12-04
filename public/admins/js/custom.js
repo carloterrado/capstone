@@ -111,7 +111,7 @@ $(function(){
         const isValidLength = /^.{6,20}$/;
         if (!isValidLength.test(newpass)) {
             $(errorElementID).css('color','lightcoral');
-            $(errorElementID).html('Input must be 10-16 Characters Long.');
+            $(errorElementID).html('Input must be 6-20 Characters Long.');
             return false;
         }
         $(errorElementID).css('color','black');
@@ -426,14 +426,83 @@ $(function(){
         
     });
 
+    // Update user status
+    $('#arkilla-table').on("click",".updateUserStatus", async function () 
+    {
+        var status = $(this).children("i").attr("status");
+        var user_id = $(this).attr("user_id");
+        var newStatus;
+        if (status === "Inactive") newStatus = "Active";
+        else newStatus = "Inactive";
+        if(!confirm("Update status to "+ newStatus + "?")) return false
+    
+    await $.ajax({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                "content"
+            ),
+        },
+        type: "post",
+        url: "/admin/update-user-status",
+        data: { status: status, user_id: user_id },
+        success: function (resp) {
+            // alert(JSON.stringify(resp['status']))
+            if (resp["status"] === 0) {
+                $(".updateUserStatus").html(
+                    '<i status="Inactive" class="bx bxs-user-x text-4xl text-accent-regular cursor-pointer"></i>'
+                );
+            } else if (resp["status"] === 1) {
+                $(".updateUserStatus").html(
+                    '<i status="Active" class="bx bxs-user-check text-4xl text-accent-regular cursor-pointer">'
+                );
+            }
+        },
+        error: function (resp) {
+            alert("error");
+        },
+    });
+        
+    });
+
+    // Approve or Decline admin
+    $("#arkilla-table").on("click",".updateAdminAccount", async function () 
+    {
+        var account = $(this).children("button").attr("account");
+        var row = $(this).parentsUntil("tbody");
+        var admin_id = $(this).attr("admin_account_id");
+
+        if(!confirm("Want to "+ account +" this account?")) return false
+
+      await  $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                    "content"
+                ),
+            },
+            type: "post",
+            url: "/admin/update-admin-account",
+            data: { account: account, admin_id: admin_id },
+            success: function (resp) {
+              
+                if(resp['data'] === 'verified') row.remove()
+                else if(resp['data'] === 'declined') row.remove()
+                else alert('Failed to '+ account +' admin!')
+            },
+            error: function (resp) {
+                alert(account +" failed! System error.")
+            },
+        });
+    });
+
     // Delete admin
     $("#arkilla-table").on("click",".confirmDelete", async function () 
     {
         var row = $(this).parentsUntil("tbody");
         var module = $(this).attr("module");
+        var type = $(this).attr("admin-type");
         var admin_id = $(this).attr("moduleid");
 
-        if(!confirm("Want to delete this "+ module + "?")) return false
+        if(!confirm("Want to delete this "+ type + "?")) return false
 
       await  $.ajax({
             headers: {
@@ -446,7 +515,7 @@ $(function(){
             data: { admin_id:admin_id },
             success: function (resp) {
                 if(resp['status'] === 'deleted') row.remove()
-                else alert('Failed to delete admin!')
+                else alert('Failed to delete '+ type +'!')
             },
             error: function (resp) {
                 alert("Delete failed! System error.")

@@ -244,7 +244,7 @@ class FrontController extends Controller
             if($userEmail)
             {
                 $email = $data['email'];
-                $tempPassword =  Str::random(10);
+                $tempPassword =  Str::random(15);
                 
                 $messageData = [
                     'email' => $email,

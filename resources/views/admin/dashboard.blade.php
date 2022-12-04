@@ -35,5 +35,8 @@
 
  @elseif (Session::get('page') === 'users')
     @include('admin.admin-users')
+    
+ @elseif (Session::get('page') === 'unverified-users')
+    @include('admin.admin-unverified-users')
  @endif
 @endsection

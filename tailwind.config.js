@@ -26,6 +26,7 @@ module.exports = {
                   dark: 'rgba(248, 57, 57, 0.80)',
                   light: 'rgba(161, 12, 12, 0.777)',
                   verylight: 'rgba(232, 73, 73, 0.10)',
+                  green: 'rgb(28, 176, 105)',
                 },
                 dark: '#060505',
                 mid: '#695252',

@@ -65,8 +65,12 @@ Route::prefix('admin')->group(function()
         Route::get('new-owners',[AdminController::class,'newOwners']);
         Route::get('declined-owners',[AdminController::class,'declinedOwners']);
         Route::get('users',[AdminController::class,'users']);
+        Route::get('unverified-users',[AdminController::class,'unverifiedUsers']);
         Route::post('update-admin-status',[AdminController::class,'updateAdminStatus']);
+        Route::post('update-user-status',[AdminController::class,'updateUserStatus']);
         Route::post('delete-admin',[AdminController::class,'deleteAdminAccount']);
+        Route::post('delete-user',[AdminController::class,'deleteUserAccount']);
+        Route::post('update-admin-account',[AdminController::class,'updateAdminAccount']);
         //  Admin update-password 
         Route::match(['get','post'],'update-password',[AdminController::class,'updatePassword']);
         //  Admin check-current-password 

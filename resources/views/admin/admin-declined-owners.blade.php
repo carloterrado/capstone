@@ -40,9 +40,7 @@
                     <th scope="col" class="py-3 px-6">
                         Status
                     </th>
-                    <th scope="col" class="py-3 px-6">
-                        Account
-                    </th>
+                  
                     <th scope="col" class="py-3 px-6">
                         Action
                     </th>
@@ -63,72 +61,20 @@
                         </div>
                     </td>
                     <td class="py-4 px-6 font-semibold text-gray-900 ">
-                        @if ($admin['status'] === 1)     
-                        Active
-                        @else
-                        Inactive
+                        @if ($admin['status'] === 1) 
+                        <i class='bx bxs-user-check text-4xl text-accent-regular cursor-pointer'></i>    
+                        @else 
+                        <i class='bx bxs-user-x text-4xl text-accent-regular cursor-pointer'></i>
                         @endif
-                    </td>
-                    <td class="py-4 px-6 font-semibold text-gray-900 ">
-                        {{ $admin['account'] }}   
-                        
                     </td>
                     <td class="py-4 px-6">
                         <div class="flex items-center space-x-3">
-                            <i class='bx bxs-trash text-2xl text-accent-regular '></i>
+                        <a module="admin" admin-type="{{$admin['type']}}"  moduleid="{{$admin['id']}}" class="confirmDelete"><i  class='bx bxs-trash text-3xl text-accent-regular cursor-pointer '></i></a>
                         </div>
                     </td>
                 </tr>
 
-                <div id="{{'admin'.$admin['id']}}" tabindex="-1" aria-hidden="true" class=" hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center p-4 w-full md:inset-0 h-modal md:h-full bg-black/50 rounded-lg">
-                    <div class="relative w-full max-w-2xl m-auto bg-white rounded-lg">
-                        
-                        <form action="#" class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                            
-                            <div class="flex justify-between items-start p-4 rounded-t border-b dark:border-gray-600">
-                                <h3 class="text-xl font-semibold text-gray-900 ">
-                                    Owner details
-                                </h3>
-                                <button data-modal-toggle="{{'admin'.$admin['id']}}"  type="button" class="close text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" >
-                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>  
-                                </button>
-                            </div>
-                        
-                            <div class="p-6 space-y-6">
-                                <div class="grid grid-cols-6 gap-6">
-                                    <div class="col-span-6 sm:col-span-3">
-                                        <label for="" class="block mb-2 text-sm font-medium text-gray-900 ">First Name</label>
-                                        <input type="text" value="{{$admin['first_name']}}"  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5" placeholder="Bonnie" required="">
-                                    </div>
-                                    <div class="col-span-6 sm:col-span-3">
-                                        <label for="" class="block mb-2 text-sm font-medium text-gray-900 ">Last name</label>
-                                        <input type="text"  value="{{$admin['last_name']}}"  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5" placeholder="Green" required="">
-                                    </div>
-                                    <div class="col-span-6 sm:col-span-3">
-                                        <label for="" class="block mb-2 text-sm font-medium text-gray-900 ">Email</label>
-                                        <input type="email" value="{{$admin['email']}}" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5" placeholder="example@company.com" required="">
-                                    </div>
-                                    <div class="col-span-6 sm:col-span-3">
-                                        <label for="" class="block mb-2 text-sm font-medium text-gray-900 ">Contact</label>
-                                        <input type="text" value="{{$admin['admins']['contact']}}"  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5" placeholder="e.g. +(12)3456 789" required="">
-                                    </div>
-                                    <div class="col-span-6 sm:col-span-3">
-                                        <label for="" class="block mb-2 text-sm font-medium text-gray-900 ">Birthdate</label>
-                                        <input type="text" value="{{$admin['admins']['birthdate']}}"  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5" placeholder="Development" required="">
-                                    </div>
-                                    <div class="col-span-6 sm:col-span-3">
-                                        <label for="" class="block mb-2 text-sm font-medium text-gray-900 ">Address</label>
-                                        <input type="text" value="{{$admin['admins']['address']}}" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5" placeholder="Development" required="">
-                                    </div>   
-                                </div>
-                            </div>
-                            
-                            <div class="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
-                                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save all</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+                @include('admin.admin-view-owner-details')
                     
                 @endforeach
                 

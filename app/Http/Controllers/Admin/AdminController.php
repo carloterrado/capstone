@@ -79,6 +79,10 @@ class AdminController extends Controller
         {
             return view('owner.dashboard');
         }
+        if(Auth::guard('admin')->user()->type === 'staff')
+        {
+            return redirect()->back();
+        }
         Session::put('title','All Admins');
         Session::put('page','all-admins');
         $admins = Admin::where([['type','!=','systemadmin'],['account','verified']])->with('admins')->get()->toArray();
@@ -119,6 +123,10 @@ class AdminController extends Controller
         {
             return view('owner.dashboard');
         }
+        if(Auth::guard('admin')->user()->type === 'staff')
+        {
+            return redirect()->back();
+        }
         Session::put('title','Admins');
         Session::put('page','admins');
         $admins = Admin::where([['type','admin'],['account','verified']])->get()->toArray();
@@ -131,6 +139,10 @@ class AdminController extends Controller
         if(Auth::guard('admin')->user()->type === 'owner')
         {
             return view('owner.dashboard');
+        }
+        if(Auth::guard('admin')->user()->type === 'staff')
+        {
+            return redirect()->back();
         }
         Session::put('title','Staff');
         Session::put('page','staff');
@@ -185,7 +197,20 @@ class AdminController extends Controller
         }
         Session::put('title','Users');
         Session::put('page','users');
-        $users = User::get()->toArray();
+        $users = User::where('email_verified_at','!=',null)->get()->toArray();
+       
+        return view('admin.dashboard')->with(compact('users'));
+   
+    }
+    public function unverifiedUsers()
+    {
+        if(Auth::guard('admin')->user()->type === 'owner')
+        {
+            return view('owner.dashboard');
+        }
+        Session::put('title','Unverified Users');
+        Session::put('page','unverified-users');
+        $users = User::where('email_verified_at',null)->get()->toArray();
        
         return view('admin.dashboard')->with(compact('users'));
    
@@ -207,8 +232,48 @@ class AdminController extends Controller
             // if($ownerID['owner_id'] !== 0){
             //     Car::where('admin_id',$data['admin_id'])->update(['status'=>$status]);
             // }
-            return response()->json(['status'=>$status,'admin_id'=>$data['admin_id']]);
+            return response()->json(['status'=>$status]);
         }
+    }
+    public function updateUserStatus(Request $request)
+    {      
+        if($request->ajax()){
+            $data = $request->all();
+            // return response()->json(['status'=>$data]);
+         
+            if($data['status'] === 'Active'){
+                $status = 0;
+            }else{
+                $status = 1;
+            }
+            User::where('id',$data['user_id'])->update(['status'=>$status]);
+         
+            return response()->json(['status'=>$status]);
+        }
+    }
+     public function updateAdminAccount(Request $request)
+    { 
+        if($request->ajax()){
+            $data = $request->all();
+            
+            // echo '<pre>'; print_r($data);die;
+            if($data['account'] === 'verified'){
+                $account = $data['account'] ;
+            }else{
+                $account = $data['account'];
+            }
+            Admin::where('id',$data['admin_id'])->update(['account'=>$account]);
+            return response()->json(['data'=>$account]);
+        }
+    }
+    public function deleteUserAccount(Request $request)
+    {
+       if($request->ajax())
+       {
+            $data = $request->all();
+           User::where('id',$data['admin_id'])->delete();  
+           return response()->json(['status'=>'deleted']);
+       }
     }
     public function deleteAdminAccount(Request $request)
     {
@@ -404,7 +469,7 @@ class AdminController extends Controller
             if($userEmail)
             {
                 $email = $data['email'];
-                $tempPassword =  Str::random(10);
+                $tempPassword =  Str::random(15);
                 
                 $messageData = [
                     'email' => $email,
@@ -471,9 +536,6 @@ class AdminController extends Controller
          
         return view('owner.login');
     }
-
-   
-
     public function logout()
     {
         Auth::guard('admin')->logout();

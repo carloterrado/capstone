@@ -1977,6 +1977,10 @@ input[type="range"]::-ms-fill-lower {
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
 }
+.bg-accent-green {
+  --tw-bg-opacity: 1;
+  background-color: rgb(28 176 105 / var(--tw-bg-opacity));
+}
 .bg-green-300 {
   --tw-bg-opacity: 1;
   background-color: rgb(132 225 188 / var(--tw-bg-opacity));
@@ -2209,10 +2213,6 @@ input[type="range"]::-ms-fill-lower {
 .text-lg {
   font-size: 1.125rem;
   line-height: 1.75rem;
-}
-.text-5xl {
-  font-size: 3rem;
-  line-height: 1;
 }
 .font-medium {
   font-weight: 500;

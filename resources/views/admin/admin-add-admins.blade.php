@@ -1,4 +1,4 @@
-<div id="add-admins" tabindex="-1" aria-hidden="true" class=" hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center p-4 w-full md:inset-0 h-modal md:h-full rounded-lg bg-black/50 ">
+<div id="add-admins" tabindex="-1" aria-hidden="true" class=" hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center p-4 w-full md:inset-0 h-modal md:h-full rounded-lg  ">
     <div class="relative w-full max-w-2xl m-auto">
         
         <form id="add-admin-form" method="POST" class="relative bg-white rounded-lg shadow ">

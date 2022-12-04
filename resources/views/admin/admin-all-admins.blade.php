@@ -78,7 +78,9 @@
                     </td>
                     <td class="py-4 px-6">
                         <div class="flex items-center space-x-3 py-6">
-                        <a module="admin"  moduleid="{{$admin['id']}}" class="confirmDelete"><i  class='bx bxs-trash text-3xl text-accent-regular cursor-pointer '></i></a>
+                           
+                            <a module="admin" admin-type="{{$admin['type']}}"  moduleid="{{$admin['id']}}" class="confirmDelete"><i  class='bx bxs-trash text-3xl text-accent-regular cursor-pointer '></i></a>
+                        
                         </div>
                     </td>
                 </tr>
