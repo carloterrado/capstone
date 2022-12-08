@@ -6,11 +6,13 @@ $(function(){
         $(this).next('.sub-menu').slideToggle();
         $(this).find('.bx-chevron-right').toggleClass('rotate-90');
     });
+    // Multi step form
+    
 
    
-    // Form Validation
+    //       Form Validation
 
-    // Validation for name input
+    //       Validation for name input
     function validateName(nameID,errorElementID,type){
         let name = $(nameID).val();
 
@@ -35,8 +37,7 @@ $(function(){
         $(errorElementID).css('color','black');
         return true;
     }
-
-    // Validation for email input
+    //       Validation for email input
     function validateEmail(emailID,errorElementID)
     {
         let email = $(emailID).val();
@@ -57,8 +58,7 @@ $(function(){
         $(errorElementID).css('color','black');
         return true;
     }
-
-    // Validation for birthdate input
+    //       Validation for birthdate input
     function validateBirthdate(birthdateID,errorElementID)
     {
         let birthdate = $(birthdateID).val();
@@ -83,8 +83,7 @@ $(function(){
         $(errorElementID).css('color','black');
         return true; 
     }
-
-    // Validation for contact input
+    //       Validation for contact input
     function validateContact(contactID,errorElementID)
     {
         let contact = $(contactID).val();
@@ -118,8 +117,7 @@ $(function(){
         $(errorElementID).css('color','black');
         return true; 
     }
-
-    // Validation for address input
+    //       Validation for address input
     function validateAddress(addressID,errorElementID)
     {
         let address = $(addressID).val();
@@ -139,8 +137,7 @@ $(function(){
         $(errorElementID).css('color','black');
         return true; 
     }
-
-    // Validation password input
+    //       Validation password input
     function validatePassword(passwordID,errorElementID)
     {
         let password = $(passwordID).val();
@@ -189,8 +186,7 @@ $(function(){
         return true;
 
     }
-
-    // Validation for confirm password input
+    //       Validation for confirm password input
     function validateConfirmPassword(passwordID,confirmPasswordID,errorElementID)
     {
         let password = $(passwordID).val();
@@ -211,8 +207,7 @@ $(function(){
         $(errorElementID).css('color','black');
         return true;
     }
-
-    //   Validation for valid id choice
+    //       Validation for valid id choice
     function validateValidID(validID,errorElementID)
     {
         let validchoice = $(validID).children('option:selected').val();
@@ -226,8 +221,7 @@ $(function(){
         $(errorElementID).css('color','black');
         return true;
     }
-
-    //   Validation for valid image file
+    //       Validation for valid image file
     function validateImageFile(imageID,errorElementID)
     {
         let validID = $(imageID).val();
@@ -250,7 +244,7 @@ $(function(){
         $(errorElementID).css('color','black');
         return true;
     }
-    //   Validation for terms and conditions
+    //       Validation for terms and conditions
     function validateTerms(termsID,errorElementID)
     {  
         if(!$(termsID).is(':checked'))
@@ -266,8 +260,7 @@ $(function(){
 
 
             
-    //    Signup form validation for input value
-        
+    //        Signup form validation for input value     
     $('#owner-signup-first-name').on('keyup keypress',function()
     {
         validateName('#owner-signup-first-name','#owner-signup-first-name-error','Name');
@@ -304,11 +297,10 @@ $(function(){
     {
         validateValidID('#owner-signup-valid-id','#owner-signup-valid-id-error');
     })
-   
-
-        // Validate signup form upon submission
+    //           Validate signup form upon submission
     $('#owner-signup-form').on('submit', function(event)
     {
+
         event.preventDefault();
 
         function validateSignupForm(){
@@ -348,39 +340,39 @@ $(function(){
                     
                     if(resp["status"] === 'success')
                     {
-                        $('.success-container').show()
-                        $('.success-message').html('We send you a confirmation email and wait for admin to verify your account')
-                        setTimeout(function(){
                             window.location.href = '/success';  
-                        },3000)
                     }
-                 
                     else if(resp["status"] === 'error')
                     {  
+                        $('.loading').removeClass('grid')
+                        $('.loading').hide()
                         $('.error-container').show()
                         $('.error-message').html('Email is already registered!')
                         setTimeout(function(){
-                            window.location.href = '/admin/signup';  
+                            $('.error-container').hide()  
                         },3000)
                     }
                     else
                     {
+                        $('.loading').removeClass('grid')
+                        $('.loading').hide()
                         $('.error-container').show()
                         $('.error-message').html('Email is already registered!')
                         setTimeout(function(){
-                            window.location.href = '/admin/signup';  
+                            $('.error-container').hide()
                         },3000)
                     }
                     
                 },
                 error: function(error){
                     // alert(JSON.stringify(error))
+                    $('.loading').removeClass('grid')
+                    $('.loading').hide()
                     $('.error-container').show()
-                    $('.error-message').html('Email is registered!')
+                    $('.error-message').html('System account registration failed!')
                     setTimeout(function(){
-                        window.location.href = '/admin/signup';  
+                        $('.error-container').hide()
                     },3000)
-                    // Use this for now because we havent yet upload the mailer name
                     
                 }
             })
@@ -388,10 +380,13 @@ $(function(){
         let validated = validateSignupForm()
        
         if(validated){
+            $('.loading').removeClass('hidden')
+            $('.loading').addClass('grid')
             submitSignupForm().catch(function(error){
-               
+                $('.loading').removeClass('grid')
+                $('.loading').hide()
                 $('.error-container').show()
-                $('.error-message').html('Registration failed!')
+                $('.error-message').html('System account registration failed!')
                 setTimeout(function(){
                     window.location.href = '/admin/signup';  
                 },3000)
@@ -402,7 +397,7 @@ $(function(){
 
 
 
-    //    Login form validation for input value
+    //        Login form validation for input value
     $('#admin-login-email').on('keyup keypress',function()
     {
         validateEmail('#admin-login-email','#admin-login-email-error');
@@ -411,10 +406,7 @@ $(function(){
     {
         validatePassword('#admin-login-password','#admin-login-password-error');
     })
-
-
-
-    // Validate login form upon submission
+    //        Validate login form upon submission
     $('#admin-login-form').on('submit', async function(event){
         event.preventDefault();
         let valid = validateEmail('#admin-login-email','#admin-login-email-error') &&
@@ -432,73 +424,79 @@ $(function(){
             return false;
         }
 
-       
-            let email = $('#admin-login-email').val();
-            let password = $('#admin-login-password').val();
-            await  $.ajax({
-                 headers: {
-                     "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-                 },
-                 type: 'post',
-                 url: '/admin/login',
-                 data: {
-                     email: email,
-                     password: password 
-                 },
-                 success: function(resp){
-                                 
-                        //  alert(JSON.stringify(resp))
-                    if(resp['status'] === 'verified')
-                    {
-                        window.location.href = '/admin/dashboard';  
-                    }
-                    else if(resp['status'] === 'unverified')
-                    {
-                        $('.error-container').show()
-                        $('.error-message').html('Your account is not yet verified by admin!')
-                        setTimeout(function(){ 
-                            $('.error-container').hide()  
-                            window.location.href = '/admin/login';  
-                        },5000) 
-                    }
-                    else if(resp['status'] === 'declined')
-                    {
-                        $('.error-container').show()
-                        $('.error-message').html('Your account has been declined!')
-                        setTimeout(function(){ 
-                            $('.error-container').hide() 
-                            window.location.href = '/admin/login';    
-                        },5000) 
-                    }
-                    else if(resp['status'] === 'unconfirmed')
-                    {
-                        $('.error-container').show()
-                        $('.error-message').html('Please check your email and confirm your account!')
-                        setTimeout(function(){ 
-                            $('.error-container').hide() 
-                            window.location.href = '/admin/login';    
-                        },5000) 
-                    }
-                    else
-                    {
-                        $('.error-container').show()
-                        $('.error-message').html('Invalid Email or password!')
-                        setTimeout(function(){ 
-                            $('.error-container').hide() 
-                            window.location.href = '/admin/login';    
-                        },5000)  
-                    }
-                 },
-                 error: function(data){
-                   
+        $('.loading').removeClass('hidden')
+        $('.loading').addClass('grid')
+        let email = $('#admin-login-email').val();
+        let password = $('#admin-login-password').val();
+        await  $.ajax({
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                },
+                type: 'post',
+                url: '/admin/login',
+                data: {
+                    email: email,
+                    password: password 
+                },
+                success: function(resp){
+                                
+                    //  alert(JSON.stringify(resp))
+                if(resp['status'] === 'verified')
+                {
+                    window.location.href = '/admin/dashboard';  
+                }
+                else if(resp['status'] === 'unverified')
+                {
+                    $('.loading').removeClass('grid')
+                    $('.loading').hide()
+                    $('.error-container').show()
+                    $('.error-message').html('Your account is not yet verified by admin!')
+                    setTimeout(function(){ 
+                        $('.error-container').hide()  
+                    },3000) 
+                }
+                else if(resp['status'] === 'declined')
+                {
+                    $('.loading').removeClass('grid')
+                    $('.loading').hide()
+                    $('.error-container').show()
+                    $('.error-message').html('Your account has been declined!')
+                    setTimeout(function(){ 
+                        $('.error-container').hide() 
+                    },3000) 
+                }
+                else if(resp['status'] === 'unconfirmed')
+                {
+                    $('.loading').removeClass('grid')
+                    $('.loading').hide()
+                    $('.error-container').show()
+                    $('.error-message').html('Please check your email and confirm your account!')
+                    setTimeout(function(){ 
+                        $('.error-container').hide()    
+                    },3000) 
+                }
+                else
+                {
+                    $('.loading').removeClass('grid')
+                    $('.loading').hide()
                     $('.error-container').show()
                     $('.error-message').html('Invalid Email or password!')
                     setTimeout(function(){ 
+                        $('.error-container').hide()    
+                    },3000)  
+                }
+                },
+                error: function(data){
+                    $('.loading').removeClass('grid')
+                    $('.loading').hide()
+                    $('.error-container').show()
+                    $('.error-message').html('System login failed!')
+                    setTimeout(function(){ 
                         $('.error-container').hide() 
                         window.location.href = '/admin/login';  
-                    },5000) 
-                 }
-             })
+                    },3000) 
+                }
+        })
         
        
     
@@ -508,15 +506,12 @@ $(function(){
 
 
 
-
-
-    // Forgot password form validation
+    //            Forgot password form validation
     $('#forgot-password-email').on('keyup keypress',function()
     {
         validateEmail('#forgot-password-email','#forgot-password-email-error');
     })
-
-    // Validate forgot password form upon submission
+    //            Validate forgot password form upon submission
     $('#forgot-password-form').on('submit', async function(event)
     {
         event.preventDefault();
@@ -524,6 +519,8 @@ $(function(){
         let email = $('#forgot-password-email').val();
         if(valid)
         {  
+            $('.loading').removeClass('hidden')
+            $('.loading').addClass('grid')
            await $.ajax({
                 headers: {
                     "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
@@ -536,6 +533,8 @@ $(function(){
                     // alert(JSON.stringify(resp['status']));
                     if(resp['status'] === 'found')
                     {
+                        $('.loading').removeClass('grid')
+                        $('.loading').hide()
                         $('.success-container').show()
                         $('.success-message').html('A temporary password was sent to your email!')
                         setTimeout(function(){
@@ -544,6 +543,8 @@ $(function(){
                     }
                     else if (resp['status'] === 'notfound')
                     {
+                        $('.loading').removeClass('grid')
+                        $('.loading').hide()
                         $('.error-container').show()
                         $('.error-message').html('Email is not yet registered!')
                         setTimeout(function(){
@@ -552,6 +553,8 @@ $(function(){
                     } 
                     else 
                     {
+                        $('.loading').removeClass('grid')
+                        $('.loading').hide()
                         $('.error-container').show()
                         $('.error-message').html('Invalid email!')
                         setTimeout(function(){
@@ -561,6 +564,8 @@ $(function(){
                 },
                 error: function()
                 {
+                    $('.loading').removeClass('grid')
+                    $('.loading').hide()
                     $('.error-container').show()
                     $('.error-message').html('Invalid email!')
                     setTimeout(function(){
@@ -575,7 +580,7 @@ $(function(){
 
     
 
-    //  check if admin current password input is correct
+    //          Change password form validation
     $("#current-password").on("keyup", async function () 
     {
         var current_password = $("#current-password").val();
@@ -603,9 +608,8 @@ $(function(){
                 },3000)
             },
         });
-    });
-
-    // Change password form validation
+    })
+    
     $('#new-password').on('keyup keypress',function()
     {
         validatePassword('#new-password','#new-password-error');
@@ -614,10 +618,7 @@ $(function(){
     {
         validateConfirmPassword('#new-password','#confirm-password','#confirm-password-error');
     })
-
-
-
-    // validate change password form upon submission 
+    //         Validate change password form upon submission 
     $('#change-pass-form').on('submit', function(event)
     {
         event.preventDefault();
@@ -683,6 +684,30 @@ $(function(){
                 },3000)
             });
         }      
-    });
+    })
+
+
+
+    //    Add car form validation
+    $('.step-2').on('click', function(){
+        let valid = validateName('#add-car-name','#add-car-name-error','Car name') && validateName('#add-car-type','#add-car-type-error','Car type');
+        if(valid)
+        {
+            $('.form-step').hide()
+            $('.step-two').show()
+        }   
+    })
+    $('.step-1').on('click', function(){
+        $('.form-step').hide()
+        $('.step-one').show()
+    })
+    $('.step-3').on('click', function(){
+        let valid = validateName('#add-car-price','#add-car-price-error','Car Price') && validateName('#add-car-capacity','#add-car-capacity-error','Car capacity');
+        if(valid)
+        {
+            $('.form-step').hide()
+            $('.step-three').show()
+        } 
+    })
    
 });

@@ -9,6 +9,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
@@ -255,14 +256,34 @@ class AdminController extends Controller
     { 
         if($request->ajax()){
             $data = $request->all();
+            $owner = Admin::find($data['admin_id']);
             
+             // Send confirmation email to owner email
+             $email = $owner->email;
+             $name = $owner->first_name. ' ' .$owner->last_name; 
+             
+             $messageData = [
+                 'email' => $email,
+                 'name' => $name,
+             ];
+
             // echo '<pre>'; print_r($data);die;
             if($data['account'] === 'verified'){
                 $account = $data['account'] ;
-            }else{
-                $account = $data['account'];
+                Admin::where('id',$data['admin_id'])->update(['account'=>$account]);
+                Mail::send('emails.owner.owner-car-accepted',$messageData, function($message)use($email){
+                    $message->to($email)->subject('Owner Account Status');
+                });
             }
-            Admin::where('id',$data['admin_id'])->update(['account'=>$account]);
+            else if ($data['account'] === 'declined')
+            {
+                $account = $data['account'];
+                Admin::where('id',$data['admin_id'])->update(['account'=>$account]);
+                Mail::send('emails.owner.owner-car-declined',$messageData, function($message)use($email){
+                    $message->to($email)->subject('Owner Account Status');
+                });
+            } 
+
             return response()->json(['data'=>$account]);
         }
     }
@@ -280,6 +301,17 @@ class AdminController extends Controller
        if($request->ajax())
        {
             $data = $request->all();
+            $admin = Admin::find($data['admin_id']);
+            if($admin->type === 'owner')
+            {
+                $owner = OwnerDetail::find($admin->owner_id);
+                $license = public_path('owner/images/license/'.$owner->license);
+                File::delete($license);
+                $id = public_path('owner/images/id/'.$owner->valid_id_file);
+                File::delete($id);
+                Admin::where('id',$data['admin_id'])->delete();  
+                OwnerDetail::where('id',$admin->owner_id)->delete();  
+            }
            Admin::where('id',$data['admin_id'])->delete();  
            return response()->json(['status'=>'deleted']);
        }
@@ -328,7 +360,7 @@ class AdminController extends Controller
                     if($img_tmp1->isValid() && $img_tmp2->isValid()){
                         // --- Get image extension --- //
                         $extension1 = $img_tmp1->getClientOriginalExtension(); 
-                        $extension2 = $img_tmp1->getClientOriginalExtension(); 
+                        $extension2 = $img_tmp2->getClientOriginalExtension(); 
                         // --- Generate new image name --- //
                         $imgName1 = rand(111,99999).'.'.$extension1; 
                         $imgPath1 ='owner/images/license/'.$imgName1;
@@ -336,10 +368,10 @@ class AdminController extends Controller
                         $imgPath2 ='owner/images/id/'.$imgName2;
                     
                         // --- Upload and resize the image --- //
-                        Image::make($img_tmp1)->resize(500,500,function($constraint){
+                        Image::make($img_tmp1)->resize(1500,1500,function($constraint){
                                 $constraint->aspectRatio();
                             })->save($imgPath1);
-                        Image::make($img_tmp2)->resize(500,500,function($constraint){
+                        Image::make($img_tmp2)->resize(1500,1500,function($constraint){
                                 $constraint->aspectRatio();
                             })->save($imgPath2);
                     
@@ -384,7 +416,7 @@ class AdminController extends Controller
                     $message->to($email)->subject('Confirm your Owner Account');
                 });
 
-                Session::put('message', 'Congratulations! Your account has been successfully created. Check your email and verify your account. Wait for admin to verify your account first. Thank you.');
+                Session::put('message', 'Congratulations! Your account has been successfully created. Check your email and verify your account. Wait for the admin to verify your credentials first. Thank you.');
                
                 return response()->json(['status'=>'success']);
               

@@ -29,7 +29,6 @@ $(function(){
         $(errorElementID).css('color','black');
         return true;
     }
-
     // Validation for email input
     function validateEmail(emailID,errorElementID)
     {
@@ -51,7 +50,6 @@ $(function(){
         $(errorElementID).css('color','black');
         return true;
     }
-
     // Validation for birthdate input
     function validateBirthdate(birthdateID,errorElementID)
     {
@@ -77,7 +75,6 @@ $(function(){
         $(errorElementID).css('color','black');
         return true; 
     }
-
     // Validation for contact input
     function validateContact(contactID,errorElementID)
     {
@@ -112,7 +109,6 @@ $(function(){
         $(errorElementID).css('color','black');
         return true; 
     }
-
     // Validation for address input
     function validateAddress(addressID,errorElementID)
     {
@@ -133,7 +129,6 @@ $(function(){
         $(errorElementID).css('color','black');
         return true; 
     }
-
     // Validation password input
     function validatePassword(passwordID,errorElementID)
     {
@@ -183,7 +178,6 @@ $(function(){
         return true;
 
     }
-
     // Validation for confirm password input
     function validateConfirmPassword(passwordID,confirmPasswordID,errorElementID)
     {
@@ -205,8 +199,6 @@ $(function(){
         $(errorElementID).css('color','black');
         return true;
     }
-
-
     //   Validation for valid id choice
     function validateValidID(validID,errorElementID)
     {
@@ -221,7 +213,6 @@ $(function(){
         $(errorElementID).css('color','black');
         return true;
     }
-
     //   Validation for valid image file
     function validateImageFile(imageID,errorElementID)
     {
@@ -244,7 +235,6 @@ $(function(){
         $(errorElementID).hide();
         return true;
     }
-
     //   Validation for terms and conditions
     function validateTerms(termsID,errorElementID)
     {  
@@ -260,7 +250,7 @@ $(function(){
     }
 
         
-    //    Signup form validation for input value
+    //        Signup form validation for input value
         
     $('#front-signup-first-name').on('keyup keypress',function()
     {
@@ -298,15 +288,14 @@ $(function(){
     {
         validateValidID('#front-signup-valid-id','#front-signup-valid-id-error');
     })
-
-    // Validate form upon submission
+    //        Validate signup form upon submission
     $('#front-signup-form').on('submit', function(event)
     {
         event.preventDefault();
 
         function validateSignupForm(){
             let valid = validateName('#front-signup-first-name','#front-signup-first-name-error','First name') && validateName('#front-signup-last-name','#front-signup-last-name-error', 'Last name') && validateEmail('#front-signup-email','#front-signup-email-error') && validateBirthdate('#front-signup-birthdate','#front-signup-birthdate-error') && validateContact('#front-signup-contact','#front-signup-contact-error') &&      validateAddress('#front-signup-address','#front-signup-address-error') &&
-            validatePassword('#front-signup-password','#front-signup-password-error') &&  validateConfirmPassword('#front-signup-password','#front-signup-confirm-password','#front-signup-confirm-password-error')  && validateImageFile('#front-signup-license','#front-signup-license-error') && validateValidID('#front-signup-valid-id','#front-signup-valid-id-error') && validateImageFile('#front-signup-id-file','#front-signup-id-file-error') && validateTerms('#front-signup-terms','#front-signup-terms-error');
+            validatePassword('#front-signup-password','#front-signup-password-error') &&  validateConfirmPassword('#front-signup-password','#front-signup-confirm-password','#front-signup-confirm-password-error')  && validateValidID('#front-signup-valid-id','#front-signup-valid-id-error') && validateImageFile('#front-signup-id-file','#front-signup-id-file-error') && validateTerms('#front-signup-terms','#front-signup-terms-error');
             if(!valid)
             {  
                 //  event.preventDefault();
@@ -337,6 +326,8 @@ $(function(){
                 contentType: false,
                 success:function(resp){
                     //  alert(JSON.stringify(resp))
+                    $('.loading').removeClass('grid')
+                    $('.loading').hide()
                     if(resp["status"] === 'success')
                     {
                         window.location.href = '/success';  
@@ -346,7 +337,7 @@ $(function(){
                         $('.error-container').show()
                         $('.error-message').html('Email is already registered!')
                         setTimeout(function(){
-                            window.location.href = '/signup';  
+                            $('.error-container').hide()  
                         },3000)
                     }
                     else
@@ -354,15 +345,17 @@ $(function(){
                         $('.error-container').show()
                         $('.error-message').html('Email is already registered!')
                         setTimeout(function(){
-                            window.location.href = '/signup';  
+                            $('.error-container').hide()
                         },3000)
                     }
                 },
                 error: function(){
+                    $('.loading').removeClass('grid')
+                    $('.loading').hide()
                     $('.error-container').show()
-                    $('.error-message').html('Account registration failed!')
+                    $('.error-message').html('System account registration failed!')
                     setTimeout(function(){
-                        window.location.href = '/signup';  
+                        $('.error-container').hide()
                     },3000)
                 }
             })
@@ -370,9 +363,13 @@ $(function(){
         let validated = validateSignupForm()
        
         if(validated){
+            $('.loading').removeClass('hidden')
+            $('.loading').addClass('grid')
             submitSignupForm().catch(function(error){
+                $('.loading').removeClass('grid')
+                $('.loading').hide()
                 $('.error-container').show()
-                $('.error-message').html('Registration failed!')
+                $('.error-message').html('System account registration failed!')
                 setTimeout(function(){
                     window.location.href = '/signup';  
                 },3000)
@@ -380,7 +377,9 @@ $(function(){
         } 
     })
 
-    //    Login form validation for input value
+
+
+    //        Login form validation for input value
     $('#front-login-email').on('keyup keypress',function()
     {
         validateEmail('#front-login-email','#front-login-email-error');
@@ -389,7 +388,7 @@ $(function(){
     {
         validatePassword('#front-login-password','#front-login-password-error');
     })
-
+    //        Validate signup form upon submission
     $('#front-login-form').on('submit',function(event){
         event.preventDefault();
     
@@ -427,7 +426,8 @@ $(function(){
             processData: false,
             contentType: false,
             success: function (resp) {
-                
+                $('.loading').removeClass('grid')
+                $('.loading').hide()
                 if(resp['status'] === 'active')
                 {
                         window.location.href = '/';    
@@ -435,7 +435,7 @@ $(function(){
                 else if(resp['status'] === 'inactive')
                 {  
                     $('.error-container').show();
-                    $(".error-message").html('Please check your email first and verify your account!');
+                    $('.error-message').html('Please check your email first and verify your account!');
                     setTimeout(function(){ 
                         $('.error-container').hide();
                     },3000)
@@ -452,8 +452,10 @@ $(function(){
                
             },
             error: function () {
+                $('.loading').removeClass('grid')
+                $('.loading').hide()
                 $('.error-container').show();
-                $(".error-message").html('Login failed!');
+                $(".error-message").html('System login failed!');
                 setTimeout(function(){ 
                     $('.error-container').hide();
                 },3000)
@@ -465,22 +467,28 @@ $(function(){
 
     if(validated)
     {
+        $('.loading').removeClass('hidden')
+        $('.loading').addClass('grid')
         submitLoginForm().catch(function(error){
+            $('.loading').removeClass('grid')
+            $('.loading').hide()
             $('.error-container').show();
-            $(".error-message").html('Login failed!');
+            $(".error-message").html('System login failed!');
             setTimeout(function(){ 
-                $('.error-container').hide();
+                window.location.href = '/login'; 
             },3000)
         });
     }
     });
 
-    // Forgot password form validation
+
+
+
+    //        Forgot password form validation
     $('#forgot-password-email').on('keyup keypress',function()
     {
         validateEmail('#forgot-password-email','#forgot-password-email-error');
     })
-
     $('#forgot-password-form').on('submit', function(event)
     {
         event.preventDefault();
@@ -488,7 +496,8 @@ $(function(){
         let email = $('#forgot-password-email').val();
         if(valid)
         {
-            
+            $('.loading').removeClass('hidden')
+            $('.loading').addClass('grid')
             $.ajax({
                 headers: {
                     "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
@@ -498,9 +507,11 @@ $(function(){
                 data: {email:email},
                 success: function(resp)
                 {
+                    $('.loading').removeClass('grid')
+                    $('.loading').hide()
                     // alert(JSON.stringify(resp['status']));
                     if(resp['status'] === 'found')
-                    {
+                    { 
                         $('.success-container').show()
                         $('.success-message').html('A temporary password was sent to your email!')
                         setTimeout(function(){
@@ -526,8 +537,10 @@ $(function(){
                 },
                 error: function()
                 {
+                    $('.loading').removeClass('grid')
+                    $('.loading').hide()
                     $('.error-container').show()
-                    $('.error-message').html('Invalid email!')
+                    $('.error-message').html('System forgot password failed!')
                     setTimeout(function(){
                         $('.error-container').hide()
                     },3000)

@@ -96,32 +96,24 @@ class FrontController extends Controller
             }
             else
             {
-                if($request->hasFile('front-signup-license') && $request->hasFile('front-signup-id-file'))
-                {
-                    $img_tmp1 = $request->file('front-signup-license'); 
+                if($request->hasFile('front-signup-id-file'))
+                { 
                     $img_tmp2 = $request->file('front-signup-id-file');
-                    if($img_tmp1->isValid() && $img_tmp2->isValid()){
-                        // --- Get image extension --- //
-                        $extension1 = $img_tmp1->getClientOriginalExtension(); 
-                        $extension2 = $img_tmp1->getClientOriginalExtension(); 
-                        // --- Generate new image name --- //
-                        $imgName1 = rand(111,99999).'.'.$extension1; 
-                        $imgPath1 ='front/images/users/license/'.$imgName1;
+                    if($img_tmp2->isValid()){
+                        // Get image extension 
+                        $extension2 = $img_tmp2->getClientOriginalExtension(); 
+
+                        // Generate new image name 
                         $imgName2 = rand(111,99999).'.'.$extension2;
                         $imgPath2 ='front/images/users/id/'.$imgName2;
                     
-                        // --- Upload and resize the image --- //
-                        Image::make($img_tmp1)->resize(500,500,function($constraint){
-                                $constraint->aspectRatio();
-                            })->save($imgPath1);
-                        Image::make($img_tmp2)->resize(500,500,function($constraint){
+                        // Upload and resize the image
+                        Image::make($img_tmp2)->resize(1500,1500,function($constraint){
                                 $constraint->aspectRatio();
                             })->save($imgPath2);
-                    
                     }
                 }
                 
-    
                 $user = new User;
                 $user->first_name = $data['front-signup-first-name'];
                 $user->last_name = $data['front-signup-last-name'];
@@ -135,7 +127,6 @@ class FrontController extends Controller
                 $user->contact = $data['front-signup-contact'];
                 $user->address = $data['front-signup-address'];
                 $user->password = bcrypt($data['front-signup-password']);
-                $user->license =  $imgName1;
                 $user->valid_id = $data['front-signup-valid-id'];
                 $user->valid_id_file =  $imgName2;
                 $user->terms = $data['front-signup-terms'];
@@ -153,7 +144,7 @@ class FrontController extends Controller
 
                
                 Mail::send('emails.user.user_confirmation',$messageData, function($message)use($email){
-                    $message->to($email)->subject('Confirm your registered account');
+                    $message->to($email)->subject('Account confirmation');
                 });
                 
 

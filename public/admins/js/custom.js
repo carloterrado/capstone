@@ -472,7 +472,8 @@ $(function(){
         var admin_id = $(this).attr("admin_account_id");
 
         if(!confirm("Want to "+ account +" this account?")) return false
-
+        $('.loading').removeClass('hidden')
+        $('.loading').addClass('grid')
       await  $.ajax({
             headers: {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
@@ -483,12 +484,26 @@ $(function(){
             url: "/admin/update-admin-account",
             data: { account: account, admin_id: admin_id },
             success: function (resp) {
-              
-                if(resp['data'] === 'verified') row.remove()
-                else if(resp['data'] === 'declined') row.remove()
-                else alert('Failed to '+ account +' admin!')
+                $('.loading').removeClass('grid')
+                $('.loading').hide()
+                if(resp['data'] === 'verified')
+                {
+                    row.remove()
+                }    
+                else if(resp['data'] === 'declined')
+                {
+                    row.remove()
+                } 
+                    
+                else
+                {
+                    alert('Failed to '+ account +' admin!')
+                } 
+                    
             },
             error: function (resp) {
+                $('.loading').removeClass('grid')
+                $('.loading').hide()
                 alert(account +" failed! System error.")
             },
         });

@@ -1,7 +1,7 @@
 
   <div class="flex justify-center h-max relative p-4 lg:p-0">
       <div class="absolute inset-0 -z-10 lg:relative bg-cover lg:w-2/3">
-      <img src="{{url('front/images/road.jpg')}}" class="absolute inset-0 w-full h-full object-cover -z-10" alt="">
+          <img src="{{url('front/images/road.jpg')}}" class="absolute inset-0 w-full h-full object-cover -z-10" alt="">
           <div class="flex items-center h-full px-20 bg-gray-900 bg-opacity-40 ">
               <div>
                   <h2 class="text-4xl font-bold text-white">Brand</h2>
@@ -17,8 +17,10 @@
       
 
 
-      <div class="bg-white flex items-center w-full max-w-md px-6 mx-auto lg:w-2/6">
+      <div class="relative bg-white flex items-center w-full max-w-md px-6 mx-auto lg:w-2/6">
+          @include('message.loading')
           <div class="flex-1">
+          
               <div class="text-center">
                   
                 @include('message.ajax-success')
@@ -88,12 +90,6 @@
                             <label id="front-signup-confirm-password-error" for="front-signup-confirm-password" class="pointer-events-none absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-gray-900 peer-focus:font-semibold peer-placeholder-shown:scale-100 
                             peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 whitespace-nowrap">Confirm Password</label>
                           </div>
-                        </div>
-
-                        <!-- Driver's License Input File -->
-                        <div class="block mt-6">
-                          <label id="front-signup-license-error" for="front-signup-license" class="block pb-1 text-sm font-semibold lg:pl-2 text-gray-500" >Driver's License</label>
-                          <input id="front-signup-license" name="front-signup-license" type="file" class="block w-full text-sm text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" aria-describedby="file_input_help"  >
                         </div>
 
                         <!-- Valid id Input File -->

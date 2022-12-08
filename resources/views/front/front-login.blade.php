@@ -17,7 +17,8 @@
         </div>
     </div>
 
-    <div class="bg-white flex items-center w-full max-w-md px-6 m-auto lg:w-2/6">
+    <div class="relative bg-white flex items-center w-full max-w-md px-6 m-auto lg:w-2/6">
+        @include('message.loading')
         <div class="flex-1">
             <div class="text-center">
                 

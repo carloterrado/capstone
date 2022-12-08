@@ -102,7 +102,7 @@
             <img class="absolute top-full left-0 w-full -translate-y-[70%]" src="{{url('front/images/red_car_booknow.png')}}" alt="">
         </div>
         <div class="h-[fit-content] lg:h-screen relative ">
-            <div class="mb-16 lg:-translate-y-6">
+            <div class="mb-16 lg:-translate-y-5">
                 <h2 class="text-[1.5rem] sm:text-[2rem] lg:text-[3rem] font-bold whitespace-nowrap ">Lorem ipsum <br>
                  dolor sit amet, <br>
                   <span class="relative before:content-[''] before:absolute before:-bottom-2 before:left-0 before:h-[3px] before:w-1/4 before:bg-accent-regular">consectetur.</span> </h2>
@@ -117,7 +117,7 @@
     <!-- Frequently ask section -->
     <section class="bg-white p-6 sm:p-14 grid gap-8 md:grid-cols-2">  
         <div class="sm:h-[100vh] relative order-2 sm:order-1">
-            <div class="mb-16 lg:-translate-y-6">
+            <div class="mb-16 lg:-translate-y-4">
                 <h2 class="text-[1.5rem] sm:text-[2rem] lg:text-[3rem] font-bold whitespace-nowrap">
                  Frequently Asked <br>
                   <span class="relative before:content-[''] before:absolute before:-bottom-2 before:left-0 before:h-[3px] before:w-1/4 before:bg-accent-regular">Questions</span> </h2>

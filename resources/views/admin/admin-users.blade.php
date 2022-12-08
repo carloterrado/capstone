@@ -47,8 +47,7 @@
             </thead>
             <tbody>
              
-                @foreach($users as $user)
-                    
+                @foreach($users as $user) 
                 
                     <tr class="bg-white border-b  hover:bg-gray-50  ">
                         
@@ -111,11 +110,13 @@
                                         </div>  
                                         <div class="col-span-6 sm:col-span-3">
                                         
-                                        </div>  
+                                        </div> 
+                                        @if (!empty($user['license']))
                                         <div class="col-span-6 sm:col-span-3">
                                             <p  class="block mb-2 text-sm font-medium text-gray-900 ">License</p>
                                         <a href="{{url('front/images/users/license/'.$user['license'])}}" target="_blank"> <img src="{{url('front/images/users/license/'.$user['license'])}}" alt="license"> </a>
-                                        </div>  
+                                        </div> 
+                                        @endif  
                                         <div class="col-span-6 sm:col-span-3">
                                             <p  class="block mb-2 text-sm font-medium text-gray-900 ">Valid ID: <span class="font-semibold">{{$user['valid_id']}}</span></p>
                                         <a href="{{url('front/images/users/id/'.$user['valid_id_file'])}}" target="_blank"> <img src="{{url('front/images/users/id/'.$user['valid_id_file'])}}" alt="ID"> </a>

@@ -1,4 +1,5 @@
-<div class="p-4 sm:p-6 lg:p-14 lg:pt-7">
+<div class="relative p-4 sm:p-6 lg:p-14 lg:pt-7">
+    @include('message.loading')
 
     <nav class="hidden sm:flex mb-4 sm:mb-6 lg:mb-7" aria-label="Breadcrumb">
     <ol class="inline-flex items-center space-x-1 md:space-x-3">
