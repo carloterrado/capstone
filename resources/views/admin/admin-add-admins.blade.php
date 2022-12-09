@@ -2,7 +2,7 @@
     <div class="relative w-full max-w-2xl m-auto">
         
         <form id="add-admin-form" method="POST" class="relative bg-white rounded-lg shadow ">
-            
+            @csrf
             <div class="flex justify-between items-start p-4 rounded-t border-b dark:border-gray-600">
                 <h3 class="text-xl font-semibold text-gray-900 ">
                     Add admin

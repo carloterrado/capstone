@@ -13,6 +13,9 @@
 @elseif (Session::get('page') === 'contact')
         @include('front.front-contact')
 
+@elseif (Session::get('page') === 'profile')
+        @include('front.front-profile')
+
 @elseif (Session::get('page') === 'login')
         @include('front.front-login')
 

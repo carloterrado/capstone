@@ -15,7 +15,7 @@
                 <form class="space-y-6" method="POST" id="change-pass-form">
                 @csrf
                     <div>
-                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{Auth::user()->email}}</label>
+                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{Auth::guard('admin')->user()->email}}</label>
                     </div>
                     <div class="relative">
                         <input type="password" id="current-password" name="current-password" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-900 peer" placeholder=" " />

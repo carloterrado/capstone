@@ -13,7 +13,7 @@ $(function(){
             $(errorElementID).css('color','lightcoral');
             return false;
         }
-        if(!name.match(/^[A-Za-z]*$/ )){
+        if(!name.match(/^[A-Za-z\s]*$/ )){
             // /^[A-Za-z]*$/ - characters only
             // /^[A-Za-z]*\s{1}[A-Za-z]*$/  name and lastname
             $(errorElementID).html('Characters only!');
@@ -214,6 +214,29 @@ $(function(){
         return true;
     }
     //   Validation for valid image file
+    function validateLicenseFile(imageID,errorElementID)
+    {
+        let validID = $(imageID).val();
+        if(validID.length === 0)
+        {
+        
+            $(errorElementID).show();
+            $(errorElementID).html('This file is required!');
+            $(errorElementID).css('color','lightcoral');
+            return false; 
+        }
+        if(!validID.match(/\.(jpg|jpeg|gif|png)$/))
+        {
+            $(errorElementID).show();
+            $(errorElementID).html('Invalid file');
+            $(errorElementID).css('color','lightcoral');
+            return false; 
+        }
+        $(errorElementID).html('License');
+        $(errorElementID).css('color','black');
+        return true;
+    }
+    //   Validation for valid image file
     function validateImageFile(imageID,errorElementID)
     {
         let validID = $(imageID).val();
@@ -221,14 +244,14 @@ $(function(){
         {
         
             $(errorElementID).show();
-            $(errorElementID).html('ID file is required!');
+            $(errorElementID).html('This file is required!');
             $(errorElementID).css('color','lightcoral');
             return false; 
         }
         if(!validID.match(/\.(jpg|jpeg|gif|png)$/))
         {
             $(errorElementID).show();
-            $(errorElementID).html('Invalid ID file');
+            $(errorElementID).html('Invalid file');
             $(errorElementID).css('color','lightcoral');
             return false; 
         }
@@ -548,5 +571,285 @@ $(function(){
             });
         }
     });
+
+
+
+     //  check if admin current password input is correct
+     $("#current-password").on("keyup", async function () 
+     {
+         var current_password = $("#current-password").val();
+        await $.ajax({
+             headers: {
+                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+             },
+             type: "POST",
+             url: "/check-user-password",
+             data: { current_password: current_password },
+             success: function (resp) {
+                 if (resp === "false") {
+                     $("#current-password-error").html('Wrong password');
+                     $("#current-password-error").css('color','lightcoral');
+                 } else {
+                     // $("#current-pass-error").html('');
+                     validatePassword('#current-password','#current-password-error');
+                 }
+             },
+             error: function () {
+                 $('#error-message').show();
+                 $("#error-text").html('Current password not found');
+                 setTimeout(function(){
+                     $('#error-message').show();
+                 },3000)
+             },
+         });
+     });
+ 
+     $('#new-password').on('keyup keypress',function()
+     {
+         validatePassword('#new-password','#new-password-error');
+     })
+     $('#confirm-password').on('keyup keydown',function()
+     {
+         validateConfirmPassword('#new-password','#confirm-password','#confirm-password-error');
+     })
+     // validate the form before the form upon submission 
+     $('#change-pass-form').on('submit', function(event)
+     {
+         event.preventDefault();
+ 
+         function validateChangePassForm()
+         {  
+             let valid = validatePassword('#current-password','#current-password-error') &&  validatePassword('#new-password','#new-password-error') && validateConfirmPassword('#new-password','#confirm-password','#confirm-password-error');
+                 if(!valid)
+                 { 
+                     $('#submit-error').show();
+                     $('#submit-error').text('Please fill up the form correctly');
+                     setTimeout(function()
+                     {
+                         $('#submit-error').hide();
+                     },3000);
+                     return false;
+                 }
+                 return true;
+         }
+        async function submitPassword()
+        {
+             var new_password = $("#new-password").val();
+             var current_password = $("#current-password").val();
+             await $.ajax({
+                 headers: {
+                     "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                 },
+                 type: "POST",
+                 url: "/update-password",
+                 data: { new_password: new_password, current_password: current_password},
+                 success: function (resp) {
+                     if (resp["status"] === 'false') {
+                         $('.error-container').show();
+                         $(".error-message").html('Current password is invalid!');
+                         setTimeout(function(){
+                             $('.error-container').hide();
+                         },3000)
+                     } else {
+                         $('.success-container').show();
+                         $(".success-message").text('Password updated successfully!');
+                         $('input').val('');
+                         setTimeout(function(){
+                             $('.success-container').hide();
+                         },3000)
+                     }
+                 },
+                 error: function () {
+                     $('.error-container').show();
+                     $(".error-message").html('Update password failed!');
+                     setTimeout(function(){
+                         $('.error-container').show();
+                     },3000)
+                 },
+             });
+         }
+         const validated = validateChangePassForm()
+         if(validated){
+             submitPassword().catch(function(error){
+                 $('.error-container').show();
+                 $(".error-message").html('Update password failed!');
+                 setTimeout(function(){
+                     $('.error-container').show();
+                 },3000)
+             });
+         }      
+     });
+
+
+
+      //        Edit profile form validation for input value
+        
+      $('#edit-first-name').on('keyup keypress',function()
+      {
+          validateName('#edit-first-name','#edit-first-name-error','Firstname');
+      })
+      $('#edit-last-name').on('keyup keypress',function()
+      {
+          validateName('#edit-last-name','#edit-last-name-error','Lastname');
+      })
+    
+      $('#edit-birthdate').on('keyup keypress',function()
+      {
+          validateBirthdate('#edit-birthdate','#edit-birthdate-error');
+      })
+      $('#edit-contact').on('keyup keypress',function()
+      {
+          validateContact('#edit-contact','#edit-contact-error');
+      })
+      $('#edit-address').on('keyup keypress',function()
+      {
+          validateAddress('#edit-address','#edit-address-error');
+      })
+      $('#edit-valid-id').on('click keypress',function(event)
+      {
+          validateValidID('#edit-valid-id','#edit-valid-id-error');
+      })
+      //        Validate signup form upon submission
+      $('#edit-profile-form').on('submit', function(event)
+      {
+          event.preventDefault();
+
+          function validateSignupForm(){
+                
+              let license = $('#edit-license').val() 
+              let valid_id_file = $('#edit-id-file').val() 
+               
+              if(license.length !== 0 && valid_id_file.length !== 0)
+              {
+                let valid = validateName('#edit-first-name','#edit-first-name-error','First name') && validateName('#edit-last-name','#edit-last-name-error', 'Last name') && validateBirthdate('#edit-birthdate','#edit-birthdate-error') && validateContact('#edit-contact','#edit-contact-error') &&  validateAddress('#edit-address','#edit-address-error')  && validateValidID('#edit-valid-id','#edit-valid-id-error') && validateImageFile('#edit-id-file','#edit-id-file-error') && validateLicenseFile('#edit-license','#edit-license-error');
+                if(!valid)
+                {  
+                    $('#edit-submit-form-error').show();
+                    $('#edit-submit-form-error').text('Please fill up the form correctly');
+                    setTimeout(function()
+                    {
+                        $('#edit-submit-form-error').hide();
+                    },3000);
+                    return false;
+                }
+                return true;
+              }
+              else if(license.length === 0 && valid_id_file.length !== 0)
+              {
+                
+                let valid = validateName('#edit-first-name','#edit-first-name-error','First name') && validateName('#edit-last-name','#edit-last-name-error', 'Last name') && validateBirthdate('#edit-birthdate','#edit-birthdate-error') && validateContact('#edit-contact','#edit-contact-error') && validateAddress('#edit-address','#edit-address-error')  && validateValidID('#edit-valid-id','#edit-valid-id-error') && validateImageFile('#edit-id-file','#edit-id-file-error') ;
+                if(!valid)
+                {  
+                    $('#edit-submit-form-error').show();
+                    $('#edit-submit-form-error').text('Please fill up the form correctly');
+                    setTimeout(function()
+                    {
+                        $('#edit-submit-form-error').hide();
+                    },3000);
+                    return false;
+                }
+                return true;
+              }
+              else if(license.length !== 0 && valid_id_file.length === 0)
+              {
+                let valid = validateName('#edit-first-name','#edit-first-name-error','First name') && validateName('#edit-last-name','#edit-last-name-error', 'Last name') && validateBirthdate('#edit-birthdate','#edit-birthdate-error') && validateContact('#edit-contact','#edit-contact-error') && validateAddress('#edit-address','#edit-address-error')  && validateValidID('#edit-valid-id','#edit-valid-id-error') && validateLicenseFile('#edit-license','#edit-license-error');
+                if(!valid)
+                {  
+                    $('#edit-submit-form-error').show();
+                    $('#edit-submit-form-error').text('Please fill up the form correctly');
+                    setTimeout(function()
+                    {
+                        $('#edit-submit-form-error').hide();
+                    },3000);
+                    return false;
+                }
+                return true;
+              }
+              else
+              {
+                 let valid = validateName('#edit-first-name','#edit-first-name-error','First name') && validateName('#edit-last-name','#edit-last-name-error', 'Last name') && validateBirthdate('#edit-birthdate','#edit-birthdate-error') && validateContact('#edit-contact','#edit-contact-error') &&  validateAddress('#edit-address','#edit-address-error')  && validateValidID('#edit-valid-id','#edit-valid-id-error');
+                 if(!valid)
+                {  
+                    $('#edit-submit-form-error').show();
+                    $('#edit-submit-form-error').text('Please fill up the form correctly');
+                    setTimeout(function()
+                    {
+                        $('#edit-submit-form-error').hide();
+                    },3000);
+                    return false;
+                }
+                return true;
+
+              }
+                 
+          }
+            
+          let formData = new FormData($(this)[0]);
+  
+          async function submitSignupForm()
+          {
+              $.ajax({
+                  headers: {
+                      "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                  },
+                  type: 'POST',
+                  url:'/update-profile',
+                  data:formData,
+                  processData: false,
+                  contentType: false,
+                  success:function(resp){
+                      $('.loading').removeClass('grid')
+                      $('.loading').hide()
+                    //    alert(JSON.stringify(resp['data']))
+                    if(resp["data"] === 'success')
+                    {
+                        $('.success-container').show()
+                        $('.success-message').html('Details updated successfully!')
+                        setTimeout(function(){
+                            window.location.href = '/profile';   
+                        },3000)  
+                    }
+                    else 
+                    {  
+                        $('.error-container').show()
+                        $('.error-message').html('Update details failed!')
+                        setTimeout(function(){
+                            $('.error-container').hide()  
+                        },3000)
+                    }
+                     
+                  },
+                  error: function(){
+                      $('.loading').removeClass('grid')
+                      $('.loading').hide()
+                      $('.error-container').show()
+                      $('.error-message').html('System error update details failed!')
+                      setTimeout(function(){
+                          $('.error-container').hide()
+                      },3000)
+                  }
+              })
+          }
+          let validated = validateSignupForm()
+         
+         
+          if(validated){
+            
+              $('.loading').removeClass('hidden')
+              $('.loading').addClass('grid')
+              submitSignupForm().catch(function(error){
+                  $('.loading').removeClass('grid')
+                  $('.loading').hide()
+                  $('.error-container').show()
+                  $('.error-message').html('System update details failed!')
+                  setTimeout(function(){
+                      window.location.href = '/profile';  
+                  },3000)
+              })
+          }
+         
+      })
+
+   
    
 });

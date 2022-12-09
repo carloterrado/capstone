@@ -17,7 +17,8 @@ $(function(){
             $(errorElementID).css('color','lightcoral');
             return false;
         }
-        if(!name.match(/^[A-Za-z]*$/ )){
+        if(!name.match(/^[A-Za-z\s]*$/ )){
+            // /^[A-Za-z\s]*$/ - characters with optional space only
             // /^[A-Za-z]*$/ - characters only
             // /^[A-Za-z]*\s{1}[A-Za-z]*$/  name and lastname
             $(errorElementID).html('Characters only!');

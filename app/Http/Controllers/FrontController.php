@@ -7,6 +7,8 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
@@ -45,6 +47,99 @@ class FrontController extends Controller
         Session::put('title','Contact Us');
        return view('front.home');
 
+    }
+    public function profile()
+    {
+        Session::put('page','profile');
+        Session::put('title','Profile');
+       return view('front.home');
+    }
+    public function updateProfile(Request $request)
+    {
+        if($request->ajax())
+        {
+            $data = $request->all();
+            
+            if($request->hasFile('edit-id-file'))
+            { 
+                $img_tmp2 = $request->file('edit-id-file');
+                if($img_tmp2->isValid())
+                {
+                    // Get image extension 
+                    $extension2 = $img_tmp2->getClientOriginalExtension(); 
+
+                    // Generate new image name 
+                    $imgName2 = rand(111,99999).'.'.$extension2;
+                    $imgPath2 ='front/images/users/id/'.$imgName2;
+                
+                    // Upload and resize the image
+                    Image::make($img_tmp2)->resize(1500,1500,function($constraint){
+                            $constraint->aspectRatio();
+                        })->save($imgPath2);
+                    if($data['current-id-file'] !== null)
+                    {
+                        $currentIDFile = public_path('front/images/users/id/'.$data['current-id-file']);
+                            File::delete($currentIDFile);
+                    }
+                }
+                $validIDFile = $imgName2;
+            }
+            else
+            {
+                $validIDFile = $data['current-id-file'];
+            }
+            
+            
+            if($request->hasFile('edit-license'))
+            { 
+                $img_tmp1 = $request->file('edit-license');
+                if($img_tmp1->isValid())
+                {
+                    // Get image extension 
+                    $extension1 = $img_tmp1->getClientOriginalExtension(); 
+
+                    // Generate new image name 
+                    $imgName1 = rand(111,99999).'.'.$extension1;
+                    $imgPath1 ='front/images/users/license/'.$imgName1;
+                
+                    // Upload and resize the image
+                    Image::make($img_tmp1)->resize(1500,1500,function($constraint){
+                            $constraint->aspectRatio();
+                        })->save($imgPath1);
+                    if($data['current-license'] !== null)
+                    {
+                        $currentLicense = public_path('front/images/users/license/'.$data['current-license']);
+                            File::delete($currentLicense);
+                    }
+
+                }
+                $license = $imgName1;
+            }
+            else
+            {
+                $license = $data['current-license'];
+            }
+
+            // return response()->json(['data'=>$data]);
+           
+            // convert birthdate input from dd/mm/yyyy to yyyy-mm-dd
+            $inputDate = explode('/', $data['edit-birthdate'] ); 
+            $birthdate = $inputDate[2].'-'.$inputDate[1].'-'.$inputDate[0];
+
+            User::where('id', Auth::user()->id)->update([
+                'first_name' => $data['edit-first-name'],
+                'last_name' => $data['edit-last-name'],
+                'birthdate' => $birthdate,
+                'contact' => $data['edit-contact'],
+                'address' => $data['edit-address'],
+                'valid_id' => $data['edit-valid-id'],
+                'valid_id_file' => $validIDFile,
+                'license' => $license
+            ]);
+
+            return response()->json(['data'=>'success']);
+           
+        }
     }
     public function login(Request $request)
     {
@@ -99,7 +194,8 @@ class FrontController extends Controller
                 if($request->hasFile('front-signup-id-file'))
                 { 
                     $img_tmp2 = $request->file('front-signup-id-file');
-                    if($img_tmp2->isValid()){
+                    if($img_tmp2->isValid())
+                    {
                         // Get image extension 
                         $extension2 = $img_tmp2->getClientOriginalExtension(); 
 
@@ -223,6 +319,30 @@ class FrontController extends Controller
          {
             abort(404);
          }
+    }
+    public function updatePassword(Request $request)
+    {
+        if($request->ajax()){
+            $data = $request->all();
+
+            // --- check if current password is correct --- //
+            if(Hash::check($data['current_password'],Auth::user()->password)){
+                    User::where('id',Auth::user()->id)->update(['password'=>bcrypt($data['new_password'])]);
+                    return response()->json(['status'=>'true']);
+            }else{
+                return response()->json(['status'=>'false']);
+            }
+        }
+        
+    }
+    public function checkPassword(Request $request)
+    {
+        $data = $request->all();
+       
+        if(Hash::check($data['current_password'],Auth::user()->password)){
+            return 'true';
+        }
+        return 'false';
     }
     public function forgotPassword(Request $request)
     {

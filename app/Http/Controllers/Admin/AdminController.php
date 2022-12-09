@@ -217,6 +217,90 @@ class AdminController extends Controller
    
 
     }
+    public function profile()
+    {
+        Session::put('page','profile');
+        Session::put('title','Profile');
+
+        if(Auth::guard('admin')->user()->type === 'owner')
+        {
+            $owner = OwnerDetail::where('id',Auth::guard('admin')->user()->owner_id)->get()->toArray();
+            // dd($owner);
+            return view('owner.dashboard')->with(compact('owner'));
+        }
+       return view('admin.dashboard');
+    }
+    public function updateProfile(Request $request)
+    {
+        if($request->ajax())
+        {
+            if(Auth::guard('admin')->user()->type === 'owner')
+            {
+
+           
+                $data = $request->all();
+                
+                if($request->hasFile('edit-id-file'))
+                { 
+                    $img_tmp2 = $request->file('edit-id-file');
+                    if($img_tmp2->isValid())
+                    {
+                        // Get image extension 
+                        $extension2 = $img_tmp2->getClientOriginalExtension(); 
+
+                        // Generate new image name 
+                        $imgName2 = rand(111,99999).'.'.$extension2;
+                        $imgPath2 ='owner/images/id/'.$imgName2;
+                    
+                        // Upload and resize the image
+                        Image::make($img_tmp2)->resize(1500,1500,function($constraint){
+                                $constraint->aspectRatio();
+                            })->save($imgPath2);
+                        if($data['current-id-file'] !== null)
+                        {
+                            $currentIDFile = public_path('owner/images/id/'.$data['current-id-file']);
+                                File::delete($currentIDFile);
+                        }
+                    }
+                    $validIDFile = $imgName2;
+                }
+                else
+                {
+                    $validIDFile = $data['current-id-file'];
+                }
+                
+                
+
+                // return response()->json(['data'=>$data]);
+            
+                // convert birthdate input from dd/mm/yyyy to yyyy-mm-dd
+                $inputDate = explode('/', $data['edit-birthdate'] ); 
+                $birthdate = $inputDate[2].'-'.$inputDate[1].'-'.$inputDate[0];
+
+                Admin::where('id', Auth::guard('admin')->user()->id)->update([
+                    'first_name' => $data['edit-first-name'],
+                    'last_name' => $data['edit-last-name']
+                    
+                   
+                ]);
+                OwnerDetail::where('id', Auth::guard('admin')->user()->owner_id)->update([
+                    'birthdate' => $birthdate,
+                    'contact' => $data['edit-contact'],
+                    'address' => $data['edit-address'],
+                    'valid_id' => $data['edit-valid-id'],
+                    'valid_id_file' => $validIDFile
+                ]);
+
+                return response()->json(['data'=>'success']);
+            
+            }
+            else
+            {
+
+            }
+           
+        }
+    }
     public function updateAdminStatus(Request $request)
     {      
         if($request->ajax()){

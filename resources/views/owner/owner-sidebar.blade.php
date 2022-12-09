@@ -18,7 +18,7 @@
             <div href="#" class="p-2 text-base font-semibold text-gray-900 rounded-lg capitalize ">{{Session::get('fullname')}}</div>
           </li>
           <li>
-            <a href="#" class="sidebar-hover mt-8 ">
+            <a href="{{url('admin/profile')}}" class="sidebar-hover mt-8 ">
                 <span class="flex-1 ml-3 whitespace-nowrap">Profile</span>
             </a>
           </li>
@@ -58,7 +58,7 @@
           </ul>
         </li>
       
-        <li>
+        <!-- <li>
           <a href="javascript:void(0)" class="menu sidebar-list sidebar-hover flex justify-between">
               <span class="ml-3"><i class='bx bx-cog mr-1 text-xl align-bottom'></i>Settings</span>
               <i class='bx bx-chevron-right rotate-90 text-2xl font-light'></i>
@@ -75,7 +75,7 @@
               </a>
             </li>
           </ul>
-        </li>
+        </li> -->
         
     </ul>
     <!-- Side Nav Bar Login Button -->
@@ -92,4 +92,4 @@
 
 
 <!-- Main modal for change password -->
-@include('admin.admin-change-password')
+@include('owner.owner-change-password')

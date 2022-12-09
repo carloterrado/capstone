@@ -22,6 +22,12 @@ Route::prefix('/')->group(function()
     Route::group(['middleware'=>['auth']],function(){   
         Route::get('cars',[FrontController::class,'cars']);
         Route::get('arkilla-logout',[FrontController::class,'logout'])->name('logout');
+        Route::get('profile',[FrontController::class,'profile']);
+        Route::post('update-profile',[FrontController::class,'updateProfile']);
+        Route::post('update-password',[FrontController::class,'updatePassword']);
+        Route::post('check-user-password',[FrontController::class,'checkPassword']);
+
+
     });
     Route::get('about',[FrontController::class,'about']);
     Route::get('contact',[FrontController::class,'contact']);
@@ -71,6 +77,10 @@ Route::prefix('admin')->group(function()
         Route::post('delete-admin',[AdminController::class,'deleteAdminAccount']);
         Route::post('delete-user',[AdminController::class,'deleteUserAccount']);
         Route::post('update-admin-account',[AdminController::class,'updateAdminAccount']);
+        Route::get('profile',[AdminController::class,'profile']);
+        Route::post('update-profile',[AdminController::class,'updateProfile']);
+
+
         //  Admin update-password 
         Route::match(['get','post'],'update-password',[AdminController::class,'updatePassword']);
         //  Admin check-current-password 

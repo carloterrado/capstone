@@ -12,5 +12,8 @@
  @elseif (Session::get('page') === 'car-declined')
     @include('owner.owner-car-declined')
 
+ @elseif (Session::get('page') === 'profile')
+    @include('owner.owner-profile')
+
 @endif
 @endsection

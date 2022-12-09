@@ -49,18 +49,26 @@
             </div>
             <ul class="pt-4 pb-2" aria-labelledby="user-menu-button">
                 <li>
-                <a href="#" class="user-menu-list flex justify-between items-center">
-                    <span class="flex-1 whitespace-nowrap">Reserved Car</span>
-                    <span class="inline-flex justify-center items-center p-3 ml-3 w-3 h-3 text-sm font-medium text-accent-regular bg-accent-verylight rounded-full">3</span>
-                </a>
+                    <a href="#" class="user-menu-list flex justify-between items-center">
+                        <span class="flex-1 whitespace-nowrap">
+                        <i class='bx bx-car text-xl align-bottom text-accent-regular'></i>
+                            Reserved Car</span>
+                        <span class="inline-flex justify-center items-center p-3 ml-3 w-3 h-3 text-sm font-medium text-accent-regular bg-accent-verylight rounded-full">3</span>
+                    </a>
                 </li>
                 <li>
-                <a href="#" class="user-menu-list">Terms & Conditions</a>
+                    <a href="{{url('profile')}}" class="user-menu-list flex items-center ">
+                    <i class='bx bx-user-circle mr-1 text-xl align-bottom text-accent-regular'></i>
+                    <span class="whitespace-nowrap">Profile</span>
+                    </a>
                 </li>
                 <li>
-                <form method="POST" action="{{ route('logout') }}">
-                <a href="{{url('arkilla-logout')}}" class="user-menu-list">Log out</a>
-                </form>
+                    <form method="POST" action="{{ route('logout') }}">
+                        <a href="{{url('arkilla-logout')}}" class="user-menu-list flex items-center">
+                        <i class='bx bx-power-off mr-1 text-xl align-bottom text-accent-regular'></i>
+                        <span class="whitespace-nowrap ">Log out</span>
+                        </a>
+                    </form>
                 </li>
             </ul>
             </div>

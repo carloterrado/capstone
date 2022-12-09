@@ -55,6 +55,9 @@
     .btn-orange-login {
         @apply w-full py-3 px-4 rounded-full text-lg text-center font-sans bg-accent-regular text-white hover:bg-red-400 hover:shadow-md transform active:scale-75 transition-transform duration-700;
     }
+    .btn-change-password {
+        @apply w-[fit-content] py-4 px-4 bg-white rounded-full text-sm text-center font-sans font-bold outline outline-black outline-1 outline-offset-[-3px]  text-black focus:text-white focus:bg-black hover:text-white  hover:bg-black hover:shadow-md transform active:scale-75 transition-transform duration-700;
+    }
 
     ::-webkit-scrollbar {
         @apply hidden ;

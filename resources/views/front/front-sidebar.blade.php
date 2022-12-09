@@ -18,7 +18,7 @@
           <div href="#" class="p-2 text-base font-semibold text-gray-900 rounded-lg capitalize">{{Session::get('fullname')}}</div>
         </li>
         <li>
-          <a href="#" class="sidebar-hover mt-8 ">
+          <a href="{{url('profile')}}" class="sidebar-hover mt-8 ">
               <span class="flex-1 ml-3 whitespace-nowrap">Profile</span>
           </a>
         </li>
