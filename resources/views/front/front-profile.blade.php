@@ -1,5 +1,5 @@
 
-    <div   class="  overflow-y-auto overflow-x-hidden flex justify-center items-center p-4 lg:p-16 w-full  ">
+    <div   class="min-h-[calc(100vh-5rem)] md:min-h-[calc(100vh-5.5rem)] overflow-y-auto overflow-x-hidden flex justify-center items-center p-4 lg:p-16 w-full  ">
         <div class="relative w-full max-w-3xl m-auto bg-white rounded-lg shadow-lg border border-gray-100">
                 
                 <div class="flex  items-center justify-end gap-1 sm:gap-4 px-4 pt-4 pb-0 rounded-t  ">

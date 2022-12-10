@@ -59,6 +59,11 @@ Route::prefix('admin')->group(function()
     Route::group(['middleware'=>['admin']], function()
     {       
         Route::get('dashboard',[AdminController::class,'dashboard']);
+        Route::get('car-types',[AdminController::class,'carTypes']);
+        Route::post('add-car-type',[AdminController::class,'addCarTypes']);
+        Route::post('edit-car-type',[AdminController::class,'editCarTypes']);
+        Route::post('update-car-type-status',[AdminController::class,'updateCarTypeStatus']);
+        Route::post('delete-car-type',[AdminController::class,'deleteCarTypes']);
         Route::get('cars',[AdminController::class,'cars']);
         Route::get('owner-cars',[AdminController::class,'ownerCars']);
         Route::get('car-request',[AdminController::class,'carRequest']);

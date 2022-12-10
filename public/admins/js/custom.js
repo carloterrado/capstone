@@ -25,7 +25,7 @@ $(function(){
             $(errorElementID).css('color','lightcoral'); 
             return false;
         }
-        if( name.length > 20){  
+        if( name.length > 40){  
             $(errorElementID).html(type + ' is too long!');
             $(errorElementID).css('color','lightcoral');
             return false;
@@ -176,8 +176,6 @@ $(function(){
     {
         validateConfirmPassword('#add-admin-password','#add-admin-confirm-password','#add-admin-confirm-password-error');
     }) 
-
-    
     // Validate add admin form upon submission
     $('#add-admin-form').on('submit', function(event)
     {
@@ -217,7 +215,7 @@ $(function(){
                         $('.success-message').text('New admin account created successfully!')
                         setTimeout(function(){
                             $('.success-container').hide()
-                            $('#add-admin-form input').val('')
+                            window.location.href = '/admin/all-admins'
                         },3000)
                     }
                     
@@ -273,12 +271,12 @@ $(function(){
     {
         if(event.target === this)
         {     
-           $('input').val('');
+           $('#update-password input').val('');
         }
     });
     $('.close-btn').on('click', function()
     {
-           $('input').val('');
+           $('#update-password input').val('');
     });
    
     //  check if admin current password input is correct
@@ -360,7 +358,7 @@ $(function(){
                     } else {
                         $('.success-container').show();
                         $(".success-message").text('Password updated successfully!');
-                        $('input').val('');
+                        $('#change-pass-form input').val('');
                         setTimeout(function(){
                             $('.success-container').hide();
                         },3000)
@@ -389,7 +387,112 @@ $(function(){
 
 
 
-    // Update admin status
+    //   Profile form validation
+    $('#edit-first-name').on('keyup keypress',function()
+    {
+        validateName('#edit-first-name','#edit-first-name-error','Firstname');
+    })
+    $('#edit-last-name').on('keyup keypress',function()
+    {
+        validateName('#edit-last-name','#edit-last-name-error','Lastname');
+    })
+
+    //        Validate profile form upon submission
+    $('#edit-profile-form').on('submit', function(event)
+    {
+        event.preventDefault();
+        
+
+        function validateSignupForm(){
+                
+            
+          
+                let valid = validateName('#edit-first-name','#edit-first-name-error','First name') && validateName('#edit-last-name','#edit-last-name-error', 'Last name');
+                if(!valid)
+                {  
+                    $('#edit-submit-form-error').show();
+                    $('#edit-submit-form-error').text('Please fill up the form correctly');
+                    setTimeout(function()
+                    {
+                        $('#edit-submit-form-error').hide();
+                    },3000);
+                    return false;
+                }
+                return true;
+
+            
+                
+        }
+            
+        let formData = new FormData($(this)[0]);
+
+        async function submitSignupForm()
+        {
+            $.ajax({
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                },
+                type: 'POST',
+                url:'/admin/update-profile',
+                data:formData,
+                processData: false,
+                contentType: false,
+                success:function(resp){
+                    $('.loading').removeClass('grid')
+                    $('.loading').hide()
+                    //    alert(JSON.stringify(resp['data']))
+                    if(resp["data"] === 'success')
+                    {
+                        $('.success-container').show()
+                        $('.success-message').html('Details updated successfully!')
+                        setTimeout(function(){
+                            window.location.href = '/admin/profile';   
+                        },3000)  
+                    }
+                    else 
+                    {  
+                        $('.error-container').show()
+                        $('.error-message').html('Update details failed!')
+                        setTimeout(function(){
+                            $('.error-container').hide()  
+                        },3000)
+                    }
+                    
+                },
+                error: function(){
+                    $('.loading').removeClass('grid')
+                    $('.loading').hide()
+                    $('.error-container').show()
+                    $('.error-message').html('System error update details failed!')
+                    setTimeout(function(){
+                        $('.error-container').hide()
+                    },3000)
+                }
+            })
+        }
+        let validated = validateSignupForm()
+        
+        
+        if(validated){
+            
+            $('.loading').removeClass('hidden')
+            $('.loading').addClass('grid')
+            submitSignupForm().catch(function(error){
+                $('.loading').removeClass('grid')
+                $('.loading').hide()
+                $('.error-container').show()
+                $('.error-message').html('System update details failed!')
+                setTimeout(function(){
+                    window.location.href = '/admin/profile';  
+                },3000)
+            })
+        }
+        
+    })
+
+
+
+    //         Update admin status
     $('#arkilla-table').on("click",".updateAdminStatus", async function () 
     {
         var status = $(this).children("i").attr("status");
@@ -427,7 +530,7 @@ $(function(){
         
     });
 
-    // Update user status
+    //         Update user status
     $('#arkilla-table').on("click",".updateUserStatus", async function () 
     {
         var status = $(this).children("i").attr("status");
@@ -465,7 +568,7 @@ $(function(){
         
     });
 
-    // Approve or Decline admin
+    //         Approve or Decline admin
     $("#arkilla-table").on("click",".updateAdminAccount", async function () 
     {
         var account = $(this).children("button").attr("account");
@@ -510,7 +613,7 @@ $(function(){
         });
     });
 
-    // Delete admin
+    //         Delete admin
     $("#arkilla-table").on("click",".confirmDelete", async function () 
     {
         var row = $(this).parentsUntil("tbody");
@@ -538,5 +641,254 @@ $(function(){
             },
         });
     });
+
+
+    //       Car type form validation
+    $('#add-admin-car-type').on('keyup keypress',function()
+    {
+        validateName('#add-admin-car-type','#add-admin-car-type-error','Car type');
+    })
+    //       Validate add car type form upon submission
+    $('#add-car-type-form').on('submit', function(event)
+    {
+        event.preventDefault();
+
+        function validateSignupForm(){
+            let valid = validateName('#add-admin-car-type','#add-admin-car-type-error','Car type') ;
+            if(!valid)
+            {  
+                //  event.preventDefault();
+                $('#add-car-type-submit-form-error').show();
+                $('#add-car-type-submit-form-error').text('Please fill up the form correctly');
+                setTimeout(function()
+                {
+                    $('#add-car-type-submit-form-error').hide();
+                },3000);
+                return false;
+            }
+            return true;
+        }
+        
+
+        let data = $(this).serialize()
+       
+        async function submitSignupForm()
+        {
+          await  $.ajax({
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                },
+                type: 'POST',
+                url:'/admin/add-car-type',
+                data: data,
+                success:function(resp){ 
+                    if(resp["status"] === 'success')
+                    {
+                        $('.success-container').show()
+                        $('.success-message').text('New car type created successfully!')
+                        setTimeout(function(){
+                           window.location.href = '/admin/car-types'
+                        },3000)
+                    }
+                    
+                    else
+                    {
+                        $('.error-container').show()
+                        $('.error-message').html('Car type already exist!')
+                        setTimeout(function(){
+                            $('.error-container').hide()
+                        },3000)
+                    }
+                    
+                },
+                error: function(error){
+                    // alert(JSON.stringify(error))
+                    $('.error-container').show()
+                    $('.error-message').html('Sytem Add new car type failed!')
+                    setTimeout(function(){
+                        $('.error-container').hide()  
+                    },3000)
+                    
+                    
+                }
+            })
+        }
+        let validated = validateSignupForm()
+        
+        if(validated){
+            submitSignupForm().catch(function(error){
+                
+                $('.error-container').show()
+                $('.error-message').html('Http Add new car type failed!')
+                setTimeout(function(){
+                    $('.error-container').hide()  
+                },3000)
+            })
+        } 
+    })
+    //       Delete car type
+     $("#arkilla-table").on("click",".confirmDeleteCartype", async function () 
+     {
+        
+         var id = $(this).attr("moduleid");
+         var cartype = $(this).attr("cartype");
+ 
+         if(!confirm("Want to delete car type "+ cartype+"?")) return false
+ 
+       await  $.ajax({
+             headers: {
+                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                     "content"
+                 ),
+             },
+             type: "post",
+             url: "/admin/delete-car-type",
+             data: { id:id },
+             success: function (resp) {
+                 if(resp['status'] === 'deleted') 
+                 {
+                     window.location.href = '/admin/car-types' 
+                 }
+                 else alert('Failed to delete '+cartype +'!')
+             },
+             error: function (resp) {
+                 alert("Delete failed! System error.")
+             },
+         });
+     });
+    //       Car type form validation
+    $('#edit-admin-car-type').on('keyup keypress',function()
+    {
+            validateName('#edit-admin-car-type','#edit-admin-car-type-error','Car type');
+    })
+    $(document).on('click','.edit-car-type', function(){
+
+        $('#edit-admin-car-type-error').html('Car type');
+        $('#edit-admin-car-type-error').css('color','black');
+        var cartype = $(this).attr('cartype');
+        $('#edit-admin-car-type').val(cartype)
+        var id = $(this).attr('id');
+        $('#edit-admin-car-type-id').val(id)
+    })
+    $('#edit-car-type-form').on('submit', function(event)
+    {
+        event.preventDefault();
+
+        function validateSignupForm(){
+            let valid = validateName('#edit-admin-car-type','#edit-admin-car-type-error','Car type') ;
+            if(!valid)
+            {  
+                //  event.preventDefault();
+                $('#edit-car-type-submit-form-error').show();
+                $('#edit-car-type-submit-form-error').text('Please fill up the form correctly');
+                setTimeout(function()
+                {
+                    $('#edit-car-type-submit-form-error').hide();
+                },3000);
+                return false;
+            }
+            return true;
+        }
+        
+
+        let data = $(this).serialize()
+       
+        async function submitSignupForm()
+        {
+          await  $.ajax({
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                },
+                type: 'POST',
+                url:'/admin/edit-car-type',
+                data: data,
+                success:function(resp)
+                { 
+                    // alert(JSON.stringify(resp['status']))
+
+                    if(resp["status"] === 'success')
+                    {
+                        $('.success-container').show()
+                        $('.success-message').text('Car type updated successfully!')
+                        setTimeout(function(){
+                           window.location.href = '/admin/car-types'
+                        },3000)
+                    }
+                    
+                    else
+                    {
+                        $('.error-container').show()
+                        $('.error-message').html('Car type already exist!')
+                        setTimeout(function(){
+                            $('.error-container').hide()
+                        },3000)
+                    }
+                    
+                },
+                error: function(error)
+                {
+                    // alert(JSON.stringify(error))
+                    $('.error-container').show()
+                    $('.error-message').html('Sytem update car type failed!')
+                    setTimeout(function(){
+                        $('.error-container').hide()  
+                    },3000)
+                       
+                }
+            })
+        }
+        let validated = validateSignupForm()
+        
+        if(validated){
+            submitSignupForm().catch(function(error){
+                
+                $('.error-container').show()
+                $('.error-message').html('Http update car type failed!')
+                setTimeout(function(){
+                    $('.error-container').hide()  
+                },3000)
+            })
+        } 
+    })
+     //         Update admin status
+     $('#arkilla-table').on("click",".updateCarTypeStatus", async function () 
+     {
+         var status = $(this).children("i").attr("status");
+         var cartype_id = $(this).attr("cartype_id");
+         var newStatus;
+         if (status === "Inactive") newStatus = "Active";
+         else newStatus = "Inactive";
+         if(!confirm("Update status to "+ newStatus + "?")) return false
+     
+     await $.ajax({
+         headers: {
+             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                 "content"
+             ),
+         },
+         type: "post",
+         url: "/admin/update-car-type-status",
+         data: { status: status, cartype_id: cartype_id },
+         success: function (resp) {
+             // alert(JSON.stringify(resp['status']))
+             if (resp["status"] === 0) {
+                 $("#cartype-" + cartype_id).html(
+                     '<i status="Inactive" class="bx bxs-x-circle text-4xl text-accent-regular cursor-pointer"></i>'
+                 );
+             } else if (resp["status"] === 1) {
+                 $("#cartype-" + cartype_id).html(
+                     '<i status="Active" class="bx bxs-check-circle text-4xl text-accent-regular cursor-pointer">'
+                 );
+             }
+         },
+         error: function (resp) {
+             alert("error");
+         },
+     });
+         
+     });
+ 
+
+
 
 });

@@ -19,28 +19,24 @@
                         </div>
                        
                         <div class="col-span-8 sm:col-span-4">
+                            <p  class="block mb-2 text-sm font-medium text-gray-900 ">Amin ID: <span class="font-semibold">{{Auth::guard('admin')->user()->id}}</span></p>
+                        </div>
+                        <div class="col-span-8 sm:col-span-4">
                             <p  class="block mb-2 text-sm font-medium text-gray-900 ">Email: <span class="font-semibold">{{Auth::guard('admin')->user()->email}}</span></p>
                         </div>
                         <div class="col-span-8 sm:col-span-4">
-                        <p  class="block mb-2 text-sm font-medium text-gray-900 ">Address: <span class="font-semibold">{{ $owner[0]['address'] }}</span></p>
-                        </div>  
-                        <div class="col-span-8 sm:col-span-4">
-                            <p  class="block mb-2 text-sm font-medium text-gray-900 ">Contact: <span class="font-semibold">{{ $owner[0]['contact'] }}</span></p>
+                            <p  class="block mb-2 text-sm font-medium text-gray-900 ">Admin type: <span class="font-semibold">{{Auth::guard('admin')->user()->type}}</span></p>
                         </div>
                         <div class="col-span-8 sm:col-span-4">
-                        <p  class="block mb-2 text-sm font-medium text-gray-900 ">Birthdate: <span class="font-semibold">{{ $owner[0]['birthdate'] }}</span></p>
+                            <p  class="block mb-2 text-sm font-medium text-gray-900 ">Status: <span class="font-semibold">
+                                @if(Auth::guard('admin')->user()->status === 1)
+                                Active
+                                @else
+                                Inactive
+                                @endif
+                            </span></p>
                         </div>
-                      
-                        <div class="col-span-8 sm:col-span-4">
-                            <p  class="block mb-2 text-sm font-medium text-gray-900 ">License</p>
-                           <a href="{{url('owner/images/license/'. $owner[0]['license'] )}}" target="_blank"> <img src="{{url('owner/images/license/'. $owner[0]['license'] )}}" alt="license"> </a>
-                        </div> 
-                   
-                        
-                        <div class="col-span-8 sm:col-span-4">
-                            <p  class="block mb-2 text-sm font-medium text-gray-900 ">Valid ID: <span class="font-semibold">{{ $owner[0]['valid_id'] }}</span></p>
-                           <a href="{{url('owner/images/id/'.$owner[0]['valid_id_file'] )}}" target="_blank"> <img src="{{url('owner/images/id/'.$owner[0]['valid_id_file'] )}}" alt="ID"> </a>
-                        </div>  
+                         
                     </div>
                 </div>
                 
@@ -50,5 +46,5 @@
     
         </div>
     </div>
-    @include('owner.owner-edit-profile')
-    @include('owner.owner-change-password')
+    @include('admin.profile.admin-edit-profile')
+    @include('admin.profile.admin-change-password')

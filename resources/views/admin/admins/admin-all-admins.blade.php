@@ -1,4 +1,4 @@
-<div class="p-4 sm:p-6 lg:p-14 lg:pt-7">
+<div class="p-4 sm:p-6 lg:p-14 lg:pt-7 min-h-[calc(100vh-5rem)] md:min-h-[calc(100vh-5.5rem)]">
     <div class="flex justify-end sm:justify-between">
         <nav class="hidden sm:flex mb-4 sm:mb-6 lg:mb-7" aria-label="Breadcrumb">
             <ol class="inline-flex items-center space-x-1 md:space-x-3">
@@ -85,7 +85,7 @@
                     </td>
                 </tr>
 
-                @include('admin.admin-view-owner-details')
+                @include('admin.admins.admin-view-owner-details')
               
                 @endforeach
             
@@ -96,7 +96,7 @@
     </div>
 </div>
     
-@include('admin.admin-add-admins')
+@include('admin.admins.admin-add-admins')
 
 
 

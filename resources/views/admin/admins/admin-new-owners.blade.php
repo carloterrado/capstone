@@ -1,4 +1,4 @@
-<div class="relative p-4 sm:p-6 lg:p-14 lg:pt-7">
+<div class="relative p-4 sm:p-6 lg:p-14 lg:pt-7 min-h-[calc(100vh-5rem)] md:min-h-[calc(100vh-5.5rem)]">
     @include('message.loading')
 
     <nav class="hidden sm:flex mb-4 sm:mb-6 lg:mb-7" aria-label="Breadcrumb">
@@ -86,7 +86,7 @@
                        
                     </tr>
 
-                    @include('admin.admin-view-owner-details')
+                    @include('admin.admins.admin-view-owner-details')
                         
                 @endforeach
 

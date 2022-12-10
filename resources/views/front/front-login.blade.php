@@ -1,6 +1,6 @@
 <!-- Login Form -->
 
-<div class="flex justify-center lg:min-h-[90vh] relative p-4 lg:p-0">
+<div class="flex justify-center min-h-[calc(100vh-5rem)] md:min-h-[calc(100vh-5.5rem)] relative p-4 lg:p-0">
     
     <div class="absolute lg:relative -z-10  inset-0 bg-cover  lg:w-2/3" >
     <img src="{{url('front/images/road.jpg')}}" class="absolute w-full h-full object-cover inset-0 -z-10" alt="">
@@ -27,7 +27,7 @@
             @include('message.session-success')
             @include('message.session-error')
                
-                <h2 class="text-4xl font-bold text-center"><img class="mx-auto" src="{{url('front/images/Chesca_logo.svg')}}" alt=""></h2>
+                <h2 class="text-xl font-bold text-center"><img class="mx-auto h-20" src="{{url('front/images/Chesca_logo.svg')}}" alt=""></h2>
                 <p class="mt-3 text-gray-500">Welcome back, please sign to your account</p>
             </div>
 

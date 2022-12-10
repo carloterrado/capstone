@@ -1,5 +1,5 @@
 
-  <div class="flex justify-center h-max relative p-4 lg:p-0">
+  <div class="flex justify-center min-h-[calc(100vh-5rem)] md:min-h-[calc(100vh-5.5rem)] relative p-4 lg:p-0">
       <div class="absolute inset-0 -z-10 lg:relative bg-cover lg:w-2/3">
           <img src="{{url('front/images/road.jpg')}}" class="absolute inset-0 w-full h-full object-cover -z-10" alt="">
           <div class="flex items-center h-full px-20 bg-gray-900 bg-opacity-40 ">
@@ -15,8 +15,6 @@
           </div>
       </div>
       
-
-
       <div class="relative bg-white flex items-center w-full max-w-md px-6 mx-auto lg:w-2/6">
           @include('message.loading')
           <div class="flex-1">
@@ -28,7 +26,7 @@
                 @include('message.session-success')
                 @include('message.session-error')
                   
-                <h2 class="text-4xl font-bold text-center mt-6"><img class="mx-auto" src="front/images/Chesca_logo.svg" alt=""></h2>
+                <h2 class="text-4xl font-bold text-center mt-6"><img class="mx-auto h-20" src="front/images/Chesca_logo.svg" alt=""></h2>
                 <p class="mt-3 text-gray-500">Create your account now, it's free.</p>
               </div>
              

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use App\Models\CarType;
 use App\Models\OwnerDetail;
 use App\Models\User;
 use Carbon\Carbon;
@@ -29,6 +30,75 @@ class AdminController extends Controller
         
         return view('admin.dashboard');
         
+    }
+    //     CAR Modules
+    public function carTypes(){
+        
+        if(Auth::guard('admin')->user()->type === 'owner')
+        {
+            return view('owner.dashboard');
+        }
+        Session::put('title','Car Types');
+        Session::put('page','car-types');
+        $cartypes = CarType::get()->toArray();
+        // dd($cartypes);
+        return view('admin.dashboard')->with(compact('cartypes')) ;
+    }
+    public function addCarTypes(Request $request)
+    {
+        if($request->ajax())
+        {
+            $data = $request->all();
+            $isExist = CarType::where('name',$data['add-admin-car-type'])->exists();
+            if($isExist)
+            {
+                return response()->json(['status'=> 'error']);  
+            }
+            $cartype = new CarType;
+            $cartype->name = $data['add-admin-car-type'];
+            $cartype->status = 1;
+            $cartype->save();
+            return response()->json(['status'=> 'success']);
+        }
+    }
+    public function editCarTypes(Request $request)
+    {
+        if($request->ajax())
+        {
+            $data = $request->all();
+           
+            $isExist = CarType::where('name',$data['edit-admin-car-type'])->exists();
+            if($isExist)
+            {
+                return response()->json(['status'=> 'error']);  
+            }
+            CarType::where('id',$data['id'])->update(['name'=>$data['edit-admin-car-type']]);
+            return response()->json(['status'=> 'success']);
+        }
+    }
+    public function updateCarTypeStatus(Request $request)
+    {      
+        if($request->ajax()){
+            $data = $request->all();
+            // return response()->json(['status'=>$data]);
+         
+            if($data['status'] === 'Active'){
+                $status = 0;
+            }else{
+                $status = 1;
+            }
+            CarType::where('id',$data['cartype_id'])->update(['status'=>$status]);
+            return response()->json(['status'=>$status]);
+        }
+    }
+    public function deleteCarTypes(Request $request)
+    {
+        if($request->ajax())
+        {
+            $data = $request->all();
+            CarType::where('id',$data['id'])->delete();  
+            return response()->json(['status'=>'deleted']);
+        }
     }
     public function cars()
     {
@@ -74,6 +144,9 @@ class AdminController extends Controller
         return view('admin.dashboard');
 
     }
+
+
+    //     Admin Modules
     public function allAdmins()
     {
         if(Auth::guard('admin')->user()->type === 'owner')
@@ -190,117 +263,6 @@ class AdminController extends Controller
         return view('admin.dashboard')->with(compact('admins'));
 
     }
-    public function users()
-    {
-        if(Auth::guard('admin')->user()->type === 'owner')
-        {
-            return view('owner.dashboard');
-        }
-        Session::put('title','Users');
-        Session::put('page','users');
-        $users = User::where('email_verified_at','!=',null)->get()->toArray();
-       
-        return view('admin.dashboard')->with(compact('users'));
-   
-    }
-    public function unverifiedUsers()
-    {
-        if(Auth::guard('admin')->user()->type === 'owner')
-        {
-            return view('owner.dashboard');
-        }
-        Session::put('title','Unverified Users');
-        Session::put('page','unverified-users');
-        $users = User::where('email_verified_at',null)->get()->toArray();
-       
-        return view('admin.dashboard')->with(compact('users'));
-   
-
-    }
-    public function profile()
-    {
-        Session::put('page','profile');
-        Session::put('title','Profile');
-
-        if(Auth::guard('admin')->user()->type === 'owner')
-        {
-            $owner = OwnerDetail::where('id',Auth::guard('admin')->user()->owner_id)->get()->toArray();
-            // dd($owner);
-            return view('owner.dashboard')->with(compact('owner'));
-        }
-       return view('admin.dashboard');
-    }
-    public function updateProfile(Request $request)
-    {
-        if($request->ajax())
-        {
-            if(Auth::guard('admin')->user()->type === 'owner')
-            {
-
-           
-                $data = $request->all();
-                
-                if($request->hasFile('edit-id-file'))
-                { 
-                    $img_tmp2 = $request->file('edit-id-file');
-                    if($img_tmp2->isValid())
-                    {
-                        // Get image extension 
-                        $extension2 = $img_tmp2->getClientOriginalExtension(); 
-
-                        // Generate new image name 
-                        $imgName2 = rand(111,99999).'.'.$extension2;
-                        $imgPath2 ='owner/images/id/'.$imgName2;
-                    
-                        // Upload and resize the image
-                        Image::make($img_tmp2)->resize(1500,1500,function($constraint){
-                                $constraint->aspectRatio();
-                            })->save($imgPath2);
-                        if($data['current-id-file'] !== null)
-                        {
-                            $currentIDFile = public_path('owner/images/id/'.$data['current-id-file']);
-                                File::delete($currentIDFile);
-                        }
-                    }
-                    $validIDFile = $imgName2;
-                }
-                else
-                {
-                    $validIDFile = $data['current-id-file'];
-                }
-                
-                
-
-                // return response()->json(['data'=>$data]);
-            
-                // convert birthdate input from dd/mm/yyyy to yyyy-mm-dd
-                $inputDate = explode('/', $data['edit-birthdate'] ); 
-                $birthdate = $inputDate[2].'-'.$inputDate[1].'-'.$inputDate[0];
-
-                Admin::where('id', Auth::guard('admin')->user()->id)->update([
-                    'first_name' => $data['edit-first-name'],
-                    'last_name' => $data['edit-last-name']
-                    
-                   
-                ]);
-                OwnerDetail::where('id', Auth::guard('admin')->user()->owner_id)->update([
-                    'birthdate' => $birthdate,
-                    'contact' => $data['edit-contact'],
-                    'address' => $data['edit-address'],
-                    'valid_id' => $data['edit-valid-id'],
-                    'valid_id_file' => $validIDFile
-                ]);
-
-                return response()->json(['data'=>'success']);
-            
-            }
-            else
-            {
-
-            }
-           
-        }
-    }
     public function updateAdminStatus(Request $request)
     {      
         if($request->ajax()){
@@ -400,6 +362,127 @@ class AdminController extends Controller
            return response()->json(['status'=>'deleted']);
        }
     }
+
+    //     User Modules
+    public function users()
+    {
+        if(Auth::guard('admin')->user()->type === 'owner')
+        {
+            return view('owner.dashboard');
+        }
+        Session::put('title','Users');
+        Session::put('page','users');
+        $users = User::where('email_verified_at','!=',null)->get()->toArray();
+       
+        return view('admin.dashboard')->with(compact('users'));
+   
+    }
+    public function unverifiedUsers()
+    {
+        if(Auth::guard('admin')->user()->type === 'owner')
+        {
+            return view('owner.dashboard');
+        }
+        Session::put('title','Unverified Users');
+        Session::put('page','unverified-users');
+        $users = User::where('email_verified_at',null)->get()->toArray();
+       
+        return view('admin.dashboard')->with(compact('users'));
+   
+
+    }
+
+    //     Profile Modules
+    public function profile()
+    {
+        Session::put('page','profile');
+        Session::put('title','Profile');
+
+        if(Auth::guard('admin')->user()->type === 'owner')
+        {
+            $owner = OwnerDetail::where('id',Auth::guard('admin')->user()->owner_id)->get()->toArray();
+            // dd($owner);
+            return view('owner.dashboard')->with(compact('owner'));
+        }
+       return view('admin.dashboard');
+    }
+    public function updateProfile(Request $request)
+    {
+        if($request->ajax())
+        {
+            if(Auth::guard('admin')->user()->type === 'owner')
+            {
+
+           
+                $data = $request->all();
+                
+                if($request->hasFile('edit-id-file'))
+                { 
+                    $img_tmp2 = $request->file('edit-id-file');
+                    if($img_tmp2->isValid())
+                    {
+                        // Get image extension 
+                        $extension2 = $img_tmp2->getClientOriginalExtension(); 
+
+                        // Generate new image name 
+                        $imgName2 = rand(111,99999).'.'.$extension2;
+                        $imgPath2 ='owner/images/id/'.$imgName2;
+                    
+                        // Upload and resize the image
+                        Image::make($img_tmp2)->resize(1500,1500,function($constraint){
+                                $constraint->aspectRatio();
+                            })->save($imgPath2);
+                        if($data['current-id-file'] !== null)
+                        {
+                            $currentIDFile = public_path('owner/images/id/'.$data['current-id-file']);
+                                File::delete($currentIDFile);
+                        }
+                    }
+                    $validIDFile = $imgName2;
+                }
+                else
+                {
+                    $validIDFile = $data['current-id-file'];
+                }
+                
+                
+
+                // return response()->json(['data'=>$data]);
+            
+                // convert birthdate input from dd/mm/yyyy to yyyy-mm-dd
+                $inputDate = explode('/', $data['edit-birthdate'] ); 
+                $birthdate = $inputDate[2].'-'.$inputDate[1].'-'.$inputDate[0];
+
+                Admin::where('id', Auth::guard('admin')->user()->id)->update([
+                    'first_name' => $data['edit-first-name'],
+                    'last_name' => $data['edit-last-name']
+                    
+                   
+                ]);
+                OwnerDetail::where('id', Auth::guard('admin')->user()->owner_id)->update([
+                    'birthdate' => $birthdate,
+                    'contact' => $data['edit-contact'],
+                    'address' => $data['edit-address'],
+                    'valid_id' => $data['edit-valid-id'],
+                    'valid_id_file' => $validIDFile
+                ]);
+
+                return response()->json(['data'=>'success']);
+            
+            }
+            else
+            {
+                $data = $request->all();
+                Admin::where('id', Auth::guard('admin')->user()->id)->update([
+                    'first_name' => $data['edit-first-name'],
+                    'last_name' => $data['edit-last-name']
+                ]);
+                return response()->json(['data'=>'success']);
+
+            }
+           
+        }
+    }
     public function updatePassword(Request $request)
     {
         if($request->ajax()){
@@ -414,6 +497,39 @@ class AdminController extends Controller
             }
         }
         
+    }
+    public function forgotPassword(Request $request)
+    {
+        
+        if($request->ajax())
+        {
+
+            $data = $request->all();
+           $userEmail = Admin::where('email',$data['email'])->exists();
+            if($userEmail)
+            {
+                $email = $data['email'];
+                $tempPassword =  Str::random(15);
+                
+                $messageData = [
+                    'email' => $email,
+                    'code' =>  $tempPassword,
+                ];
+
+                 Mail::send('emails.user.forgot_password',$messageData, function($message)use($email){
+                    $message->to($email)->subject('Temporary password reset');
+                });
+                Admin::where('email',$email)->update(['password'=>bcrypt($tempPassword)]);
+
+                return response()->json(['status'=>'found']);
+            }
+          
+            return response()->json(['status'=>'notfound']);
+            
+        }
+        Session::put('page','forgot-password');
+        Session::put('title','Forgot Password');
+        return view('owner.forgot-password');
     }
     public function checkPassword(Request $request)
     {
@@ -573,40 +689,7 @@ class AdminController extends Controller
          {
             abort(404);
          }
-    }
-    public function forgotPassword(Request $request)
-    {
-        
-        if($request->ajax())
-        {
-
-            $data = $request->all();
-           $userEmail = Admin::where('email',$data['email'])->exists();
-            if($userEmail)
-            {
-                $email = $data['email'];
-                $tempPassword =  Str::random(15);
-                
-                $messageData = [
-                    'email' => $email,
-                    'code' =>  $tempPassword,
-                ];
-
-                 Mail::send('emails.user.forgot_password',$messageData, function($message)use($email){
-                    $message->to($email)->subject('Temporary password reset');
-                });
-                Admin::where('email',$email)->update(['password'=>bcrypt($tempPassword)]);
-
-                return response()->json(['status'=>'found']);
-            }
-          
-            return response()->json(['status'=>'notfound']);
-            
-        }
-        Session::put('page','forgot-password');
-        Session::put('title','Forgot Password');
-        return view('owner.forgot-password');
-    }
+    }  
     public function login(Request $request)
     {
         

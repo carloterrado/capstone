@@ -29,7 +29,7 @@ $(function(){
             $(errorElementID).css('color','lightcoral'); 
             return false;
         }
-        if( name.length > 20){  
+        if( name.length > 40){  
             $(errorElementID).html(type + ' is too long!');
             $(errorElementID).css('color','lightcoral');
             return false;
