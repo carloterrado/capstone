@@ -104,11 +104,12 @@ class AdminController extends Controller
     {
         Session::put('title','All Cars');
         Session::put('page','cars');
+        $cartypes = CarType::where('status',1)->get()->toArray();
         if(Auth::guard('admin')->user()->type === 'owner')
         {
             return view('owner.dashboard');
         }
-        return view('admin.dashboard');
+        return view('admin.dashboard')->with(compact('cartypes'));
 
     }
     public function ownerCars()

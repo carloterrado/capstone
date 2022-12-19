@@ -149,6 +149,8 @@ $(function(){
 
     }
 
+    
+
 
     //    Add admin form validation 
         
@@ -887,8 +889,435 @@ $(function(){
      });
          
      });
+
+
+
+
+
+     // Car validations
+    function validateCarName(nameID,errorElementID,type){
+        let name = $(nameID).val();
+
+        if(name.length == 0){
+            $(errorElementID).html(type +' is required!');
+            $(errorElementID).css('color','lightcoral');
+            return false;
+        }
+       
+        if( name.length > 100){  
+            $(errorElementID).html(type + ' is too long!');
+            $(errorElementID).css('color','lightcoral');
+            return false;
+        }
+        $(errorElementID).html(type);
+        $(errorElementID).css('color','black');
+        return true;
+    }
+    function validatePlateNumber(plateID,errorElementID,type){
+        let name = $(plateID).val();
+
+        if(name.length == 0)
+        {
+            $(errorElementID).html(type +' is required!');
+            $(errorElementID).css('color','lightcoral');
+            return false;
+        }
+        if(!name.match(/^[A-Z0-9\s]*$/ ))
+        {
+            $(errorElementID).html('Uppercase and numbers only!');
+            $(errorElementID).css('color','lightcoral'); 
+            return false;
+        }
+       
+        if( name.length > 8){  
+            $(errorElementID).html(type + ' is too long!');
+            $(errorElementID).css('color','lightcoral');
+            return false;
+        }
+        $(errorElementID).html(type);
+        $(errorElementID).css('color','black');
+        return true;
+    }
+    function validateCarType(typeID,errorElementID)
+    {
+        let validchoice = $(typeID).children('option:selected').val();
+        if(validchoice === '')
+        {
+            $(errorElementID).html('Select a car type!');
+            $(errorElementID).css('color','lightcoral');
+            return false; 
+        }
+        $(errorElementID).html('Car type');
+        $(errorElementID).css('color','black');
+        return true;
+    }
+    function validateCarDescription(descriptionID,errorElementID)
+    {
+        let description = $(descriptionID).val();
+
+        if(description.length == 0)
+        {
+            $(errorElementID).html('Car description is required!');
+            $(errorElementID).css('color','lightcoral');
+            return false;
+        }
+        
+        if(description.length < 20)
+        {
+            $(errorElementID).html('Too short!');
+            $(errorElementID).css('color','lightcoral');
+            return false; 
+        }
+        $(errorElementID).html('Car description');
+        $(errorElementID).css('color','black');
+        return true;
+    }
+    function validateCarCapacity(capacityID,errorElementID)
+    {
+        let capacity = $(capacityID).val();
+
+        if(capacity.length == 0)
+        {
+            $(errorElementID).html('Car capacity is required!');
+            $(errorElementID).css('color','lightcoral');
+            return false;
+        }
+        if(!capacity.match(/^[0-9]*$/ ))
+        {
+            $(errorElementID).html('Numbers only!');
+            $(errorElementID).css('color','lightcoral'); 
+            return false;
+        }
+        if(capacity <= 0)
+        {
+            $(errorElementID).html('Invalid car capacity!');
+            $(errorElementID).css('color','lightcoral');
+            return false; 
+        }
+        if(capacity > 30)
+        {
+            $(errorElementID).html('Invalid car capacity!');
+            $(errorElementID).css('color','lightcoral');
+            return false; 
+        }
+        if(capacity.length > 2)
+        {
+            $(errorElementID).html('Invalid car capacity!');
+            $(errorElementID).css('color','lightcoral');
+            return false; 
+        }
+        $(errorElementID).html('Car capacity');
+        $(errorElementID).css('color','black');
+        return true;
+    }
+    function validateImageFile(imageID,errorElementID,imageType)
+    {
+        
+        let files =  $(imageID)[0].files;
+       
+        if(files.length === 0)
+        {
+            $(errorElementID).html(imageType + ' is required!');
+            $(errorElementID).css('color','lightcoral');
+            return false; 
+        }
+      
+      
+        for(var i=0; i < files.length; i++){
+            let file = files[i]
+           
+            if(!file.name.match(/\.(jpg|jpeg|gif|png)$/))
+            {
+                $(errorElementID).html('Invalid selected file');
+                $(errorElementID).css('color','lightcoral');
+                return false; 
+            }
+
+        }     
+     
+        $(errorElementID).html(imageType);
+        $(errorElementID).css('color','black');
+        return true;
+    }
+    function validatePickupLocation(pickupID,errorElementID,type){
+        let name = $(pickupID).val();
+
+        if(name.length == 0){
+            $(errorElementID).html(type +' is required!');
+            $(errorElementID).css('color','lightcoral');
+            return false;
+        }
+       
+        if( name.length < 10){  
+            $(errorElementID).html(type + ' is too short!');
+            $(errorElementID).css('color','lightcoral');
+            return false;
+        }
+        $(errorElementID).html(type);
+        $(errorElementID).css('color','black');
+        return true;
+    }
+    function validateCarDriversFee(driverID,errorElementID)
+    {
+        let driversFee = $(driverID).val();
+
+        if(driversFee.length == 0)
+        {
+            $(errorElementID).html('Driver\'s fee is required!');
+            $(errorElementID).css('color','lightcoral');
+            return false;
+        }
+        if(!driversFee.match(/^[0-9]*$/ ))
+        {
+            $(errorElementID).html('Numbers only!');
+            $(errorElementID).css('color','lightcoral'); 
+            return false;
+        }
+        if(driversFee <= 0)
+        {
+            $(errorElementID).html('Invalid driver\'s fee!');
+            $(errorElementID).css('color','lightcoral');
+            return false; 
+        }
+        if(driversFee > 100000)
+        {
+            $(errorElementID).html('Invalid driver\'s fee!');
+            $(errorElementID).css('color','lightcoral');
+            return false; 
+        }
+        
+        $(errorElementID).html('Driver\'s fee');
+        $(errorElementID).css('color','black');
+        return true;
+    }
+    function validateCarPrice(priceID,errorElementID,locations)
+    {
+        let price = $(priceID).val();
+
+        if(price.length == 0)
+        {
+            $(errorElementID).html('Price is required!');
+            $(errorElementID).css('color','lightcoral');
+            return false;
+        }
+        if(!price.match(/^[0-9]*$/ ))
+        {
+            $(errorElementID).html('Numbers only!');
+            $(errorElementID).css('color','lightcoral'); 
+            return false;
+        }
+        if(price <= 1000)
+        {
+            $(errorElementID).html('Invalid Price!');
+            $(errorElementID).css('color','lightcoral');
+            return false; 
+        }
+        if(price > 100000)
+        {
+            $(errorElementID).html('Invalid Price!');
+            $(errorElementID).css('color','lightcoral');
+            return false; 
+        }
+        
+        $(errorElementID).html(locations);
+        $(errorElementID).css('color','black');
+        return true;
+    }
  
 
+
+
+    //    Car form validation
+    $('#add-admin-car-name').on('keyup keypress',function()
+    {
+        validateCarName('#add-admin-car-name','#add-admin-car-name-error','Name of car ');
+    })
+    $('#add-admin-car-plate-number').on('keyup keypress',function()
+    {
+        validatePlateNumber('#add-admin-car-plate-number','#add-admin-car-plate-number-error','Plate number');
+    })
+    $('#add-admin-set-car-type').on('click keypress',function()
+    {
+        validateCarType('#add-admin-set-car-type','#add-admin-set-car-type-error');
+    })
+    $('#add-admin-car-capacity').on('keyup keypress',function()
+    {
+        validateCarCapacity('#add-admin-car-capacity','#add-admin-car-capacity-error');
+    })
+    $('#add-admin-car-registration').on('change', function(){
+        validateImageFile('#add-admin-car-registration','#add-admin-car-registration-error','Car registration')
+    })
+    $('#add-admin-car-photos').on('change', function(){
+        validateImageFile('#add-admin-car-photos','#add-admin-car-photos-error','Photos of cars')
+    })
+    $('#add-admin-car-description').on('keyup keypress',function()
+    {
+        validateCarDescription('#add-admin-car-description','#add-admin-car-description-error');
+    })
+    $('#add-admin-car-pickup-location').on('keyup keypress',function()
+    {
+        validatePickupLocation('#add-admin-car-pickup-location','#add-admin-car-pickup-location-error','Pick-up location');
+    })
+    $('#add-admin-car-with-driver').on('click', function(){
+        $('#add-admin-car-drivers-fee').removeAttr('disabled')
+    })
+    $('#add-admin-car-only').on('click', function(){
+        $('#add-admin-car-drivers-fee').attr('disabled','disabled')
+        $('#add-admin-car-drivers-fee').val('')
+        $('#add-admin-car-drivers-fee-error').html('Driver\'s fee');
+        $('#add-admin-car-drivers-fee-error').css('color','black');
+    })
+    $('#add-admin-car-drivers-fee').on('keyup keypress',function()
+    {
+        validateCarDriversFee('#add-admin-car-drivers-fee','#add-admin-car-drivers-fee-error');
+    })
+    $('#add-admin-car-price-ilocos-region').on('keyup keypress',function()
+    {
+        validateCarPrice('#add-admin-car-price-ilocos-region','#add-admin-car-price-ilocos-region-error','REGION I (ILOCOS REGION)');
+    })
+    $('#add-admin-car-price-cagayan-valley').on('keyup keypress',function()
+    {
+        validateCarPrice('#add-admin-car-price-cagayan-valley','#add-admin-car-price-cagayan-valley-error','REGION II (CAGAYAN VALLEY)');
+    })
+    $('#add-admin-car-price-central-luzon').on('keyup keypress',function()
+    {
+        validateCarPrice('#add-admin-car-price-central-luzon','#add-admin-car-price-central-luzon-error','REGION III (CENTRAL LUZON)');
+    })
+    $('#add-admin-car-price-calabarzon').on('keyup keypress',function()
+    {
+        validateCarPrice('#add-admin-car-price-calabarzon','#add-admin-car-price-calabarzon-error','REGION IV-A (CALABARZON)');
+    })
+    $('#add-admin-car-price-mimaropa').on('keyup keypress',function()
+    {
+        validateCarPrice('#add-admin-car-price-mimaropa','#add-admin-car-price-mimaropa-error','REGION IV-B (MIMAROPA)');
+    })
+    $('#add-admin-car-price-bicol-region').on('keyup keypress',function()
+    {
+        validateCarPrice('#add-admin-car-price-bicol-region','#add-admin-car-price-bicol-region-error','REGION V (BICOL REGION)');
+    })
+    $('#add-admin-car-price-ncr').on('keyup keypress',function()
+    {
+        validateCarPrice('#add-admin-car-price-ncr','#add-admin-car-price-ncr-error','NATIONAL CAPITAL REGION (NCR)');
+    })
+    $('#add-admin-car-price-car').on('keyup keypress',function()
+    {
+        validateCarPrice('#add-admin-car-price-car','#add-admin-car-price-car-error','CORDILLERA ADMINISTRATIVE REGION (CAR)');
+    })
+
+      //    Add car form validation
+    $('.step-2').on('click', function(){
+        let valid = validateCarName('#add-admin-car-name','#add-admin-car-name-error','Name of car ') && validatePlateNumber('#add-admin-car-plate-number','#add-admin-car-plate-number-error','Plate number') && validateCarType('#add-admin-set-car-type','#add-admin-set-car-type-error') && validateCarCapacity('#add-admin-car-capacity','#add-admin-car-capacity-error') && validateImageFile('#add-admin-car-registration','#add-admin-car-registration-error','Car registration') && validateImageFile('#add-admin-car-photos','#add-admin-car-photos-error','Photos of cars') && validateCarDescription('#add-admin-car-description','#add-admin-car-description-error');
+      
+        if(valid)
+        {
+            $('.form-step').hide()
+            $('.step-two').show() 
+        }
+        
+            
+    })
+    $('.step-1').on('click', function(){
+        $('.form-step').hide()
+        $('.step-one').show()
+    })
+    $('.step-3').on('click', function(){
+        let valid =  validatePickupLocation('#add-admin-car-pickup-location','#add-admin-car-pickup-location-error','Pick-up location');
+        let driversFee = true;
+        if($('#add-admin-car-with-driver').is(':checked'))
+        {
+          driversFee =  validateCarDriversFee('#add-admin-car-drivers-fee','#add-admin-car-drivers-fee-error') ;
+        }
+        if(valid && driversFee)
+        {
+            $('.form-step').hide()
+            $('.step-three').show()
+        }  
+       
+        
+    })
+
+    $('#add-car-form').on('submit',function(event){
+        event.preventDefault()
+       
+
+        function validateAddCarForm()
+        {
+
+            let valid = validateCarPrice('#add-admin-car-price-cagayan-valley','#add-admin-car-price-cagayan-valley-error','REGION II (CAGAYAN VALLEY)') && validateCarPrice('#add-admin-car-price-central-luzon','#add-admin-car-price-central-luzon-error','REGION III (CENTRAL LUZON)') &&  validateCarPrice('#add-admin-car-price-calabarzon','#add-admin-car-price-calabarzon-error','REGION IV-A (CALABARZON)') && validateCarPrice('#add-admin-car-price-mimaropa','#add-admin-car-price-mimaropa-error','REGION IV-B (MIMAROPA)') && validateCarPrice('#add-admin-car-price-bicol-region','#add-admin-car-price-bicol-region-error','REGION V (BICOL REGION)') && validateCarPrice('#add-admin-car-price-ncr','#add-admin-car-price-ncr-error','NATIONAL CAPITAL REGION (NCR)') && validateCarPrice('#add-admin-car-price-car','#add-admin-car-price-car-error','CORDILLERA ADMINISTRATIVE REGION (CAR)');
+
+            if(!valid)
+            {  
+                return false;
+            }
+            return true;
+        }
+
+        let formData = new FormData($(this)[0]);
+
+        async function submitAddCarForm()
+        {
+            $.ajax({
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                },
+                type: 'POST',
+                url:'/admin/update-profile',
+                data:formData,
+                processData: false,
+                contentType: false,
+                success:function(resp){
+                    $('.loading').removeClass('grid')
+                    $('.loading').hide()
+                    //    alert(JSON.stringify(resp['data']))
+                    if(resp["data"] === 'success')
+                    {
+                        $('.success-container').show()
+                        $('.success-message').html('Details updated successfully!')
+                        setTimeout(function(){
+                            window.location.href = '/admin/profile';   
+                        },3000)  
+                    }
+                    else 
+                    {  
+                        $('.error-container').show()
+                        $('.error-message').html('Update details failed!')
+                        setTimeout(function(){
+                            $('.error-container').hide()  
+                        },3000)
+                    }
+                    
+                },
+                error: function(){
+                    $('.loading').removeClass('grid')
+                    $('.loading').hide()
+                    $('.error-container').show()
+                    $('.error-message').html('System error update details failed!')
+                    setTimeout(function(){
+                        $('.error-container').hide()
+                    },3000)
+                }
+            })
+        }
+        let validated = validateAddCarForm()
+        
+        
+        if(validated){
+            
+            $('.loading').removeClass('hidden')
+            $('.loading').addClass('grid')
+            return false
+            submitAddCarForm().catch(function(error){
+                $('.loading').removeClass('grid')
+                $('.loading').hide()
+                $('.error-container').show()
+                $('.error-message').html('System update details failed!')
+                setTimeout(function(){
+                    window.location.href = '/admin/profile';  
+                },3000)
+            })
+        }
+
+    })
 
 
 });

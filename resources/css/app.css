@@ -62,6 +62,10 @@
     ::-webkit-scrollbar {
         @apply hidden ;
       }
+
+    div[modal-backdrop]{
+        @apply bg-black/50;
+    }
     
    
       /* will removed blue square when tapping buttons */

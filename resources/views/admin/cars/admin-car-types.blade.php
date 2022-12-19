@@ -22,9 +22,7 @@
             </li>
         </ol>
         </nav>
-        @if (in_array(Auth::guard('admin')->user()->type,['admin','systemadmin']))  
         <i data-modal-toggle="add-cartype"  class=' cursor-pointer bx bxs-plus-circle text-accent-regular text-4xl mb-4 sm:mb-6 lg:mb-7'></i>
-        @endif
     </div>
     <div class="overflow-x-auto relative shadow-md sm:rounded-lg pt-4 border">
         
