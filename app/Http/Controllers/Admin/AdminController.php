@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use App\Models\Car;
+use App\Models\CarPhoto;
+use App\Models\CarPrice;
 use App\Models\CarType;
 use App\Models\OwnerDetail;
 use App\Models\User;
@@ -111,6 +114,80 @@ class AdminController extends Controller
         }
         return view('admin.dashboard')->with(compact('cartypes'));
 
+    }
+    public function addCar(Request $request)
+    {
+             
+        if($request->ajax())
+        {
+            $data = $request->all();
+            $car = new Car;
+            $car->owner_id = Auth::guard('admin')->user()->owner_id;
+            $car->admin_id = Auth::guard('admin')->user()->id;
+            $car->name = $data['add-admin-car-name'];
+            $car->plate_number = $data['add-admin-car-plate-number'];
+            $car->type_id = (int)$data['add-admin-set-car-type'];
+            $car->capacity = $data['add-admin-car-capacity'];
+            $car->pickup_location = $data['add-admin-car-pickup-location'];
+            $car->driver = $data['add-admin-car-driver'];
+            $car->drivers_fee = $data['add-admin-car-drivers-fee'];
+            $car->account = 'verified';
+            $car->save();
+           
+
+            // Assign the new car to $newCar to get its id
+            $newCar = $car;
+            
+
+            $prices = 
+                [
+                $data['add-admin-car-price-ilocos-region'],
+                $data['add-admin-car-price-cagayan-valley'],
+                $data['add-admin-car-price-central-luzon'],
+                $data['add-admin-car-price-calabarzon'],
+                $data['add-admin-car-price-mimaropa'],
+                $data['add-admin-car-price-bicol-region'],
+                $data['add-admin-car-price-ncr'],
+                $data['add-admin-car-price-car'],
+                ];
+            $reg_id = [1,2,3,4,5,6,14,15];
+
+            for($i=0; $i<8; $i++)
+            {
+                $carPrice = new CarPrice;
+                $carPrice->car_id = $newCar->id;
+                $carPrice->price = $prices[$i];
+                $carPrice->reg_id = $reg_id[$i];
+                $carPrice->save();
+            }
+           
+           
+          
+            foreach($data['add-admin-car-photos'] as $photo)
+            {
+                $img_tmp = $photo;
+                if($img_tmp->isValid())
+                {
+                    $extension = $img_tmp->getClientOriginalExtension();
+                    // --- Generate new image name --- //
+                    $imgName = rand(111,99999).'.'.$extension;
+                    $imgPath ='admins/images/cars/'.$imgName;
+            
+                    // --- Upload the image --- //
+                    Image::make($img_tmp)->resize(1500,1500,function($constraint)
+                    {
+                        $constraint->aspectRatio();
+                    })->save($imgPath); 
+                    
+                    $carPhoto = new CarPhoto;
+                    $carPhoto->car_id = $newCar->id;
+                    $carPhoto->photos = $imgName;
+                    $carPhoto->save();
+                }
+            }
+            
+            return response()->json(['data'=>'success']);
+        }
     }
     public function ownerCars()
     {

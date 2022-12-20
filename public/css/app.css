@@ -2070,6 +2070,9 @@ div[modal-backdrop] {
 .bg-white\/90 {
   background-color: rgb(255 255 255 / 0.9);
 }
+.bg-accent-regular\/10 {
+  background-color: rgb(232 73 73 / 0.1);
+}
 .bg-opacity-40 {
   --tw-bg-opacity: 0.4;
 }
@@ -2620,6 +2623,12 @@ div[modal-backdrop] {
   --tw-content: '';
   content: var(--tw-content);
 }
+.read-only\:bg-accent-regular\/10:-moz-read-only {
+  background-color: rgb(232 73 73 / 0.1);
+}
+.read-only\:bg-accent-regular\/10:read-only {
+  background-color: rgb(232 73 73 / 0.1);
+}
 .hover\:border-gray-300:hover {
   --tw-border-opacity: 1;
   border-color: rgb(209 213 219 / var(--tw-border-opacity));
@@ -2882,6 +2891,20 @@ div[modal-backdrop] {
   --tw-scale-y: .75;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
+.peer:-moz-read-only ~ .peer-read-only\:bg-transparent {
+  background-color: transparent;
+}
+.peer:read-only ~ .peer-read-only\:bg-transparent {
+  background-color: transparent;
+}
+.peer:-moz-read-only ~ .peer-read-only\:bg-white {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+.peer:read-only ~ .peer-read-only\:bg-white {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
 .peer:focus ~ .peer-focus\:top-2 {
   top: 0.5rem;
 }
@@ -2905,8 +2928,23 @@ div[modal-backdrop] {
   --tw-text-opacity: 1;
   color: rgb(17 24 39 / var(--tw-text-opacity));
 }
+.peer:focus:-moz-read-only ~ .peer-focus\:peer-read-only\:bg-white {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+.peer:focus:read-only ~ .peer-focus\:peer-read-only\:bg-white {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
 .peer:disabled ~ .peer-disabled\:bg-transparent {
   background-color: transparent;
+}
+.peer:focus:disabled ~ .peer-focus\:peer-disabled\:bg-transparent {
+  background-color: transparent;
+}
+.peer:focus:disabled ~ .peer-focus\:peer-disabled\:bg-white {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 .dark .dark\:border-gray-700 {
   --tw-border-opacity: 1;

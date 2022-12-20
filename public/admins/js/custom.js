@@ -1033,7 +1033,14 @@ $(function(){
                 return false; 
             }
 
-        }     
+        } 
+        if(files.length > 9)
+        {
+            $(errorElementID).html(imageType + ' maximum is 9!');
+            $(errorElementID).css('color','lightcoral');
+            return false; 
+        }
+
      
         $(errorElementID).html(imageType);
         $(errorElementID).css('color','black');
@@ -1159,11 +1166,11 @@ $(function(){
         validatePickupLocation('#add-admin-car-pickup-location','#add-admin-car-pickup-location-error','Pick-up location');
     })
     $('#add-admin-car-with-driver').on('click', function(){
-        $('#add-admin-car-drivers-fee').removeAttr('disabled')
+        $('#add-admin-car-drivers-fee').removeAttr('readonly')
     })
     $('#add-admin-car-only').on('click', function(){
-        $('#add-admin-car-drivers-fee').attr('disabled','disabled')
-        $('#add-admin-car-drivers-fee').val('')
+        $('#add-admin-car-drivers-fee').attr('readonly','readonly')
+        $('#add-admin-car-drivers-fee').val('0')
         $('#add-admin-car-drivers-fee-error').html('Driver\'s fee');
         $('#add-admin-car-drivers-fee-error').css('color','black');
     })
@@ -1206,7 +1213,8 @@ $(function(){
 
       //    Add car form validation
     $('.step-2').on('click', function(){
-        let valid = validateCarName('#add-admin-car-name','#add-admin-car-name-error','Name of car ') && validatePlateNumber('#add-admin-car-plate-number','#add-admin-car-plate-number-error','Plate number') && validateCarType('#add-admin-set-car-type','#add-admin-set-car-type-error') && validateCarCapacity('#add-admin-car-capacity','#add-admin-car-capacity-error') && validateImageFile('#add-admin-car-registration','#add-admin-car-registration-error','Car registration') && validateImageFile('#add-admin-car-photos','#add-admin-car-photos-error','Photos of cars') && validateCarDescription('#add-admin-car-description','#add-admin-car-description-error');
+        let valid = validateCarName('#add-admin-car-name','#add-admin-car-name-error','Name of car ') && validatePlateNumber('#add-admin-car-plate-number','#add-admin-car-plate-number-error','Plate number') && validateCarType('#add-admin-set-car-type','#add-admin-set-car-type-error') && validateCarCapacity('#add-admin-car-capacity','#add-admin-car-capacity-error') && validateImageFile('#add-admin-car-photos','#add-admin-car-photos-error','Photos of cars') && validateCarDescription('#add-admin-car-description','#add-admin-car-description-error');
+        // let valid = validateCarName('#add-admin-car-name','#add-admin-car-name-error','Name of car ') && validatePlateNumber('#add-admin-car-plate-number','#add-admin-car-plate-number-error','Plate number') && validateCarType('#add-admin-set-car-type','#add-admin-set-car-type-error') && validateCarCapacity('#add-admin-car-capacity','#add-admin-car-capacity-error') && validateImageFile('#add-admin-car-registration','#add-admin-car-registration-error','Car registration') && validateImageFile('#add-admin-car-photos','#add-admin-car-photos-error','Photos of cars') && validateCarDescription('#add-admin-car-description','#add-admin-car-description-error');
       
         if(valid)
         {
@@ -1261,7 +1269,7 @@ $(function(){
                     "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
                 },
                 type: 'POST',
-                url:'/admin/update-profile',
+                url:'/admin/add-car',
                 data:formData,
                 processData: false,
                 contentType: false,
@@ -1272,15 +1280,15 @@ $(function(){
                     if(resp["data"] === 'success')
                     {
                         $('.success-container').show()
-                        $('.success-message').html('Details updated successfully!')
+                        $('.success-message').html('Car added successfully!')
                         setTimeout(function(){
-                            window.location.href = '/admin/profile';   
+                            window.location.href = '/admin/cars';   
                         },3000)  
                     }
                     else 
                     {  
                         $('.error-container').show()
-                        $('.error-message').html('Update details failed!')
+                        $('.error-message').html('Add car failed!')
                         setTimeout(function(){
                             $('.error-container').hide()  
                         },3000)
@@ -1291,7 +1299,7 @@ $(function(){
                     $('.loading').removeClass('grid')
                     $('.loading').hide()
                     $('.error-container').show()
-                    $('.error-message').html('System error update details failed!')
+                    $('.error-message').html('System error add car failed!')
                     setTimeout(function(){
                         $('.error-container').hide()
                     },3000)
@@ -1305,14 +1313,14 @@ $(function(){
             
             $('.loading').removeClass('hidden')
             $('.loading').addClass('grid')
-            return false
+           
             submitAddCarForm().catch(function(error){
                 $('.loading').removeClass('grid')
                 $('.loading').hide()
                 $('.error-container').show()
-                $('.error-message').html('System update details failed!')
+                $('.error-message').html('System add car failed!')
                 setTimeout(function(){
-                    window.location.href = '/admin/profile';  
+                    window.location.href = '/admin/cars';  
                 },3000)
             })
         }

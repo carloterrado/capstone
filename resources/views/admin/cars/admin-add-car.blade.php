@@ -4,7 +4,8 @@
     <div class="relative w-full max-w-2xl m-auto">
     @include('message.loading')
         
-        <form id="add-car-form" method="POST" class="relative bg-white rounded-lg shadow ">
+        <form id="add-car-form"  method="POST" class="relative bg-white rounded-lg shadow ">
+            @csrf
         
              <!-- Step 1 -->
             <div class="form-step step-one">
@@ -45,10 +46,10 @@
                             <label id="add-admin-car-capacity-error" for="add-admin-car-capacity" class="pointer-events-none absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-gray-900 peer-focus:font-semibold peer-placeholder-shown:scale-100 
                             peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 whitespace-nowrap">Car capacity</label>
                         </div>
-                        <div class="col-span-6">
+                        <!-- <div class="col-span-6">
                             <label id="add-admin-car-registration-error" for="add-admin-car-registration" class="block pb-1 text-sm font-semibold lg:pl-2 text-gray-500" >Car registration</label>
                             <input id="add-admin-car-registration" name="add-admin-car-registration" type="file" class="block w-full text-sm text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" aria-describedby="file_input_help">
-                        </div>
+                        </div> -->
                         <div class="col-span-6">
                             <label id="add-admin-car-photos-error" for="add-admin-car-photos" class="block pb-1 text-sm font-semibold lg:pl-2 text-gray-500" >Photos of car</label>
                             <input id="add-admin-car-photos" name="add-admin-car-photos[]" type="file" class="block w-full text-sm text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" aria-describedby="file_input_help"  multiple>
@@ -98,9 +99,9 @@
                             </div>
                         </div>
                         <div class="col-span-6 sm:col-span-3 relative">
-                            <input type="text" name="add-admin-car-drivers-fee" id="add-admin-car-drivers-fee" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-900 peer disabled:bg-accent-regular/10" placeholder=" "  disabled >
+                            <input type="text" name="add-admin-car-drivers-fee" value="0" id="add-admin-car-drivers-fee" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-900 peer read-only:bg-accent-regular/10" placeholder=" "  readonly >
                             <label id="add-admin-car-drivers-fee-error" for="add-admin-car-drivers-fee" class="pointer-events-none absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-gray-900 peer-focus:font-semibold peer-placeholder-shown:scale-100 
-                            peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 whitespace-nowrap peer-disabled:bg-transparent">Driver's fee</label>
+                            peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 whitespace-nowrap peer-read-only:bg-white">Driver's fee</label>
                         </div>
                     </div>  
                 </div>
@@ -122,6 +123,12 @@
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>  
                     </button>
                 </div>
+
+                <div class="px-6">
+                    @include('message.ajax-error')
+                    @include('message.ajax-success')
+                </div>
+
                 <div class="p-6 space-y-6">
                     <div class="grid grid-cols-6 gap-6">
                         <div class="col-span-6 sm:col-span-3 relative">

@@ -27,7 +27,6 @@ Route::prefix('/')->group(function()
         Route::post('update-password',[FrontController::class,'updatePassword']);
         Route::post('check-user-password',[FrontController::class,'checkPassword']);
 
-
     });
     Route::get('about',[FrontController::class,'about']);
     Route::get('contact',[FrontController::class,'contact']);
@@ -65,6 +64,7 @@ Route::prefix('admin')->group(function()
         Route::post('update-car-type-status',[AdminController::class,'updateCarTypeStatus']);
         Route::post('delete-car-type',[AdminController::class,'deleteCarTypes']);
         Route::get('cars',[AdminController::class,'cars']);
+        Route::post('add-car',[AdminController::class,'addCar']);
         Route::get('owner-cars',[AdminController::class,'ownerCars']);
         Route::get('car-request',[AdminController::class,'carRequest']);
         Route::get('car-declined',[AdminController::class,'carDeclined']);
