@@ -110,9 +110,12 @@ class AdminController extends Controller
         $cartypes = CarType::where('status',1)->get()->toArray();
         if(Auth::guard('admin')->user()->type === 'owner')
         {
-            return view('owner.dashboard');
+            $cars = Car::with(['carPhotos','carPrice'])->where(['account'=>'verified','admin_id'=>Auth::guard('admin')->user()->id])->get()->toArray();
+            return view('owner.dashboard')->with(compact('cartypes','cars'));
         }
-        return view('admin.dashboard')->with(compact('cartypes'));
+        $cars = Car::with(['carPhotos','carPrice','carTypes'])->where('account','verified')->get()->toArray();
+        // dd($cars);
+        return view('admin.dashboard')->with(compact('cartypes','cars'));
 
     }
     public function addCar(Request $request)
@@ -121,6 +124,7 @@ class AdminController extends Controller
         if($request->ajax())
         {
             $data = $request->all();
+            // return response()->json(['data'=>$data]);
             $car = new Car;
             $car->owner_id = Auth::guard('admin')->user()->owner_id;
             $car->admin_id = Auth::guard('admin')->user()->id;
@@ -128,6 +132,22 @@ class AdminController extends Controller
             $car->plate_number = $data['add-admin-car-plate-number'];
             $car->type_id = (int)$data['add-admin-set-car-type'];
             $car->capacity = $data['add-admin-car-capacity'];
+            $main_img = $data['add-admin-car-main-photo'];
+            if($main_img->isValid())
+            {
+                $extension = $main_img->getClientOriginalExtension();
+                // --- Generate new image name --- //
+                $imgMain = rand(111,99999).'.'.$extension;
+                $imgPath ='admins/images/cars/main/'.$imgMain;
+        
+                // --- Upload the image --- //
+                Image::make($main_img)->resize(1500,1500,function($constraint)
+                {
+                    $constraint->aspectRatio();
+                })->save($imgPath); 
+                $car->main_photo = $imgMain;
+            }
+            $car->description = $data['add-admin-car-description'];
             $car->pickup_location = $data['add-admin-car-pickup-location'];
             $car->driver = $data['add-admin-car-driver'];
             $car->drivers_fee = $data['add-admin-car-drivers-fee'];
@@ -187,6 +207,45 @@ class AdminController extends Controller
             }
             
             return response()->json(['data'=>'success']);
+        }
+    }
+    public function updateCarStatus(Request $request)
+    {      
+        if($request->ajax()){
+            $data = $request->all();
+            // return response()->json(['status'=>$data]);
+         
+            if($data['status'] === 'Active'){
+                $status = 0;
+            }else{
+                $status = 1;
+            }
+            Car::where('id',$data['car_id'])->update(['status'=>$status]);
+            return response()->json(['status'=>$status]);
+        }
+    }
+    public function deleteCar(Request $request)
+    {
+        if($request->ajax())
+        {
+            $data = $request->all();
+
+            // $carImage = Car::where('id',$data['id'])->get()->first();
+      
+            // $carImg = public_path('admins/images/cars/registration/'.$carImage->registration);
+            //                 File::delete($carImg);
+            $mainImage = Car::where('id',$data['id'])->get()->first();
+            $carImg = public_path('admins/images/cars/main/'.$mainImage->main_photo);
+                            File::delete($carImg);
+
+            $carPhotos = CarPhoto::where('car_id',$data['id'])->get()->toArray();
+            foreach($carPhotos as $image)
+            {    
+                $carPhoto = public_path('admins/images/cars/'.$image['photos']);
+                            File::delete($carPhoto);
+            }
+            Car::where('id',$data['id'])->delete();  
+            return response()->json(['status'=>'deleted']);
         }
     }
     public function ownerCars()

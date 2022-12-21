@@ -13,6 +13,8 @@
       <link rel="stylesheet" href="{{url('css/app.css')}}">
       <link rel="stylesheet" href="{{url('css/dataTable.css')}}">
    
+    
+   
  
 </head>
 
@@ -42,6 +44,7 @@
        $('#arkilla-table').DataTable();
    </script>
    <script src="{{url('admins/js/custom.js')}}"></script>
+   
    
 </body>
 

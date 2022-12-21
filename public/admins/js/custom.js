@@ -852,7 +852,7 @@ $(function(){
             })
         } 
     })
-     //         Update admin status
+     //         Update car type status
      $('#arkilla-table').on("click",".updateCarTypeStatus", async function () 
      {
          var status = $(this).children("i").attr("status");
@@ -1154,8 +1154,11 @@ $(function(){
     $('#add-admin-car-registration').on('change', function(){
         validateImageFile('#add-admin-car-registration','#add-admin-car-registration-error','Car registration')
     })
-    $('#add-admin-car-photos').on('change', function(){
-        validateImageFile('#add-admin-car-photos','#add-admin-car-photos-error','Photos of cars')
+    // $('#add-admin-car-photos').on('change', function(){
+    //     validateImageFile('#add-admin-car-photos','#add-admin-car-photos-error','Photos of cars')
+    // })
+    $('#add-admin-car-main-photo').on('change', function(){
+        validateImageFile('#add-admin-car-main-photo','#add-admin-car-main-photo-error','Main car photo')
     })
     $('#add-admin-car-description').on('keyup keypress',function()
     {
@@ -1213,7 +1216,8 @@ $(function(){
 
       //    Add car form validation
     $('.step-2').on('click', function(){
-        let valid = validateCarName('#add-admin-car-name','#add-admin-car-name-error','Name of car ') && validatePlateNumber('#add-admin-car-plate-number','#add-admin-car-plate-number-error','Plate number') && validateCarType('#add-admin-set-car-type','#add-admin-set-car-type-error') && validateCarCapacity('#add-admin-car-capacity','#add-admin-car-capacity-error') && validateImageFile('#add-admin-car-photos','#add-admin-car-photos-error','Photos of cars') && validateCarDescription('#add-admin-car-description','#add-admin-car-description-error');
+
+        let valid = validateCarName('#add-admin-car-name','#add-admin-car-name-error','Name of car ') && validatePlateNumber('#add-admin-car-plate-number','#add-admin-car-plate-number-error','Plate number') && validateCarType('#add-admin-set-car-type','#add-admin-set-car-type-error') && validateCarCapacity('#add-admin-car-capacity','#add-admin-car-capacity-error') && validateImageFile('#add-admin-car-main-photo','#add-admin-car-main-photo-error','Main car photo') && validateImageFile('#add-admin-car-photos','#add-admin-car-photos-error','Photos of cars') && validateCarDescription('#add-admin-car-description','#add-admin-car-description-error');
         // let valid = validateCarName('#add-admin-car-name','#add-admin-car-name-error','Name of car ') && validatePlateNumber('#add-admin-car-plate-number','#add-admin-car-plate-number-error','Plate number') && validateCarType('#add-admin-set-car-type','#add-admin-set-car-type-error') && validateCarCapacity('#add-admin-car-capacity','#add-admin-car-capacity-error') && validateImageFile('#add-admin-car-registration','#add-admin-car-registration-error','Car registration') && validateImageFile('#add-admin-car-photos','#add-admin-car-photos-error','Photos of cars') && validateCarDescription('#add-admin-car-description','#add-admin-car-description-error');
       
         if(valid)
@@ -1283,7 +1287,7 @@ $(function(){
                         $('.success-message').html('Car added successfully!')
                         setTimeout(function(){
                             window.location.href = '/admin/cars';   
-                        },3000)  
+                        },1500)  
                     }
                     else 
                     {  
@@ -1327,5 +1331,86 @@ $(function(){
 
     })
 
+    //       View car details
+    $('.second-details').on('click', function(){
+        $('.view-step').hide()
+        $('.detail-two').show() 
+    })
+    $('.first-details').on('click', function(){
+        $('.view-step').hide()
+        $('.detail-one').show() 
+    })
+    $('.third-details').on('click', function(){
+        $('.view-step').hide()
+        $('.detail-three').show() 
+    })
+    //       Edit car status
+    $('#arkilla-table').on("click",".updateCarStatus", async function () 
+    {
+        var status = $(this).children("i").attr("status");
+        var car_id = $(this).attr("car_id");
+        var newStatus;
+        if (status === "Inactive") newStatus = "Active";
+        else newStatus = "Inactive";
+        if(!confirm("Update status to "+ newStatus + "?")) return false
+    
+    await $.ajax({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                "content"
+            ),
+        },
+        type: "post",
+        url: "/admin/update-car-status",
+        data: { status: status, car_id: car_id },
+        success: function (resp) {
+            // alert(JSON.stringify(resp['status']))
+            if (resp["status"] === 0) {
+                $("#car-" + car_id).html(
+                    '<i status="Inactive" class="bx bxs-x-circle text-4xl text-accent-regular cursor-pointer"></i>'
+                );
+                $(".car"+car_id).html('Status: <span class="font-semibold">Inactive</span>');
+            } else if (resp["status"] === 1) {
+                $("#car-" + car_id).html(
+                    '<i status="Active" class="bx bxs-check-circle text-4xl text-accent-regular cursor-pointer">'
+                );
+                $(".car"+car_id).html('Status: <span class="font-semibold">Active</span>');
+            }
+        },
+        error: function (resp) {
+            alert("error");
+        },
+    });
+        
+    });
+    //       Delete car 
+    $("#arkilla-table").on("click",".confirmDeleteCar", async function () 
+    {
+       
+        var id = $(this).attr("moduleid");
+        var car = $(this).attr("car");
 
+        if(!confirm("Want to delete this car?")) return false
+
+      await  $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                    "content"
+                ),
+            },
+            type: "post",
+            url: "/admin/delete-car",
+            data: { id:id },
+            success: function (resp) {
+                if(resp['status'] === 'deleted') 
+                {
+                    window.location.href = '/admin/cars' 
+                }
+                else alert('Failed to delete '+car +'!')
+            },
+            error: function (resp) {
+                alert("Delete failed! System error.")
+            },
+        });
+    });
 });

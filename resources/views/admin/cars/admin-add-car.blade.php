@@ -51,6 +51,10 @@
                             <input id="add-admin-car-registration" name="add-admin-car-registration" type="file" class="block w-full text-sm text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" aria-describedby="file_input_help">
                         </div> -->
                         <div class="col-span-6">
+                            <label id="add-admin-car-main-photo-error" for="add-admin-car-main-photo" class="block pb-1 text-sm font-semibold lg:pl-2 text-gray-500" >Main car photo</label>
+                            <input id="add-admin-car-main-photo" name="add-admin-car-main-photo" type="file" class="block w-full text-sm text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" aria-describedby="file_input_help">
+                        </div>
+                        <div class="col-span-6">
                             <label id="add-admin-car-photos-error" for="add-admin-car-photos" class="block pb-1 text-sm font-semibold lg:pl-2 text-gray-500" >Photos of car</label>
                             <input id="add-admin-car-photos" name="add-admin-car-photos[]" type="file" class="block w-full text-sm text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" aria-describedby="file_input_help"  multiple>
                         </div>
