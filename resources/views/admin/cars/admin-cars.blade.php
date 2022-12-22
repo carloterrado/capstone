@@ -87,7 +87,7 @@
                             <a car="{{ $car['name'] }}" moduleid="{{$car['id']}}" class="confirmDeleteCar">
                             <i class='bx bxs-trash text-4xl cursor-pointer text-accent-regular '></i>
                             </a>
-                            <i id="{{ $car['id'] }}" car="{{$car['name']}}"  class='edit bx bxs-edit ml-4 text-4xl cursor-pointer text-accent-regular'></i>
+                            <i id="{{ $car['id'] }}" car="{{$car['name']}}" data-info="{{json_encode($car)}}" data-modal-toggle="edit-car"  class='edit bx bxs-edit ml-4 text-4xl cursor-pointer text-accent-regular'></i>
                         </div>
                     </td>
                 </tr>
@@ -100,6 +100,7 @@
 </div>
 
 @include('admin.cars.admin-add-car')
+@include('admin.cars.admin-edit-car')
 
 
 

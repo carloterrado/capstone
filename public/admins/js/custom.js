@@ -1268,7 +1268,7 @@ $(function(){
 
         async function submitAddCarForm()
         {
-            $.ajax({
+         await   $.ajax({
                 headers: {
                     "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
                 },
@@ -1413,4 +1413,43 @@ $(function(){
             },
         });
     });
+    //       Edit car details
+    $("#arkilla-table").on("click",'.edit', function(){
+        var car = $(this).data('info')
+        // alert(JSON.stringify(car))
+        $('#edit-admin-car-name').val(car['name'])
+        $('#edit-admin-car-plate-number').val(car['plate_number'])
+        $('#edit-admin-set-car-type option').each(function()
+        {
+            if($(this).val() === car['type_id'].toString())
+            {
+                $(this).attr('selected',true)
+            }
+        })
+        $('#edit-admin-car-capacity').val(car['capacity'])
+        $('#edit-admin-car-description').val(car['description'])
+        $('#edit-admin-car-pickup-location').val(car['pickup_location'])
+        if(car['driver'] === '1')
+        {
+            $('#edit-admin-car-with-driver').attr('checked','checked')
+            $('#edit-admin-car-drivers-fee').attr('readonly',false)
+        }
+        else
+        {
+            $('#edit-admin-car-only').attr('checked','checked')
+        }
+        $('#edit-admin-car-drivers-fee').val(car['drivers_fee'])
+        $('#edit-admin-car-price-ilocos-region').val(car['car_price'][0]['price'])
+        $('#edit-admin-car-price-cagayan-valley').val(car['car_price'][1]['price'])
+        $('#edit-admin-car-price-central-luzon').val(car['car_price'][2]['price'])
+        $('#edit-admin-car-price-calabarzon').val(car['car_price'][3]['price'])
+        $('#edit-admin-car-price-mimaropa').val(car['car_price'][4]['price'])
+        $('#edit-admin-car-price-bicol-region').val(car['car_price'][5]['price'])
+        $('#edit-admin-car-price-ncr').val(car['car_price'][6]['price'])
+        $('#edit-admin-car-price-car').val(car['car_price'][7]['price'])
+        
+
+        
+        
+    })
 });
