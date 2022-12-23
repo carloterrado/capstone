@@ -65,6 +65,7 @@ Route::prefix('admin')->group(function()
         Route::post('delete-car-type',[AdminController::class,'deleteCarTypes']);
         Route::get('cars',[AdminController::class,'cars']);
         Route::post('add-car',[AdminController::class,'addCar']);
+        Route::post('edit-car',[AdminController::class,'editCar']);
         Route::post('update-car-status',[AdminController::class,'updateCarStatus']);
         Route::post('delete-car',[AdminController::class,'deleteCar']);
         Route::get('owner-cars',[AdminController::class,'ownerCars']);

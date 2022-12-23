@@ -1414,9 +1414,12 @@ $(function(){
         });
     });
     //       Edit car details
-    $("#arkilla-table").on("click",'.edit', function(){
+    var driverFee;
+    $(document).on("click",'.edit', function(){
         var car = $(this).data('info')
         // alert(JSON.stringify(car))
+        driverFee = car['drivers_fee']
+        $('#edit-admin-car-id').val(car['id'])
         $('#edit-admin-car-name').val(car['name'])
         $('#edit-admin-car-plate-number').val(car['plate_number'])
         $('#edit-admin-set-car-type option').each(function()
@@ -1429,15 +1432,19 @@ $(function(){
         $('#edit-admin-car-capacity').val(car['capacity'])
         $('#edit-admin-car-description').val(car['description'])
         $('#edit-admin-car-pickup-location').val(car['pickup_location'])
+     
         if(car['driver'] === '1')
         {
-            $('#edit-admin-car-with-driver').attr('checked','checked')
-            $('#edit-admin-car-drivers-fee').attr('readonly',false)
+            $('#edit-admin-car-with-driver').prop('checked',true)
+            $('#edit-admin-car-drivers-fee').prop('readonly',false)
         }
-        else
+        if(car['driver'] === '0')
         {
-            $('#edit-admin-car-only').attr('checked','checked')
+            $('#edit-admin-car-only').prop('checked',true)
+            $('#edit-admin-car-drivers-fee').prop('readonly',true)
         }
+ 
+       
         $('#edit-admin-car-drivers-fee').val(car['drivers_fee'])
         $('#edit-admin-car-price-ilocos-region').val(car['car_price'][0]['price'])
         $('#edit-admin-car-price-cagayan-valley').val(car['car_price'][1]['price'])
@@ -1448,8 +1455,220 @@ $(function(){
         $('#edit-admin-car-price-ncr').val(car['car_price'][6]['price'])
         $('#edit-admin-car-price-car').val(car['car_price'][7]['price'])
         
+    })
+    $('#edit-admin-car-with-driver').on('click', function(){
+       
+        $('#edit-admin-car-drivers-fee').removeAttr('readonly')
+        $('#edit-admin-car-drivers-fee').val(driverFee)
+    })
+    $('#edit-admin-car-only').on('click', function(){
+        $('#edit-admin-car-drivers-fee').attr('readonly','readonly')
+        $('#edit-admin-car-drivers-fee').val('0')
+        $('#edit-admin-car-drivers-fee-error').html('Driver\'s fee');
+        $('#edit-admin-car-drivers-fee-error').css('color','black');
+    })
+    $('#edit-admin-car-name').on('keyup keypress',function()
+    {
+        validateCarName('#edit-admin-car-name','#edit-admin-car-name-error','Name of car ');
+    })
+    $('#edit-admin-car-plate-number').on('keyup keypress',function()
+    {
+        validatePlateNumber('#edit-admin-car-plate-number','#edit-admin-car-plate-number-error','Plate number');
+    })
+    $('#edit-admin-set-car-type').on('click keypress',function()
+    {
+        validateCarType('#edit-admin-set-car-type','#edit-admin-set-car-type-error');
+    })
+    $('#edit-admin-car-capacity').on('keyup keypress',function()
+    {
+        validateCarCapacity('#edit-admin-car-capacity','#edit-admin-car-capacity-error');
+    })
+    $('#edit-admin-car-registration').on('change', function(){
+        validateImageFile('#edit-admin-car-registration','#edit-admin-car-registration-error','Car registration')
+    })
+    // $('#edit-admin-car-photos').on('change', function(){
+    //     validateImageFile('#edit-admin-car-photos','#edit-admin-car-photos-error','Photos of cars')
+    // })
+    $('#edit-admin-car-main-photo').on('change', function(){
+        validateImageFile('#edit-admin-car-main-photo','#edit-admin-car-main-photo-error','Main car photo')
+    })
+    $('#edit-admin-car-description').on('keyup keypress',function()
+    {
+        validateCarDescription('#edit-admin-car-description','#edit-admin-car-description-error');
+    })
+    $('#edit-admin-car-pickup-location').on('keyup keypress',function()
+    {
+        validatePickupLocation('#edit-admin-car-pickup-location','#edit-admin-car-pickup-location-error','Pick-up location');
+    }) 
+    $('#edit-admin-car-drivers-fee').on('keyup keypress',function()
+    {
+        validateCarDriversFee('#edit-admin-car-drivers-fee','#edit-admin-car-drivers-fee-error');
+    })
+    $('#edit-admin-car-price-ilocos-region').on('keyup keypress',function()
+    {
+        validateCarPrice('#edit-admin-car-price-ilocos-region','#edit-admin-car-price-ilocos-region-error','REGION I (ILOCOS REGION)');
+    })
+    $('#edit-admin-car-price-cagayan-valley').on('keyup keypress',function()
+    {
+        validateCarPrice('#edit-admin-car-price-cagayan-valley','#edit-admin-car-price-cagayan-valley-error','REGION II (CAGAYAN VALLEY)');
+    })
+    $('#edit-admin-car-price-central-luzon').on('keyup keypress',function()
+    {
+        validateCarPrice('#edit-admin-car-price-central-luzon','#edit-admin-car-price-central-luzon-error','REGION III (CENTRAL LUZON)');
+    })
+    $('#edit-admin-car-price-calabarzon').on('keyup keypress',function()
+    {
+        validateCarPrice('#edit-admin-car-price-calabarzon','#edit-admin-car-price-calabarzon-error','REGION IV-A (CALABARZON)');
+    })
+    $('#edit-admin-car-price-mimaropa').on('keyup keypress',function()
+    {
+        validateCarPrice('#edit-admin-car-price-mimaropa','#edit-admin-car-price-mimaropa-error','REGION IV-B (MIMAROPA)');
+    })
+    $('#edit-admin-car-price-bicol-region').on('keyup keypress',function()
+    {
+        validateCarPrice('#edit-admin-car-price-bicol-region','#edit-admin-car-price-bicol-region-error','REGION V (BICOL REGION)');
+    })
+    $('#edit-admin-car-price-ncr').on('keyup keypress',function()
+    {
+        validateCarPrice('#edit-admin-car-price-ncr','#edit-admin-car-price-ncr-error','NATIONAL CAPITAL REGION (NCR)');
+    })
+    $('#edit-admin-car-price-car').on('keyup keypress',function()
+    {
+        validateCarPrice('#edit-admin-car-price-car','#edit-admin-car-price-car-error','CORDILLERA ADMINISTRATIVE REGION (CAR)');
+    })
+       //    Editcar form validation
+    $('.edit-step-2').on('click', function(){
+        let mainPhoto = $('#edit-admin-car-main-photo')[0].files;
+        let carPhotos = $('#edit-admin-car-photos')[0].files;
+        var valid;
+        if(carPhotos.length !== 0 && mainPhoto.length !== 0)
+        {
+             valid = validateCarName('#edit-admin-car-name','#edit-admin-car-name-error','Name of car ') && validatePlateNumber('#edit-admin-car-plate-number','#edit-admin-car-plate-number-error','Plate number') && validateCarType('#edit-admin-set-car-type','#edit-admin-set-car-type-error') && validateCarCapacity('#edit-admin-car-capacity','#edit-admin-car-capacity-error') && validateImageFile('#edit-admin-car-main-photo','#edit-admin-car-main-photo-error','Main car photo') && validateImageFile('#edit-admin-car-photos','#edit-admin-car-photos-error','Photos of cars') && validateCarDescription('#edit-admin-car-description','#edit-admin-car-description-error');
+        }
+        if(carPhotos.length === 0 && mainPhoto.length === 0)
+        {
+            valid = validateCarName('#edit-admin-car-name','#edit-admin-car-name-error','Name of car ') && validatePlateNumber('#edit-admin-car-plate-number','#edit-admin-car-plate-number-error','Plate number') && validateCarType('#edit-admin-set-car-type','#edit-admin-set-car-type-error') && validateCarCapacity('#edit-admin-car-capacity','#edit-admin-car-capacity-error') && validateCarDescription('#edit-admin-car-description','#edit-admin-car-description-error');
+        }
+        if(carPhotos.length !== 0 && mainPhoto.length === 0)
+        {
+             valid = validateCarName('#edit-admin-car-name','#edit-admin-car-name-error','Name of car ') && validatePlateNumber('#edit-admin-car-plate-number','#edit-admin-car-plate-number-error','Plate number') && validateCarType('#edit-admin-set-car-type','#edit-admin-set-car-type-error') && validateCarCapacity('#edit-admin-car-capacity','#edit-admin-car-capacity-error') && validateImageFile('#edit-admin-car-photos','#edit-admin-car-photos-error','Photos of cars') && validateCarDescription('#edit-admin-car-description','#edit-admin-car-description-error');
+        }
+        if(carPhotos.length === 0 && mainPhoto.length !== 0)
+        {
+            valid = validateCarName('#edit-admin-car-name','#edit-admin-car-name-error','Name of car ') && validatePlateNumber('#edit-admin-car-plate-number','#edit-admin-car-plate-number-error','Plate number') && validateCarType('#edit-admin-set-car-type','#edit-admin-set-car-type-error') && validateCarCapacity('#edit-admin-car-capacity','#edit-admin-car-capacity-error') && validateImageFile('#edit-admin-car-main-photo','#edit-admin-car-main-photo-error','Main car photo') && validateCarDescription('#edit-admin-car-description','#edit-admin-car-description-error');
+        }
+
+   
+    // let valid = validateCarName('#edit-admin-car-name','#add-admin-car-name-error','Name of car ') && validatePlateNumber('#add-admin-car-plate-number','#add-admin-car-plate-number-error','Plate number') && validateCarType('#add-admin-set-car-type','#add-admin-set-car-type-error') && validateCarCapacity('#add-admin-car-capacity','#add-admin-car-capacity-error') && validateImageFile('#add-admin-car-registration','#add-admin-car-registration-error','Car registration') && validateImageFile('#add-admin-car-photos','#add-admin-car-photos-error','Photos of cars') && validateCarDescription('#add-admin-car-description','#add-admin-car-description-error');
+
+    if(valid)
+    {
+        $('.edit-form-step').hide()
+        $('.edit-step-two').show() 
+    }
 
         
+    })
+    $('.edit-step-1').on('click', function(){
+        $('.edit-form-step').hide()
+        $('.edit-step-one').show()
+    })
+    $('.edit-step-3').on('click', function(){
+        let valid =  validatePickupLocation('#edit-admin-car-pickup-location','#edit-admin-car-pickup-location-error','Pick-up location');
+        let driversFee = true;
+        if($('#edit-admin-car-with-driver').is(':checked'))
+        {
+          driversFee =  validateCarDriversFee('#edit-admin-car-drivers-fee','#edit-admin-car-drivers-fee-error') ;
+        }
+        if(valid && driversFee)
+        {
+            $('.edit-form-step').hide()
+            $('.edit-step-three').show()
+        }  
+       
         
     })
+
+    $('#edit-car-form').on('submit',function(event){
+        event.preventDefault()
+       
+
+        function validateEditCarForm()
+        {
+
+            let valid = validateCarPrice('#edit-admin-car-price-cagayan-valley','#edit-admin-car-price-cagayan-valley-error','REGION II (CAGAYAN VALLEY)') && validateCarPrice('#edit-admin-car-price-central-luzon','#edit-admin-car-price-central-luzon-error','REGION III (CENTRAL LUZON)') &&  validateCarPrice('#edit-admin-car-price-calabarzon','#edit-admin-car-price-calabarzon-error','REGION IV-A (CALABARZON)') && validateCarPrice('#edit-admin-car-price-mimaropa','#edit-admin-car-price-mimaropa-error','REGION IV-B (MIMAROPA)') && validateCarPrice('#edit-admin-car-price-bicol-region','#edit-admin-car-price-bicol-region-error','REGION V (BICOL REGION)') && validateCarPrice('#edit-admin-car-price-ncr','#edit-admin-car-price-ncr-error','NATIONAL CAPITAL REGION (NCR)') && validateCarPrice('#edit-admin-car-price-car','#edit-admin-car-price-car-error','CORDILLERA ADMINISTRATIVE REGION (CAR)');
+
+            if(!valid)
+            {  
+                return false;
+            }
+            return true;
+        }
+        let formData = new FormData($(this)[0]);
+
+        async function submitEditCarForm()
+        {
+         await   $.ajax({
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                },
+                type: 'POST',
+                url:'/admin/edit-car',
+                data:formData,
+                processData: false,
+                contentType: false,
+                success:function(resp){
+                    $('.loading').removeClass('grid')
+                    $('.loading').hide()
+                       alert(JSON.stringify(resp['data']))
+                    // if(resp["data"] === 'success')
+                    // {
+                    //     $('.success-container').show()
+                    //     $('.success-message').html('Car updated successfully!')
+                    //     setTimeout(function(){
+                    //         window.location.href = '/admin/cars';   
+                    //     },1500)  
+                    // }
+                    // else 
+                    // {  
+                    //     $('.error-container').show()
+                    //     $('.error-message').html('Edit car failed!')
+                    //     setTimeout(function(){
+                    //         $('.error-container').hide()  
+                    //     },3000)
+                    // }
+                    
+                },
+                error: function(){
+                    $('.loading').removeClass('grid')
+                    $('.loading').hide()
+                    $('.error-container').show()
+                    $('.error-message').html('System error edit car failed!')
+                    setTimeout(function(){
+                        $('.error-container').hide()
+                    },3000)
+                }
+            })
+        }
+        let validated = validateEditCarForm()
+        
+        
+        if(validated){
+            
+            $('.loading').removeClass('hidden')
+            $('.loading').addClass('grid')
+           
+            submitEditCarForm().catch(function(error){
+                $('.loading').removeClass('grid')
+                $('.loading').hide()
+                $('.error-container').show()
+                $('.error-message').html('System edit car failed!')
+                setTimeout(function(){
+                    window.location.href = '/admin/cars';  
+                },3000)
+            })
+        }
+
+    })
+    
 });

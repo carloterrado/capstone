@@ -1616,14 +1616,14 @@ div[modal-backdrop] {
 .mt-12 {
   margin-top: 3rem;
 }
+.mr-4 {
+  margin-right: 1rem;
+}
 .mb-12 {
   margin-bottom: 3rem;
 }
 .mt-auto {
   margin-top: auto;
-}
-.mr-4 {
-  margin-right: 1rem;
 }
 .mr-2 {
   margin-right: 0.5rem;
@@ -1700,6 +1700,9 @@ div[modal-backdrop] {
 .h-12 {
   height: 3rem;
 }
+.h-4 {
+  height: 1rem;
+}
 .h-20 {
   height: 5rem;
 }
@@ -1722,9 +1725,6 @@ div[modal-backdrop] {
 .h-max {
   height: -moz-max-content;
   height: max-content;
-}
-.h-4 {
-  height: 1rem;
 }
 .h-16 {
   height: 4rem;
@@ -1784,6 +1784,9 @@ div[modal-backdrop] {
 .w-12 {
   width: 3rem;
 }
+.w-4 {
+  width: 1rem;
+}
 .w-32 {
   width: 8rem;
 }
@@ -1798,9 +1801,6 @@ div[modal-backdrop] {
 }
 .w-8 {
   width: 2rem;
-}
-.w-4 {
-  width: 1rem;
 }
 .w-16 {
   width: 4rem;
@@ -2254,12 +2254,16 @@ div[modal-backdrop] {
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
 }
-.bg-black\/50 {
-  background-color: rgb(0 0 0 / 0.5);
-}
 .bg-gray-50 {
   --tw-bg-opacity: 1;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
+}
+.bg-gray-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+}
+.bg-black\/50 {
+  background-color: rgb(0 0 0 / 0.5);
 }
 .bg-blue-700 {
   --tw-bg-opacity: 1;
@@ -2297,10 +2301,6 @@ div[modal-backdrop] {
 .bg-red-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(253 232 232 / var(--tw-bg-opacity));
-}
-.bg-gray-100 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
 }
 .bg-accent-regular\/30 {
   background-color: rgb(232 73 73 / 0.3);
@@ -2450,6 +2450,9 @@ div[modal-backdrop] {
 .pt-6 {
   padding-top: 1.5rem;
 }
+.pb-1 {
+  padding-bottom: 0.25rem;
+}
 .pl-3 {
   padding-left: 0.75rem;
 }
@@ -2461,9 +2464,6 @@ div[modal-backdrop] {
 }
 .pb-0 {
   padding-bottom: 0px;
-}
-.pb-1 {
-  padding-bottom: 0.25rem;
 }
 .pt-1 {
   padding-top: 0.25rem;
@@ -3461,13 +3461,13 @@ div[modal-backdrop] {
     height: calc(100vh - 144px);
   }
 
-  .sm\:w-1\/2 {
-    width: 50%;
-  }
-
   .sm\:w-\[fit-content\] {
     width: -moz-fit-content;
     width: fit-content;
+  }
+
+  .sm\:w-1\/2 {
+    width: 50%;
   }
 
   .sm\:max-w-md {
@@ -3599,6 +3599,11 @@ div[modal-backdrop] {
     line-height: 1.5rem;
   }
 
+  .sm\:text-sm {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+
   .sm\:text-7xl {
     font-size: 4.5rem;
     line-height: 1;
@@ -3636,11 +3641,6 @@ div[modal-backdrop] {
   .sm\:text-5xl {
     font-size: 3rem;
     line-height: 1;
-  }
-
-  .sm\:text-sm {
-    font-size: 0.875rem;
-    line-height: 1.25rem;
   }
 }
 @media (min-width: 768px) {

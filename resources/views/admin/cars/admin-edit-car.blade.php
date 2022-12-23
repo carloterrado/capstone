@@ -21,6 +21,7 @@
                 <div class="p-6 space-y-6">
                   
                     <div class="grid grid-cols-6 gap-6">
+                        <input type="hidden" name="edit-admin-car-id" id="edit-admin-car-id">
                         <div class="col-span-6 sm:col-span-3 relative">
                             <input type="text" name="edit-admin-car-name" id="edit-admin-car-name" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-900 peer" placeholder=" " >
                             <label id="edit-admin-car-name-error" for="edit-admin-car-name" class="pointer-events-none absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-gray-900 peer-focus:font-semibold peer-placeholder-shown:scale-100 
@@ -95,17 +96,17 @@
                         <div class="col-span-6 sm:col-span-3 relative">
                             <div class="flex items-center pb-2.5 pt-4">
                                 <div class="flex items-center mr-4">
-                                    <input id="edit-admin-car-only" type="radio" name="edit-admin-car-driver" value="0" class="w-4 h-4 text-accent-regular bg-gray-100 border-gray-300 focus:ring-0 " checked>
+                                    <input id="edit-admin-car-only" type="radio" name="edit-admin-car-driver" value="0" checked class="w-4 h-4 text-accent-regular bg-gray-100 border-gray-300 focus:ring-0 " >
                                     <label for="edit-admin-car-only" class="ml-2 text-sm font-medium text-gray-900 ">Car only</label>
                                 </div>
                                 <div class="flex items-center mr-4">
-                                    <input id="edit-admin-car-with-driver" type="radio" name="edit-admin-car-driver" value="1" class="w-4 h-4 text-accent-regular bg-gray-100 border-gray-300  focus:ring-0">
+                                    <input id="edit-admin-car-with-driver" type="radio" name="edit-admin-car-driver" value="1"  class="w-4 h-4 text-accent-regular bg-gray-100 border-gray-300  focus:ring-0">
                                     <label for="edit-admin-car-with-driver" class="ml-2 text-sm font-medium text-gray-900 ">With driver</label>
                                 </div>
                             </div>
                         </div>
                         <div class="col-span-6 sm:col-span-3 relative">
-                            <input type="text" name="edit-admin-car-drivers-fee" value="0" id="edit-admin-car-drivers-fee" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-900 peer read-only:bg-accent-regular/10" placeholder=" "  readonly >
+                            <input type="text" name="edit-admin-car-drivers-fee" value="0" id="edit-admin-car-drivers-fee" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-900 peer read-only:bg-accent-regular/10" placeholder=" "  readonly  >
                             <label id="edit-admin-car-drivers-fee-error" for="edit-admin-car-drivers-fee" class="pointer-events-none absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-gray-900 peer-focus:font-semibold peer-placeholder-shown:scale-100 
                             peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 whitespace-nowrap peer-read-only:bg-white">Driver's fee</label>
                         </div>
