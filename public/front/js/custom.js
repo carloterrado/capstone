@@ -359,6 +359,7 @@ $(function(){
                     {  
                         $('.error-container').show()
                         $('.error-message').html('Email is already registered!')
+                        $('#front-signup-form button[type="submit"]').removeClass('hidden')
                         setTimeout(function(){
                             $('.error-container').hide()  
                         },3000)
@@ -367,6 +368,7 @@ $(function(){
                     {
                         $('.error-container').show()
                         $('.error-message').html('Email is already registered!')
+                        $('#front-signup-form button[type="submit"]').removeClass('hidden')
                         setTimeout(function(){
                             $('.error-container').hide()
                         },3000)
@@ -377,6 +379,7 @@ $(function(){
                     $('.loading').hide()
                     $('.error-container').show()
                     $('.error-message').html('System account registration failed!')
+                    $('#front-signup-form button[type="submit"]').removeClass('hidden')
                     setTimeout(function(){
                         $('.error-container').hide()
                     },3000)
@@ -386,9 +389,11 @@ $(function(){
         let validated = validateSignupForm()
        
         if(validated){
+            $('#front-signup-form button[type="submit"]').addClass('hidden')
             $('.loading').removeClass('hidden')
             $('.loading').addClass('grid')
             submitSignupForm().catch(function(error){
+                $('#front-signup-form button[type="submit"]').removeClass('hidden')
                 $('.loading').removeClass('grid')
                 $('.loading').hide()
                 $('.error-container').show()
@@ -459,6 +464,7 @@ $(function(){
                 {  
                     $('.error-container').show();
                     $('.error-message').html('Please check your email first and verify your account!');
+                    $('#front-login-form button[type="submit"]').removeClass('hidden')
                     setTimeout(function(){ 
                         $('.error-container').hide();
                     },3000)
@@ -467,6 +473,7 @@ $(function(){
                 {  
                     $('.error-container').show();
                     $(".error-message").html('Invalid email or password!');
+                    $('#front-login-form button[type="submit"]').removeClass('hidden')
                     setTimeout(function(){ 
                         $('.error-container').hide();
                     },3000)
@@ -479,6 +486,7 @@ $(function(){
                 $('.loading').hide()
                 $('.error-container').show();
                 $(".error-message").html('System login failed!');
+                $('#front-login-form button[type="submit"]').removeClass('hidden')
                 setTimeout(function(){ 
                     $('.error-container').hide();
                 },3000)
@@ -490,9 +498,11 @@ $(function(){
 
     if(validated)
     {
+        $('#front-login-form button[type="submit"]').addClass('hidden')
         $('.loading').removeClass('hidden')
         $('.loading').addClass('grid')
         submitLoginForm().catch(function(error){
+            $('#front-login-form button[type="submit"]').removeClass('hidden')
             $('.loading').removeClass('grid')
             $('.loading').hide()
             $('.error-container').show();
@@ -647,6 +657,7 @@ $(function(){
                      if (resp["status"] === 'false') {
                          $('.error-container').show();
                          $(".error-message").html('Current password is invalid!');
+                         $('#change-pass-form button[type="submit"]').removeClass('hidden')
                          setTimeout(function(){
                              $('.error-container').hide();
                          },3000)
@@ -654,6 +665,7 @@ $(function(){
                          $('.success-container').show();
                          $(".success-message").text('Password updated successfully!');
                          $('input').val('');
+                         $('#change-pass-form button[type="submit"]').removeClass('hidden')
                          setTimeout(function(){
                              $('.success-container').hide();
                          },3000)
@@ -662,6 +674,7 @@ $(function(){
                  error: function () {
                      $('.error-container').show();
                      $(".error-message").html('Update password failed!');
+                     $('#change-pass-form button[type="submit"]').removeClass('hidden')
                      setTimeout(function(){
                          $('.error-container').show();
                      },3000)
@@ -670,7 +683,9 @@ $(function(){
          }
          const validated = validateChangePassForm()
          if(validated){
+            $('#change-pass-form button[type="submit"]').addClass('hidden')
              submitPassword().catch(function(error){
+                $('#change-pass-form button[type="submit"]').removeClass('hidden')
                  $('.error-container').show();
                  $(".error-message").html('Update password failed!');
                  setTimeout(function(){
@@ -807,12 +822,13 @@ $(function(){
                         $('.success-message').html('Details updated successfully!')
                         setTimeout(function(){
                             window.location.href = '/profile';   
-                        },3000)  
+                        },1500)  
                     }
                     else 
                     {  
                         $('.error-container').show()
                         $('.error-message').html('Update details failed!')
+                        $('#edit-profile-form button[type="submit"]').removeClass('hidden')
                         setTimeout(function(){
                             $('.error-container').hide()  
                         },3000)
@@ -824,6 +840,7 @@ $(function(){
                       $('.loading').hide()
                       $('.error-container').show()
                       $('.error-message').html('System error update details failed!')
+                      $('#edit-profile-form button[type="submit"]').removeClass('hidden')
                       setTimeout(function(){
                           $('.error-container').hide()
                       },3000)
@@ -834,10 +851,12 @@ $(function(){
          
          
           if(validated){
+            $('#edit-profile-form button[type="submit"]').addClass('hidden')
             
               $('.loading').removeClass('hidden')
               $('.loading').addClass('grid')
               submitSignupForm().catch(function(error){
+                $('#edit-profile-form button[type="submit"]').removeClass('hidden')
                   $('.loading').removeClass('grid')
                   $('.loading').hide()
                   $('.error-container').show()

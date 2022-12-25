@@ -19,11 +19,11 @@
 
 <body>
    <!-- Header start -->
-   @include('owner.owner-header')
+   @include('owner.layout.owner-header')
    <!-- Header end -->
 
    <!-- Sidebar start -->
-   @include('owner.owner-sidebar')
+   @include('owner.layout.owner-sidebar')
    <!-- Sidebar end -->
 
    <!-- Main content start -->
@@ -31,7 +31,7 @@
    <!-- Main content end -->
    
    <!-- Footer start -->
-   @include('owner.owner-footer')
+   @include('owner.layout.owner-footer')
    <!-- Footer end -->
  
  

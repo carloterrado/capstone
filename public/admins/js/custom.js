@@ -34,7 +34,6 @@ $(function(){
         $(errorElementID).css('color','black');
         return true;
     }
-
     // Validation function for email 
     function validateEmail(emailID,errorElementID)
     {
@@ -56,7 +55,6 @@ $(function(){
         $(errorElementID).css('color','black');
         return true;
     }
-
     //   Validation function for admin type
     function validateType(typeID,errorElementID)
     {
@@ -71,7 +69,6 @@ $(function(){
         $(errorElementID).css('color','black');
         return true;
     }
-  
     // Validation function for password
     function validatePassword(newPasswordID,errorElementID)
     {
@@ -125,7 +122,6 @@ $(function(){
         return true;
 
     }
-
     // Validation input for confirm password
     function validateConfirmPassword(newPasswordID,confirmPasswordID,errorElementID)
     {
@@ -218,13 +214,14 @@ $(function(){
                         setTimeout(function(){
                             $('.success-container').hide()
                             window.location.href = '/admin/all-admins'
-                        },3000)
+                        },1500)
                     }
                     
                     else if(resp["status"] === 'error')
                     {  
                         $('.error-container').show()
                         $('.error-message').html('Email is already registered!')
+                        $('#add-admin-form button[type="submit"]').removeClass('hidden')
                         setTimeout(function(){
                             $('.error-container').hide()
                         },3000)
@@ -233,6 +230,7 @@ $(function(){
                     {
                         $('.error-container').show()
                         $('.error-message').html('Email is already registered!')
+                        $('#add-admin-form button[type="submit"]').removeClass('hidden')
                         setTimeout(function(){
                             $('.error-container').hide()
                         },3000)
@@ -243,6 +241,7 @@ $(function(){
                     // alert(JSON.stringify(error))
                     $('.error-container').show()
                     $('.error-message').html('Email is already registered!')
+                    $('#add-admin-form button[type="submit"]').removeClass('hidden')
                     setTimeout(function(){
                         $('.error-container').hide()  
                     },3000)
@@ -254,8 +253,9 @@ $(function(){
         let validated = validateSignupForm()
         
         if(validated){
+            $('#add-admin-form button[type="submit"]').addClass('hidden')
             submitSignupForm().catch(function(error){
-                
+                $('#add-admin-form button[type="submit"]').removeClass('hidden')
                 $('.error-container').show()
                 $('.error-message').html('Add admin failed!')
                 setTimeout(function(){
@@ -310,7 +310,6 @@ $(function(){
             },
         });
     });
-
     $('#new-password').on('keyup keypress',function()
     {
         validatePassword('#new-password','#new-password-error');
@@ -354,6 +353,7 @@ $(function(){
                     if (resp["status"] === 'false') {
                         $('.error-container').show();
                         $(".error-message").html('Current password is invalid!');
+                        $('#change-pass-form button[type="submit"]').removeClass('hidden')
                         setTimeout(function(){
                             $('.error-container').hide();
                         },3000)
@@ -361,6 +361,7 @@ $(function(){
                         $('.success-container').show();
                         $(".success-message").text('Password updated successfully!');
                         $('#change-pass-form input').val('');
+                        $('#change-pass-form button[type="submit"]').removeClass('hidden')
                         setTimeout(function(){
                             $('.success-container').hide();
                         },3000)
@@ -369,6 +370,7 @@ $(function(){
                 error: function () {
                     $('.error-container').show();
                     $(".error-message").html('Update password failed!');
+                    $('#change-pass-form button[type="submit"]').removeClass('hidden')
                     setTimeout(function(){
                         $('.error-container').show();
                     },3000)
@@ -377,9 +379,11 @@ $(function(){
         }
         const validated = validateChangePassForm()
         if(validated){
+            $('#change-pass-form button[type="submit"]').addClass('hidden')
             submitPassword().catch(function(error){
                 $('.error-container').show();
                 $(".error-message").html('Update password failed!');
+                $('#change-pass-form button[type="submit"]').removeClass('hidden')
                 setTimeout(function(){
                     $('.error-container').show();
                 },3000)
@@ -398,7 +402,6 @@ $(function(){
     {
         validateName('#edit-last-name','#edit-last-name-error','Lastname');
     })
-
     //        Validate profile form upon submission
     $('#edit-profile-form').on('submit', function(event)
     {
@@ -455,6 +458,7 @@ $(function(){
                     {  
                         $('.error-container').show()
                         $('.error-message').html('Update details failed!')
+                        $('#edit-profile-form button[type="submit"]').removeClass('hidden')
                         setTimeout(function(){
                             $('.error-container').hide()  
                         },3000)
@@ -466,6 +470,7 @@ $(function(){
                     $('.loading').hide()
                     $('.error-container').show()
                     $('.error-message').html('System error update details failed!')
+                    $('#edit-profile-form button[type="submit"]').removeClass('hidden')
                     setTimeout(function(){
                         $('.error-container').hide()
                     },3000)
@@ -476,6 +481,7 @@ $(function(){
         
         
         if(validated){
+            $('#edit-profile-form button[type="submit"]').addClass('hidden')
             
             $('.loading').removeClass('hidden')
             $('.loading').addClass('grid')
@@ -531,7 +537,6 @@ $(function(){
     });
         
     });
-
     //         Update user status
     $('#arkilla-table').on("click",".updateUserStatus", async function () 
     {
@@ -569,7 +574,6 @@ $(function(){
     });
         
     });
-
     //         Approve or Decline admin
     $("#arkilla-table").on("click",".updateAdminAccount", async function () 
     {
@@ -614,7 +618,6 @@ $(function(){
             },
         });
     });
-
     //         Delete admin
     $("#arkilla-table").on("click",".confirmDelete", async function () 
     {
@@ -821,6 +824,7 @@ $(function(){
                     {
                         $('.error-container').show()
                         $('.error-message').html('Car type already exist!')
+                        $('#edit-car-type-form button[type="submit"]').removeClass('hidden')
                         setTimeout(function(){
                             $('.error-container').hide()
                         },3000)
@@ -832,6 +836,7 @@ $(function(){
                     // alert(JSON.stringify(error))
                     $('.error-container').show()
                     $('.error-message').html('Sytem update car type failed!')
+                    $('#edit-car-type-form button[type="submit"]').removeClass('hidden')
                     setTimeout(function(){
                         $('.error-container').hide()  
                     },3000)
@@ -842,6 +847,7 @@ $(function(){
         let validated = validateSignupForm()
         
         if(validated){
+            $('#edit-car-type-form button[type="submit"]').addClass('hidden')
             submitSignupForm().catch(function(error){
                 
                 $('.error-container').show()
@@ -1151,12 +1157,13 @@ $(function(){
     {
         validateCarCapacity('#add-admin-car-capacity','#add-admin-car-capacity-error');
     })
-    $('#add-admin-car-registration').on('change', function(){
-        validateImageFile('#add-admin-car-registration','#add-admin-car-registration-error','Car registration')
-    })
-    // $('#add-admin-car-photos').on('change', function(){
-    //     validateImageFile('#add-admin-car-photos','#add-admin-car-photos-error','Photos of cars')
+    // $('#add-admin-car-registration').on('change', function(){
+    //     validateImageFile('#add-admin-car-registration','#add-admin-car-registration-error','Car registration')
     // })
+    $('#add-admin-car-photos').on('change', function(){
+        validateImageFile('#add-admin-car-photos','#add-admin-car-photos-error','Photos of cars')
+    })
+   
     $('#add-admin-car-main-photo').on('change', function(){
         validateImageFile('#add-admin-car-main-photo','#add-admin-car-main-photo-error','Main car photo')
     })
@@ -1218,7 +1225,7 @@ $(function(){
     $('.step-2').on('click', function(){
 
         let valid = validateCarName('#add-admin-car-name','#add-admin-car-name-error','Name of car ') && validatePlateNumber('#add-admin-car-plate-number','#add-admin-car-plate-number-error','Plate number') && validateCarType('#add-admin-set-car-type','#add-admin-set-car-type-error') && validateCarCapacity('#add-admin-car-capacity','#add-admin-car-capacity-error') && validateImageFile('#add-admin-car-main-photo','#add-admin-car-main-photo-error','Main car photo') && validateImageFile('#add-admin-car-photos','#add-admin-car-photos-error','Photos of cars') && validateCarDescription('#add-admin-car-description','#add-admin-car-description-error');
-        // let valid = validateCarName('#add-admin-car-name','#add-admin-car-name-error','Name of car ') && validatePlateNumber('#add-admin-car-plate-number','#add-admin-car-plate-number-error','Plate number') && validateCarType('#add-admin-set-car-type','#add-admin-set-car-type-error') && validateCarCapacity('#add-admin-car-capacity','#add-admin-car-capacity-error') && validateImageFile('#add-admin-car-registration','#add-admin-car-registration-error','Car registration') && validateImageFile('#add-admin-car-photos','#add-admin-car-photos-error','Photos of cars') && validateCarDescription('#add-admin-car-description','#add-admin-car-description-error');
+        
       
         if(valid)
         {
@@ -1293,6 +1300,7 @@ $(function(){
                     {  
                         $('.error-container').show()
                         $('.error-message').html('Add car failed!')
+                        $('#add-car-form button[type="submit"]').addClass('hidden')
                         setTimeout(function(){
                             $('.error-container').hide()  
                         },3000)
@@ -1304,6 +1312,7 @@ $(function(){
                     $('.loading').hide()
                     $('.error-container').show()
                     $('.error-message').html('System error add car failed!')
+                    $('#add-car-form button[type="submit"]').removeClass('hidden')
                     setTimeout(function(){
                         $('.error-container').hide()
                     },3000)
@@ -1314,6 +1323,7 @@ $(function(){
         
         
         if(validated){
+            $('#add-car-form button[type="submit"]').addClass('hidden')
             
             $('.loading').removeClass('hidden')
             $('.loading').addClass('grid')
@@ -1483,12 +1493,12 @@ $(function(){
     {
         validateCarCapacity('#edit-admin-car-capacity','#edit-admin-car-capacity-error');
     })
-    $('#edit-admin-car-registration').on('change', function(){
-        validateImageFile('#edit-admin-car-registration','#edit-admin-car-registration-error','Car registration')
-    })
-    // $('#edit-admin-car-photos').on('change', function(){
-    //     validateImageFile('#edit-admin-car-photos','#edit-admin-car-photos-error','Photos of cars')
+    // $('#edit-admin-car-registration').on('change', function(){
+    //     validateImageFile('#edit-admin-car-registration','#edit-admin-car-registration-error','Car registration')
     // })
+    $('#edit-admin-car-photos').on('change', function(){
+        validateImageFile('#edit-admin-car-photos','#edit-admin-car-photos-error','Photos of cars')
+    })
     $('#edit-admin-car-main-photo').on('change', function(){
         validateImageFile('#edit-admin-car-main-photo','#edit-admin-car-main-photo-error','Main car photo')
     })
@@ -1589,8 +1599,9 @@ $(function(){
         
     })
 
-    $('#edit-car-form').on('submit',function(event){
+    $('#edit-car-form').on('submit',async function(event){
         event.preventDefault()
+       
        
 
         function validateEditCarForm()
@@ -1606,9 +1617,9 @@ $(function(){
         }
         let formData = new FormData($(this)[0]);
 
-        async function submitEditCarForm()
+         function submitEditCarForm()
         {
-         await   $.ajax({
+           $.ajax({
                 headers: {
                     "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
                 },
@@ -1620,23 +1631,24 @@ $(function(){
                 success:function(resp){
                     $('.loading').removeClass('grid')
                     $('.loading').hide()
-                       alert(JSON.stringify(resp['data']))
-                    // if(resp["data"] === 'success')
-                    // {
-                    //     $('.success-container').show()
-                    //     $('.success-message').html('Car updated successfully!')
-                    //     setTimeout(function(){
-                    //         window.location.href = '/admin/cars';   
-                    //     },1500)  
-                    // }
-                    // else 
-                    // {  
-                    //     $('.error-container').show()
-                    //     $('.error-message').html('Edit car failed!')
-                    //     setTimeout(function(){
-                    //         $('.error-container').hide()  
-                    //     },3000)
-                    // }
+                    //    alert(JSON.stringify(resp['data']))
+                    if(resp["data"] === 'success')
+                    {
+                        $('.success-container').show()
+                        $('.success-message').html('Car updated successfully!')
+                        setTimeout(function(){
+                            window.location.href = '/admin/cars';   
+                        },1500)  
+                    }
+                    else 
+                    {  
+                        $('.error-container').show()
+                        $('.error-message').html('Edit car failed!')
+                        $('#edit-car-form button[type="submit"]').removeClass('hidden')
+                        setTimeout(function(){
+                            $('.error-container').hide()  
+                        },3000)
+                    }
                     
                 },
                 error: function(){
@@ -1644,6 +1656,7 @@ $(function(){
                     $('.loading').hide()
                     $('.error-container').show()
                     $('.error-message').html('System error edit car failed!')
+                    $('#edit-car-form button[type="submit"]').removeClass('hidden')
                     setTimeout(function(){
                         $('.error-container').hide()
                     },3000)
@@ -1654,11 +1667,12 @@ $(function(){
         
         
         if(validated){
+            $('#edit-car-form button[type="submit"]').addClass('hidden')
             
             $('.loading').removeClass('hidden')
             $('.loading').addClass('grid')
            
-            submitEditCarForm().catch(function(error){
+            await   submitEditCarForm().catch(function(error){
                 $('.loading').removeClass('grid')
                 $('.loading').hide()
                 $('.error-container').show()

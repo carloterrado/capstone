@@ -92,4 +92,4 @@
 
 
 <!-- Main modal for change password -->
-@include('owner.owner-change-password')
+@include('owner.profile.owner-change-password')

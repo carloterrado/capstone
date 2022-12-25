@@ -110,7 +110,7 @@
                     </div>
                    
                     <div class="col-span-6 sm:col-span-3 relative" data-carousel="static">
-                        <label  class="block pb-1 text-sm font-semibold text-gray-500" >Photos of car: click for large view</label>
+                        <label id="add-admin-car-photos-error" for="add-admin-car-photos" class="block pb-1 text-sm font-semibold text-gray-500" >Photos of car: click for large view</label>
                        
                          <!-- Carousel wrapper -->
                         <div class="relative h-44 overflow-hidden rounded-lg">

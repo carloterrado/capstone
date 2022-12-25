@@ -105,15 +105,15 @@ class AdminController extends Controller
     }
     public function cars()
     {
-        Session::put('title','All Cars');
+        Session::put('title','Cars');
         Session::put('page','cars');
         $cartypes = CarType::where('status',1)->get()->toArray();
         if(Auth::guard('admin')->user()->type === 'owner')
         {
-            $cars = Car::with(['carPhotos','carPrice'])->where(['account'=>'verified','admin_id'=>Auth::guard('admin')->user()->id])->get()->toArray();
+            $cars = Car::with(['carPhotos','carPrice','carTypes'])->where(['account'=>'verified','admin_id'=>Auth::guard('admin')->user()->id])->get()->toArray();
             return view('owner.dashboard')->with(compact('cartypes','cars'));
         }
-        $cars = Car::with(['carPhotos','carPrice','carTypes'])->where('account','verified')->get()->toArray();
+        $cars = Car::with(['carPhotos','carPrice','carTypes'])->where('owner_id',0)->get()->toArray();
         // dd($cars);
         return view('admin.dashboard')->with(compact('cartypes','cars'));
 
@@ -138,7 +138,16 @@ class AdminController extends Controller
                 $extension = $main_img->getClientOriginalExtension();
                 // --- Generate new image name --- //
                 $imgMain = rand(111,99999).'.'.$extension;
-                $imgPath ='admins/images/cars/main/'.$imgMain;
+             
+                if(Auth::guard('admin')->user()->type === 'owner')
+                {  
+                    $imgPath ='owner/images/cars/main/'.$imgMain;  
+                }
+                else
+                {
+                    $imgPath ='admins/images/cars/main/'.$imgMain;
+                }
+
         
                 // --- Upload the image --- //
                 Image::make($main_img)->resize(1500,1500,function($constraint)
@@ -146,19 +155,44 @@ class AdminController extends Controller
                     $constraint->aspectRatio();
                 })->save($imgPath); 
                 $car->main_photo = $imgMain;
+             
             }
+            
+            if(Auth::guard('admin')->user()->type === 'owner')
+            {
+                $registration_img = $data['add-admin-car-registration'];
+               
+                if($registration_img->isValid())
+                {
+                    $extension = $registration_img->getClientOriginalExtension();
+                    // --- Generate new image name --- //
+                    $imgRegistration = rand(111,99999).'.'.$extension;
+                    $imgPath ='owner/images/cars/registration/'.$imgRegistration;
+            
+                    // --- Upload the image --- //
+                    Image::make($registration_img)->resize(1500,1500,function($constraint)
+                    {
+                        $constraint->aspectRatio();
+                    })->save($imgPath); 
+                    
+                    $car->registration = $imgRegistration;
+                    
+                }
+               
+            }
+          
             $car->description = $data['add-admin-car-description'];
             $car->pickup_location = $data['add-admin-car-pickup-location'];
             $car->driver = $data['add-admin-car-driver'];
             $car->drivers_fee = $data['add-admin-car-drivers-fee'];
             $car->account = 'verified';
             $car->save();
-           
+          
+            
 
             // Assign the new car to $newCar to get its id
             $newCar = $car;
             
-
             $prices = 
                 [
                 $data['add-admin-car-price-ilocos-region'],
@@ -191,8 +225,14 @@ class AdminController extends Controller
                     $extension = $img_tmp->getClientOriginalExtension();
                     // --- Generate new image name --- //
                     $imgName = rand(111,99999).'.'.$extension;
-                    $imgPath ='admins/images/cars/'.$imgName;
-            
+                    if(Auth::guard('admin')->user()->type === 'owner')
+                    {
+                        $imgPath ='owner/images/cars/'.$imgName;
+                    }
+                    else
+                    {
+                        $imgPath ='admins/images/cars/'.$imgName;
+                    }
                     // --- Upload the image --- //
                     Image::make($img_tmp)->resize(1500,1500,function($constraint)
                     {
@@ -215,7 +255,7 @@ class AdminController extends Controller
         if($request->ajax())
         {
             $data = $request->all();
-             
+            
             $car = Car::where('id',$data['edit-admin-car-id'])->get()->first();
 
             if($car->name  !== $data['edit-admin-car-name'])
@@ -226,90 +266,83 @@ class AdminController extends Controller
                 $car->type_id = $data['edit-admin-set-car-type'];
             if($car->capacity  !== $data['edit-admin-car-capacity'])
                 $car->capacity = $data['edit-admin-car-capacity'];
-            $car->save();
-
-            return response()->json(['data'=>'success']);
-         
-            $car->owner_id = Auth::guard('admin')->user()->owner_id;
-            $car->admin_id = Auth::guard('admin')->user()->id;
-            $car->name = $data['add-admin-car-name'];
-            $car->plate_number = $data['add-admin-car-plate-number'];
-            $car->type_id = (int)$data['add-admin-set-car-type'];
-            $car->capacity = $data['add-admin-car-capacity'];
-            $main_img = $data['add-admin-car-main-photo'];
-            if($main_img->isValid())
+            if($request->hasFile('edit-admin-car-main-photo'))
             {
-                $extension = $main_img->getClientOriginalExtension();
-                // --- Generate new image name --- //
-                $imgMain = rand(111,99999).'.'.$extension;
-                $imgPath ='admins/images/cars/main/'.$imgMain;
-        
-                // --- Upload the image --- //
-                Image::make($main_img)->resize(1500,1500,function($constraint)
+                $carImg = public_path('admins/images/cars/main/'.$car->main_photo);
+                    File::delete($carImg);
+
+                $main_img = $data['edit-admin-car-main-photo'];
+                if($main_img->isValid())
                 {
-                    $constraint->aspectRatio();
-                })->save($imgPath); 
-                $car->main_photo = $imgMain;
-            }
-            $car->description = $data['add-admin-car-description'];
-            $car->pickup_location = $data['add-admin-car-pickup-location'];
-            $car->driver = $data['add-admin-car-driver'];
-            $car->drivers_fee = $data['add-admin-car-drivers-fee'];
-            $car->account = 'verified';
-            $car->save();
-           
-
-            // Assign the new car to $newCar to get its id
-            $newCar = $car;
-            
-
-            $prices = 
-                [
-                $data['add-admin-car-price-ilocos-region'],
-                $data['add-admin-car-price-cagayan-valley'],
-                $data['add-admin-car-price-central-luzon'],
-                $data['add-admin-car-price-calabarzon'],
-                $data['add-admin-car-price-mimaropa'],
-                $data['add-admin-car-price-bicol-region'],
-                $data['add-admin-car-price-ncr'],
-                $data['add-admin-car-price-car'],
-                ];
-            $reg_id = [1,2,3,4,5,6,14,15];
-
-            for($i=0; $i<8; $i++)
-            {
-                $carPrice = new CarPrice;
-                $carPrice->car_id = $newCar->id;
-                $carPrice->price = $prices[$i];
-                $carPrice->reg_id = $reg_id[$i];
-                $carPrice->save();
-            }
-           
-           
-          
-            foreach($data['add-admin-car-photos'] as $photo)
-            {
-                $img_tmp = $photo;
-                if($img_tmp->isValid())
-                {
-                    $extension = $img_tmp->getClientOriginalExtension();
+                    $extension = $main_img->getClientOriginalExtension();
                     // --- Generate new image name --- //
-                    $imgName = rand(111,99999).'.'.$extension;
-                    $imgPath ='admins/images/cars/'.$imgName;
+                    $imgMain = rand(111,99999).'.'.$extension;
+                    $imgPath ='admins/images/cars/main/'.$imgMain;
             
                     // --- Upload the image --- //
-                    Image::make($img_tmp)->resize(1500,1500,function($constraint)
+                    Image::make($main_img)->resize(1500,1500,function($constraint)
                     {
                         $constraint->aspectRatio();
                     })->save($imgPath); 
-                    
-                    $carPhoto = new CarPhoto;
-                    $carPhoto->car_id = $newCar->id;
-                    $carPhoto->photos = $imgName;
-                    $carPhoto->save();
+                    $car->main_photo = $imgMain;
                 }
             }
+            $car->save();
+        
+            // Assign the new car to $newCar to get its id
             
+            if($request->hasFile('edit-admin-car-photos'))
+            {
+                $carPhotos = CarPhoto::where('car_id',$data['edit-admin-car-id'])->get()->toArray();
+                foreach($carPhotos as $image)
+                {    
+                    $carPhoto = public_path('admins/images/cars/'.$image['photos']);
+                                File::delete($carPhoto);
+                }
+                CarPhoto::where('car_id',$data['edit-admin-car-id'])->delete();
+                foreach($data['edit-admin-car-photos'] as $photo)
+                {
+                    $img_tmp = $photo;
+                    if($img_tmp->isValid())
+                    {
+                        $extension = $img_tmp->getClientOriginalExtension();
+                        // --- Generate new image name --- //
+                        $imgName = rand(111,99999).'.'.$extension;
+                        $imgPath ='admins/images/cars/'.$imgName;
+                
+                        // --- Upload the image --- //
+                        Image::make($img_tmp)->resize(1500,1500,function($constraint)
+                        {
+                            $constraint->aspectRatio();
+                        })->save($imgPath); 
+                        
+                        $carPhoto = new CarPhoto;
+                        $carPhoto->car_id = $car->id;
+                        $carPhoto->photos = $imgName;
+                        $carPhoto->save();
+                    }
+                }
+            }
+          
+            $carPrices = CarPrice::where('car_id',$data['edit-admin-car-id'])->get()->toArray();
+            
+            if($carPrices[0]['price']  !== $data['edit-admin-car-price-ilocos-region'])
+                CarPrice::where(['car_id' => $data['edit-admin-car-id'],'reg_id' => 1])->update(['price' => $data['edit-admin-car-price-ilocos-region']]);
+            if($carPrices[1]['price']  !== $data['edit-admin-car-price-cagayan-valley'])
+                CarPrice::where(['car_id' => $data['edit-admin-car-id'],'reg_id' => 2])->update(['price' => $data['edit-admin-car-price-cagayan-valley']]);
+            if($carPrices[2]['price']  !== $data['edit-admin-car-price-central-luzon'])
+                CarPrice::where(['car_id' => $data['edit-admin-car-id'],'reg_id' => 3])->update(['price' => $data['edit-admin-car-price-central-luzon']]);
+            if($carPrices[3]['price']  !== $data['edit-admin-car-price-calabarzon'])
+                CarPrice::where(['car_id' => $data['edit-admin-car-id'],'reg_id' => 4])->update(['price' => $data['edit-admin-car-price-calabarzon']]);
+            if($carPrices[4]['price']  !== $data['edit-admin-car-price-mimaropa'])
+                CarPrice::where(['car_id' => $data['edit-admin-car-id'],'reg_id' => 5])->update(['price' => $data['edit-admin-car-price-mimaropa']]);
+            if($carPrices[5]['price']  !== $data['edit-admin-car-price-bicol-region'])
+                CarPrice::where(['car_id' => $data['edit-admin-car-id'],'reg_id' => 6])->update(['price' => $data['edit-admin-car-price-bicol-region']]);
+            if($carPrices[6]['price']  !== $data['edit-admin-car-price-ncr'])
+                CarPrice::where(['car_id' => $data['edit-admin-car-id'],'reg_id' => 14])->update(['price' => $data['edit-admin-car-price-ncr']]);
+            if($carPrices[7]['price']  !== $data['edit-admin-car-price-car'])
+                CarPrice::where(['car_id' => $data['edit-admin-car-id'],'reg_id' => 15])->update(['price' => $data['edit-admin-car-price-car']]);
+  
             return response()->json(['data'=>'success']);
         }
     }

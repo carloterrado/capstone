@@ -1,19 +1,19 @@
-@extends('owner.layout')
+@extends('owner.layout.layout')
 @section('content')
 @if (Session::get('page') === 'dashboard')
-    @include('owner.owner-dashboard')
+    @include('owner.dashboard.owner-dashboard')
 
  @elseif (Session::get('page') === 'cars')
-    @include('owner.owner-cars')
+    @include('owner.cars.owner-cars')
 
  @elseif (Session::get('page') === 'car-request')
-    @include('owner.owner-car-request')
+    @include('owner.cars.owner-car-request')
 
  @elseif (Session::get('page') === 'car-declined')
-    @include('owner.owner-car-declined')
+    @include('owner.cars.owner-car-declined')
 
  @elseif (Session::get('page') === 'profile')
-    @include('owner.owner-profile')
+    @include('owner.profile.owner-profile')
 
 @endif
 @endsection

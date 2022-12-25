@@ -50,5 +50,5 @@
     
         </div>
     </div>
-    @include('owner.owner-edit-profile')
-    @include('owner.owner-change-password')
+    @include('owner.profile.owner-edit-profile')
+    @include('owner.profile.owner-change-password')

@@ -372,6 +372,7 @@ $(function(){
                         $('.loading').hide()
                         $('.error-container').show()
                         $('.error-message').html('Email is already registered!')
+                        $('#owner-signup-form button[type="submit"]').removeClass('hidden')
                         setTimeout(function(){
                             $('.error-container').hide()  
                         },3000)
@@ -382,6 +383,7 @@ $(function(){
                         $('.loading').hide()
                         $('.error-container').show()
                         $('.error-message').html('Email is already registered!')
+                        $('#owner-signup-form button[type="submit"]').removeClass('hidden')
                         setTimeout(function(){
                             $('.error-container').hide()
                         },3000)
@@ -394,6 +396,7 @@ $(function(){
                     $('.loading').hide()
                     $('.error-container').show()
                     $('.error-message').html('System account registration failed!')
+                    $('#owner-signup-form button[type="submit"]').removeClass('hidden')
                     setTimeout(function(){
                         $('.error-container').hide()
                     },3000)
@@ -404,9 +407,11 @@ $(function(){
         let validated = validateSignupForm()
        
         if(validated){
+            $('#owner-signup-form button[type="submit"]').addClass('hidden')
             $('.loading').removeClass('hidden')
             $('.loading').addClass('grid')
             submitSignupForm().catch(function(error){
+                $('#owner-signup-form button[type="submit"]').removeClass('hidden')
                 $('.loading').removeClass('grid')
                 $('.loading').hide()
                 $('.error-container').show()
@@ -433,6 +438,8 @@ $(function(){
     //        Validate login form upon submission
     $('#admin-login-form').on('submit', async function(event){
         event.preventDefault();
+       
+        
         let valid = validateEmail('#admin-login-email','#admin-login-email-error') &&
         validatePassword('#admin-login-password','#admin-login-password-error');
 
@@ -447,7 +454,7 @@ $(function(){
             },3000);
             return false;
         }
-
+        $('#admin-login-form button[type="submit"]').addClass('hidden')
         $('.loading').removeClass('hidden')
         $('.loading').addClass('grid')
         let email = $('#admin-login-email').val();
@@ -475,6 +482,7 @@ $(function(){
                     $('.loading').hide()
                     $('.error-container').show()
                     $('.error-message').html('Your account is not yet verified by admin!')
+                    $('#admin-login-form button[type="submit"]').removeClass('hidden')
                     setTimeout(function(){ 
                         $('.error-container').hide()  
                     },3000) 
@@ -485,6 +493,7 @@ $(function(){
                     $('.loading').hide()
                     $('.error-container').show()
                     $('.error-message').html('Your account has been declined!')
+                    $('#admin-login-form button[type="submit"]').removeClass('hidden')
                     setTimeout(function(){ 
                         $('.error-container').hide() 
                     },3000) 
@@ -495,6 +504,7 @@ $(function(){
                     $('.loading').hide()
                     $('.error-container').show()
                     $('.error-message').html('Please check your email and confirm your account!')
+                    $('#admin-login-form button[type="submit"]').removeClass('hidden')
                     setTimeout(function(){ 
                         $('.error-container').hide()    
                     },3000) 
@@ -505,6 +515,7 @@ $(function(){
                     $('.loading').hide()
                     $('.error-container').show()
                     $('.error-message').html('Invalid Email or password!')
+                    $('#admin-login-form button[type="submit"]').removeClass('hidden')
                     setTimeout(function(){ 
                         $('.error-container').hide()    
                     },3000)  
@@ -518,7 +529,7 @@ $(function(){
                     setTimeout(function(){ 
                         $('.error-container').hide() 
                         window.location.href = '/admin/login';  
-                    },3000) 
+                    },1500) 
                 }
         })
         
@@ -543,6 +554,7 @@ $(function(){
         let email = $('#forgot-password-email').val();
         if(valid)
         {  
+            $('#forgot-password-form button[type="submit"]').addClass('hidden')
             $('.loading').removeClass('hidden')
             $('.loading').addClass('grid')
            await $.ajax({
@@ -561,6 +573,7 @@ $(function(){
                         $('.loading').hide()
                         $('.success-container').show()
                         $('.success-message').html('A temporary password was sent to your email!')
+                        $('#forgot-password-form button[type="submit"]').removeClass('hidden')
                         setTimeout(function(){
                             $('.success-container').hide()
                         },3000)
@@ -571,6 +584,7 @@ $(function(){
                         $('.loading').hide()
                         $('.error-container').show()
                         $('.error-message').html('Email is not yet registered!')
+                        $('#forgot-password-form button[type="submit"]').removeClass('hidden')
                         setTimeout(function(){
                             $('.error-container').hide()
                         },3000)
@@ -581,6 +595,7 @@ $(function(){
                         $('.loading').hide()
                         $('.error-container').show()
                         $('.error-message').html('Invalid email!')
+                        $('#forgot-password-form button[type="submit"]').removeClass('hidden')
                         setTimeout(function(){
                             $('.error-container').hide()
                         },3000)
@@ -592,6 +607,7 @@ $(function(){
                     $('.loading').hide()
                     $('.error-container').show()
                     $('.error-message').html('Invalid email!')
+                    $('#forgot-password-form button[type="submit"]').removeClass('hidden')
                     setTimeout(function(){
                         $('.error-container').hide()
                     },3000)
@@ -676,6 +692,7 @@ $(function(){
                     if (resp["status"] === 'false') {
                         $('.error-container').show();
                         $(".error-message").html('Current password is invalid!');
+                        $('#change-pass-form button[type="submit"]').removeClass('hidden')
                         setTimeout(function(){
                             $('.error-container').hide();
                         },3000)
@@ -683,6 +700,7 @@ $(function(){
                         $('.success-container').show();
                         $(".success-message").text('Password updated successfully!');
                         $('#change-pass-form input').val('');
+                        $('#change-pass-form button[type="submit"]').removeClass('hidden')
                         setTimeout(function(){
                             $('.success-container').hide();
                         },3000)
@@ -691,6 +709,7 @@ $(function(){
                 error: function () {
                     $('.error-container').show();
                     $(".error-message").html('Update password failed!');
+                    $('#change-pass-form button[type="submit"]').removeClass('hidden')
                     setTimeout(function(){
                         $('.error-container').show();
                     },3000)
@@ -699,7 +718,9 @@ $(function(){
         }
         const validated = validateChangePassForm()
         if(validated){
+            $('#change-pass-form button[type="submit"]').addClass('hidden')
             submitPassword().catch(function(error){
+                $('#change-pass-form button[type="submit"]').removeClass('hidden')
                 $('.error-container').show();
                 $(".error-message").text('Update password failed!');
                 setTimeout(function(){
@@ -809,12 +830,13 @@ $(function(){
                         $('.success-message').html('Details updated successfully!')
                         setTimeout(function(){
                             window.location.href = '/admin/profile';   
-                        },3000)  
+                        },1500)  
                     }
                     else 
                     {  
                         $('.error-container').show()
                         $('.error-message').html('Update details failed!')
+                        $('#edit-profile-form button[type="submit"]').removeClass('hidden')
                         setTimeout(function(){
                             $('.error-container').hide()  
                         },3000)
@@ -826,6 +848,7 @@ $(function(){
                     $('.loading').hide()
                     $('.error-container').show()
                     $('.error-message').html('System error update details failed!')
+                    $('#edit-profile-form button[type="submit"]').removeClass('hidden')
                     setTimeout(function(){
                         $('.error-container').hide()
                     },3000)
@@ -836,10 +859,11 @@ $(function(){
         
         
         if(validated){
-            
+            $('#edit-profile-form button[type="submit"]').addClass('hidden')
             $('.loading').removeClass('hidden')
             $('.loading').addClass('grid')
             submitSignupForm().catch(function(error){
+                $('#edit-profile-form button[type="submit"]').removeClass('hidden')
                 $('.loading').removeClass('grid')
                 $('.loading').hide()
                 $('.error-container').show()
@@ -854,26 +878,446 @@ $(function(){
 
 
 
-    //    Add car form validation
+     // Car validations
+     function validateCarName(nameID,errorElementID,type){
+        let name = $(nameID).val();
+
+        if(name.length == 0){
+            $(errorElementID).html(type +' is required!');
+            $(errorElementID).css('color','lightcoral');
+            return false;
+        }
+       
+        if( name.length > 100){  
+            $(errorElementID).html(type + ' is too long!');
+            $(errorElementID).css('color','lightcoral');
+            return false;
+        }
+        $(errorElementID).html(type);
+        $(errorElementID).css('color','black');
+        return true;
+    }
+    function validatePlateNumber(plateID,errorElementID,type){
+        let name = $(plateID).val();
+
+        if(name.length == 0)
+        {
+            $(errorElementID).html(type +' is required!');
+            $(errorElementID).css('color','lightcoral');
+            return false;
+        }
+        if(!name.match(/^[A-Z0-9\s]*$/ ))
+        {
+            $(errorElementID).html('Uppercase and numbers only!');
+            $(errorElementID).css('color','lightcoral'); 
+            return false;
+        }
+       
+        if( name.length > 8){  
+            $(errorElementID).html(type + ' is too long!');
+            $(errorElementID).css('color','lightcoral');
+            return false;
+        }
+        $(errorElementID).html(type);
+        $(errorElementID).css('color','black');
+        return true;
+    }
+    function validateCarType(typeID,errorElementID)
+    {
+        let validchoice = $(typeID).children('option:selected').val();
+        if(validchoice === '')
+        {
+            $(errorElementID).html('Select a car type!');
+            $(errorElementID).css('color','lightcoral');
+            return false; 
+        }
+        $(errorElementID).html('Car type');
+        $(errorElementID).css('color','black');
+        return true;
+    }
+    function validateCarDescription(descriptionID,errorElementID)
+    {
+        let description = $(descriptionID).val();
+
+        if(description.length == 0)
+        {
+            $(errorElementID).html('Car description is required!');
+            $(errorElementID).css('color','lightcoral');
+            return false;
+        }
+        
+        if(description.length < 20)
+        {
+            $(errorElementID).html('Too short!');
+            $(errorElementID).css('color','lightcoral');
+            return false; 
+        }
+        $(errorElementID).html('Car description');
+        $(errorElementID).css('color','black');
+        return true;
+    }
+    function validateCarCapacity(capacityID,errorElementID)
+    {
+        let capacity = $(capacityID).val();
+
+        if(capacity.length == 0)
+        {
+            $(errorElementID).html('Car capacity is required!');
+            $(errorElementID).css('color','lightcoral');
+            return false;
+        }
+        if(!capacity.match(/^[0-9]*$/ ))
+        {
+            $(errorElementID).html('Numbers only!');
+            $(errorElementID).css('color','lightcoral'); 
+            return false;
+        }
+        if(capacity <= 0)
+        {
+            $(errorElementID).html('Invalid car capacity!');
+            $(errorElementID).css('color','lightcoral');
+            return false; 
+        }
+        if(capacity > 30)
+        {
+            $(errorElementID).html('Invalid car capacity!');
+            $(errorElementID).css('color','lightcoral');
+            return false; 
+        }
+        if(capacity.length > 2)
+        {
+            $(errorElementID).html('Invalid car capacity!');
+            $(errorElementID).css('color','lightcoral');
+            return false; 
+        }
+        $(errorElementID).html('Car capacity');
+        $(errorElementID).css('color','black');
+        return true;
+    }
+    function validateCarImageFile(imageID,errorElementID,imageType)
+    {
+        
+        let files =  $(imageID)[0].files;
+       
+        if(files.length === 0)
+        {
+            $(errorElementID).html(imageType + ' is required!');
+            $(errorElementID).css('color','lightcoral');
+            return false; 
+        }
+      
+      
+        for(var i=0; i < files.length; i++){
+            let file = files[i]
+           
+            if(!file.name.match(/\.(jpg|jpeg|gif|png)$/))
+            {
+                $(errorElementID).html('Invalid selected file');
+                $(errorElementID).css('color','lightcoral');
+                return false; 
+            }
+
+        } 
+        if(files.length > 9)
+        {
+            $(errorElementID).html(imageType + ' maximum is 9!');
+            $(errorElementID).css('color','lightcoral');
+            return false; 
+        }
+
+     
+        $(errorElementID).html(imageType);
+        $(errorElementID).css('color','black');
+        return true;
+    }
+    function validatePickupLocation(pickupID,errorElementID,type){
+        let name = $(pickupID).val();
+
+        if(name.length == 0){
+            $(errorElementID).html(type +' is required!');
+            $(errorElementID).css('color','lightcoral');
+            return false;
+        }
+       
+        if( name.length < 10){  
+            $(errorElementID).html(type + ' is too short!');
+            $(errorElementID).css('color','lightcoral');
+            return false;
+        }
+        $(errorElementID).html(type);
+        $(errorElementID).css('color','black');
+        return true;
+    }
+    function validateCarDriversFee(driverID,errorElementID)
+    {
+        let driversFee = $(driverID).val();
+
+        if(driversFee.length == 0)
+        {
+            $(errorElementID).html('Driver\'s fee is required!');
+            $(errorElementID).css('color','lightcoral');
+            return false;
+        }
+        if(!driversFee.match(/^[0-9]*$/ ))
+        {
+            $(errorElementID).html('Numbers only!');
+            $(errorElementID).css('color','lightcoral'); 
+            return false;
+        }
+        if(driversFee <= 0)
+        {
+            $(errorElementID).html('Invalid driver\'s fee!');
+            $(errorElementID).css('color','lightcoral');
+            return false; 
+        }
+        if(driversFee > 100000)
+        {
+            $(errorElementID).html('Invalid driver\'s fee!');
+            $(errorElementID).css('color','lightcoral');
+            return false; 
+        }
+        
+        $(errorElementID).html('Driver\'s fee');
+        $(errorElementID).css('color','black');
+        return true;
+    }
+    function validateCarPrice(priceID,errorElementID,locations)
+    {
+        let price = $(priceID).val();
+
+        if(price.length == 0)
+        {
+            $(errorElementID).html('Price is required!');
+            $(errorElementID).css('color','lightcoral');
+            return false;
+        }
+        if(!price.match(/^[0-9]*$/ ))
+        {
+            $(errorElementID).html('Numbers only!');
+            $(errorElementID).css('color','lightcoral'); 
+            return false;
+        }
+        if(price <= 1000)
+        {
+            $(errorElementID).html('Invalid Price!');
+            $(errorElementID).css('color','lightcoral');
+            return false; 
+        }
+        if(price > 100000)
+        {
+            $(errorElementID).html('Invalid Price!');
+            $(errorElementID).css('color','lightcoral');
+            return false; 
+        }
+        
+        $(errorElementID).html(locations);
+        $(errorElementID).css('color','black');
+        return true;
+    }
+
+
+    
+    //    Car form validation
+    $('#add-admin-car-name').on('keyup keypress',function()
+    {
+        validateCarName('#add-admin-car-name','#add-admin-car-name-error','Name of car ');
+    })
+    $('#add-admin-car-plate-number').on('keyup keypress',function()
+    {
+        validatePlateNumber('#add-admin-car-plate-number','#add-admin-car-plate-number-error','Plate number');
+    })
+    $('#add-admin-set-car-type').on('click keypress',function()
+    {
+        validateCarType('#add-admin-set-car-type','#add-admin-set-car-type-error');
+    })
+    $('#add-admin-car-capacity').on('keyup keypress',function()
+    {
+        validateCarCapacity('#add-admin-car-capacity','#add-admin-car-capacity-error');
+    })
+    $('#add-admin-car-registration').on('change', function(){
+        validateCarImageFile('#add-admin-car-registration','#add-admin-car-registration-error','Car registration')
+    })
+    $('#add-admin-car-photos').on('change', function(){
+        validateCarImageFile('#add-admin-car-photos','#add-admin-car-photos-error','Photos of cars')
+    })
+   
+    $('#add-admin-car-main-photo').on('change', function(){
+        validateCarImageFile('#add-admin-car-main-photo','#add-admin-car-main-photo-error','Main car photo')
+    })
+    $('#add-admin-car-description').on('keyup keypress',function()
+    {
+        validateCarDescription('#add-admin-car-description','#add-admin-car-description-error');
+    })
+    $('#add-admin-car-pickup-location').on('keyup keypress',function()
+    {
+        validatePickupLocation('#add-admin-car-pickup-location','#add-admin-car-pickup-location-error','Pick-up location');
+    })
+    $('#add-admin-car-with-driver').on('click', function(){
+        $('#add-admin-car-drivers-fee').removeAttr('readonly')
+    })
+    $('#add-admin-car-only').on('click', function(){
+        $('#add-admin-car-drivers-fee').attr('readonly','readonly')
+        $('#add-admin-car-drivers-fee').val('0')
+        $('#add-admin-car-drivers-fee-error').html('Driver\'s fee');
+        $('#add-admin-car-drivers-fee-error').css('color','black');
+    })
+    $('#add-admin-car-drivers-fee').on('keyup keypress',function()
+    {
+        validateCarDriversFee('#add-admin-car-drivers-fee','#add-admin-car-drivers-fee-error');
+    })
+    $('#add-admin-car-price-ilocos-region').on('keyup keypress',function()
+    {
+        validateCarPrice('#add-admin-car-price-ilocos-region','#add-admin-car-price-ilocos-region-error','REGION I (ILOCOS REGION)');
+    })
+    $('#add-admin-car-price-cagayan-valley').on('keyup keypress',function()
+    {
+        validateCarPrice('#add-admin-car-price-cagayan-valley','#add-admin-car-price-cagayan-valley-error','REGION II (CAGAYAN VALLEY)');
+    })
+    $('#add-admin-car-price-central-luzon').on('keyup keypress',function()
+    {
+        validateCarPrice('#add-admin-car-price-central-luzon','#add-admin-car-price-central-luzon-error','REGION III (CENTRAL LUZON)');
+    })
+    $('#add-admin-car-price-calabarzon').on('keyup keypress',function()
+    {
+        validateCarPrice('#add-admin-car-price-calabarzon','#add-admin-car-price-calabarzon-error','REGION IV-A (CALABARZON)');
+    })
+    $('#add-admin-car-price-mimaropa').on('keyup keypress',function()
+    {
+        validateCarPrice('#add-admin-car-price-mimaropa','#add-admin-car-price-mimaropa-error','REGION IV-B (MIMAROPA)');
+    })
+    $('#add-admin-car-price-bicol-region').on('keyup keypress',function()
+    {
+        validateCarPrice('#add-admin-car-price-bicol-region','#add-admin-car-price-bicol-region-error','REGION V (BICOL REGION)');
+    })
+    $('#add-admin-car-price-ncr').on('keyup keypress',function()
+    {
+        validateCarPrice('#add-admin-car-price-ncr','#add-admin-car-price-ncr-error','NATIONAL CAPITAL REGION (NCR)');
+    })
+    $('#add-admin-car-price-car').on('keyup keypress',function()
+    {
+        validateCarPrice('#add-admin-car-price-car','#add-admin-car-price-car-error','CORDILLERA ADMINISTRATIVE REGION (CAR)');
+    })
+
+      //    Add car form validation
     $('.step-2').on('click', function(){
-        let valid = validateName('#add-car-name','#add-car-name-error','Car name') && validateName('#add-car-type','#add-car-type-error','Car type');
+
+        
+        let valid = validateCarName('#add-admin-car-name','#add-admin-car-name-error','Name of car ') && validatePlateNumber('#add-admin-car-plate-number','#add-admin-car-plate-number-error','Plate number') && validateCarType('#add-admin-set-car-type','#add-admin-set-car-type-error') && validateCarCapacity('#add-admin-car-capacity','#add-admin-car-capacity-error') && validateCarImageFile('#add-admin-car-registration','#add-admin-car-registration-error','Car registration') && validateCarImageFile('#add-admin-car-main-photo','#add-admin-car-main-photo-error','Main car photo') && validateCarImageFile('#add-admin-car-photos','#add-admin-car-photos-error','Photos of cars') ;
+       
+
+      
         if(valid)
         {
             $('.form-step').hide()
-            $('.step-two').show()
-        }   
+            $('.step-two').show() 
+        }
+        
+            
     })
     $('.step-1').on('click', function(){
         $('.form-step').hide()
         $('.step-one').show()
     })
     $('.step-3').on('click', function(){
-        let valid = validateName('#add-car-price','#add-car-price-error','Car Price') && validateName('#add-car-capacity','#add-car-capacity-error','Car capacity');
-        if(valid)
+        let valid =  validatePickupLocation('#add-admin-car-pickup-location','#add-admin-car-pickup-location-error','Pick-up location') && validateCarDescription('#add-admin-car-description','#add-admin-car-description-error');
+        let driversFee = true;
+        if($('#add-admin-car-with-driver').is(':checked'))
+        {
+          driversFee =  validateCarDriversFee('#add-admin-car-drivers-fee','#add-admin-car-drivers-fee-error') ;
+        }
+        if(valid && driversFee)
         {
             $('.form-step').hide()
             $('.step-three').show()
-        } 
+        }  
+       
+        
+    })
+    
+    $('#add-car-form').on('submit',function(event){
+        event.preventDefault()
+       
+
+        function validateAddCarForm()
+        {
+
+            let valid = validateCarPrice('#add-admin-car-price-cagayan-valley','#add-admin-car-price-cagayan-valley-error','REGION II (CAGAYAN VALLEY)') && validateCarPrice('#add-admin-car-price-central-luzon','#add-admin-car-price-central-luzon-error','REGION III (CENTRAL LUZON)') &&  validateCarPrice('#add-admin-car-price-calabarzon','#add-admin-car-price-calabarzon-error','REGION IV-A (CALABARZON)') && validateCarPrice('#add-admin-car-price-mimaropa','#add-admin-car-price-mimaropa-error','REGION IV-B (MIMAROPA)') && validateCarPrice('#add-admin-car-price-bicol-region','#add-admin-car-price-bicol-region-error','REGION V (BICOL REGION)') && validateCarPrice('#add-admin-car-price-ncr','#add-admin-car-price-ncr-error','NATIONAL CAPITAL REGION (NCR)') && validateCarPrice('#add-admin-car-price-car','#add-admin-car-price-car-error','CORDILLERA ADMINISTRATIVE REGION (CAR)');
+
+            if(!valid)
+            {  
+                return false;
+            }
+            return true;
+        }
+
+        let formData = new FormData($(this)[0]);
+
+        async function submitAddCarForm()
+        {
+         await   $.ajax({
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                },
+                type: 'POST',
+                url:'/admin/add-car',
+                data:formData,
+                processData: false,
+                contentType: false,
+                success:function(resp){
+                    $('.loading').removeClass('grid')
+                    $('.loading').hide()
+                    //    alert(JSON.stringify(resp['data']))
+                    if(resp["data"] === 'success')
+                    {
+                        $('.success-container').show()
+                        $('.success-message').html('Car added successfully!')
+                        setTimeout(function(){
+                            window.location.href = '/admin/cars';   
+                        },1500)  
+                    }
+                    else 
+                    {  
+                        $('.error-container').show()
+                        $('.error-message').html('Add car failed!')
+                        $('#add-car-form button[type="submit"]').addClass('hidden')
+                        setTimeout(function(){
+                            $('.error-container').hide()  
+                        },3000)
+                    }
+                    
+                },
+                error: function(){
+                    $('.loading').removeClass('grid')
+                    $('.loading').hide()
+                    $('.error-container').show()
+                    $('.error-message').html('System error add car failed!')
+                    $('#add-car-form button[type="submit"]').removeClass('hidden')
+                    setTimeout(function(){
+                        $('.error-container').hide()
+                    },3000)
+                }
+            })
+        }
+        let validated = validateAddCarForm()
+        
+        
+        if(validated){
+            $('#add-car-form button[type="submit"]').addClass('hidden')
+            
+            $('.loading').removeClass('hidden')
+            $('.loading').addClass('grid')
+           
+            submitAddCarForm().catch(function(error){
+                $('.loading').removeClass('grid')
+                $('.loading').hide()
+                $('.error-container').show()
+                $('.error-message').html('System add car failed!')
+                setTimeout(function(){
+                    window.location.href = '/admin/cars';  
+                },3000)
+            })
+        }
+
     })
    
 });
