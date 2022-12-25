@@ -367,13 +367,18 @@ class AdminController extends Controller
         {
             $data = $request->all();
 
-            // $carImage = Car::where('id',$data['id'])->get()->first();
+           
       
-            // $carImg = public_path('admins/images/cars/registration/'.$carImage->registration);
-            //                 File::delete($carImg);
+            
             $mainImage = Car::where('id',$data['id'])->get()->first();
+            if($mainImage->registration !== null)
+            {
+                $carImg = public_path('owner/images/cars/registration/'.$mainImage->registration);
+                          File::delete($carImg);
+            }
+            
             $carImg = public_path('admins/images/cars/main/'.$mainImage->main_photo);
-                            File::delete($carImg);
+                      File::delete($carImg);
 
             $carPhotos = CarPhoto::where('car_id',$data['id'])->get()->toArray();
             foreach($carPhotos as $image)

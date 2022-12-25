@@ -94,18 +94,18 @@
             <div class="p-6 space-y-6">
                 <div class="grid grid-cols-6 gap-6">
 
-                    @if ($car['registration'] !== null)
+                  
                     <div class="col-span-6 sm:col-span-3">
                         <label  for="add-admin-car-registration" class="block pb-1 text-sm font-semibold  text-gray-500" >Car registration</label>
-                        <a href="{{url('admins/images/cars/registration/'.$car['registration'])}}" target="_blank">
-                        <img src="{{url('admins/images/cars/registration/'.$car['registration'])}}" alt="Car photo"></a>
+                        <a href="{{url('owner/images/cars/registration/'.$car['registration'])}}" target="_blank">
+                        <img src="{{url('owner/images/cars/registration/'.$car['registration'])}}" alt="Car photo"></a>
                     </div>
-                    @endif
+                
                     <div class="col-span-6 sm:col-span-3 relative">
                         <label   class="block pb-1 text-sm font-semibold  text-gray-500" >Main car photo</label>
                        
-                        <a href="{{url('admins/images/cars/main/'.$car['main_photo'])}}" target="_blank" >
-                        <img  src="{{url('admins/images/cars/main/'.$car['main_photo'])}}" alt="Car photo" class="inset-0 object-cover w-full h-44 rounded-lg"></a>
+                        <a href="{{url('owner/images/cars/main/'.$car['main_photo'])}}" target="_blank" >
+                        <img  src="{{url('owner/images/cars/main/'.$car['main_photo'])}}" alt="Car photo" class="inset-0 object-cover w-full h-44 rounded-lg"></a>
                       
                     </div>
                    
@@ -119,8 +119,8 @@
                            
                             <div class="hidden duration-700 ease-in-out" 
                             @if ($loop->first) data-carousel-item="active" @else data-carousel-item @endif >
-                                <a href="{{url('admins/images/cars/'.$photo['photos'])}}" target="_blank">
-                                <img src="{{url('admins/images/cars/'.$photo['photos'])}}" class="absolute block w-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 " alt="..."></a>
+                                <a href="{{url('owner/images/cars/'.$photo['photos'])}}" target="_blank">
+                                <img src="{{url('owner/images/cars/'.$photo['photos'])}}" class="absolute block w-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 " alt="..."></a>
                             </div>
                             
                             @endforeach
