@@ -11,6 +11,7 @@ use App\Models\CarType;
 use App\Models\OwnerDetail;
 use App\Models\User;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -19,6 +20,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Str;
+
 
 class AdminController extends Controller
 {
@@ -185,7 +187,11 @@ class AdminController extends Controller
             $car->pickup_location = $data['add-admin-car-pickup-location'];
             $car->driver = $data['add-admin-car-driver'];
             $car->drivers_fee = $data['add-admin-car-drivers-fee'];
-            $car->account = 'verified';
+            if(Auth::guard('admin')->user()->type !== 'owner')
+            {
+                $car->account = 'verified';
+            }
+           
             $car->save();
           
             
@@ -249,9 +255,10 @@ class AdminController extends Controller
             return response()->json(['data'=>'success']);
         }
     }
-    public function editCar(Request $request)
+    public function editCar(Request $request,Exception $exception)
     {
-             
+     
+       
         if($request->ajax())
         {
             $data = $request->all();
@@ -345,6 +352,8 @@ class AdminController extends Controller
   
             return response()->json(['data'=>'success']);
         }
+            
+ 
     }
     public function updateCarStatus(Request $request)
     {      
@@ -376,41 +385,107 @@ class AdminController extends Controller
                 $carImg = public_path('owner/images/cars/registration/'.$mainImage->registration);
                           File::delete($carImg);
             }
-            
-            $carImg = public_path('admins/images/cars/main/'.$mainImage->main_photo);
-                      File::delete($carImg);
-
             $carPhotos = CarPhoto::where('car_id',$data['id'])->get()->toArray();
-            foreach($carPhotos as $image)
-            {    
-                $carPhoto = public_path('admins/images/cars/'.$image['photos']);
-                            File::delete($carPhoto);
+            if($mainImage->owner_id === 0)
+            {
+                $carImg = public_path('admins/images/cars/main/'.$mainImage->main_photo);
+                File::delete($carImg);
+                foreach($carPhotos as $image)
+                {    
+                    $carPhoto = public_path('admins/images/cars/'.$image['photos']);
+                                File::delete($carPhoto);
+                }
             }
+            else
+            {
+                $carImg = public_path('owner/images/cars/main/'.$mainImage->main_photo);
+                File::delete($carImg);
+                foreach($carPhotos as $image)
+                {    
+                    $carPhoto = public_path('owner/images/cars/'.$image['photos']);
+                                File::delete($carPhoto);
+                }
+            }
+            
+
+            
+           
             Car::where('id',$data['id'])->delete();  
             return response()->json(['status'=>'deleted']);
         }
     }
     public function ownerCars()
     {
-        Session::put('title','Owner Cars');
-        Session::put('page','owner-cars');
+        
         if(Auth::guard('admin')->user()->type === 'owner')
         {
             return view('owner.dashboard');
         }
-        return view('admin.dashboard');
+        Session::put('title','Owner Cars');
+        Session::put('page','owner-cars');
+        $cartypes = CarType::where('status',1)->get()->toArray();
+        $cars = Car::with(['carPhotos','carPrice','carTypes','carOwner'])->where([['account','=','verified'],['owner_id','!=',0]])->get()->toArray();
+      
+            return view('admin.dashboard')->with(compact('cartypes','cars'));
+        
 
     }
     public function carRequest()
     {
+       
         Session::put('title','Car Request');
         Session::put('page','car-request');
         if(Auth::guard('admin')->user()->type === 'owner')
         {
-            return view('owner.dashboard');
+            $cartypes = CarType::where('status',1)->get()->toArray();
+            $cars = Car::with(['carPhotos','carPrice','carTypes','carOwner'])->where([['account','=','unverified'],['owner_id','=',Auth::guard('admin')->user()->owner_id]])->get()->toArray();
+            return view('owner.dashboard')->with(compact('cartypes','cars'));
         }
-        return view('admin.dashboard');
+        $cartypes = CarType::where('status',1)->get()->toArray();
+        $cars = Car::with(['carPhotos','carPrice','carTypes','carOwner'])->where([['account','=','unverified'],['owner_id','!=',0]])->get()->toArray();
+        //  dd($cars);
+            return view('admin.dashboard')->with(compact('cartypes','cars'));
 
+    }
+    public function updateCarAccount(Request $request)
+    { 
+        if($request->ajax()){
+            $data = $request->all();
+            
+            $car = Car::find($data['car_id']);
+           
+             // Send confirmation email to owner email
+             $email = $data['email'];
+             $name = $data['name']; 
+             
+             $messageData = [
+                 'email' => $email,
+                 'name' => $name,
+             ];
+            
+            // echo '<pre>'; print_r($data);die;
+           
+            if($data['account'] === 'verified'){
+                $car->account = $data['account'] ;
+                $car->save();
+                
+                Mail::send('emails.owner.owner-car-account-accepted',$messageData, function($message)use($email){
+                    $message->to($email)->subject('New Registered Car Status');
+                });
+                
+            }
+            else if ($data['account'] === 'declined')
+            {
+                $car->account = $data['account'] ;
+                $car->save();
+                
+                Mail::send('emails.owner.owner-car-account-declined',$messageData, function($message)use($email){
+                    $message->to($email)->subject('New Registered Car Status');
+                });
+            } 
+
+            return response()->json(['data'=>$data['account']]);
+        }
     }
     public function carDeclined()
     {
@@ -418,9 +493,13 @@ class AdminController extends Controller
         Session::put('page','car-declined');
         if(Auth::guard('admin')->user()->type === 'owner')
         {
-            return view('owner.dashboard');
+            $cartypes = CarType::where('status',1)->get()->toArray();
+            $cars = Car::with(['carPhotos','carPrice','carTypes','carOwner'])->where([['account','=','declined'],['owner_id','=',Auth::guard('admin')->user()->owner_id]])->get()->toArray();
+            return view('owner.dashboard')->with(compact('cartypes','cars'));
         }
-        return view('admin.dashboard');
+        $cartypes = CarType::where('status',1)->get()->toArray();
+        $cars = Car::with(['carPhotos','carPrice','carTypes','carOwner'])->where([['account','=','declined'],['owner_id','!=',0]])->get()->toArray();
+        return view('admin.dashboard')->with(compact('cartypes','cars'));
 
     }
 
@@ -577,7 +656,7 @@ class AdminController extends Controller
             return response()->json(['status'=>$status]);
         }
     }
-     public function updateAdminAccount(Request $request)
+    public function updateAdminAccount(Request $request)
     { 
         if($request->ajax()){
             $data = $request->all();

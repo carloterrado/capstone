@@ -70,6 +70,7 @@ Route::prefix('admin')->group(function()
         Route::post('delete-car',[AdminController::class,'deleteCar']);
         Route::get('owner-cars',[AdminController::class,'ownerCars']);
         Route::get('car-request',[AdminController::class,'carRequest']);
+        Route::post('update-car-account',[AdminController::class,'updateCarAccount']);
         Route::get('car-declined',[AdminController::class,'carDeclined']);
         Route::get('all-admins',[AdminController::class,'allAdmins']);
         Route::post('add-admin',[AdminController::class,'addAdmin']);

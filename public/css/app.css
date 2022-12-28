@@ -1519,11 +1519,11 @@ div[modal-backdrop] {
 .z-10 {
   z-index: 10;
 }
-.z-40 {
-  z-index: 40;
-}
 .z-30 {
   z-index: 30;
+}
+.z-40 {
+  z-index: 40;
 }
 .z-20 {
   z-index: 20;
@@ -1747,10 +1747,10 @@ div[modal-backdrop] {
 .max-h-\[500px\] {
   max-height: 500px;
 }
-.min-h-screen {
+.min-h-\[100vh\] {
   min-height: 100vh;
 }
-.min-h-\[100vh\] {
+.min-h-screen {
   min-height: 100vh;
 }
 .min-h-\[calc\(100vh-5rem\)\] {
@@ -1805,11 +1805,11 @@ div[modal-backdrop] {
 .w-16 {
   width: 4rem;
 }
-.w-20 {
-  width: 5rem;
-}
 .w-10 {
   width: 2.5rem;
+}
+.w-20 {
+  width: 5rem;
 }
 .w-48 {
   width: 12rem;
@@ -2483,6 +2483,12 @@ div[modal-backdrop] {
 .text-center {
   text-align: center;
 }
+.text-right {
+  text-align: right;
+}
+.text-end {
+  text-align: end;
+}
 .align-bottom {
   vertical-align: bottom;
 }
@@ -2526,6 +2532,10 @@ div[modal-backdrop] {
   font-size: 1.5rem;
   line-height: 2rem;
 }
+.text-7xl {
+  font-size: 4.5rem;
+  line-height: 1;
+}
 .text-\[1\.75rem\] {
   font-size: 1.75rem;
 }
@@ -2554,10 +2564,6 @@ div[modal-backdrop] {
   font-size: 1.125rem;
   line-height: 1.75rem;
 }
-.text-7xl {
-  font-size: 4.5rem;
-  line-height: 1;
-}
 .font-medium {
   font-weight: 500;
 }
@@ -2570,6 +2576,9 @@ div[modal-backdrop] {
 .font-light {
   font-weight: 300;
 }
+.font-extrabold {
+  font-weight: 800;
+}
 .font-normal {
   font-weight: 400;
 }
@@ -2581,9 +2590,6 @@ div[modal-backdrop] {
 }
 .font-\[400\] {
   font-weight: 400;
-}
-.font-extrabold {
-  font-weight: 800;
 }
 .uppercase {
   text-transform: uppercase;
@@ -3436,6 +3442,10 @@ div[modal-backdrop] {
     display: flex;
   }
 
+  .sm\:grid {
+    display: grid;
+  }
+
   .sm\:hidden {
     display: none;
   }
@@ -3488,6 +3498,10 @@ div[modal-backdrop] {
 
   .sm\:flex-nowrap {
     flex-wrap: nowrap;
+  }
+
+  .sm\:place-items-center {
+    place-items: center;
   }
 
   .sm\:items-center {

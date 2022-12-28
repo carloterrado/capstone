@@ -24,8 +24,9 @@ class Car extends Model
     {
         return $this->belongsTo(CarType::class,'type_id');
     }
-    public function carPriceRegion()
+    public function carOwner()
     {
-
+        return $this->belongsTo(Admin::class,'admin_id');
     }
+   
 }

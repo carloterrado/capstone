@@ -1684,5 +1684,58 @@ $(function(){
         }
 
     })
+
+      //         Approve or Decline Car
+      $("#arkilla-table").on("click",".updateCarAccount", async function () 
+      {
+          var account = $(this).children("button").attr("account");
+          var row = $(this).parentsUntil("tbody");
+          var car_id = $(this).attr("car_account_id");
+          var email = $(this).attr("owner_email");
+          var name = $(this).attr("owner_name");
+  
+          if(!confirm("Continue to "+ account +" this car?")) return false
+          $('.loading').removeClass('hidden')
+          $('.loading').addClass('grid')
+        await  $.ajax({
+              headers: {
+                  "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                      "content"
+                  ),
+              },
+              type: "post",
+              url: "/admin/update-car-account",
+              data: { 
+                    account: account,
+                    car_id: car_id,
+                    email: email,
+                    name: name
+                },
+              success: function (resp) {
+                  $('.loading').removeClass('grid')
+                  $('.loading').hide()
+                //   alert(JSON.stringify(resp['data']))
+                  if(resp['data'] === 'verified')
+                  {
+                      row.remove()
+                  }    
+                  else if(resp['data'] === 'declined')
+                  {
+                      row.remove()
+                  } 
+                      
+                  else
+                  {
+                      alert('Failed to '+ account +' car!')
+                  } 
+                      
+              },
+              error: function (resp) {
+                  $('.loading').removeClass('grid')
+                  $('.loading').hide()
+                  alert(account +" failed! System error.")
+              },
+          });
+      });
     
 });
