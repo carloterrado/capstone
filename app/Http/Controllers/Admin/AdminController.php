@@ -194,8 +194,6 @@ class AdminController extends Controller
            
             $car->save();
           
-            
-
             // Assign the new car to $newCar to get its id
             $newCar = $car;
             

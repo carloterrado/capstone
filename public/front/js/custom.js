@@ -869,6 +869,20 @@ $(function(){
          
       })
 
-   
+    
+
+    $('.sort-car').on('click',function(){
+    $('#view-car-sort').slideToggle()
+    })
+    
+    $(window).on('resize',function(){
+        const mainWidth = $('main').width()
+        if(mainWidth > 1024)
+        {
+            $('#view-car-sort').show()  
+        }
+    })
+      
+    
    
 });
