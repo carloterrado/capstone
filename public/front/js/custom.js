@@ -872,7 +872,7 @@ $(function(){
     
 
     $('.sort-car').on('click',function(){
-    $('#view-car-sort').slideToggle()
+        $('#view-car-sort').slideToggle()
     })
     
     $(window).on('resize',function(){
@@ -881,6 +881,40 @@ $(function(){
         {
             $('#view-car-sort').show()  
         }
+    })
+
+    $('#type').on('change',function(){
+        // this.form.submit();
+        $('.loading').removeClass('hidden')
+        $('.loading').addClass('grid')
+        const type = $(this).val()
+       
+        
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            type: 'POST',
+            url:'/cars',
+            data:{type:type},
+            success:function(data){
+                $('.loading').removeClass('grid')
+                $('.loading').hide()
+                //    alert(JSON.stringify(data))
+                   
+                
+                $('.car_filter').html(data)
+            },
+            error: function(){
+                $('.loading').removeClass('grid')
+                $('.loading').hide()
+                $('.error-container').show()
+                $('.error-message').html('System error! filter car type failed.')
+                setTimeout(function(){
+                    $('.error-container').hide()
+                },3000)
+            }
+        })
     })
       
     

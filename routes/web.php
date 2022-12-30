@@ -20,7 +20,7 @@ Route::prefix('/')->group(function()
 {
     Route::get('',[FrontController::class,'home']);
     Route::group(['middleware'=>['auth']],function(){   
-        Route::get('cars',[FrontController::class,'cars']);
+        Route::match(['post','get'],'cars',[FrontController::class,'cars']);
         Route::get('arkilla-logout',[FrontController::class,'logout'])->name('logout');
         Route::get('profile',[FrontController::class,'profile']);
         Route::post('update-profile',[FrontController::class,'updateProfile']);

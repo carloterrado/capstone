@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\Car;
+use App\Models\CarType;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -29,7 +31,41 @@ class FrontController extends Controller
         Session::forget('error_message');
         Session::put('page','cars');
         Session::put('title','Cars');
-       return view('front.home');
+       
+     
+        $cartypes = CarType::where('status',1)->get()->toArray();
+        
+        if($request->ajax())
+        {
+            $data = $request->all();
+            if($request->has('type'))
+            {
+                $_POST['type'] = $data['type'];
+                if (isset($_POST['type']) && !empty($_POST['type'])) {
+                    $cars = Car::with('carPhotos','carPrice','carTypes')->where(['status'=>1,'account'=>'verified','type_id'=>(int)$_POST['type']])->orderBy('id')->paginate(2);;
+                }
+              
+                // dd($cars);
+                return view('front.front-ajax-cars')->with(compact('cars','cartypes'));
+            }
+           
+        }
+        else
+        { 
+            
+            if (isset($_GET['type']) && !empty($_GET['type'])) {
+                $cars = Car::with('carPhotos','carPrice','carTypes')->where(['status'=>1,'account'=>'verified','type_id'=>(int)$_GET['type']])->orderBy('id')->paginate(2);;
+            }
+            else
+            {
+                
+                $cars = Car::with('carPhotos','carPrice','carTypes')->where(['status'=>1,'account'=>'verified'])->orderBy('id')->paginate(2);;
+            }
+
+            // dd($cars);
+            
+        return view('front.home')->with(compact('cars','cartypes'));
+        }
 
     }
     public function about(Request $request)
