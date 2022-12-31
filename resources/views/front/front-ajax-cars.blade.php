@@ -14,7 +14,7 @@
             </div>
             <div class="col-span-2 grid grid-cols-7 items-center">
                 <i class='bx bx-id-card font-bold text-base align-bottom col-span-2'></i><span class="col-span-5">
-                @if ($car['driver'] === 1)
+                @if ($car['driver'] === '1')
                     With driver
                 @else
                     Car only
@@ -36,10 +36,10 @@
         <button type="button" class="details btn-1 bg-accent-regular uppercase  w-full mt-6  text-white whitespace-nowrap">Reserve now</button>
     </div>
 @endforeach
-@if (isset($_GET['type']))
-<div class="col-span-6 px-2">{{$cars->appends(['type'=>$_GET['type']])->links()}}</div>  
-@elseif (isset($_POST['type']))
-<div class="col-span-6 px-2">{{$cars->appends(['type'=>$_POST['type']])->links()}}</div> 
+@if (isset($_GET['type']) && isset($_GET['capacity']) && isset($_GET['driver']))
+    <div class="col-span-6 px-2">{{$cars->appends(['type'=>$_GET['type'],'capacity'=>$_GET['capacity'],'driver'=>$_GET['driver']])->links()}}</div>  
+@elseif (isset($_POST['type']) && isset($_POST['capacity']) && isset($_POST['driver']))
+    <div class="col-span-6 px-2">{{$cars->appends(['type'=>$_POST['type'],'capacity'=>$_POST['capacity'],'driver'=>$_POST['driver']])->links()}}</div> 
    
 @else
     

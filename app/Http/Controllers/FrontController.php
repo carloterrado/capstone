@@ -38,29 +38,38 @@ class FrontController extends Controller
         if($request->ajax())
         {
             $data = $request->all();
-            if($request->has('type'))
+            // return response()->json(['data'=>$data]);
+           
+            if($request->has(['type','capacity']))
             {
-                $_POST['type'] = $data['type'];
-                if (isset($_POST['type']) && !empty($_POST['type'])) {
-                    $cars = Car::with('carPhotos','carPrice','carTypes')->where(['status'=>1,'account'=>'verified','type_id'=>(int)$_POST['type']])->orderBy('id')->paginate(2);;
-                }
-              
+                $price = (int)$data['price'];
+                    $cars = Car::with('carPhotos','carPrice','carTypes')->whereHas('carPrice',function($query) use ($price){
+                        $query->where(['reg_id'=>4,['price','<=',$price]]);
+                    })->where(['status'=>1,'account'=>'verified','type_id'=>$data['type'],['capacity','<=',(int)$data['capacity']],'driver'=>$data['driver']])->orderBy('id')->paginate(6);;
+            
+                    // return response()->json(['data'=>$cars]);
                 // dd($cars);
-                return view('front.front-ajax-cars')->with(compact('cars','cartypes'));
+                
             }
+            else
+            {
+                $cars = Car::with('carPhotos','carPrice','carTypes')->where(['status'=>1,'account'=>'verified'])->orderBy('id')->paginate(6);
+            }
+            return view('front.front-ajax-cars')->with(compact('cars','cartypes'));
            
         }
         else
         { 
             
             if (isset($_GET['type']) && !empty($_GET['type'])) {
-                $cars = Car::with('carPhotos','carPrice','carTypes')->where(['status'=>1,'account'=>'verified','type_id'=>(int)$_GET['type']])->orderBy('id')->paginate(2);;
+                $cars = Car::with('carPhotos','carPrice','carTypes')->where(['status'=>1,'account'=>'verified','type_id'=>(int)$_GET['type']])->orderBy('id')->paginate(6);;
             }
             else
             {
                 
-                $cars = Car::with('carPhotos','carPrice','carTypes')->where(['status'=>1,'account'=>'verified'])->orderBy('id')->paginate(2);;
+                $cars = Car::with('carPhotos','carPrice','carTypes')->where(['status'=>1,'account'=>'verified'])->orderBy('id')->paginate(6);
             }
+            return view('front.home')->with(compact('cars','cartypes'));
 
             // dd($cars);
             

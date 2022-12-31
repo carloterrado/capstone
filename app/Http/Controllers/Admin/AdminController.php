@@ -133,7 +133,7 @@ class AdminController extends Controller
             $car->name = $data['add-admin-car-name'];
             $car->plate_number = $data['add-admin-car-plate-number'];
             $car->type_id = (int)$data['add-admin-set-car-type'];
-            $car->capacity = $data['add-admin-car-capacity'];
+            $car->capacity = (int)$data['add-admin-car-capacity'];
             $main_img = $data['add-admin-car-main-photo'];
             if($main_img->isValid())
             {
@@ -253,7 +253,7 @@ class AdminController extends Controller
             return response()->json(['data'=>'success']);
         }
     }
-    public function editCar(Request $request,Exception $exception)
+    public function editCar(Request $request)
     {
      
        
@@ -267,10 +267,11 @@ class AdminController extends Controller
                 $car->name = $data['edit-admin-car-name'];
             if($car->plate_number  !== $data['edit-admin-car-plate-number'])
                 $car->plate_number = $data['edit-admin-car-plate-number'];
-            if($car->type_id  !== $data['edit-admin-set-car-type'])
-                $car->type_id = $data['edit-admin-set-car-type'];
-            if($car->capacity  !== $data['edit-admin-car-capacity'])
-                $car->capacity = $data['edit-admin-car-capacity'];
+            if($car->type_id  !== (int)$data['edit-admin-set-car-type'])
+                $car->type_id = (int)$data['edit-admin-set-car-type'];
+            if($car->capacity  !== (int)$data['edit-admin-car-capacity'])
+                $car->capacity = (int)$data['edit-admin-car-capacity'];
+            // return response()->json(['data'=>$car]);
             if($request->hasFile('edit-admin-car-main-photo'))
             {
                 $carImg = public_path('admins/images/cars/main/'.$car->main_photo);

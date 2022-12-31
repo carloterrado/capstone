@@ -1816,6 +1816,9 @@ nav span>a:focus {
 .h-auto {
   height: auto;
 }
+.h-40 {
+  height: 10rem;
+}
 .h-8 {
   height: 2rem;
 }
@@ -1834,9 +1837,6 @@ nav span>a:focus {
 }
 .h-10 {
   height: 2.5rem;
-}
-.h-40 {
-  height: 10rem;
 }
 .h-\[calc\(100vh-112px\)\] {
   height: calc(100vh - 112px);
@@ -1935,11 +1935,11 @@ nav span>a:focus {
 .max-w-3xl {
   max-width: 48rem;
 }
-.max-w-\[1500px\] {
-  max-width: 1500px;
-}
 .max-w-sm {
   max-width: 24rem;
+}
+.max-w-\[1500px\] {
+  max-width: 1500px;
 }
 .max-w-6xl {
   max-width: 72rem;
@@ -2722,11 +2722,11 @@ nav span>a:focus {
 .leading-9 {
   line-height: 2.25rem;
 }
-.tracking-wide {
-  letter-spacing: 0.025em;
-}
 .tracking-tight {
   letter-spacing: -0.025em;
+}
+.tracking-wide {
+  letter-spacing: 0.025em;
 }
 .tracking-\[\.1rem\] {
   letter-spacing: .1rem;

@@ -883,12 +883,13 @@ $(function(){
         }
     })
 
-    $('#type').on('change',function(){
+    $('#sortCar').on('submit',function(event){
+        event.preventDefault();
         // this.form.submit();
         $('.loading').removeClass('hidden')
         $('.loading').addClass('grid')
-        const type = $(this).val()
-       
+        const formData = new FormData($(this)[0]);
+      
         
         $.ajax({
             headers: {
@@ -896,11 +897,13 @@ $(function(){
             },
             type: 'POST',
             url:'/cars',
-            data:{type:type},
+            data:formData,
+            processData: false,
+            contentType: false,
             success:function(data){
                 $('.loading').removeClass('grid')
                 $('.loading').hide()
-                //    alert(JSON.stringify(data))
+                //    alert(JSON.stringify(data['data']))
                    
                 
                 $('.car_filter').html(data)
@@ -909,7 +912,7 @@ $(function(){
                 $('.loading').removeClass('grid')
                 $('.loading').hide()
                 $('.error-container').show()
-                $('.error-message').html('System error! filter car type failed.')
+                $('.error-message').html('System error! filter car failed.')
                 setTimeout(function(){
                     $('.error-container').hide()
                 },3000)
