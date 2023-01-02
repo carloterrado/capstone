@@ -876,7 +876,7 @@ $(function(){
     })
     
     $(window).on('resize',function(){
-        const mainWidth = $('main').width()
+        let mainWidth = $('body').width()
         if(mainWidth > 1024)
         {
             $('#view-car-sort').show()  
@@ -885,39 +885,60 @@ $(function(){
 
     $('#sortCar').on('submit',function(event){
         event.preventDefault();
-        // this.form.submit();
-        $('.loading').removeClass('hidden')
-        $('.loading').addClass('grid')
-        const formData = new FormData($(this)[0]);
+        const type = $('#type').val()
+        const capacity = $('#capacity').val()
+        const driver = $('#driver').val()
+       
       
+        if(type !== null && capacity !== null && driver !== null )
+        {
+      
+            // this.form.submit();
+            $('.loading').removeClass('hidden')
+            $('.loading').addClass('grid')
+            const formData = new FormData($(this)[0]);
         
-        $.ajax({
-            headers: {
-                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-            },
-            type: 'POST',
-            url:'/cars',
-            data:formData,
-            processData: false,
-            contentType: false,
-            success:function(data){
-                $('.loading').removeClass('grid')
-                $('.loading').hide()
-                //    alert(JSON.stringify(data['data']))
-                   
-                
-                $('.car_filter').html(data)
-            },
-            error: function(){
-                $('.loading').removeClass('grid')
-                $('.loading').hide()
-                $('.error-container').show()
-                $('.error-message').html('System error! filter car failed.')
-                setTimeout(function(){
-                    $('.error-container').hide()
-                },3000)
-            }
-        })
+            
+            $.ajax({
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                },
+                type: 'POST',
+                url:'/cars',
+                data:formData,
+                processData: false,
+                contentType: false,
+                success:function(data){
+                    $('.loading').removeClass('grid')
+                    $('.loading').hide()
+                    //    alert(JSON.stringify(data['data']))
+                    //    return false
+                    $('.car_filter').html(data)
+                    const mainWidth = $('body').width()
+                    if(mainWidth < 1024)
+                    {
+                        $('#view-car-sort').slideToggle() 
+                    }
+                },
+                error: function(){
+                    $('.loading').removeClass('grid')
+                    $('.loading').hide()
+                    $('.error-container').show()
+                    $('.error-message').html('System error! filter car failed.')
+                    setTimeout(function(){
+                        $('.error-container').hide()
+                    },3000)
+                }
+            })
+        }
+        else
+        {
+            $('#search-error-message').html('The above information is required!')
+            setTimeout(function(){
+                $('#search-error-message').html('')
+            },3000)
+        }
+       
     })
       
     

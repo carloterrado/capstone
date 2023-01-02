@@ -38,36 +38,37 @@ class FrontController extends Controller
         if($request->ajax())
         {
             $data = $request->all();
+            $priceFrom = (int)$data['from'];
+            $priceTo = (int)$data['to'];
             // return response()->json(['data'=>$data]);
            
-            if($request->has(['type','capacity']))
-            {
-                $price = (int)$data['price'];
-                    $cars = Car::with('carPhotos','carPrice','carTypes')->whereHas('carPrice',function($query) use ($price){
-                        $query->where(['reg_id'=>4,['price','<=',$price]]);
-                    })->where(['status'=>1,'account'=>'verified','type_id'=>$data['type'],['capacity','<=',(int)$data['capacity']],'driver'=>$data['driver']])->orderBy('id')->paginate(6);;
+           
+                
+                    $cars = Car::with('carPhotos','carPrice','carTypes')->whereHas('carPrice',function($query) use ($priceFrom,$priceTo){
+                        $query->where(['reg_id'=>4])->whereBetween('price',[$priceFrom,$priceTo]);
+                    })->where(['status'=>1,'account'=>'verified','type_id'=>$data['type'],['capacity','>=',(int)$data['capacity']],'driver'=>$data['driver']])->orderBy('id')->paginate(1);
             
                     // return response()->json(['data'=>$cars]);
                 // dd($cars);
-                
-            }
-            else
-            {
-                $cars = Car::with('carPhotos','carPrice','carTypes')->where(['status'=>1,'account'=>'verified'])->orderBy('id')->paginate(6);
-            }
+          
             return view('front.front-ajax-cars')->with(compact('cars','cartypes'));
            
         }
         else
         { 
             
-            if (isset($_GET['type']) && !empty($_GET['type'])) {
-                $cars = Car::with('carPhotos','carPrice','carTypes')->where(['status'=>1,'account'=>'verified','type_id'=>(int)$_GET['type']])->orderBy('id')->paginate(6);;
+            if (isset($_GET['type']) && !empty($_GET['type'])) 
+            {
+                $priceFrom = $_GET['from'];
+                $priceTo = $_GET['to'];
+                $cars = Car::with('carPhotos','carPrice','carTypes')->whereHas('carPrice',function($query) use ($priceFrom,$priceTo){
+                    $query->where(['reg_id'=>4])->whereBetween('price',[$priceFrom,$priceTo]);
+                })->where(['status'=>1,'account'=>'verified','type_id'=>$_GET['type'],['capacity','>=',$_GET['capacity']],'driver'=>$_GET['driver']])->orderBy('id')->paginate(1);
             }
             else
             {
                 
-                $cars = Car::with('carPhotos','carPrice','carTypes')->where(['status'=>1,'account'=>'verified'])->orderBy('id')->paginate(6);
+                $cars = Car::with('carPhotos','carPrice','carTypes')->where(['status'=>1,'account'=>'verified'])->orderBy('id')->paginate(1);
             }
             return view('front.home')->with(compact('cars','cartypes'));
 

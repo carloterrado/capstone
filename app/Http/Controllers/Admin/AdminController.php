@@ -199,14 +199,14 @@ class AdminController extends Controller
             
             $prices = 
                 [
-                $data['add-admin-car-price-ilocos-region'],
-                $data['add-admin-car-price-cagayan-valley'],
-                $data['add-admin-car-price-central-luzon'],
-                $data['add-admin-car-price-calabarzon'],
-                $data['add-admin-car-price-mimaropa'],
-                $data['add-admin-car-price-bicol-region'],
-                $data['add-admin-car-price-ncr'],
-                $data['add-admin-car-price-car'],
+                (int)$data['add-admin-car-price-ilocos-region'],
+                (int)$data['add-admin-car-price-cagayan-valley'],
+                (int)$data['add-admin-car-price-central-luzon'],
+                (int)$data['add-admin-car-price-calabarzon'],
+                (int)$data['add-admin-car-price-mimaropa'],
+                (int)$data['add-admin-car-price-bicol-region'],
+                (int)$data['add-admin-car-price-ncr'],
+                (int)$data['add-admin-car-price-car'],
                 ];
             $reg_id = [1,2,3,4,5,6,14,15];
 
@@ -332,22 +332,22 @@ class AdminController extends Controller
           
             $carPrices = CarPrice::where('car_id',$data['edit-admin-car-id'])->get()->toArray();
             
-            if($carPrices[0]['price']  !== $data['edit-admin-car-price-ilocos-region'])
-                CarPrice::where(['car_id' => $data['edit-admin-car-id'],'reg_id' => 1])->update(['price' => $data['edit-admin-car-price-ilocos-region']]);
-            if($carPrices[1]['price']  !== $data['edit-admin-car-price-cagayan-valley'])
-                CarPrice::where(['car_id' => $data['edit-admin-car-id'],'reg_id' => 2])->update(['price' => $data['edit-admin-car-price-cagayan-valley']]);
-            if($carPrices[2]['price']  !== $data['edit-admin-car-price-central-luzon'])
-                CarPrice::where(['car_id' => $data['edit-admin-car-id'],'reg_id' => 3])->update(['price' => $data['edit-admin-car-price-central-luzon']]);
-            if($carPrices[3]['price']  !== $data['edit-admin-car-price-calabarzon'])
-                CarPrice::where(['car_id' => $data['edit-admin-car-id'],'reg_id' => 4])->update(['price' => $data['edit-admin-car-price-calabarzon']]);
-            if($carPrices[4]['price']  !== $data['edit-admin-car-price-mimaropa'])
-                CarPrice::where(['car_id' => $data['edit-admin-car-id'],'reg_id' => 5])->update(['price' => $data['edit-admin-car-price-mimaropa']]);
-            if($carPrices[5]['price']  !== $data['edit-admin-car-price-bicol-region'])
-                CarPrice::where(['car_id' => $data['edit-admin-car-id'],'reg_id' => 6])->update(['price' => $data['edit-admin-car-price-bicol-region']]);
-            if($carPrices[6]['price']  !== $data['edit-admin-car-price-ncr'])
-                CarPrice::where(['car_id' => $data['edit-admin-car-id'],'reg_id' => 14])->update(['price' => $data['edit-admin-car-price-ncr']]);
-            if($carPrices[7]['price']  !== $data['edit-admin-car-price-car'])
-                CarPrice::where(['car_id' => $data['edit-admin-car-id'],'reg_id' => 15])->update(['price' => $data['edit-admin-car-price-car']]);
+            if($carPrices[0]['price']  !== (int)$data['edit-admin-car-price-ilocos-region'])
+                CarPrice::where(['car_id' => (int)$data['edit-admin-car-id'],'reg_id' => 1])->update(['price' => (int)$data['edit-admin-car-price-ilocos-region']]);
+            if($carPrices[1]['price']  !== (int)$data['edit-admin-car-price-cagayan-valley'])
+                CarPrice::where(['car_id' => (int)$data['edit-admin-car-id'],'reg_id' => 2])->update(['price' => (int)$data['edit-admin-car-price-cagayan-valley']]);
+            if($carPrices[2]['price']  !== (int)$data['edit-admin-car-price-central-luzon'])
+                CarPrice::where(['car_id' => (int)$data['edit-admin-car-id'],'reg_id' => 3])->update(['price' => (int)$data['edit-admin-car-price-central-luzon']]);
+            if($carPrices[3]['price']  !== (int)$data['edit-admin-car-price-calabarzon'])
+                CarPrice::where(['car_id' => (int)$data['edit-admin-car-id'],'reg_id' => 4])->update(['price' => (int)$data['edit-admin-car-price-calabarzon']]);
+            if($carPrices[4]['price']  !== (int)$data['edit-admin-car-price-mimaropa'])
+                CarPrice::where(['car_id' => (int)$data['edit-admin-car-id'],'reg_id' => 5])->update(['price' => (int)$data['edit-admin-car-price-mimaropa']]);
+            if($carPrices[5]['price']  !== (int)$data['edit-admin-car-price-bicol-region'])
+                CarPrice::where(['car_id' => (int)$data['edit-admin-car-id'],'reg_id' => 6])->update(['price' => (int)$data['edit-admin-car-price-bicol-region']]);
+            if($carPrices[6]['price']  !== (int)$data['edit-admin-car-price-ncr'])
+                CarPrice::where(['car_id' => (int)$data['edit-admin-car-id'],'reg_id' => 14])->update(['price' => (int)$data['edit-admin-car-price-ncr']]);
+            if($carPrices[7]['price']  !== (int)$data['edit-admin-car-price-car'])
+                CarPrice::where(['car_id' => (int)$data['edit-admin-car-id'],'reg_id' => 15])->update(['price' => (int)$data['edit-admin-car-price-car']]);
   
             return response()->json(['data'=>'success']);
         }

@@ -28,7 +28,7 @@
             <div class="p-6 space-y-6">
                 <div class="grid grid-cols-6 gap-6">
                     <div class="col-span-6 sm:col-span-3 relative">
-                        <input type="text" name="edit-first-name" id="edit-first-name" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-900 peer" placeholder=" " value="{{Auth::user()->first_name}}" >
+                        <input type="text" name="edit-first-name" id="edit-first-name" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-900 peer" placeholder=" " value="{{Auth::user()->first_name}}" />
                         <label id="edit-first-name-error" for="edit-first-name" class="pointer-events-none absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-gray-900 peer-focus:font-semibold peer-placeholder-shown:scale-100 
                         peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 whitespace-nowrap ">First Name</label>
                     </div>
@@ -69,36 +69,17 @@
                     </div>
                     
                     <div class="col-span-6 sm:col-span-3 relative">
-                        <input id="edit-id-file" name="edit-id-file" class="w-full mt-2 text-sm text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" aria-describedby="file_input_help" type="file">
+                        <input id="edit-id-file" name="edit-id-file" class="w-full mt-2 text-sm text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" aria-describedby="file_input_help" type="file" />
                         <label id="edit-id-file-error" for="edit-id-file" class=" hidden pb-1 text-sm font-semibold lg:pl-2 text-gray-500">Valid id file</label>
                         <input type="text" name="current-id-file" value="{{ Auth::user()->valid_id_file }}"  class="hidden">
                     </div>
                    
                     <div class="col-span-6 sm:col-span-3 relative">
                         <label id="edit-license-error" for="edit-license" class="pb-1 text-sm font-semibold lg:pl-2 text-gray-500">License</label>
-                        <input id="edit-license" name="edit-license" class="w-full mt-2 text-sm text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" aria-describedby="file_input_help" type="file">
+                        <input id="edit-license" name="edit-license" class="w-full mt-2 text-sm text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" aria-describedby="file_input_help" type="file" />
                         <input type="text" name="current-license" value="{{ Auth::user()->license }}"  class="hidden">
                     </div>
-                    <div class="hidden sm:block sm:col-span-3 relative">
-                    </div>
-                    <div class="col-span-6 sm:col-span-3">
-                        <p  class="block mb-2 text-sm font-medium text-gray-900 ">Registered ID: 
-                            <button onclick="$('.id').toggle('normal')" type="button" class="ml-4  btn-orange-login px-[10px] py-1 w-[fit-content]">
-                            <i class='bx bxs-image-alt'></i>
-                            </button>
-                        </p>
-                        <a class="hidden id" href="{{url('front/images/users/id/'.Auth::user()->valid_id_file)}}" target="_blank"> <img src="{{url('front/images/users/id/'.Auth::user()->valid_id_file)}}" alt="license"> </a>
-                    </div> 
-                    @if (Auth::user()->license !== null)
-                        <div class="col-span-6 sm:col-span-3">
-                            <p  class="block mb-2 text-sm font-medium text-gray-900 ">  Your license:
-                                <button onclick="$('.license').toggle('normal')" type="button" class="ml-4  btn-orange-login px-[10px] py-1 w-[fit-content]">
-                                <i class='bx bxs-image-alt'></i>
-                                </button>
-                            </p>
-                           <a class="hidden license" href="{{url('front/images/users/license/'.Auth::user()->license)}}" target="_blank"> <img src="{{url('front/images/users/license/'.Auth::user()->license)}}" alt="license"> </a>
-                        </div> 
-                    @endif 
+                   
                 </div>
                 <label id="edit-submit-form-error" class=" hidden py-4 text-sm  font-semibold lg:pl-2 text-[lightcoral]"></label>
             </div>

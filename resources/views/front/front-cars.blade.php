@@ -21,7 +21,7 @@
                 <div class="mt-6">   
                     <label class="block mb-2 text-sm font-medium text-gray-900 uppercase">Car type: </label>
                     <select name="type" id="type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-0 focus:border-gray-900 block w-full p-2.5 ">
-                    <option selected>Select</option>
+                    <option disabled selected>Select</option>
                     @foreach ($cartypes as $cartype )
                         <option value="{{$cartype['id']}}"
                         @if (isset($_GET['type']) && $_GET['type'] === strval($cartype['id']))
@@ -34,7 +34,7 @@
                 <div class="mt-6">   
                     <label class="block mb-2 text-sm font-medium text-gray-900 uppercase">Capacity: </label>
                     <select name="capacity" id="capacity" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-0 focus:border-gray-900 block w-full p-2.5 ">
-                    <option  selected>Select</option> 
+                    <option disabled selected>Select</option> 
                     <option value="10" @if (isset($_GET['capacity']) && $_GET['capacity'] === '10') selected @endif >10</option>
                     <option value="15" @if (isset($_GET['capacity']) && $_GET['capacity'] === '15') selected @endif>15</option>
                     <option value="20" @if (isset($_GET['capacity']) && $_GET['capacity'] === '20') selected @endif>20</option>
@@ -45,22 +45,35 @@
                  
                 <div class="mt-6">   
                     <label class="block mb-2 text-sm font-medium text-gray-900 uppercase">Rent option: </label>
-                    <select name="driver" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-0 focus:border-gray-900 block w-full p-2.5 ">
-                    <option  selected>Select</option>
+                    <select name="driver" id="driver" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-0 focus:border-gray-900 block w-full p-2.5 ">
+                    <option disabled selected>Select</option>
                     <option value="1" @if (isset($_GET['driver']) && $_GET['driver'] === '1') selected @endif>With driver</option>
                     <option value="0" @if (isset($_GET['driver']) && $_GET['driver'] === '0') selected @endif>Car only</option>
                     </select>
                 </div> 
-                <div class="mt-6">   
+                
+                <div class="my-6 relative">   
                     <label  class="block mb-2 text-sm font-medium text-gray-900 uppercase">Price: </label>
                 
-                    <div class="relative">
-                        <div class="range-value tracking-[.1rem] absolute -top-1/2" id="rangeV"></div>
-                        <input name="price" id="range" type="range" min="500" max="10000" @if(isset($_GET['price'])) value="{{$_GET['price']}}" @else value="5000"  @endif step="100">
+                 
+                    <div class="values text-gray-900 text-sm pb-6">
+                        <span id="range1">
+                        500
+                        </span>
+                        <span> &dash; </span>
+                        <span id="range2">
+                        20000
+                        </span>
                     </div>
-                  
-
+                    <div class="container">
+                        <div class="slider-track"></div>
+                        <input name="from" type="range" min="500" max="20000" @if(isset($_GET['from'])) value="{{$_GET['from']}}" @else value="500"  @endif step="100" id="slider-1" oninput="slideOne()">
+                        <input name="to" type="range" min="500" max="20000" @if(isset($_GET['to'])) value="{{$_GET['to']}}" @else value="10000"  @endif step="100" id="slider-2" oninput="slideTwo()">
+                    </div>
                 </div>
+                <div class="pb-6 text-sm font-medium text-accent-regular" id="search-error-message">   
+              
+                </div> 
                 
                 <div class="mt-6">
                 <button type="submit" class="btn-1 bg-accent-regular uppercase  w-full   text-white whitespace-nowrap">Search</button>
@@ -75,22 +88,40 @@
     </button>
     
 </main>
-
-
 <script>
-    const
-	range = document.getElementById('range'),
-	rangeV = document.getElementById('rangeV'),
-	setValue = ()=>{
-		const
-			newValue = Number( (range.value - range.min) * 100 / (range.max - range.min) ),
-			newPosition = 10 - (newValue * 0.2);
-		rangeV.innerHTML = `<span>${range.value}</span>`;
-		rangeV.style.left = `calc(${newValue}% + (${newPosition}px))`;
-	};
-    document.addEventListener("DOMContentLoaded", setValue);
-    range.addEventListener('input', setValue);
+    window.onload = function () {
+    slideOne();
+    slideTwo();
+    };
 
+    let sliderOne = document.getElementById("slider-1");
+    let sliderTwo = document.getElementById("slider-2");
+    let displayValOne = document.getElementById("range1");
+    let displayValTwo = document.getElementById("range2");
+    let minGap = 0;
+    let sliderTrack = document.querySelector(".slider-track");
+    let sliderMaxValue = document.getElementById("slider-1").max;
 
-   
+    function slideOne() {
+    if (parseInt(sliderTwo.value) - parseInt(sliderOne.value) <= minGap) {
+        sliderOne.value = parseInt(sliderTwo.value) - minGap;
+    }
+    displayValOne.textContent ='₱ '+ sliderOne.value;
+    fillColor();
+    }
+    function slideTwo() {
+    if (parseInt(sliderTwo.value) - parseInt(sliderOne.value) <= minGap) {
+        sliderTwo.value = parseInt(sliderOne.value) + minGap;
+    }
+    displayValTwo.textContent = '₱ '+ sliderTwo.value;
+    fillColor();
+    }
+    function fillColor() {
+    percent1 = (sliderOne.value / sliderMaxValue) * 100;
+    percent2 = (sliderTwo.value / sliderMaxValue) * 100;
+    sliderTrack.style.background = `linear-gradient(to right, #dadae5 ${percent1}% , #3264fe ${percent1}% , #3264fe ${percent2}%, #dadae5 ${percent2}%)`;
+    }
 </script>
+
+
+
