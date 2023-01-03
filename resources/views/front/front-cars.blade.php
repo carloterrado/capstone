@@ -1,5 +1,5 @@
 <main id="cars" class="min-h-[calc(100vh-5rem)] md:min-h-[calc(100vh-5.5rem)] grid grid-cols-6 lg:grid-cols-9 gap-6 p-2 py-12 sm:p-6 sm:py-12">
-    <div class="col-span-6 lg:col-span-7 grid grid-cols-6 gap-6 car_filter">
+    <div class="col-span-6 lg:col-span-7 grid grid-cols-6 gap-6 car_filter relative">
        @include('front.front-ajax-cars')
        
      

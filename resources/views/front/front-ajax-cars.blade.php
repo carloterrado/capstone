@@ -41,6 +41,16 @@
         <button type="button" class="details btn-1 bg-accent-regular uppercase  w-full mt-6  text-white whitespace-nowrap">Reserve now</button>
     </div>
 @endforeach
+@if ($cars->count() === 0)
+<div class="h-full grid place-items-center col-span-6 absolute inset-0">
+    <p class=" text-accent-regular text-xl font-semibold"> 
+        Cars not found
+    </p>
+</div>
+
+    
+@endif
+
 
 @if (isset($_GET['type']))
 
@@ -55,8 +65,11 @@
     </div> 
 
 @else
-    
-<div class="col-span-6 px-1 sm:px-2">{{$cars->links()}}</div>  
+    @if ($cars->count() === 0)
+        
+    @else
+    <div class="col-span-6 px-1 sm:px-2">{{$cars->links()}}</div>  
+    @endif
 @endif
 
 

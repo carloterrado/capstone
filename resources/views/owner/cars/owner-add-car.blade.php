@@ -180,10 +180,14 @@
                             <label id="add-admin-car-price-car-error" for="add-admin-car-price-car" class="pointer-events-none absolute text-xs sm:text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-gray-900 peer-focus:font-semibold peer-placeholder-shown:scale-75 
                             peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 whitespace-nowrap overflow-x-hidden">CORDILLERA ADMINISTRATIVE REGION (CAR)</label>
                         </div>
-                       
-                       
-                      
+                        
+                        <div class="flex items-center mt-4 col-span-6">
+                            
+                            <input id="add-admin-terms" name="add-admin-terms" value="agree" type="checkbox" class="w-4 h-4 text-accent-regular bg-gray-100 rounded border-gray-300 focus:ring-0  ">
+                            <label  class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">I agree with the <a href="#" class="text-accent-regular  hover:underline">terms and conditions</a>.</label> 
+                        </div>
                     </div>
+                    <label id="add-admin-terms-error" for="add-admin-terms" class=" hidden pb-1 text-sm font-semibold lg:pl-2 text-[lightcoral] col-span-6"></label>
                 </div>
                 <div class="flex items-center flex-wrap sm:justify-between p-6 space-y-2 sm:space-y-0 sm:space-x-2 rounded-b border-t border-gray-200 ">
                     

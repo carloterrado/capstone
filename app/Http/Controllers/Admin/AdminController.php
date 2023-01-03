@@ -30,10 +30,49 @@ class AdminController extends Controller
         Session::put('page','dashboard');
         if(Auth::guard('admin')->user()->type === 'owner')
         {
-            return view('owner.dashboard');
+            $car = Car::where('admin_id',Auth::guard('admin')->user()->id)->get();
+            $ownerCar = $car->where('account','verified')->count();
+            $ownerCarRequest = $car->where('account','unverified')->count();
+            $ownerCarDeclined = $car->where('account','declined')->count();
+            $dashboard = [
+                'ownerCarCount' => $ownerCar,
+                'ownerCarRequestCount' => $ownerCarRequest,
+                'ownerCarDeclinedCount' => $ownerCarDeclined,
+            ];
+            return view('owner.dashboard')->with(compact('dashboard'));
         }
-        
-        return view('admin.dashboard');
+        $cartype = CarType::count();
+        $car = Car::all();
+        $adminCar = $car->where('owner_id',0)->count();
+        $ownerCar = $car->where('owner_id','!=',0)->count();
+        $ownerCarRequest = $car->where('account','unverified')->count();
+        $ownerCarDeclined = $car->where('account','declined')->count();
+        $admin = Admin::all();
+        $admins = $admin->where('type','admin')->count();
+        $staff = $admin->where('type','staff')->count();
+        $owner = $admin->where('type','owner')->where('account','verified')->count();
+        $ownerRequest = $admin->where('type','owner')->where('account','unverified')->count();
+        $ownerDeclined = $admin->where('type','owner')->where('account','declined')->count();
+        $user = User::all();
+        $users = $user->where('status',1)->count();
+        $userInactive = $user->where('status',0)->count();
+        // dd($owner);
+        $dashboard = [
+            'cartypeCount' => $cartype,
+            'adminCarCount' => $adminCar,
+            'ownerCarCount' => $ownerCar,
+            'ownerCarRequestCount' => $ownerCarRequest,
+            'ownerCarDeclinedCount' => $ownerCarDeclined,
+            'adminCount' => $admins,
+            'staffCount' => $staff,
+            'ownerCount' => $owner,
+            'ownerRequestCount' => $ownerRequest,
+            'ownerDeclinedCount' => $ownerDeclined,
+            'userCount' => $users,
+            'userInactiveCount' => $userInactive,
+        ];
+       
+        return view('admin.dashboard')->with(compact('dashboard'));
         
     }
     //     CAR Modules
@@ -162,6 +201,7 @@ class AdminController extends Controller
             
             if(Auth::guard('admin')->user()->type === 'owner')
             {
+                $car->terms = $data['add-admin-terms'];
                 $registration_img = $data['add-admin-car-registration'];
                
                 if($registration_img->isValid())
@@ -189,6 +229,7 @@ class AdminController extends Controller
             $car->drivers_fee = $data['add-admin-car-drivers-fee'];
             if(Auth::guard('admin')->user()->type !== 'owner')
             {
+                $car->terms = 'agree';
                 $car->account = 'verified';
             }
            
@@ -274,7 +315,14 @@ class AdminController extends Controller
             // return response()->json(['data'=>$car]);
             if($request->hasFile('edit-admin-car-main-photo'))
             {
-                $carImg = public_path('admins/images/cars/main/'.$car->main_photo);
+                if($car->owner_id === 0)
+                {
+                    $carImg = public_path('admins/images/cars/main/'.$car->main_photo);
+                }
+                else
+                { 
+                    $carImg = public_path('owner/images/cars/main/'.$car->main_photo);
+                }
                     File::delete($carImg);
 
                 $main_img = $data['edit-admin-car-main-photo'];
@@ -283,8 +331,15 @@ class AdminController extends Controller
                     $extension = $main_img->getClientOriginalExtension();
                     // --- Generate new image name --- //
                     $imgMain = rand(111,99999).'.'.$extension;
+                    if($car->owner_id === 0)
+                    {
                     $imgPath ='admins/images/cars/main/'.$imgMain;
-            
+                    }
+                    else
+                    {
+                        $imgPath ='owner/images/cars/main/'.$imgMain;
+
+                    }
                     // --- Upload the image --- //
                     Image::make($main_img)->resize(1500,1500,function($constraint)
                     {
@@ -300,9 +355,17 @@ class AdminController extends Controller
             if($request->hasFile('edit-admin-car-photos'))
             {
                 $carPhotos = CarPhoto::where('car_id',$data['edit-admin-car-id'])->get()->toArray();
+
                 foreach($carPhotos as $image)
                 {    
-                    $carPhoto = public_path('admins/images/cars/'.$image['photos']);
+                    if($car->owner_id === 0)
+                    {
+                        $carPhoto = public_path('admins/images/cars/'.$image['photos']);
+                    }
+                    else
+                    {
+                        $carPhoto = public_path('owner/images/cars/'.$image['photos']);
+                    }
                                 File::delete($carPhoto);
                 }
                 CarPhoto::where('car_id',$data['edit-admin-car-id'])->delete();
@@ -314,8 +377,15 @@ class AdminController extends Controller
                         $extension = $img_tmp->getClientOriginalExtension();
                         // --- Generate new image name --- //
                         $imgName = rand(111,99999).'.'.$extension;
-                        $imgPath ='admins/images/cars/'.$imgName;
-                
+                        if($car->owner_id === 0)
+                        {
+                            $imgPath ='admins/images/cars/'.$imgName;
+                        }
+                        else
+                        {
+                            $imgPath ='owner/images/cars/'.$imgName;
+
+                        }
                         // --- Upload the image --- //
                         Image::make($img_tmp)->resize(1500,1500,function($constraint)
                         {
