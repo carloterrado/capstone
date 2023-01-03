@@ -244,7 +244,7 @@ $(function(){
         {
         
             $(errorElementID).show();
-            $(errorElementID).html('This file is required!');
+            $(errorElementID).html('File is required!');
             $(errorElementID).css('color','lightcoral');
             return false; 
         }
@@ -311,10 +311,14 @@ $(function(){
     {
         validateValidID('#front-signup-valid-id','#front-signup-valid-id-error');
     })
+    $('#front-signup-id-file').on('change',function(){
+        validateImageFile('#front-signup-id-file','#front-signup-id-file-error')
+    })
     //        Validate signup form upon submission
     $('#front-signup-form').on('submit', function(event)
     {
         event.preventDefault();
+     
 
         function validateSignupForm(){
             let valid = validateName('#front-signup-first-name','#front-signup-first-name-error','First name') && validateName('#front-signup-last-name','#front-signup-last-name-error', 'Last name') && validateEmail('#front-signup-email','#front-signup-email-error') && validateBirthdate('#front-signup-birthdate','#front-signup-birthdate-error') && validateContact('#front-signup-contact','#front-signup-contact-error') &&      validateAddress('#front-signup-address','#front-signup-address-error') &&
@@ -392,6 +396,7 @@ $(function(){
             $('#front-signup-form button[type="submit"]').addClass('hidden')
             $('.loading').removeClass('hidden')
             $('.loading').addClass('grid')
+            
             submitSignupForm().catch(function(error){
                 $('#front-signup-form button[type="submit"]').removeClass('hidden')
                 $('.loading').removeClass('grid')

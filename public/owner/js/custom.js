@@ -246,25 +246,25 @@ $(function(){
         return true;
     }
     //       Validation for valid image file
-    function validateImageFile(imageID,errorElementID)
+    function validateImageFile(imageID,errorElementID,fileType)
     {
         let validID = $(imageID).val();
         if(validID.length === 0)
         {
         
             $(errorElementID).removeClass('hidden');
-            $(errorElementID).html('ID file is required!');
+            $(errorElementID).html('File is required!');
             $(errorElementID).css('color','lightcoral');
             return false; 
         }
         if(!validID.match(/\.(jpg|jpeg|gif|png)$/))
         {
             $(errorElementID).removeClass('hidden');
-            $(errorElementID).html('Invalid ID file');
+            $(errorElementID).html('Invalid file');
             $(errorElementID).css('color','lightcoral');
             return false; 
         }
-        $(errorElementID).html('ID file');
+        $(errorElementID).html(fileType);
         $(errorElementID).css('color','black');
         return true;
     }
@@ -317,6 +317,12 @@ $(function(){
     {
         validateConfirmPassword('#owner-signup-password','#owner-signup-confirm-password','#owner-signup-confirm-password-error');
     }) 
+    $('#owner-signup-license').on('change',function(){
+        validateImageFile('#owner-signup-license','#owner-signup-license-error','Driver\'s License')
+    })
+    $('#owner-signup-id-file').on('change',function(){
+        validateImageFile('#owner-signup-id-file','#owner-signup-id-file-error','')
+    })
     $('#owner-signup-valid-id').on('click keypress',function(event)
     {
         validateValidID('#owner-signup-valid-id','#owner-signup-valid-id-error');
@@ -329,7 +335,7 @@ $(function(){
 
         function validateSignupForm(){
             let valid = validateName('#owner-signup-first-name','#owner-signup-first-name-error','First name') && validateName('#owner-signup-last-name','#owner-signup-last-name-error', 'Last name') && validateEmail('#owner-signup-email','#owner-signup-email-error') && validateBirthdate('#owner-signup-birthdate','#owner-signup-birthdate-error') && validateContact('#owner-signup-contact','#owner-signup-contact-error') &&      validateAddress('#owner-signup-address','#owner-signup-address-error') &&
-            validatePassword('#owner-signup-password','#owner-signup-password-error') &&  validateConfirmPassword('#owner-signup-password','#owner-signup-confirm-password','#owner-signup-confirm-password-error')  && validateImageFile('#owner-signup-license','#owner-signup-license-error') && validateValidID('#owner-signup-valid-id','#owner-signup-valid-id-error') && validateImageFile('#owner-signup-id-file','#owner-signup-id-file-error') && validateTerms('#owner-signup-terms','#owner-signup-terms-error');
+            validatePassword('#owner-signup-password','#owner-signup-password-error') &&  validateConfirmPassword('#owner-signup-password','#owner-signup-confirm-password','#owner-signup-confirm-password-error')  && validateImageFile('#owner-signup-license','#owner-signup-license-error','Driver\'s License') && validateValidID('#owner-signup-valid-id','#owner-signup-valid-id-error') && validateImageFile('#owner-signup-id-file','#owner-signup-id-file-error','') && validateTerms('#owner-signup-terms','#owner-signup-terms-error');
             if(!valid)
             {  
                 //  event.preventDefault();

@@ -110,6 +110,8 @@
                             <textarea id="add-admin-car-description" name="add-admin-car-description" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-900 " placeholder="Write your description here..."></textarea>
 
                         </div>
+
+                        
                     </div>  
                 </div>
                 <div class="flex items-center flex-wrap sm:justify-between p-6 space-y-2 sm:space-y-0 sm:space-x-2 rounded-b border-t border-gray-200 ">

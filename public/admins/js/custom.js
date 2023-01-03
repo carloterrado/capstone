@@ -503,7 +503,7 @@ $(function(){
     //         Update admin status
     $('#arkilla-table').on("click",".updateAdminStatus", async function () 
     {
-        var status = $(this).children("i").attr("status");
+        var status = $(this).children("svg").attr("status");
         var admin_id = $(this).attr("admin_id");
         var newStatus;
         if (status === "Inactive") newStatus = "Active";
@@ -523,11 +523,11 @@ $(function(){
             // alert(JSON.stringify(resp['status']))
             if (resp["status"] === 0) {
                 $("#admin-" + admin_id).html(
-                    '<i status="Inactive" class="bx bxs-user-x text-4xl text-accent-regular cursor-pointer"></i>'
+                    '<svg status="Inactive" xmlns="http://www.w3.org/2000/svg" width="40" height="40" preserveAspectRatio="xMidYMid meet" viewBox="0 0 20 20"><path fill="#e84949" fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16a8 8 0 0 0 0 16ZM8.28 7.22a.75.75 0 0 0-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 1 0 1.06 1.06L10 11.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L11.06 10l1.72-1.72a.75.75 0 0 0-1.06-1.06L10 8.94L8.28 7.22Z" clip-rule="evenodd"/></svg>'
                 );
             } else if (resp["status"] === 1) {
                 $("#admin-" + admin_id).html(
-                    '<i status="Active" class="bx bxs-user-check text-4xl text-accent-regular cursor-pointer">'
+                    '<svg status="Active" xmlns="http://www.w3.org/2000/svg" width="40" height="40" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="#e84949" d="m10.6 13.8l-2.175-2.175q-.275-.275-.675-.275t-.7.3q-.275.275-.275.7q0 .425.275.7L9.9 15.9q.275.275.7.275q.425 0 .7-.275l5.675-5.675q.275-.275.275-.675t-.3-.7q-.275-.275-.7-.275q-.425 0-.7.275ZM12 22q-2.075 0-3.9-.788q-1.825-.787-3.175-2.137q-1.35-1.35-2.137-3.175Q2 14.075 2 12t.788-3.9q.787-1.825 2.137-3.175q1.35-1.35 3.175-2.138Q9.925 2 12 2t3.9.787q1.825.788 3.175 2.138q1.35 1.35 2.137 3.175Q22 9.925 22 12t-.788 3.9q-.787 1.825-2.137 3.175q-1.35 1.35-3.175 2.137Q14.075 22 12 22Z"/></svg>'
                 );
             }
         },
@@ -540,7 +540,7 @@ $(function(){
     //         Update user status
     $('#arkilla-table').on("click",".updateUserStatus", async function () 
     {
-        var status = $(this).children("i").attr("status");
+        var status = $(this).children("svg").attr("status");
         var user_id = $(this).attr("user_id");
         var newStatus;
         if (status === "Inactive") newStatus = "Active";
@@ -560,11 +560,11 @@ $(function(){
             // alert(JSON.stringify(resp['status']))
             if (resp["status"] === 0) {
                 $(".updateUserStatus").html(
-                    '<i status="Inactive" class="bx bxs-user-x text-4xl text-accent-regular cursor-pointer"></i>'
+                    '<svg status="Inactive" xmlns="http://www.w3.org/2000/svg" width="40" height="40" preserveAspectRatio="xMidYMid meet" viewBox="0 0 20 20"><path fill="#e84949" fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16a8 8 0 0 0 0 16ZM8.28 7.22a.75.75 0 0 0-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 1 0 1.06 1.06L10 11.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L11.06 10l1.72-1.72a.75.75 0 0 0-1.06-1.06L10 8.94L8.28 7.22Z" clip-rule="evenodd"/></svg>'
                 );
             } else if (resp["status"] === 1) {
                 $(".updateUserStatus").html(
-                    '<i status="Active" class="bx bxs-user-check text-4xl text-accent-regular cursor-pointer">'
+                    '<svg status="Active" xmlns="http://www.w3.org/2000/svg" width="40" height="40" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="#e84949" d="m10.6 13.8l-2.175-2.175q-.275-.275-.675-.275t-.7.3q-.275.275-.275.7q0 .425.275.7L9.9 15.9q.275.275.7.275q.425 0 .7-.275l5.675-5.675q.275-.275.275-.675t-.3-.7q-.275-.275-.7-.275q-.425 0-.7.275ZM12 22q-2.075 0-3.9-.788q-1.825-.787-3.175-2.137q-1.35-1.35-2.137-3.175Q2 14.075 2 12t.788-3.9q.787-1.825 2.137-3.175q1.35-1.35 3.175-2.138Q9.925 2 12 2t3.9.787q1.825.788 3.175 2.138q1.35 1.35 2.137 3.175Q22 9.925 22 12t-.788 3.9q-.787 1.825-2.137 3.175q-1.35 1.35-3.175 2.137Q14.075 22 12 22Z"/></svg>'
                 );
             }
         },
@@ -861,7 +861,7 @@ $(function(){
      //         Update car type status
      $('#arkilla-table').on("click",".updateCarTypeStatus", async function () 
      {
-         var status = $(this).children("i").attr("status");
+         var status = $(this).children("svg").attr("status");
          var cartype_id = $(this).attr("cartype_id");
          var newStatus;
          if (status === "Inactive") newStatus = "Active";
@@ -881,11 +881,11 @@ $(function(){
              // alert(JSON.stringify(resp['status']))
              if (resp["status"] === 0) {
                  $("#cartype-" + cartype_id).html(
-                     '<i status="Inactive" class="bx bxs-x-circle text-4xl text-accent-regular cursor-pointer"></i>'
+                     '<svg status="Inactive" xmlns="http://www.w3.org/2000/svg" width="40" height="40" preserveAspectRatio="xMidYMid meet" viewBox="0 0 20 20"><path fill="#e84949" fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16a8 8 0 0 0 0 16ZM8.28 7.22a.75.75 0 0 0-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 1 0 1.06 1.06L10 11.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L11.06 10l1.72-1.72a.75.75 0 0 0-1.06-1.06L10 8.94L8.28 7.22Z" clip-rule="evenodd"/></svg>'
                  );
              } else if (resp["status"] === 1) {
                  $("#cartype-" + cartype_id).html(
-                     '<i status="Active" class="bx bxs-check-circle text-4xl text-accent-regular cursor-pointer">'
+                     '<svg status="Active" xmlns="http://www.w3.org/2000/svg" width="40" height="40" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="#e84949" d="m10.6 13.8l-2.175-2.175q-.275-.275-.675-.275t-.7.3q-.275.275-.275.7q0 .425.275.7L9.9 15.9q.275.275.7.275q.425 0 .7-.275l5.675-5.675q.275-.275.275-.675t-.3-.7q-.275-.275-.7-.275q-.425 0-.7.275ZM12 22q-2.075 0-3.9-.788q-1.825-.787-3.175-2.137q-1.35-1.35-2.137-3.175Q2 14.075 2 12t.788-3.9q.787-1.825 2.137-3.175q1.35-1.35 3.175-2.138Q9.925 2 12 2t3.9.787q1.825.788 3.175 2.138q1.35 1.35 2.137 3.175Q22 9.925 22 12t-.788 3.9q-.787 1.825-2.137 3.175q-1.35 1.35-3.175 2.137Q14.075 22 12 22Z"/></svg>'
                  );
              }
          },
@@ -1354,10 +1354,10 @@ $(function(){
         $('.view-step').hide()
         $('.detail-three').show() 
     })
-    //       Edit car status
+    //       Update car status
     $('#arkilla-table').on("click",".updateCarStatus", async function () 
     {
-        var status = $(this).children("i").attr("status");
+        var status = $(this).children("svg").attr("status");
         var car_id = $(this).attr("car_id");
         var newStatus;
         if (status === "Inactive") newStatus = "Active";
@@ -1377,12 +1377,12 @@ $(function(){
             // alert(JSON.stringify(resp['status']))
             if (resp["status"] === 0) {
                 $("#car-" + car_id).html(
-                    '<i status="Inactive" class="bx bxs-x-circle text-4xl text-accent-regular cursor-pointer"></i>'
+                    '<svg status="Inactive" xmlns="http://www.w3.org/2000/svg" width="40" height="40" preserveAspectRatio="xMidYMid meet" viewBox="0 0 20 20"><path fill="#e84949" fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16a8 8 0 0 0 0 16ZM8.28 7.22a.75.75 0 0 0-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 1 0 1.06 1.06L10 11.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L11.06 10l1.72-1.72a.75.75 0 0 0-1.06-1.06L10 8.94L8.28 7.22Z" clip-rule="evenodd"/></svg>'
                 );
                 $(".car"+car_id).html('Status: <span class="font-semibold">Inactive</span>');
             } else if (resp["status"] === 1) {
                 $("#car-" + car_id).html(
-                    '<i status="Active" class="bx bxs-check-circle text-4xl text-accent-regular cursor-pointer">'
+                    '<svg status="Active" xmlns="http://www.w3.org/2000/svg" width="40" height="40" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="#e84949" d="m10.6 13.8l-2.175-2.175q-.275-.275-.675-.275t-.7.3q-.275.275-.275.7q0 .425.275.7L9.9 15.9q.275.275.7.275q.425 0 .7-.275l5.675-5.675q.275-.275.275-.675t-.3-.7q-.275-.275-.7-.275q-.425 0-.7.275ZM12 22q-2.075 0-3.9-.788q-1.825-.787-3.175-2.137q-1.35-1.35-2.137-3.175Q2 14.075 2 12t.788-3.9q.787-1.825 2.137-3.175q1.35-1.35 3.175-2.138Q9.925 2 12 2t3.9.787q1.825.788 3.175 2.138q1.35 1.35 2.137 3.175Q22 9.925 22 12t-.788 3.9q-.787 1.825-2.137 3.175q-1.35 1.35-3.175 2.137Q14.075 22 12 22Z"/></svg>'
                 );
                 $(".car"+car_id).html('Status: <span class="font-semibold">Active</span>');
             }
@@ -1569,13 +1569,12 @@ $(function(){
         }
 
    
-    // let valid = validateCarName('#edit-admin-car-name','#add-admin-car-name-error','Name of car ') && validatePlateNumber('#add-admin-car-plate-number','#add-admin-car-plate-number-error','Plate number') && validateCarType('#add-admin-set-car-type','#add-admin-set-car-type-error') && validateCarCapacity('#add-admin-car-capacity','#add-admin-car-capacity-error') && validateImageFile('#add-admin-car-registration','#add-admin-car-registration-error','Car registration') && validateImageFile('#add-admin-car-photos','#add-admin-car-photos-error','Photos of cars') && validateCarDescription('#add-admin-car-description','#add-admin-car-description-error');
 
-    if(valid)
-    {
-        $('.edit-form-step').hide()
-        $('.edit-step-two').show() 
-    }
+        if(valid)
+        {
+            $('.edit-form-step').hide()
+            $('.edit-step-two').show() 
+        }
 
         
     })
@@ -1685,57 +1684,57 @@ $(function(){
 
     })
 
-      //         Approve or Decline Car
-      $("#arkilla-table").on("click",".updateCarAccount", async function () 
-      {
-          var account = $(this).children("button").attr("account");
-          var row = $(this).parentsUntil("tbody");
-          var car_id = $(this).attr("car_account_id");
-          var email = $(this).attr("owner_email");
-          var name = $(this).attr("owner_name");
-  
-          if(!confirm("Continue to "+ account +" this car?")) return false
-          $('.loading').removeClass('hidden')
-          $('.loading').addClass('grid')
-        await  $.ajax({
-              headers: {
-                  "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
-                      "content"
-                  ),
-              },
-              type: "post",
-              url: "/admin/update-car-account",
-              data: { 
-                    account: account,
-                    car_id: car_id,
-                    email: email,
-                    name: name
-                },
-              success: function (resp) {
-                  $('.loading').removeClass('grid')
-                  $('.loading').hide()
-                //   alert(JSON.stringify(resp['data']))
-                  if(resp['data'] === 'verified')
-                  {
-                      row.remove()
-                  }    
-                  else if(resp['data'] === 'declined')
-                  {
-                      row.remove()
-                  } 
-                      
-                  else
-                  {
-                      alert('Failed to '+ account +' car!')
-                  } 
-                      
-              },
-              error: function (resp) {
-                  $('.loading').removeClass('grid')
-                  $('.loading').hide()
-                  alert(account +" failed! System error.")
-              },
-          });
-      });
+    //         Approve or Decline Car
+    $("#arkilla-table").on("click",".updateCarAccount", async function () 
+    {
+        var account = $(this).children("button").attr("account");
+        var row = $(this).parentsUntil("tbody");
+        var car_id = $(this).attr("car_account_id");
+        var email = $(this).attr("owner_email");
+        var name = $(this).attr("owner_name");
+
+        if(!confirm("Continue to "+ account +" this car?")) return false
+        $('.loading').removeClass('hidden')
+        $('.loading').addClass('grid')
+    await  $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                    "content"
+                ),
+            },
+            type: "post",
+            url: "/admin/update-car-account",
+            data: { 
+                account: account,
+                car_id: car_id,
+                email: email,
+                name: name
+            },
+            success: function (resp) {
+                $('.loading').removeClass('grid')
+                $('.loading').hide()
+            //   alert(JSON.stringify(resp['data']))
+                if(resp['data'] === 'verified')
+                {
+                    row.remove()
+                }    
+                else if(resp['data'] === 'declined')
+                {
+                    row.remove()
+                } 
+                    
+                else
+                {
+                    alert('Failed to '+ account +' car!')
+                } 
+                    
+            },
+            error: function (resp) {
+                $('.loading').removeClass('grid')
+                $('.loading').hide()
+                alert(account +" failed! System error.")
+            },
+        });
+    });
     
 });

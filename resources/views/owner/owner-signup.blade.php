@@ -122,7 +122,7 @@
 
                         <!-- Valid id Input File -->
                           <!-- Dropdown -->
-                          <div class="block mt-4">
+                        <div class="block mt-4">
                             <div class="relative mb-2">
                               <select id="owner-signup-valid-id" name="owner-signup-valid-id" class="cursor-pointer-none block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-900 appearance-none peer">
                                 <option disabled selected ></option>
@@ -134,15 +134,15 @@
                               <label id="owner-signup-valid-id-error" for="owner-signup-valid-id" class="pointer-events-none absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-gray-900 peer-focus:font-semibold peer-placeholder-shown:scale-100 
                             peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 whitespace-nowrap">Choose one valid id</label>
                            
-                            </div>
+                        </div>
                             
-                            <div class="block w-full ">
-                            <label id="owner-signup-id-file-error" for="owner-signup-id-file" class=" hidden pb-1 text-sm font-semibold lg:pl-2 text-gray-500"></label>
-                              <input id="owner-signup-id-file" name="owner-signup-id-file" class="w-full mt-2 text-sm text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" aria-describedby="file_input_help" type="file">
-                            </div>
+                        <div class="block w-full ">
+                          <label id="owner-signup-id-file-error" for="owner-signup-id-file" class=" hidden pb-1 text-sm font-semibold lg:pl-2 text-gray-500"></label>
+                            <input id="owner-signup-id-file" name="owner-signup-id-file" class="w-full mt-2 text-sm text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" aria-describedby="file_input_help" type="file">
                           </div>
+                        </div>
                        
-                      </div>
+                     
                       <label id="owner-signup-terms-error" for="owner-signup-terms" class=" hidden pb-1 text-sm font-semibold lg:pl-2 text-[lightcoral]"></label>
                       <div class="flex items-center mt-4">
                         <input id="owner-signup-terms" name="owner-signup-terms" value="agree" type="checkbox" class="w-4 h-4 text-accent-regular bg-gray-100 rounded border-gray-300 focus:ring-0">
