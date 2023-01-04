@@ -125,7 +125,7 @@
                   </li>
                   <li>
                     <a href="{{url('admin/unverified-users')}}" class="sidebar-list sidebar-hover flex justify-between">
-                      <span class="ml-12">unverified users</span>
+                      <span class="ml-12">inactive users</span>
                     </a>
                   </li>
 

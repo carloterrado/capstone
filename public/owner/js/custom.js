@@ -1286,7 +1286,7 @@ $(function(){
                         $('.success-container').show()
                         $('.success-message').html('Car added successfully!')
                         setTimeout(function(){
-                            window.location.href = '/admin/cars';   
+                            window.location.href = window.location.href;   
                         },1500)  
                     }
                     else 
@@ -1631,7 +1631,7 @@ $(function(){
                           $('.success-container').show()
                           $('.success-message').html('Car updated successfully!')
                           setTimeout(function(){
-                              window.location.href = '/admin/cars';   
+                              window.location.href = window.location.href;   
                           },1500)  
                       }
                       else 
@@ -1672,7 +1672,7 @@ $(function(){
                   $('.error-container').show()
                   $('.error-message').html('System edit car failed!')
                   setTimeout(function(){
-                      window.location.href = '/admin/cars';  
+                      window.location.href = window.location.href;  
                   },3000)
               })
           }

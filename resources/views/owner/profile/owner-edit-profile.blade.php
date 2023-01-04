@@ -72,26 +72,7 @@
                         <input id="edit-id-file" name="edit-id-file" class="w-full mt-2 text-sm text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" aria-describedby="file_input_help" type="file">
                         <label id="edit-id-file-error" for="edit-id-file" class=" hidden pb-1 text-sm font-semibold lg:pl-2 text-gray-500">Valid id file</label>
                         <input type="text" name="current-id-file" value="{{ $owner[0]['valid_id_file'] }}"  class="hidden">
-                    </div>
-                   
-                   
-                    <div class="col-span-6 sm:col-span-3">
-                        <p  class="block mb-2 text-sm font-medium text-gray-900 ">Registered ID: 
-                            <button onclick="$('.id').toggle('normal')" type="button" class="ml-4  btn-orange-login px-[10px] py-1 w-[fit-content]">
-                            <i class='bx bxs-image-alt'></i>
-                            </button>
-                        </p>
-                        <a class="hidden id" href="{{url('owner/images/id/'.$owner[0]['valid_id_file'])}}" target="_blank"> <img src="{{url('owner/images/id/'.$owner[0]['valid_id_file'])}}" alt="ID"> </a>
-                    </div> 
-                 
-                        <div class="col-span-6 sm:col-span-3">
-                            <p  class="block mb-2 text-sm font-medium text-gray-900 ">  Your license:
-                                <button onclick="$('.license').toggle('normal')" type="button" class="ml-4  btn-orange-login px-[10px] py-1 w-[fit-content]">
-                                <i class='bx bxs-image-alt'></i>
-                                </button>
-                            </p>
-                           <a class="hidden license" href="{{url('owner/images/license/'.$owner[0]['license'])}}" target="_blank"> <img src="{{url('owner/images/license/'.$owner[0]['license'])}}" alt="license"> </a>
-                        </div> 
+                    </div>   
              
                 </div>
                 <label id="edit-submit-form-error" class=" hidden py-4 text-sm  font-semibold lg:pl-2 text-[lightcoral]"></label>

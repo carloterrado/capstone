@@ -15,7 +15,7 @@
 </head>
 
 <body>
-   <div class="max-w-[1500px] mx-auto z-40">
+   <div class="max-w-[1500px] mx-auto">
    <!-- Header start -->
    @include('front.front-header')
    <!-- Header end -->

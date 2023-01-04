@@ -74,6 +74,7 @@ Route::prefix('admin')->group(function()
         Route::get('car-declined',[AdminController::class,'carDeclined']);
         Route::get('all-admins',[AdminController::class,'allAdmins']);
         Route::post('add-admin',[AdminController::class,'addAdmin']);
+        Route::post('edit-admin',[AdminController::class,'editAdmin']);
         Route::get('admins',[AdminController::class,'admins']);
         Route::get('staff',[AdminController::class,'staff']);
         Route::get('owners',[AdminController::class,'owners']);

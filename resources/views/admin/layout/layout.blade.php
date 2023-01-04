@@ -19,6 +19,7 @@
 </head>
 
 <body>
+    <div class="max-w-[1500px] mx-auto">
     <!-- Header start -->
     @include('admin.layout.admin-header')
    <!-- Header end -->
@@ -34,7 +35,7 @@
    <!-- Footer start -->
    @include('admin.layout.admin-footer')
    <!-- Footer end -->
-
+    </div>
    
    <script src="{{url('js/app.js')}}"></script>
    <script src="{{url('js/jquery.min.js')}}"></script>

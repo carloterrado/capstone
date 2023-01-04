@@ -618,6 +618,45 @@ class AdminController extends Controller
         }
         return response()->json(['status'=>'error']);
     }
+    public function editAdmin(Request $request)
+    {
+        if($request->ajax())
+        {
+            $data = $request->all();
+            // return response()->json(['data'=>$data]);
+            
+            $admin = Admin::find($data['id']);
+            if($admin->type !== $data['edit-admin-type'])
+            {
+                $admin->type = $data['edit-admin-type'];
+            }
+            if($admin->first_name !== $data['edit-admin-first-name'])
+            {
+                $admin->first_name = $data['edit-admin-first-name'];
+            }
+            if($admin->last_name !== $data['edit-admin-last-name'])
+            {
+                $admin->last_name = $data['edit-admin-last-name'];
+            }
+            if($admin->email !== $data['edit-admin-email'])
+            {
+                $adminEmail = Admin::where('email',$data['edit-admin-email'])->exists();
+                if($adminEmail)
+                {
+                    return response()->json(['status'=>'error']);
+                }
+                else
+                {
+                    $admin->email = $data['edit-admin-email'];
+                }
+            }
+           
+            $admin->save();
+            return response()->json(['status'=>'success']);
+
+        }
+        return response()->json(['status'=>'error']);
+    }
     public function admins()
     {
         if(Auth::guard('admin')->user()->type === 'owner')
@@ -839,9 +878,39 @@ class AdminController extends Controller
         {
             if(Auth::guard('admin')->user()->type === 'owner')
             {
-
-           
                 $data = $request->all();
+
+                $admin = Admin::find(Auth::guard('admin')->user()->id);
+                if($admin->first_name !== $data['edit-first-name'])
+                {
+                    $admin->first_name = $data['edit-first-name'];
+                }
+                if($admin->last_name !== $data['edit-last-name'])
+                {
+                    $admin->last_name = $data['edit-last-name'];
+                }
+                $admin->save();
+                
+                $owner = OwnerDetail::find(Auth::guard('admin')->user()->owner_id);
+                // convert birthdate input from dd/mm/yyyy to yyyy-mm-dd
+                $inputDate = explode('/', $data['edit-birthdate'] ); 
+                $birthdate = $inputDate[2].'-'.$inputDate[1].'-'.$inputDate[0];
+                if($owner->birthdate !== $birthdate)
+                {
+                    $owner->birthdate = $birthdate;
+                }
+                if($owner->contact !== $data['edit-contact'])
+                {
+                    $owner->contact = $data['edit-contact'];
+                }
+                if($owner->address !== $data['edit-address'])
+                {
+                    $owner->address = $data['edit-address'];
+                }
+                if($owner->valid_id !== $data['edit-valid-id'])
+                {
+                    $owner->valid_id = $data['edit-valid-id'];
+                }
                 
                 if($request->hasFile('edit-id-file'))
                 { 
@@ -865,45 +934,30 @@ class AdminController extends Controller
                                 File::delete($currentIDFile);
                         }
                     }
-                    $validIDFile = $imgName2;
+                    $owner->valid_id_file = $imgName2;
                 }
-                else
-                {
-                    $validIDFile = $data['current-id-file'];
-                }
-                
-                
-
-                // return response()->json(['data'=>$data]);
-            
-                // convert birthdate input from dd/mm/yyyy to yyyy-mm-dd
-                $inputDate = explode('/', $data['edit-birthdate'] ); 
-                $birthdate = $inputDate[2].'-'.$inputDate[1].'-'.$inputDate[0];
-
-                Admin::where('id', Auth::guard('admin')->user()->id)->update([
-                    'first_name' => $data['edit-first-name'],
-                    'last_name' => $data['edit-last-name']
-                    
-                   
-                ]);
-                OwnerDetail::where('id', Auth::guard('admin')->user()->owner_id)->update([
-                    'birthdate' => $birthdate,
-                    'contact' => $data['edit-contact'],
-                    'address' => $data['edit-address'],
-                    'valid_id' => $data['edit-valid-id'],
-                    'valid_id_file' => $validIDFile
-                ]);
-
+                $owner->save();
+             
                 return response()->json(['data'=>'success']);
             
             }
             else
             {
                 $data = $request->all();
-                Admin::where('id', Auth::guard('admin')->user()->id)->update([
-                    'first_name' => $data['edit-first-name'],
-                    'last_name' => $data['edit-last-name']
-                ]);
+                $admin = Admin::find(Auth::guard('admin')->user()->id);
+                if($admin->first_name !== $data['edit-first-name'])
+                {
+                    $admin->first_name = $data['edit-first-name'];
+                }
+                if($admin->last_name !== $data['edit-last-name'])
+                {
+                    $admin->last_name = $data['edit-last-name'];
+                }
+                $admin->save();
+                // Admin::where('id', Auth::guard('admin')->user()->id)->update([
+                //     'first_name' => $data['edit-first-name'],
+                //     'last_name' => $data['edit-last-name']
+                // ]);
                 return response()->json(['data'=>'success']);
 
             }

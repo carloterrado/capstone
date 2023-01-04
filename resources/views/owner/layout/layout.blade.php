@@ -18,6 +18,7 @@
 </head>
 
 <body>
+   <div class="max-w-[1500px] mx-auto">
    <!-- Header start -->
    @include('owner.layout.owner-header')
    <!-- Header end -->
@@ -33,7 +34,7 @@
    <!-- Footer start -->
    @include('owner.layout.owner-footer')
    <!-- Footer end -->
- 
+   </div>
  
    <script src="{{url('js/app.js')}}"></script>
    <script src="{{url('front/js/index.js')}}"></script>

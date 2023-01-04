@@ -266,6 +266,136 @@ $(function(){
     })
 
 
+    // Edit admin
+    $(document).on("click",'.edit-admin', function(){
+        var admin = $(this).data('info')
+        // alert(JSON.stringify(admin))
+        // return false;
+       
+        $('#edit-admin-id').val(admin['id'])
+        $('#edit-admin-first-name').val(admin['first_name'])
+        $('#edit-admin-last-name').val(admin['last_name'])
+        $('#edit-admin-email').val(admin['email'])
+      
+        $('#edit-admin-type option').each(function()
+        {
+            if($(this).val() === admin['type'])
+            {
+                $(this).attr('selected',true)
+            }
+        })
+        
+    })
+    $('#edit-admin-first-name').on('keyup keypress',function()
+    {
+        validateName('#edit-admin-first-name','#edit-admin-first-name-error','Name');
+    })
+    $('#edit-admin-last-name').on('keyup keypress',function()
+    {
+        validateName('#edit-admin-last-name','#edit-admin-last-name-error','Lastname');
+    })
+    $('#edit-admin-email').on('keyup keypress',function()
+    {
+        validateEmail('#edit-admin-email','#edit-admin-email-error');
+    })
+    $('#edit-admin-type').on('change',function(event)
+    {
+        validateType('#edit-admin-type','#edit-admin-type-error');
+    })
+    // Validate add admin form upon submission
+    $('#edit-admin-form').on('submit', function(event)
+    {
+        event.preventDefault();
+
+        function validateSignupForm(){
+            let valid = validateName('#edit-admin-first-name','#edit-admin-first-name-error','First name') && validateName('#edit-admin-last-name','#edit-admin-last-name-error', 'Last name') && validateEmail('#edit-admin-email','#edit-admin-email-error') && validateType('#edit-admin-type','#edit-admin-type-error') ;
+            if(!valid)
+            {  
+                //  event.preventDefault();
+                $('#edit-admin-submit-form-error').show();
+                $('#edit-admin-submit-form-error').text('Please fill up the form correctly');
+                setTimeout(function()
+                {
+                    $('#edit-admin-submit-form-error').hide();
+                },3000);
+                return false;
+            }
+            return true;
+        }
+        
+
+        let data = $(this).serialize()
+        async function submitSignupForm()
+        {
+          await  $.ajax({
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                },
+                type: 'POST',
+                url:'/admin/edit-admin',
+                data: data,
+                success:function(resp){ 
+                    //  alert(JSON.stringify(resp['data']))
+                    //  return false;
+                    if(resp["status"] === 'success')
+                    {
+                        $('.success-container').show()
+                        $('.success-message').text('Admin account updated successfully!')
+                        setTimeout(function(){
+                            $('.success-container').hide()
+                            window.location.href = window.location.href;
+                        },1500)
+                    }
+                    
+                    else if(resp["status"] === 'error')
+                    {  
+                        $('.error-container').show()
+                        $('.error-message').html('Email already exist!')
+                        $('#edit-admin-form button[type="submit"]').removeClass('hidden')
+                        setTimeout(function(){
+                            $('.error-container').hide()
+                        },3000)
+                    }
+                    else
+                    {
+                        $('.error-container').show()
+                        $('.error-message').html('Email already exist!')
+                        $('#edit-admin-form button[type="submit"]').removeClass('hidden')
+                        setTimeout(function(){
+                            $('.error-container').hide()
+                        },3000)
+                    }
+                    
+                },
+                error: function(error){
+                    // alert(JSON.stringify(error))
+                    $('.error-container').show()
+                    $('.error-message').html('Email already exist!')
+                    $('#edit-admin-form button[type="submit"]').removeClass('hidden')
+                    setTimeout(function(){
+                        $('.error-container').hide()  
+                    },3000)
+                    
+                    
+                }
+            })
+        }
+        let validated = validateSignupForm()
+        
+        if(validated){
+            $('#edit-admin-form button[type="submit"]').addClass('hidden')
+            submitSignupForm().catch(function(error){
+                $('#edit-admin-form button[type="submit"]').removeClass('hidden')
+                $('.error-container').show()
+                $('.error-message').html('Edit admin failed!')
+                setTimeout(function(){
+                    $('.error-container').hide()  
+                },3000)
+            })
+        } 
+    })
+
+
 
    
     //    Change Admin  Password
@@ -1262,13 +1392,18 @@ $(function(){
         function validateAddCarForm()
         {
 
-            let valid = validateCarPrice('#add-admin-car-price-cagayan-valley','#add-admin-car-price-cagayan-valley-error','REGION II (CAGAYAN VALLEY)') && validateCarPrice('#add-admin-car-price-central-luzon','#add-admin-car-price-central-luzon-error','REGION III (CENTRAL LUZON)') &&  validateCarPrice('#add-admin-car-price-calabarzon','#add-admin-car-price-calabarzon-error','REGION IV-A (CALABARZON)') && validateCarPrice('#add-admin-car-price-mimaropa','#add-admin-car-price-mimaropa-error','REGION IV-B (MIMAROPA)') && validateCarPrice('#add-admin-car-price-bicol-region','#add-admin-car-price-bicol-region-error','REGION V (BICOL REGION)') && validateCarPrice('#add-admin-car-price-ncr','#add-admin-car-price-ncr-error','NATIONAL CAPITAL REGION (NCR)') && validateCarPrice('#add-admin-car-price-car','#add-admin-car-price-car-error','CORDILLERA ADMINISTRATIVE REGION (CAR)');
-
-            if(!valid)
-            {  
-                return false;
+            let valid = validateCarName('#add-admin-car-name','#add-admin-car-name-error','Name of car ') && validatePlateNumber('#add-admin-car-plate-number','#add-admin-car-plate-number-error','Plate number') && validateCarType('#add-admin-set-car-type','#add-admin-set-car-type-error') && validateCarCapacity('#add-admin-car-capacity','#add-admin-car-capacity-error') && validateImageFile('#add-admin-car-main-photo','#add-admin-car-main-photo-error','Main car photo') && validateImageFile('#add-admin-car-photos','#add-admin-car-photos-error','Photos of cars') && validateCarDescription('#add-admin-car-description','#add-admin-car-description-error') && validatePickupLocation('#add-admin-car-pickup-location','#add-admin-car-pickup-location-error','Pick-up location') && validateCarPrice('#add-admin-car-price-cagayan-valley','#add-admin-car-price-cagayan-valley-error','REGION II (CAGAYAN VALLEY)') && validateCarPrice('#add-admin-car-price-central-luzon','#add-admin-car-price-central-luzon-error','REGION III (CENTRAL LUZON)') &&  validateCarPrice('#add-admin-car-price-calabarzon','#add-admin-car-price-calabarzon-error','REGION IV-A (CALABARZON)') && validateCarPrice('#add-admin-car-price-mimaropa','#add-admin-car-price-mimaropa-error','REGION IV-B (MIMAROPA)') && validateCarPrice('#add-admin-car-price-bicol-region','#add-admin-car-price-bicol-region-error','REGION V (BICOL REGION)') && validateCarPrice('#add-admin-car-price-ncr','#add-admin-car-price-ncr-error','NATIONAL CAPITAL REGION (NCR)') && validateCarPrice('#add-admin-car-price-car','#add-admin-car-price-car-error','CORDILLERA ADMINISTRATIVE REGION (CAR)');
+            let driversFee = true;
+            if($('#add-admin-car-with-driver').is(':checked'))
+            {
+            driversFee =  validateCarDriversFee('#add-admin-car-drivers-fee','#add-admin-car-drivers-fee-error') ;
             }
-            return true;
+
+            if(valid && driversFee)
+            {  
+                return true;
+            }
+            return false;
         }
 
         let formData = new FormData($(this)[0]);
@@ -1293,7 +1428,7 @@ $(function(){
                         $('.success-container').show()
                         $('.success-message').html('Car added successfully!')
                         setTimeout(function(){
-                            window.location.href = '/admin/cars';   
+                            window.location.href = window.location.href; 
                         },1500)  
                     }
                     else 
@@ -1606,13 +1741,19 @@ $(function(){
         function validateEditCarForm()
         {
 
-            let valid = validateCarPrice('#edit-admin-car-price-cagayan-valley','#edit-admin-car-price-cagayan-valley-error','REGION II (CAGAYAN VALLEY)') && validateCarPrice('#edit-admin-car-price-central-luzon','#edit-admin-car-price-central-luzon-error','REGION III (CENTRAL LUZON)') &&  validateCarPrice('#edit-admin-car-price-calabarzon','#edit-admin-car-price-calabarzon-error','REGION IV-A (CALABARZON)') && validateCarPrice('#edit-admin-car-price-mimaropa','#edit-admin-car-price-mimaropa-error','REGION IV-B (MIMAROPA)') && validateCarPrice('#edit-admin-car-price-bicol-region','#edit-admin-car-price-bicol-region-error','REGION V (BICOL REGION)') && validateCarPrice('#edit-admin-car-price-ncr','#edit-admin-car-price-ncr-error','NATIONAL CAPITAL REGION (NCR)') && validateCarPrice('#edit-admin-car-price-car','#edit-admin-car-price-car-error','CORDILLERA ADMINISTRATIVE REGION (CAR)');
+            let valid = validatePickupLocation('#edit-admin-car-pickup-location','#edit-admin-car-pickup-location-error','Pick-up location') && validateCarPrice('#edit-admin-car-price-cagayan-valley','#edit-admin-car-price-cagayan-valley-error','REGION II (CAGAYAN VALLEY)') && validateCarPrice('#edit-admin-car-price-central-luzon','#edit-admin-car-price-central-luzon-error','REGION III (CENTRAL LUZON)') &&  validateCarPrice('#edit-admin-car-price-calabarzon','#edit-admin-car-price-calabarzon-error','REGION IV-A (CALABARZON)') && validateCarPrice('#edit-admin-car-price-mimaropa','#edit-admin-car-price-mimaropa-error','REGION IV-B (MIMAROPA)') && validateCarPrice('#edit-admin-car-price-bicol-region','#edit-admin-car-price-bicol-region-error','REGION V (BICOL REGION)') && validateCarPrice('#edit-admin-car-price-ncr','#edit-admin-car-price-ncr-error','NATIONAL CAPITAL REGION (NCR)') && validateCarPrice('#edit-admin-car-price-car','#edit-admin-car-price-car-error','CORDILLERA ADMINISTRATIVE REGION (CAR)');
 
-            if(!valid)
-            {  
-                return false;
+            let driversFee = true;
+            if($('#edit-admin-car-with-driver').is(':checked'))
+            {
+            driversFee =  validateCarDriversFee('#edit-admin-car-drivers-fee','#edit-admin-car-drivers-fee-error') ;
             }
-            return true;
+
+            if(valid && driversFee)
+            {  
+                return true;
+            }
+            return false;
         }
         let formData = new FormData($(this)[0]);
 
@@ -1636,7 +1777,7 @@ $(function(){
                         $('.success-container').show()
                         $('.success-message').html('Car updated successfully!')
                         setTimeout(function(){
-                            window.location.href = '/admin/cars';   
+                            window.location.href = window.location.href;   
                         },1500)  
                     }
                     else 
@@ -1677,7 +1818,7 @@ $(function(){
                 $('.error-container').show()
                 $('.error-message').html('System edit car failed!')
                 setTimeout(function(){
-                    window.location.href = '/admin/cars';  
+                    window.location.href = window.location.href;  
                 },3000)
             })
         }
