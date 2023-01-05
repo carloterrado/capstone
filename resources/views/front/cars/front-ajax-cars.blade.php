@@ -38,9 +38,12 @@
             
         @endif
         " alt="" />
-        <button type="button" class="details btn-1 bg-accent-regular uppercase  w-full mt-6  text-white whitespace-nowrap">Reserve now</button>
+        <button  type="button"  data-modal-toggle="{{'view-car'.$car['id']}}"  class="car-detail btn-1 bg-accent-regular uppercase  w-full mt-6  text-white whitespace-nowrap">Reserve now</button>
     </div>
+    @include('front.cars.front-view-car-details')
+    
 @endforeach
+
 @if ($cars->count() === 0)
 <div class="h-full grid place-items-center col-span-6 absolute inset-0">
     <p class=" text-accent-regular text-xl font-semibold"> 

@@ -35,7 +35,7 @@ class FrontController extends Controller
      
         $cartypes = CarType::where('status',1)->get()->toArray();
         
-        if($request->ajax())
+        if($request->isMethod('post'))
         {
             $data = $request->all();
             $priceFrom = (int)$data['from'];
@@ -51,7 +51,7 @@ class FrontController extends Controller
                     // return response()->json(['data'=>$cars]);
                 // dd($cars);
           
-            return view('front.front-ajax-cars')->with(compact('cars','cartypes'));
+            return view('front.home')->with(compact('cars','cartypes'));
            
         }
         else
@@ -105,6 +105,7 @@ class FrontController extends Controller
         if($request->ajax())
         {
             $data = $request->all();
+            $user = User::find(Auth::user()->id); 
             
             if($request->hasFile('edit-id-file'))
             { 
@@ -122,66 +123,42 @@ class FrontController extends Controller
                     Image::make($img_tmp2)->resize(1500,1500,function($constraint){
                             $constraint->aspectRatio();
                         })->save($imgPath2);
-                    if($data['current-id-file'] !== null)
-                    {
-                        $currentIDFile = public_path('front/images/users/id/'.$data['current-id-file']);
-                            File::delete($currentIDFile);
-                    }
+                  
+                    $currentIDFile = public_path('front/images/users/id/'.$user->valid_id_file);
+                        File::delete($currentIDFile);
+                    
                 }
-                $validIDFile = $imgName2;
+                $user->valid_id_file = $imgName2;
             }
-            else
-            {
-                $validIDFile = $data['current-id-file'];
-            }
-            
-            
-            if($request->hasFile('edit-license'))
-            { 
-                $img_tmp1 = $request->file('edit-license');
-                if($img_tmp1->isValid())
-                {
-                    // Get image extension 
-                    $extension1 = $img_tmp1->getClientOriginalExtension(); 
-
-                    // Generate new image name 
-                    $imgName1 = rand(111,99999).'.'.$extension1;
-                    $imgPath1 ='front/images/users/license/'.$imgName1;
-                
-                    // Upload and resize the image
-                    Image::make($img_tmp1)->resize(1500,1500,function($constraint){
-                            $constraint->aspectRatio();
-                        })->save($imgPath1);
-                    if($data['current-license'] !== null)
-                    {
-                        $currentLicense = public_path('front/images/users/license/'.$data['current-license']);
-                            File::delete($currentLicense);
-                    }
-
-                }
-                $license = $imgName1;
-            }
-            else
-            {
-                $license = $data['current-license'];
-            }
-
-            // return response()->json(['data'=>$data]);
            
             // convert birthdate input from dd/mm/yyyy to yyyy-mm-dd
             $inputDate = explode('/', $data['edit-birthdate'] ); 
             $birthdate = $inputDate[2].'-'.$inputDate[1].'-'.$inputDate[0];
-
-            User::where('id', Auth::user()->id)->update([
-                'first_name' => $data['edit-first-name'],
-                'last_name' => $data['edit-last-name'],
-                'birthdate' => $birthdate,
-                'contact' => $data['edit-contact'],
-                'address' => $data['edit-address'],
-                'valid_id' => $data['edit-valid-id'],
-                'valid_id_file' => $validIDFile,
-                'license' => $license
-            ]);
+            if($user->first_name !== $data['edit-first-name'])
+            {
+                $user->first_name = $data['edit-first-name']; 
+            }
+            if($user->last_name !== $data['edit-last-name'])
+            {
+                $user->last_name = $data['edit-last-name']; 
+            }
+            if($user->birthdate !== $birthdate)
+            {
+                $user->birthdate = $birthdate; 
+            }
+            if($user->contact !== $data['edit-contact'])
+            {
+                $user->contact = $data['edit-contact']; 
+            }
+            if($user->address !== $data['edit-address'])
+            {
+                $user->address = $data['edit-address']; 
+            }
+            if($user->valid_id !== $data['edit-valid-id'])
+            {
+                $user->valid_id = $data['edit-valid-id']; 
+            }
+            $user->save();
 
             return response()->json(['data'=>'success']);
            

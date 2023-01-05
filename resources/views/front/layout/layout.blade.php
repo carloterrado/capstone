@@ -17,11 +17,11 @@
 <body>
    <div class="max-w-[1500px] mx-auto">
    <!-- Header start -->
-   @include('front.front-header')
+   @include('front.layout.front-header')
    <!-- Header end -->
 
    <!-- Sidebar start -->
-   @include('front.front-sidebar')
+   @include('front.layout.front-sidebar')
    <!-- Sidebar end -->  
 
    <!-- Main content start -->
@@ -31,7 +31,7 @@
    <!-- Main content end -->
    
    <!-- Footer start -->
-   @include('front.front-footer')
+   @include('front.layout.front-footer')
    <!-- Footer end -->
    </div>
  

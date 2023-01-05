@@ -191,7 +191,7 @@ class AdminController extends Controller
 
         
                 // --- Upload the image --- //
-                Image::make($main_img)->resize(1500,1500,function($constraint)
+                Image::make($main_img)->resize(1000,1000,function($constraint)
                 {
                     $constraint->aspectRatio();
                 })->save($imgPath); 
@@ -212,7 +212,7 @@ class AdminController extends Controller
                     $imgPath ='owner/images/cars/registration/'.$imgRegistration;
             
                     // --- Upload the image --- //
-                    Image::make($registration_img)->resize(1500,1500,function($constraint)
+                    Image::make($registration_img)->resize(1000,1000,function($constraint)
                     {
                         $constraint->aspectRatio();
                     })->save($imgPath); 
@@ -279,7 +279,7 @@ class AdminController extends Controller
                         $imgPath ='admins/images/cars/'.$imgName;
                     }
                     // --- Upload the image --- //
-                    Image::make($img_tmp)->resize(1500,1500,function($constraint)
+                    Image::make($img_tmp)->resize(1000,1000,function($constraint)
                     {
                         $constraint->aspectRatio();
                     })->save($imgPath); 
@@ -341,7 +341,7 @@ class AdminController extends Controller
 
                     }
                     // --- Upload the image --- //
-                    Image::make($main_img)->resize(1500,1500,function($constraint)
+                    Image::make($main_img)->resize(1000,1000,function($constraint)
                     {
                         $constraint->aspectRatio();
                     })->save($imgPath); 
@@ -387,7 +387,7 @@ class AdminController extends Controller
 
                         }
                         // --- Upload the image --- //
-                        Image::make($img_tmp)->resize(1500,1500,function($constraint)
+                        Image::make($img_tmp)->resize(1000,1000,function($constraint)
                         {
                             $constraint->aspectRatio();
                         })->save($imgPath); 
@@ -849,7 +849,7 @@ class AdminController extends Controller
         {
             return view('owner.dashboard');
         }
-        Session::put('title','Unverified Users');
+        Session::put('title','Inactive Users');
         Session::put('page','unverified-users');
         $users = User::where('email_verified_at',null)->get()->toArray();
        
@@ -925,7 +925,7 @@ class AdminController extends Controller
                         $imgPath2 ='owner/images/id/'.$imgName2;
                     
                         // Upload and resize the image
-                        Image::make($img_tmp2)->resize(1500,1500,function($constraint){
+                        Image::make($img_tmp2)->resize(1000,1000,function($constraint){
                                 $constraint->aspectRatio();
                             })->save($imgPath2);
                         if($data['current-id-file'] !== null)
@@ -1049,10 +1049,10 @@ class AdminController extends Controller
                         $imgPath2 ='owner/images/id/'.$imgName2;
                     
                         // --- Upload and resize the image --- //
-                        Image::make($img_tmp1)->resize(1500,1500,function($constraint){
+                        Image::make($img_tmp1)->resize(1000,1000,function($constraint){
                                 $constraint->aspectRatio();
                             })->save($imgPath1);
-                        Image::make($img_tmp2)->resize(1500,1500,function($constraint){
+                        Image::make($img_tmp2)->resize(1000,1000,function($constraint){
                                 $constraint->aspectRatio();
                             })->save($imgPath2);
                     

@@ -14,9 +14,10 @@
             
                 <div class="p-6 space-y-6">
                     <div class="grid grid-cols-8 gap-6">
-                        <div class="col-span-8 ">
+                        <div class="col-span-8">
                             <h2  class="block mb-2 text-lg font-bold text-accent-regular "> {{Auth::user()->first_name.' '.Auth::user()->last_name}}</h2>
                         </div>
+                         
                        
                         <div class="col-span-8 sm:col-span-4">
                             <p  class="block mb-2 text-sm font-medium text-gray-900 ">Email: <span class="font-semibold">{{Auth::user()->email}}</span></p>
@@ -28,21 +29,14 @@
                             <p  class="block mb-2 text-sm font-medium text-gray-900 ">Contact: <span class="font-semibold">{{Auth::user()->contact}}</span></p>
                         </div>
                         <div class="col-span-8 sm:col-span-4">
-                        <p  class="block mb-2 text-sm font-medium text-gray-900 ">Birthdate: <span class="font-semibold">{{Auth::user()->birthdate}}</span></p>
+                            <p  class="block mb-2 text-sm font-medium text-gray-900 ">Birthdate: <span class="font-semibold">{{Auth::user()->birthdate}}</span></p>
                         </div>
-                       
-                      
-                        @if (Auth::user()->license !== null)
-                        <div class="col-span-8 sm:col-span-4">
-                            <p  class="block mb-2 text-sm font-medium text-gray-900 ">License</p>
-                           <a href="{{url('front/images/users/license/'.Auth::user()->license)}}" target="_blank"> <img src="{{url('front/images/users/license/'.Auth::user()->license)}}" alt="license"> </a>
-                        </div> 
-                        @endif 
-                        
                         <div class="col-span-8 sm:col-span-4">
                             <p  class="block mb-2 text-sm font-medium text-gray-900 ">Valid ID: <span class="font-semibold">{{Auth::user()->valid_id}}</span></p>
                            <a href="{{url('front/images/users/id/'.Auth::user()->valid_id_file)}}" target="_blank"> <img src="{{url('front/images/users/id/'.Auth::user()->valid_id_file)}}" alt="license"> </a>
-                        </div>  
+                        </div>
+                        
+                        
                     </div>
                 </div>
                 
@@ -52,5 +46,5 @@
     
         </div>
     </div>
-    @include('front.front-edit-profile')
-    @include('front.front-change-password')
+    @include('front.profile.front-edit-profile')
+    @include('front.profile.front-change-password')

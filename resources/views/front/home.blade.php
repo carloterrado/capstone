@@ -1,20 +1,20 @@
-@extends('front.layout')
+@extends('front.layout.layout')
 @section('content')
 
 @if (Session::get('page') === 'home')
         @include('front.front-home')
        
 @elseif (Session::get('page') === 'about')
-        @include('front.front-about')
+        @include('front.about.front-about')
 
 @elseif (Session::get('page') === 'cars')
-        @include('front.front-cars')
+        @include('front.cars.front-cars')
 
 @elseif (Session::get('page') === 'contact')
-        @include('front.front-contact')
+        @include('front.contact.front-contact')
 
 @elseif (Session::get('page') === 'profile')
-        @include('front.front-profile')
+        @include('front.profile.front-profile')
 
 @elseif (Session::get('page') === 'login')
         @include('front.front-login')
@@ -27,6 +27,9 @@
 
 @elseif (Session::get('page') === 'forgot-password')
         @include('front.front-forgot-password')
+
+@elseif (Session::get('page') === 'test')
+        @include('front.test')
         
 @endif
 

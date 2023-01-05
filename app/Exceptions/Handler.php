@@ -5,7 +5,10 @@ namespace App\Exceptions;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 use Exception;
+
+use Illuminate\Http\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+
 class Handler extends ExceptionHandler
 {
     /**
@@ -28,6 +31,7 @@ class Handler extends ExceptionHandler
         'password_confirmation',
     ];
 
+
     /**
      * Register the exception handling callbacks for the application.
      *
@@ -36,14 +40,14 @@ class Handler extends ExceptionHandler
     public function register()
     {
         $this->reportable(function (Throwable $e) {
-            //
+            
+        });
+        $this->renderable(function (MethodNotAllowedHttpException $e) {
+            // return response()->json(['message' => 'Method Not Allowed'], 405);
+            // return new RedirectResponse(url()->current());
+            abort(404);
         });
     }
-    // public function render($request, \Throwable $e)
-    // {
-    //     if ($e instanceof MethodNotAllowedHttpException) {
-    //         return false;
-    //     }
 
-    // }
+   
 }

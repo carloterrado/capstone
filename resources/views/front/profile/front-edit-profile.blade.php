@@ -71,17 +71,11 @@
                     <div class="col-span-6 sm:col-span-3 relative">
                         <input id="edit-id-file" name="edit-id-file" class="w-full mt-2 text-sm text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" aria-describedby="file_input_help" type="file" />
                         <label id="edit-id-file-error" for="edit-id-file" class=" hidden pb-1 text-sm font-semibold lg:pl-2 text-gray-500">Valid id file</label>
-                        <input type="text" name="current-id-file" value="{{ Auth::user()->valid_id_file }}"  class="hidden">
                     </div>
                    
-                    <div class="col-span-6 sm:col-span-3 relative">
-                        <label id="edit-license-error" for="edit-license" class="pb-1 text-sm font-semibold lg:pl-2 text-gray-500">License</label>
-                        <input id="edit-license" name="edit-license" class="w-full mt-2 text-sm text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" aria-describedby="file_input_help" type="file" />
-                        <input type="text" name="current-license" value="{{ Auth::user()->license }}"  class="hidden">
-                    </div>
-                   
+                
+                    <label id="edit-submit-form-error" class=" hidden py-4 text-sm  font-semibold lg:pl-2 text-[lightcoral]"></label>
                 </div>
-                <label id="edit-submit-form-error" class=" hidden py-4 text-sm  font-semibold lg:pl-2 text-[lightcoral]"></label>
             </div>
             <div class="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
                  

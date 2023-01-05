@@ -712,7 +712,6 @@ $(function(){
       {
           validateName('#edit-last-name','#edit-last-name-error','Lastname');
       })
-    
       $('#edit-birthdate').on('keyup keypress',function()
       {
           validateBirthdate('#edit-birthdate','#edit-birthdate-error');
@@ -729,6 +728,9 @@ $(function(){
       {
           validateValidID('#edit-valid-id','#edit-valid-id-error');
       })
+      $('#edit-id-file').on('change',function(){
+        validateImageFile('#edit-id-file','#edit-id-file-error')
+      })
       //        Validate signup form upon submission
       $('#edit-profile-form').on('submit', function(event)
       {
@@ -736,43 +738,11 @@ $(function(){
 
           function validateSignupForm(){
                 
-              let license = $('#edit-license').val() 
               let valid_id_file = $('#edit-id-file').val() 
                
-              if(license.length !== 0 && valid_id_file.length !== 0)
+              if(valid_id_file.length !== 0)
               {
-                let valid = validateName('#edit-first-name','#edit-first-name-error','First name') && validateName('#edit-last-name','#edit-last-name-error', 'Last name') && validateBirthdate('#edit-birthdate','#edit-birthdate-error') && validateContact('#edit-contact','#edit-contact-error') &&  validateAddress('#edit-address','#edit-address-error')  && validateValidID('#edit-valid-id','#edit-valid-id-error') && validateImageFile('#edit-id-file','#edit-id-file-error') && validateLicenseFile('#edit-license','#edit-license-error');
-                if(!valid)
-                {  
-                    $('#edit-submit-form-error').show();
-                    $('#edit-submit-form-error').text('Please fill up the form correctly');
-                    setTimeout(function()
-                    {
-                        $('#edit-submit-form-error').hide();
-                    },3000);
-                    return false;
-                }
-                return true;
-              }
-              else if(license.length === 0 && valid_id_file.length !== 0)
-              {
-                
-                let valid = validateName('#edit-first-name','#edit-first-name-error','First name') && validateName('#edit-last-name','#edit-last-name-error', 'Last name') && validateBirthdate('#edit-birthdate','#edit-birthdate-error') && validateContact('#edit-contact','#edit-contact-error') && validateAddress('#edit-address','#edit-address-error')  && validateValidID('#edit-valid-id','#edit-valid-id-error') && validateImageFile('#edit-id-file','#edit-id-file-error') ;
-                if(!valid)
-                {  
-                    $('#edit-submit-form-error').show();
-                    $('#edit-submit-form-error').text('Please fill up the form correctly');
-                    setTimeout(function()
-                    {
-                        $('#edit-submit-form-error').hide();
-                    },3000);
-                    return false;
-                }
-                return true;
-              }
-              else if(license.length !== 0 && valid_id_file.length === 0)
-              {
-                let valid = validateName('#edit-first-name','#edit-first-name-error','First name') && validateName('#edit-last-name','#edit-last-name-error', 'Last name') && validateBirthdate('#edit-birthdate','#edit-birthdate-error') && validateContact('#edit-contact','#edit-contact-error') && validateAddress('#edit-address','#edit-address-error')  && validateValidID('#edit-valid-id','#edit-valid-id-error') && validateLicenseFile('#edit-license','#edit-license-error');
+                let valid = validateName('#edit-first-name','#edit-first-name-error','First name') && validateName('#edit-last-name','#edit-last-name-error', 'Last name') && validateBirthdate('#edit-birthdate','#edit-birthdate-error') && validateContact('#edit-contact','#edit-contact-error') &&  validateAddress('#edit-address','#edit-address-error')  && validateValidID('#edit-valid-id','#edit-valid-id-error') && validateImageFile('#edit-id-file','#edit-id-file-error');
                 if(!valid)
                 {  
                     $('#edit-submit-form-error').show();
@@ -889,7 +859,7 @@ $(function(){
     })
 
     $('#sortCar').on('submit',function(event){
-        event.preventDefault();
+       
         const type = $('#type').val()
         const capacity = $('#capacity').val()
         const driver = $('#driver').val()
@@ -897,47 +867,11 @@ $(function(){
       
         if(type !== null && capacity !== null && driver !== null )
         {
-      
-            // this.form.submit();
-            $('.loading').removeClass('hidden')
-            $('.loading').addClass('grid')
-            const formData = new FormData($(this)[0]);
-        
-            
-            $.ajax({
-                headers: {
-                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-                },
-                type: 'POST',
-                url:'/cars',
-                data:formData,
-                processData: false,
-                contentType: false,
-                success:function(data){
-                    $('.loading').removeClass('grid')
-                    $('.loading').hide()
-                    //    alert(JSON.stringify(data['data']))
-                    //    return false
-                    $('.car_filter').html(data)
-                    const mainWidth = $('body').width()
-                    if(mainWidth < 1024)
-                    {
-                        $('#view-car-sort').slideToggle() 
-                    }
-                },
-                error: function(){
-                    $('.loading').removeClass('grid')
-                    $('.loading').hide()
-                    $('.error-container').show()
-                    $('.error-message').html('System error! filter car failed.')
-                    setTimeout(function(){
-                        $('.error-container').hide()
-                    },3000)
-                }
-            })
+        return true;  
         }
         else
         {
+            event.preventDefault();
             $('#search-error-message').html('The above information is required!')
             setTimeout(function(){
                 $('#search-error-message').html('')
@@ -945,7 +879,7 @@ $(function(){
         }
        
     })
-      
+   
     
    
 });

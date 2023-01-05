@@ -30,12 +30,10 @@ Route::prefix('/')->group(function()
     });
     Route::get('about',[FrontController::class,'about']);
     Route::get('contact',[FrontController::class,'contact']);
-
     Route::get('login',[FrontController::class,'getLogin'])->name('login');
     Route::post('arkilla-login',[FrontController::class,'login']);
     Route::match(['get','post'],'signup',[FrontController::class,'signup']);
     Route::get('success',[FrontController::class,'success']);
-
     Route::match(['get','post'],'forgot-password',[FrontController::class, 'forgotPassword']);
       //    Owner confirmation route
     Route::get('confirm/{code}',[FrontController::class, 'confirmEmail']);
@@ -81,7 +79,7 @@ Route::prefix('admin')->group(function()
         Route::get('new-owners',[AdminController::class,'newOwners']);
         Route::get('declined-owners',[AdminController::class,'declinedOwners']);
         Route::get('users',[AdminController::class,'users']);
-        Route::get('unverified-users',[AdminController::class,'unverifiedUsers']);
+        Route::get('inactive-users',[AdminController::class,'unverifiedUsers']);
         Route::post('update-admin-status',[AdminController::class,'updateAdminStatus']);
         Route::post('update-user-status',[AdminController::class,'updateUserStatus']);
         Route::post('delete-admin',[AdminController::class,'deleteAdminAccount']);
