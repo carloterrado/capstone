@@ -22,7 +22,7 @@
                 @if ($car['driver'] === '1')
                     With driver
                 @else
-                    Car only
+                    Self Drive
                 @endif
                 </span> 
             </div>

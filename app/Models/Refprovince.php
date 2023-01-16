@@ -5,12 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Refregion extends Model
+class Refprovince extends Model
 {
     use HasFactory;
-
-    public function province()
+    public function city()
     {
-        return $this->hasMany(Refprovince::class,'regCode')->with('city');
+        return $this->hasMany(Refcitymun::class,'provCode');
     }
 }

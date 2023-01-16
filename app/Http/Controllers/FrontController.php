@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use App\Models\Car;
 use App\Models\CarType;
+use App\Models\Refregion;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -34,6 +35,8 @@ class FrontController extends Controller
        
      
         $cartypes = CarType::where('status',1)->get()->toArray();
+        $regions = Refregion::with('province')->where('status',1)->get()->toArray();
+        dd($regions);
         
         if($request->isMethod('post'))
         {
@@ -51,7 +54,7 @@ class FrontController extends Controller
                     // return response()->json(['data'=>$cars]);
                 // dd($cars);
           
-            return view('front.home')->with(compact('cars','cartypes'));
+            return view('front.home')->with(compact('cars','cartypes','regions'));
            
         }
         else
@@ -70,11 +73,11 @@ class FrontController extends Controller
                 
                 $cars = Car::with('carPhotos','carPrice','carTypes')->where(['status'=>1,'account'=>'verified'])->orderBy('id')->paginate(6);
             }
-            return view('front.home')->with(compact('cars','cartypes'));
+            return view('front.home')->with(compact('cars','cartypes','regions'));
 
             // dd($cars);
             
-        return view('front.home')->with(compact('cars','cartypes'));
+        return view('front.home')->with(compact('cars','cartypes','regions'));
         }
 
     }

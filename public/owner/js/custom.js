@@ -1347,6 +1347,9 @@ $(function(){
         $('.view-step').hide()
         $('.detail-three').show() 
     })
+    $(document).on('click','.view-registration-image',function(){
+        $('.registration-image').slideToggle()
+    })
     //       Edit car status
     $('#arkilla-table').on("click",".updateCarStatus", async function () 
     {

@@ -879,6 +879,22 @@ $(function(){
         }
        
     })
+
+    var $tabLinks = $("[role='tab']");
+    $tabLinks.each(function(){
+        if ($(this).attr("aria-selected") === "true") {
+            $(this).removeClass('text-blue-600 border-blue-600 border-transparent').addClass('text-accent-regular border-accent-regular');
+        } 
+    });
+
+    $(document).on('click','[role="tab"]', function() {
+        // Remove aria-selected attribute from current active tab
+        $('[role="tab"]').attr("aria-selected", "false");
+        $('[role="tab"]').attr('class','').addClass('text-gray-500 hover:text-accent-regular border-gray-100 hover:border-accent-regular inline-block p-4 border-b-2 border-transparent rounded-t-lg uppercase');
+        // Add aria-selected attribute to clicked tab link
+        $(this).attr("aria-selected", "true");
+        $(this).removeClass('text-gray-500 border-gray-100 border-transparent').addClass('text-accent-regular border-accent-regular');
+      });
    
     
    
