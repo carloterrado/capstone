@@ -36,7 +36,7 @@ class FrontController extends Controller
      
         $cartypes = CarType::where('status',1)->get()->toArray();
         $regions = Refregion::with('province')->where('status',1)->get()->toArray();
-        dd($regions);
+        // dd($regions);
         
         if($request->isMethod('post'))
         {

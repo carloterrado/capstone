@@ -895,7 +895,50 @@ $(function(){
         $(this).attr("aria-selected", "true");
         $(this).removeClass('text-gray-500 border-gray-100 border-transparent').addClass('text-accent-regular border-accent-regular');
       });
-   
+
+      
+
+    //   Destination
+      const regions = $('div[data-regions]').data('regions');
+
+      $.each(regions, function(index, region) {
+          $("<option>").val(region.id).text(region.regDesc).appendTo('.region');
+      });
+      
+      $(document).on('change','.region', function(event) {
+        if(event.target === this)
+        {
+            var region_id = $(this).val();
+            // console.log(JSON.stringify(regions,null,2))
+          $('.province').html('<option disabled selected>Select</option>');
+          $('.city').html('<option disabled selected>Select</option>');
+          $.each(regions, function(index, region) {
+              if (region.id == region_id) {
+                  $.each(region.province, function(index, province) {
+                      $("<option>").val(province.id).text(province.provDesc).appendTo('.province');
+                  });
+              }
+          });
+        } 
+      });
+      
+      $(document).on('change','.province', function(event) {
+        if(event.target === this)
+        {
+          var province_id = $(this).val();
+          $('.city').html('<option disabled selected>Select</option>');
+          $.each(regions, function(index, region) {
+              $.each(region.province, function(index, province) {
+                  if (province.id == province_id) {
+                      $.each(province.city, function(index, city) {
+                          $("<option>").val(city.id).text(city.citymunDesc).appendTo('.city');
+                      });
+                  }
+              });
+          });
+        }
+      });
+      
     
    
 });

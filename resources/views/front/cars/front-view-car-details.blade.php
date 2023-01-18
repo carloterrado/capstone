@@ -107,37 +107,37 @@
                             <div class="">   
                                 <label class="block mb-2 text-sm font-semibold text-gray-900 uppercase text-center">Destination </label>
                                 <label class="block mb-2 text-xs font-medium text-gray-900 uppercase">Region: </label>
-                                <select name="type" id="type" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:outline-none focus:ring-0 focus:border-gray-900 block w-full p-2.5 ">
+                                <select name="region"  class="region bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:outline-none focus:ring-0 focus:border-gray-900 block w-full p-2.5 ">
                                 <option disabled selected>Select</option>
-                                @foreach ($regions as $region )
+                                <!-- @foreach ($regions as $region )
                                     <option value="{{$region['id']}}">{{$region['regDesc']}}</option>
-                                @endforeach
+                                @endforeach -->
                                 </select>
                             </div> 
-                            <div class="mt-6">   
+                            <div class="mt-4">   
                                 <label class="block mb-2 text-xs font-medium text-gray-900 uppercase">Province: </label>
-                                <select name="type" id="type" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:outline-none focus:ring-0 focus:border-gray-900 block w-full p-2.5 ">
+                                <select name="province"  class="province bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:outline-none focus:ring-0 focus:border-gray-900 block w-full p-2.5 ">
                                 <option disabled selected>Select</option>
-                                @foreach ($regions as $region )
-                                    <option value="{{$region['id']}}">{{$region['regDesc']}}</option>
-                                @endforeach
+                               
                                 </select>
                             </div> 
-                            <div class="mt-6">   
+                            <div class="mt-4">   
                                 <label class="block mb-2 text-xs font-medium text-gray-900 uppercase">City: </label>
-                                <select name="type" id="type" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:outline-none focus:ring-0 focus:border-gray-900 block w-full p-2.5 ">
+                                <select name="city" class="city bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:outline-none focus:ring-0 focus:border-gray-900 block w-full p-2.5 ">
                                 <option disabled selected>Select</option>
-                                @foreach ($regions as $region )
-                                    <option value="{{$region['id']}}">{{$region['regDesc']}}</option>
-                                @endforeach
+                              
                                 </select>
                             </div> 
-                            <div class="mt-6">   
+                            <div class="mt-4">   
                                 <label class="block mb-2 text-sm font-semibold text-gray-900 uppercase text-center">Rent option </label>
-                                <select name="driver" id="driver" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-0 focus:border-gray-900 block w-full p-2.5 ">
+                                <select name="driver" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-0 focus:border-gray-900 block w-full p-2.5 ">
                                 <option disabled selected>Select</option>
+                                @if ($car['driver'] === '1')
                                 <option value="1">With Driver</option>
                                 <option value="0">Self Drive</option>
+                                @else
+                                <option value="0">Self Drive</option>
+                                @endif
                                 </select>
                             </div>
                         </div>
@@ -219,3 +219,4 @@
     </form>
 </div>
 </div>
+
