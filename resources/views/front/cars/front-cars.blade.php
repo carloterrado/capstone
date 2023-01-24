@@ -1,6 +1,8 @@
 <main id="cars" class="min-h-[calc(100vh-5rem)] md:min-h-[calc(100vh-5.5rem)] grid grid-cols-6 lg:grid-cols-9 gap-6 p-2 py-12 sm:p-6 sm:py-12">
     <div data-regions="{{json_encode($regions)}}" id="car-preview" class="col-span-6 lg:col-span-7 grid grid-cols-6 gap-6 car_filter relative">
        @include('front.cars.front-ajax-cars')
+       <script src="{{url('js/fecha.min.js')}}"></script>
+        <script src="{{url('js/datepicker.js')}}"></script>
        
     </div>
     <div id="view-car-sort" class="col-span-2 hidden max-w-sm lg:block fixed inset-0  lg:relative overflow-y-auto z-10">
@@ -87,6 +89,8 @@
     
     
 </main>
+
+
 <script>
     window.onload = function () {
     slideOne();
@@ -120,6 +124,8 @@
     percent2 = (sliderTwo.value / sliderMaxValue) * 100;
     sliderTrack.style.background = `linear-gradient(to right, #dadae5 ${percent1}% , #3264fe ${percent1}% , #3264fe ${percent2}%, #dadae5 ${percent2}%)`;
     }
+
+
 
     
 </script>
