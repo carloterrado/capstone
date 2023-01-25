@@ -938,67 +938,133 @@ $(function(){
           });
         }
       });
-
-     $(document).on('focus','.date-input', function (event) {
-        if(event.target === this){
-           $(this).next().remove();
-            var today = new Date();
-            var tomorrow = new Date();
-
-            tomorrow.setDate(tomorrow.getDate() + 1);
-            // var input1 = document.querySelector('.range-input input');
+    
+    //   var picker;
+    //  $(document).on('focus','.date-input', function (event) {
+       
+    //     if(event.target === this){
         
-            var input1 = $(this)[0];
+    //         var input1 = $(this)[0];
 
-            var startDate = fecha.format(today, 'YYYY-MM-DD');
-            var endDate = fecha.format(tomorrow, 'YYYY-MM-DD');
-            $(this).val(startDate + ' - ' + endDate);
-            $(this).val('');
             
-            var data =  [{
-                'start' : "01/25/2023",
-                'end' : "01/26/2023"
-                },
-                {
-                'start' : "02/04/2023",
-                'end' : "02/07/2023"
-                },
-                {
-                    'start' : "02/15/2023",
-                    'end' : "02/20/2023"
-                },
-                {
-                    'start' : "02/28/2023",
-                    'end' : "02/28/2023"
-            }];
+    //         var data =  [{
+    //             'start' : "01/25/2023",
+    //             'end' : "01/26/2023"
+    //             },
+    //             {
+    //             'start' : "02/04/2023",
+    //             'end' : "02/07/2023"
+    //             },
+    //             {
+    //                 'start' : "02/15/2023",
+    //                 'end' : "02/20/2023"
+    //             },
+    //             {
+    //                 'start' : "02/28/2023",
+    //                 'end' : "02/28/2023"
+    //         }];
 
-            // --------------- STORE DATA FROM DATABASE TO AN ARRAY ------------ //   
+          
+    //         var bookdates = [];
+
+    //         for (let i = 0; i < data.length; i++) {
+
+    //             var starts = new Date(data[i].start);
+    //             var ends = new Date(data[i].end);
+    //             var set = new Date(data[0].end);
+    //             set.setDate(set.getDate() + 1);
+             
+    //             while (starts <= ends) {
+    //                 bookdates.push(fecha.format(new Date(starts), 'YYYY-MM-DD'));
+    //                 starts.setDate(starts.getDate() + 1);
+    //             }
+    //         }
+
+           
+
+    //         if($(this).next().length > 0)
+    //         {
+    //            delete picker;
+    //             picker = null; 
+                
+    //             $('.datepicker')[0].detach()
+    //             picker = new Datepicker(input1, {
+    //                 autoClose: true,
+    //                 disabledDates: bookdates
+    
+    //             });
+                
+
+              
+    //         }
+    //         else
+    //         {
+    //             picker = new Datepicker(input1, {
+    //                 autoClose: true,
+    //                 disabledDates: bookdates
+    
+    //             });
+    //         }
+              
+    //     }
+    //  });
+      
+ 
+        
             
-            // console.log(data);
-            var bookdates = [];
 
-            for (let i = 0; i < data.length; i++) {
 
-                var starts = new Date(data[i].start);
-                var ends = new Date(data[i].end);
-                var set = new Date(data[0].end);
-                set.setDate(set.getDate() + 1);
-                // input1.val("fecha.format(set,'YYYY-MM-DD') + ' - ' + fecha.format(set,'YYYY-MM-DD')");
-                while (starts <= ends) {
-                    bookdates.push(fecha.format(new Date(starts), 'YYYY-MM-DD'));
-                    starts.setDate(starts.getDate() + 1);
-                }
+            
+    var data =  [{
+        'start' : "01/25/2023",
+        'end' : "01/26/2023"
+        },
+        {
+        'start' : "02/04/2023",
+        'end' : "02/07/2023"
+        },
+        {
+            'start' : "02/15/2023",
+            'end' : "02/20/2023"
+        },
+        {
+            'start' : "02/28/2023",
+            'end' : "02/28/2023"
+    }];
+
+          
+            
+    $('.date-input').each(function() {
+        var input1 = $(this)[0];
+        var bookdates = [];
+
+        for (let i = 0; i < data.length; i++) {
+
+            var starts = new Date(data[i].start);
+            var ends = new Date(data[i].end);
+            var set = new Date(data[0].end);
+            set.setDate(set.getDate() + 1);
+        
+            while (starts <= ends) {
+                bookdates.push(fecha.format(new Date(starts), 'YYYY-MM-DD'));
+                starts.setDate(starts.getDate() + 1);
             }
-
-            // --------------- ADD INPUT DATE AND DISABLE BOOK DATE ------------- //
-
-            var picker = new Datepicker(input1, {
-                autoClose: true,
-                disabledDates: bookdates
-
-            });
         }
-     });
+        var picker = new Datepicker(input1, {
+            inline: true,
+            autoClose: false,
+            disabledDates: bookdates
+        });
+        
+        
+    });
+           
+                
+
+              
+          
+              
+    
       
     
    
