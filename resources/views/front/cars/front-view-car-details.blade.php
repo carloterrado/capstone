@@ -4,7 +4,7 @@
 <div class="relative w-full max-w-4xl m-auto bg-white rounded-lg">
 
     
-    <form  class="relative bg-white rounded-lg shadow ">
+    <form  class=" form relative bg-white rounded-lg shadow " data-yes="yes">
       
         <div class="view-step detail-one pb-6">
             <div class="flex justify-between px-2 pt-6 pb-4 sm:p-6 rounded-t items-center ">
@@ -71,7 +71,7 @@
                             <div class="grid grid-cols-6 border-b-2 mb-4">
                                 <h3 class="col-span-3 text-sm font-semibold">Driver's Fee:</h3>
                                 <p class="col-span-3 text-sm font-semibold">
-                                    {{'₱ '.$car['drivers_fee'].'.00'}} / Day
+                                    {{'₱ '.number_format($car['drivers_fee'],2,'.',',')}} / Day
                                 </p>
                             </div>
                         </div>
@@ -100,7 +100,7 @@
                 <div class="col-span-8 md:col-span-3">
                     <div class="bg-[#f5f5f5] pb-4">
                         <div class="p-4 bg-[#302E2E]">
-                            <h3 class="text-lg sm:text-xl font-semibold text-white text-center mb-2 ">{{'₱ '.$car['carPrice'][3]['price'].'.00'}} <span class="text-accent-regular"> / Day</span></h3>
+                            <h3 class="text-lg sm:text-xl font-semibold text-white text-center mb-2 ">{{'₱'.number_format($car['carPrice'][3]['price'],2,'.',',')}} <span class="text-accent-regular"> / Day</span></h3>
                             <p class="text-white text-[10px] text-center">Price may vary as per destination</p>
                         </div>
                        
@@ -108,10 +108,10 @@
                             <div class="picker">
                                 <div class="picker__item">
                                     <div class="range-input relative">
-                                        <label class="block mb-2 text-sm font-semibold text-gray-900 uppercase text-center">Select Date(s) </label>
+                                        <!-- <label class="block mb-2 text-sm font-semibold text-gray-900 uppercase text-center">Select Date(s) </label> -->
                                         <div class="relative">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="absolute right-2 top-2 pointer-events-none z-50" width="1em" height="1em" viewBox="0 0 24 24"><path fill="#e84949" d="M12 14q-.425 0-.712-.288Q11 13.425 11 13t.288-.713Q11.575 12 12 12t.713.287Q13 12.575 13 13t-.287.712Q12.425 14 12 14Zm-4 0q-.425 0-.713-.288Q7 13.425 7 13t.287-.713Q7.575 12 8 12t.713.287Q9 12.575 9 13t-.287.712Q8.425 14 8 14Zm8 0q-.425 0-.712-.288Q15 13.425 15 13t.288-.713Q15.575 12 16 12t.712.287Q17 12.575 17 13t-.288.712Q16.425 14 16 14Zm-4 4q-.425 0-.712-.288Q11 17.425 11 17t.288-.712Q11.575 16 12 16t.713.288Q13 16.575 13 17t-.287.712Q12.425 18 12 18Zm-4 0q-.425 0-.713-.288Q7 17.425 7 17t.287-.712Q7.575 16 8 16t.713.288Q9 16.575 9 17t-.287.712Q8.425 18 8 18Zm8 0q-.425 0-.712-.288Q15 17.425 15 17t.288-.712Q15.575 16 16 16t.712.288Q17 16.575 17 17t-.288.712Q16.425 18 16 18ZM5 22q-.825 0-1.413-.587Q3 20.825 3 20V6q0-.825.587-1.412Q4.175 4 5 4h1V2h2v2h8V2h2v2h1q.825 0 1.413.588Q21 5.175 21 6v14q0 .825-.587 1.413Q19.825 22 19 22Zm0-2h14V10H5v10Z"/></svg>
-                                            <input type="text"  value="" name="date" class="date-input block px-2.5 py-2 w-full text-xs text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-300 mb-4" placeholder="choose date" readonly>
+                                            <input type="text"  value="" name="date" class="date-input block px-2.5 py-2 w-full text-xs text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-300 mb-4" placeholder="choose date" >
                                         </div>
                                         <div class="text-[10px] grid grid-cols-4 mt-2">
                                             <div class="flex items-center gap-1 col-span-2 ml-4">
@@ -129,7 +129,7 @@
                             <div class="mt-4">   
                                 <label class="block mb-2 text-sm font-semibold text-gray-900 uppercase text-center">Destination </label>
                                 <label class="block mb-2 text-xs font-medium text-gray-900 uppercase">Region: </label>
-                                <select name="region"  class="region bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:outline-none focus:ring-0 focus:border-gray-900 block w-full p-2.5 ">
+                                <select name="region" data-price="{{json_encode($car['carPrice'])}}" class="region bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:outline-none focus:ring-0 focus:border-gray-900 block w-full p-2.5 ">
                                 <option disabled selected>Select</option>
                               
                                 </select>
@@ -159,6 +159,13 @@
                             </div>
                             @endif
                         </div>
+                        <div class="mx-2 sm:mx-6 mt-4 sm:mt-0  h-1 rounded-full bg-accent-regular">
+                        </div>
+                        <div class="px-2 py-6 md:p-6">
+                            <input type="hidden" value="{{ $car['carPrice'][3]['price']}}" name="total-price" class="total-price">
+                            <h4 class="total font-semibold">{{'Total: ₱'.number_format($car['carPrice'][3]['price'],2,'.',',')}} </h4>
+                        </div>
+
                         <div class="mt-6 px-6">
                             <button type="submit" class="btn-1 bg-accent-regular w-full   text-white whitespace-nowrap uppercase">Reserve this car</button>
                         </div>

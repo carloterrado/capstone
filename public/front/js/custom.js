@@ -900,6 +900,7 @@ $(function(){
 
     //   Destination
       const regions = $('div[data-regions]').data('regions');
+      
 
       $.each(regions, function(index, region) {
           $("<option>").val(region.id).text(region.regDesc).appendTo('.region');
@@ -909,6 +910,9 @@ $(function(){
         if(event.target === this)
         {
             var region_id = $(this).val();
+            const prices = $(this).data('price');
+            // console.log(prices)
+            
             // console.log(JSON.stringify(regions,null,2))
           $('.province').html('<option disabled selected>Select</option>');
           $('.city').html('<option disabled selected>Select</option>');
@@ -917,8 +921,56 @@ $(function(){
                   $.each(region.province, function(index, province) {
                       $("<option>").val(province.id).text(province.provDesc).appendTo('.province');
                   });
-              }
+              }   
+             
           });
+          var form = $(this).closest('form')
+          var total = form.find('.total')
+          var totalValue = form.find('.total-price')
+          var dateInput = form.find('.date-input').val()
+          $.each(prices, function(index, price){
+                if(region_id == price.reg_id)
+                {
+                    var newPrice = price.price;
+                    // console.log(dateInput.val())
+                    if(dateInput === '')
+                    {
+                        total.text('Total: ₱' + parseFloat(newPrice.toFixed(2)).toLocaleString('en-US', {
+                            style: 'decimal',
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                            useGrouping: true
+                        }))
+                        totalValue.val(price.price)
+                    }
+                    else
+                    {
+                        const dates = dateInput.split(" - ");
+                        const startDate = new Date(dates[0]);
+                        const endDate = new Date(dates[1]);
+                        const diffTime = Math.abs(endDate - startDate);
+                        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                        
+                        if(diffDays < 1) {
+                           var bookDays = diffDays + 1;
+                        }
+                        else
+                        {
+                            var bookDays = diffDays;
+                        }
+                            
+                        total.text('Total: ₱' + parseFloat(newPrice.toFixed(2) * bookDays).toLocaleString('en-US', {
+                            style: 'decimal',
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                            useGrouping: true
+                        }))
+                        totalValue.val(price.price * bookDays)
+                        // console.log(diffDays);
+                    }
+                }
+                
+            })
         } 
       });
       
@@ -938,79 +990,59 @@ $(function(){
           });
         }
       });
+     
     
-    //   var picker;
-    //  $(document).on('focus','.date-input', function (event) {
-       
-    //     if(event.target === this){
-        
-    //         var input1 = $(this)[0];
+  $(document).on('change','.date-input', function(){
+    alert('change')
+  })
 
-            
-    //         var data =  [{
-    //             'start' : "01/25/2023",
-    //             'end' : "01/26/2023"
-    //             },
-    //             {
-    //             'start' : "02/04/2023",
-    //             'end' : "02/07/2023"
-    //             },
-    //             {
-    //                 'start' : "02/15/2023",
-    //                 'end' : "02/20/2023"
-    //             },
-    //             {
-    //                 'start' : "02/28/2023",
-    //                 'end' : "02/28/2023"
-    //         }];
+        $(document).on('change','.datepicker__month-day', function(event){
 
-          
-    //         var bookdates = [];
+            if(event.target === this)
+            {
+                //    alert('this is the target')
 
-    //         for (let i = 0; i < data.length; i++) {
+                var form = $(this).closest('form')
+                var total = form.find('.total')
+                var dateInput = form.find('.date-input').val()
+                var totalValue = form.find('.total-price').val()
+                console.log(dateInput)
+                var dateRangeRegex = /^\d{4}-\d{2}-\d{2} - \d{4}-\d{2}-\d{2}$/;
 
-    //             var starts = new Date(data[i].start);
-    //             var ends = new Date(data[i].end);
-    //             var set = new Date(data[0].end);
-    //             set.setDate(set.getDate() + 1);
-             
-    //             while (starts <= ends) {
-    //                 bookdates.push(fecha.format(new Date(starts), 'YYYY-MM-DD'));
-    //                 starts.setDate(starts.getDate() + 1);
-    //             }
-    //         }
+                if(dateRangeRegex.test(dateInput))
+                {
+                    const dates = dateInput.split(" - ");
+                    const startDate = new Date(dates[0]);
+                    const endDate = new Date(dates[1]);
+                    const diffTime = Math.abs(endDate - startDate);
+                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                    
+                    if(diffDays < 1) {
+                       var bookDays = diffDays + 1;
+                    }
+                    else
+                    {
+                        var bookDays = diffDays;
+                    }
 
-           
+                        
+                    total.text('Total: ₱' + parseFloat(totalValue.toFixed(2) * bookDays).toLocaleString('en-US', {
+                        style: 'decimal',
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                        useGrouping: true
+                    }))
+                    totalValue.val(totalValue * bookDays)
 
-    //         if($(this).next().length > 0)
-    //         {
-    //            delete picker;
-    //             picker = null; 
+                }
+                else
+                {
+                    console.log(dateInput)
+                }
                 
-    //             $('.datepicker')[0].detach()
-    //             picker = new Datepicker(input1, {
-    //                 autoClose: true,
-    //                 disabledDates: bookdates
-    
-    //             });
-                
-
-              
-    //         }
-    //         else
-    //         {
-    //             picker = new Datepicker(input1, {
-    //                 autoClose: true,
-    //                 disabledDates: bookdates
-    
-    //             });
-    //         }
-              
-    //     }
-    //  });
-      
- 
-        
+                // console.log(typeof totalValue)
+            }
+        })
             
 
 
@@ -1053,7 +1085,48 @@ $(function(){
         var picker = new Datepicker(input1, {
             inline: true,
             autoClose: false,
-            disabledDates: bookdates
+            disabledDates: bookdates,
+            onSelectRange: function() {
+                var form = $(input1).closest('form')[0]
+                var total = $(form).find('.total')
+                var dateInput = $(form).find('.date-input').val()
+                // console.log(dateInput)
+                var totalValue = parseFloat($(form).find('.total-price').val());
+                var dateRangeRegex = /^\d{4}-\d{2}-\d{2} - \d{4}-\d{2}-\d{2}$/;
+                
+                if(dateRangeRegex.test(dateInput))
+                {
+                    const dates = dateInput.split(" - ");
+                    const startDate = new Date(dates[0]);
+                    const endDate = new Date(dates[1]);
+                    const diffTime = Math.abs(endDate - startDate);
+                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                    
+                    if(diffDays < 1) {
+                        var bookDays = diffDays + 1;
+                    }
+                    else
+                    {
+                        var bookDays = diffDays;
+                    }
+                    
+                    
+                    $(total).text('Total: ₱' + (totalValue * bookDays).toFixed(2).toLocaleString('en-US', {
+                        style: 'decimal',
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                        useGrouping: true
+                      }));
+                      $(totalValue).val(totalValue * bookDays)
+                      console.log(totalValue)
+                      return false
+
+                }
+                else
+                {
+                    console.log(dateInput)
+                }
+            }
         });
         
         
