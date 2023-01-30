@@ -702,147 +702,147 @@ $(function(){
 
 
 
-      //        Edit profile form validation for input value
-        
-      $('#edit-first-name').on('keyup keypress',function()
-      {
-          validateName('#edit-first-name','#edit-first-name-error','Firstname');
-      })
-      $('#edit-last-name').on('keyup keypress',function()
-      {
-          validateName('#edit-last-name','#edit-last-name-error','Lastname');
-      })
-      $('#edit-birthdate').on('keyup keypress',function()
-      {
-          validateBirthdate('#edit-birthdate','#edit-birthdate-error');
-      })
-      $('#edit-contact').on('keyup keypress',function()
-      {
-          validateContact('#edit-contact','#edit-contact-error');
-      })
-      $('#edit-address').on('keyup keypress',function()
-      {
-          validateAddress('#edit-address','#edit-address-error');
-      })
-      $('#edit-valid-id').on('click keypress',function(event)
-      {
-          validateValidID('#edit-valid-id','#edit-valid-id-error');
-      })
-      $('#edit-id-file').on('change',function(){
-        validateImageFile('#edit-id-file','#edit-id-file-error')
-      })
-      //        Validate signup form upon submission
-      $('#edit-profile-form').on('submit', function(event)
-      {
-          event.preventDefault();
+    //        Edit profile form validation for input value
+    
+    $('#edit-first-name').on('keyup keypress',function()
+    {
+        validateName('#edit-first-name','#edit-first-name-error','Firstname');
+    })
+    $('#edit-last-name').on('keyup keypress',function()
+    {
+        validateName('#edit-last-name','#edit-last-name-error','Lastname');
+    })
+    $('#edit-birthdate').on('keyup keypress',function()
+    {
+        validateBirthdate('#edit-birthdate','#edit-birthdate-error');
+    })
+    $('#edit-contact').on('keyup keypress',function()
+    {
+        validateContact('#edit-contact','#edit-contact-error');
+    })
+    $('#edit-address').on('keyup keypress',function()
+    {
+        validateAddress('#edit-address','#edit-address-error');
+    })
+    $('#edit-valid-id').on('click keypress',function(event)
+    {
+        validateValidID('#edit-valid-id','#edit-valid-id-error');
+    })
+    $('#edit-id-file').on('change',function(){
+    validateImageFile('#edit-id-file','#edit-id-file-error')
+    })
+    //        Validate signup form upon submission
+    $('#edit-profile-form').on('submit', function(event)
+    {
+        event.preventDefault();
 
-          function validateSignupForm(){
-                
-              let valid_id_file = $('#edit-id-file').val() 
-               
-              if(valid_id_file.length !== 0)
-              {
-                let valid = validateName('#edit-first-name','#edit-first-name-error','First name') && validateName('#edit-last-name','#edit-last-name-error', 'Last name') && validateBirthdate('#edit-birthdate','#edit-birthdate-error') && validateContact('#edit-contact','#edit-contact-error') &&  validateAddress('#edit-address','#edit-address-error')  && validateValidID('#edit-valid-id','#edit-valid-id-error') && validateImageFile('#edit-id-file','#edit-id-file-error');
+        function validateSignupForm(){
+            
+            let valid_id_file = $('#edit-id-file').val() 
+            
+            if(valid_id_file.length !== 0)
+            {
+            let valid = validateName('#edit-first-name','#edit-first-name-error','First name') && validateName('#edit-last-name','#edit-last-name-error', 'Last name') && validateBirthdate('#edit-birthdate','#edit-birthdate-error') && validateContact('#edit-contact','#edit-contact-error') &&  validateAddress('#edit-address','#edit-address-error')  && validateValidID('#edit-valid-id','#edit-valid-id-error') && validateImageFile('#edit-id-file','#edit-id-file-error');
+            if(!valid)
+            {  
+                $('#edit-submit-form-error').show();
+                $('#edit-submit-form-error').text('Please fill up the form correctly');
+                setTimeout(function()
+                {
+                    $('#edit-submit-form-error').hide();
+                },3000);
+                return false;
+            }
+            return true;
+            }
+            else
+            {
+                let valid = validateName('#edit-first-name','#edit-first-name-error','First name') && validateName('#edit-last-name','#edit-last-name-error', 'Last name') && validateBirthdate('#edit-birthdate','#edit-birthdate-error') && validateContact('#edit-contact','#edit-contact-error') &&  validateAddress('#edit-address','#edit-address-error')  && validateValidID('#edit-valid-id','#edit-valid-id-error');
                 if(!valid)
-                {  
-                    $('#edit-submit-form-error').show();
-                    $('#edit-submit-form-error').text('Please fill up the form correctly');
-                    setTimeout(function()
-                    {
-                        $('#edit-submit-form-error').hide();
-                    },3000);
-                    return false;
-                }
-                return true;
-              }
-              else
-              {
-                 let valid = validateName('#edit-first-name','#edit-first-name-error','First name') && validateName('#edit-last-name','#edit-last-name-error', 'Last name') && validateBirthdate('#edit-birthdate','#edit-birthdate-error') && validateContact('#edit-contact','#edit-contact-error') &&  validateAddress('#edit-address','#edit-address-error')  && validateValidID('#edit-valid-id','#edit-valid-id-error');
-                 if(!valid)
-                {  
-                    $('#edit-submit-form-error').show();
-                    $('#edit-submit-form-error').text('Please fill up the form correctly');
-                    setTimeout(function()
-                    {
-                        $('#edit-submit-form-error').hide();
-                    },3000);
-                    return false;
-                }
-                return true;
+            {  
+                $('#edit-submit-form-error').show();
+                $('#edit-submit-form-error').text('Please fill up the form correctly');
+                setTimeout(function()
+                {
+                    $('#edit-submit-form-error').hide();
+                },3000);
+                return false;
+            }
+            return true;
 
-              }
-                 
-          }
-            
-          let formData = new FormData($(this)[0]);
-  
-          async function submitSignupForm()
-          {
-              $.ajax({
-                  headers: {
-                      "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-                  },
-                  type: 'POST',
-                  url:'/update-profile',
-                  data:formData,
-                  processData: false,
-                  contentType: false,
-                  success:function(resp){
-                      $('.loading').removeClass('grid')
-                      $('.loading').hide()
-                    //    alert(JSON.stringify(resp['data']))
-                    if(resp["data"] === 'success')
-                    {
-                        $('.success-container').show()
-                        $('.success-message').html('Details updated successfully!')
-                        setTimeout(function(){
-                            window.location.href = '/profile';   
-                        },1500)  
-                    }
-                    else 
-                    {  
-                        $('.error-container').show()
-                        $('.error-message').html('Update details failed!')
-                        $('#edit-profile-form button[type="submit"]').removeClass('hidden')
-                        setTimeout(function(){
-                            $('.error-container').hide()  
-                        },3000)
-                    }
-                     
-                  },
-                  error: function(){
-                      $('.loading').removeClass('grid')
-                      $('.loading').hide()
-                      $('.error-container').show()
-                      $('.error-message').html('System error update details failed!')
-                      $('#edit-profile-form button[type="submit"]').removeClass('hidden')
-                      setTimeout(function(){
-                          $('.error-container').hide()
-                      },3000)
-                  }
-              })
-          }
-          let validated = validateSignupForm()
-         
-         
-          if(validated){
-            $('#edit-profile-form button[type="submit"]').addClass('hidden')
-            
-              $('.loading').removeClass('hidden')
-              $('.loading').addClass('grid')
-              submitSignupForm().catch(function(error){
-                $('#edit-profile-form button[type="submit"]').removeClass('hidden')
-                  $('.loading').removeClass('grid')
-                  $('.loading').hide()
-                  $('.error-container').show()
-                  $('.error-message').html('System update details failed!')
-                  setTimeout(function(){
-                      window.location.href = '/profile';  
-                  },3000)
-              })
-          }
-         
-      })
+            }
+                
+        }
+        
+        let formData = new FormData($(this)[0]);
+
+        async function submitSignupForm()
+        {
+            $.ajax({
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                },
+                type: 'POST',
+                url:'/update-profile',
+                data:formData,
+                processData: false,
+                contentType: false,
+                success:function(resp){
+                    $('.loading').removeClass('grid')
+                    $('.loading').hide()
+                //    alert(JSON.stringify(resp['data']))
+                if(resp["data"] === 'success')
+                {
+                    $('.success-container').show()
+                    $('.success-message').html('Details updated successfully!')
+                    setTimeout(function(){
+                        window.location.href = '/profile';   
+                    },1500)  
+                }
+                else 
+                {  
+                    $('.error-container').show()
+                    $('.error-message').html('Update details failed!')
+                    $('#edit-profile-form button[type="submit"]').removeClass('hidden')
+                    setTimeout(function(){
+                        $('.error-container').hide()  
+                    },3000)
+                }
+                    
+                },
+                error: function(){
+                    $('.loading').removeClass('grid')
+                    $('.loading').hide()
+                    $('.error-container').show()
+                    $('.error-message').html('System error update details failed!')
+                    $('#edit-profile-form button[type="submit"]').removeClass('hidden')
+                    setTimeout(function(){
+                        $('.error-container').hide()
+                    },3000)
+                }
+            })
+        }
+        let validated = validateSignupForm()
+        
+        
+        if(validated){
+        $('#edit-profile-form button[type="submit"]').addClass('hidden')
+        
+            $('.loading').removeClass('hidden')
+            $('.loading').addClass('grid')
+            submitSignupForm().catch(function(error){
+            $('#edit-profile-form button[type="submit"]').removeClass('hidden')
+                $('.loading').removeClass('grid')
+                $('.loading').hide()
+                $('.error-container').show()
+                $('.error-message').html('System update details failed!')
+                setTimeout(function(){
+                    window.location.href = '/profile';  
+                },3000)
+            })
+        }
+        
+    })
 
     
 
@@ -899,117 +899,50 @@ $(function(){
       
 
     //   Destination
-      const regions = $('div[data-regions]').data('regions');
-      
+    const regions = $('div[data-regions]').data('regions');
 
-      $.each(regions, function(index, region) {
-          $("<option>").val(region.id).text(region.regDesc).appendTo('.region');
-      });
-      
-      $(document).on('change','.region', function(event) {
-        if(event.target === this)
-        {
-            var region_id = $(this).val();
-            const prices = $(this).data('price');
-            // console.log(prices)
-            
-            // console.log(JSON.stringify(regions,null,2))
-          $('.province').html('<option disabled selected>Select</option>');
-          $('.city').html('<option disabled selected>Select</option>');
-          $.each(regions, function(index, region) {
-              if (region.id == region_id) {
-                  $.each(region.province, function(index, province) {
-                      $("<option>").val(province.id).text(province.provDesc).appendTo('.province');
-                  });
-              }   
-             
-          });
-          var form = $(this).closest('form')
-          var total = form.find('.total')
-          var totalValue = form.find('.total-price')
-          var dateInput = form.find('.date-input').val()
-          $.each(prices, function(index, price){
-                if(region_id == price.reg_id)
-                {
-                    var newPrice = price.price;
-                    // console.log(dateInput.val())
-                    if(dateInput === '')
-                    {
-                        total.text('Total: ₱' + parseFloat(newPrice.toFixed(2)).toLocaleString('en-US', {
-                            style: 'decimal',
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2,
-                            useGrouping: true
-                        }))
-                        totalValue.val(price.price)
-                    }
-                    else
-                    {
-                        const dates = dateInput.split(" - ");
-                        const startDate = new Date(dates[0]);
-                        const endDate = new Date(dates[1]);
-                        const diffTime = Math.abs(endDate - startDate);
-                        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                        
-                        if(diffDays < 1) {
-                           var bookDays = diffDays + 1;
-                        }
-                        else
-                        {
-                            var bookDays = diffDays;
-                        }
-                            
-                        total.text('Total: ₱' + parseFloat(newPrice.toFixed(2) * bookDays).toLocaleString('en-US', {
-                            style: 'decimal',
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2,
-                            useGrouping: true
-                        }))
-                        totalValue.val(price.price * bookDays)
-                        // console.log(diffDays);
-                    }
-                }
-                
-            })
-        } 
-      });
-      
-      $(document).on('change','.province', function(event) {
-        if(event.target === this)
-        {
-          var province_id = $(this).val();
-          $('.city').html('<option disabled selected>Select</option>');
-          $.each(regions, function(index, region) {
-              $.each(region.province, function(index, province) {
-                  if (province.id == province_id) {
-                      $.each(province.city, function(index, city) {
-                          $("<option>").val(city.id).text(city.citymunDesc).appendTo('.city');
-                      });
-                  }
-              });
-          });
-        }
-      });
-     
+    $.each(regions, function(index, region) {
+        $("<option>").val(region.id).text(region.regDesc).appendTo('.region');
+    });
     
-  $(document).on('change','.date-input', function(){
-    alert('change')
-  })
-
-        $(document).on('change','.datepicker__month-day', function(event){
-
-            if(event.target === this)
+    $(document).on('change','.region', function(event) {
+    if(event.target === this)
+    {
+        var region_id = $(this).val();
+        const prices = $(this).data('price');
+        // console.log(prices)
+        
+        // console.log(JSON.stringify(regions,null,2))
+        $('.province').html('<option disabled selected>Select</option>');
+        $('.city').html('<option disabled selected>Select</option>');
+        $.each(regions, function(index, region) {
+            if (region.id == region_id) {
+                $.each(region.province, function(index, province) {
+                    $("<option>").val(province.id).text(province.provDesc).appendTo('.province');
+                });
+            }   
+            
+        });
+        var form = $(this).closest('form')
+        var total = form.find('.total')
+        var totalValue = form.find('.total-price')
+        var dateInput = form.find('.date-input').val()
+        $.each(prices, function(index, price){
+            if(region_id == price.reg_id)
             {
-                //    alert('this is the target')
-
-                var form = $(this).closest('form')
-                var total = form.find('.total')
-                var dateInput = form.find('.date-input').val()
-                var totalValue = form.find('.total-price').val()
-                console.log(dateInput)
-                var dateRangeRegex = /^\d{4}-\d{2}-\d{2} - \d{4}-\d{2}-\d{2}$/;
-
-                if(dateRangeRegex.test(dateInput))
+                var newPrice = price.price;
+                // console.log(dateInput.val())
+                if(dateInput === '')
+                {
+                    total.text('Total: ₱' + parseFloat(newPrice.toFixed(2)).toLocaleString('en-US', {
+                        style: 'decimal',
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                        useGrouping: true
+                    }))
+                    totalValue.val(price.price)
+                }
+                else
                 {
                     const dates = dateInput.split(" - ");
                     const startDate = new Date(dates[0]);
@@ -1018,34 +951,45 @@ $(function(){
                     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
                     
                     if(diffDays < 1) {
-                       var bookDays = diffDays + 1;
+                        var bookDays = diffDays + 1;
                     }
                     else
                     {
                         var bookDays = diffDays;
                     }
-
                         
-                    total.text('Total: ₱' + parseFloat(totalValue.toFixed(2) * bookDays).toLocaleString('en-US', {
+                    total.text('Total: ₱' + parseFloat(newPrice.toFixed(2) * bookDays).toLocaleString('en-US', {
                         style: 'decimal',
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                         useGrouping: true
                     }))
-                    totalValue.val(totalValue * bookDays)
-
+                    totalValue.val(price.price * bookDays)
+                    // console.log(diffDays);
                 }
-                else
-                {
-                    console.log(dateInput)
-                }
-                
-                // console.log(typeof totalValue)
             }
-        })
             
-
-
+        })
+    } 
+    });
+    
+    $(document).on('change','.province', function(event) {
+    if(event.target === this)
+    {
+        var province_id = $(this).val();
+        $('.city').html('<option disabled selected>Select</option>');
+        $.each(regions, function(index, region) {
+            $.each(region.province, function(index, province) {
+                if (province.id == province_id) {
+                    $.each(province.city, function(index, city) {
+                        $("<option>").val(city.id).text(city.citymunDesc).appendTo('.city');
+                    });
+                }
+            });
+        });
+    }
+    });
+     
             
     var data =  [{
         'start' : "01/25/2023",
@@ -1063,8 +1007,7 @@ $(function(){
             'start' : "02/28/2023",
             'end' : "02/28/2023"
     }];
-
-          
+  
             
     $('.date-input').each(function() {
         var input1 = $(this)[0];
@@ -1089,10 +1032,33 @@ $(function(){
             onSelectRange: function() {
                 var form = $(input1).closest('form')[0]
                 var total = $(form).find('.total')
+                var prices = $(form).find('.region').data('price')
+                var region = $(form).find('.region').val()
                 var dateInput = $(form).find('.date-input').val()
-                // console.log(dateInput)
-                var totalValue = parseFloat($(form).find('.total-price').val());
+                // console.log(prices[3].reg_id)
+                // console.log(prices)
+                // console.log(typeof region)
+                if(region !== null)
+                {
+                    var totalValue;
+                  
+                   
+                    $.each(prices, function(index, price){
+                        if(region === price.reg_id.toString())
+                        {
+                             totalValue = parseFloat(price.price);
+                        }
+                    })
+                }
+                else
+                {
+                    var totalValue = parseFloat(prices[3].price);
+
+                }
+                // var totalValue = parseFloat($(form).find('.total-price').val());
+
                 var dateRangeRegex = /^\d{4}-\d{2}-\d{2} - \d{4}-\d{2}-\d{2}$/;
+
                 
                 if(dateRangeRegex.test(dateInput))
                 {
@@ -1111,14 +1077,13 @@ $(function(){
                     }
                     
                     
-                    $(total).text('Total: ₱' + (totalValue * bookDays).toFixed(2).toLocaleString('en-US', {
+                    $(total).text('Total: ₱' + (totalValue.toFixed(2) * bookDays).toLocaleString('en-US', {
                         style: 'decimal',
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                         useGrouping: true
                       }));
                       $(totalValue).val(totalValue * bookDays)
-                      console.log(totalValue)
                       return false
 
                 }
@@ -1131,10 +1096,221 @@ $(function(){
         
         
     });
+    
            
-                
+    function stepOneValidation(input)
+    {
+        
+        if(input === null)
+        {
+            return false;
+        }
+        if(input.length === 0)
+        {
+            return false;
+        }
+        return true;
+    } 
+    function fullName(nameEl,errorElement,type){
+        const name = nameEl.val()
+        // const error = errorElement;
+        
+        if(name.length == 0){
+            $(errorElement).html(type +' is required!');
+            $(errorElement).css('color','lightcoral');
+            return false;
+        }
+        if(!name.match(/^[A-Za-z]*\s{1}[A-Za-z]*$/)){
+            // /^[A-Za-z]*$/ - characters only
+            // /^[A-Za-z]*\s{1}[A-Za-z]*$/  name and lastname
+            $(errorElement).html('Invalid fullname!');
+            $(errorElement).css('color','lightcoral'); 
+            return false;
+        }
+        if( name.length > 40){  
+            $(errorElement).html(type + ' is too long!');
+            $(errorElement).css('color','lightcoral');
+            return false;
+        }
+        $(errorElement).html(type);
+        $(errorElement).css('color','black');
+        return true;
+    } 
+    function contact(contactEl,errorElement)
+    {
+        let contact = $(contactEl).val();
+        let need = 11;
+        let more = need - contact.length;
+        if(contact.length === 0)
+        {
+            $(errorElement).html('Contact is required!');
+            $(errorElement).css('color','lightcoral');
+            return false;
+        }
+        if(!contact.match(/^09[0-9][0-9]*$/))
+        {
+            $(errorElement).html('Invalid contact!');
+            $(errorElement).css('color','lightcoral');
+            return false;  
+        }
+        if(contact.length < 11)
+        {
+            $(errorElement).html(more + ' more');
+            $(errorElement).css('color','lightcoral');
+            return false;  
+        }
+        if(contact.length > 11)
+        {
+            $(errorElement).html('Invalid contact');
+            $(errorElement).css('color','lightcoral');
+            return false;  
+        }
+        $(errorElement).html('Contact');
+        $(errorElement).css('color','black');
+        return true; 
+    }
+    function fileImage(imageID,errorElementID,text)
+    {
+        let validID = $(imageID).val();
+        if(validID.length === 0)
+        {
 
+            $(errorElementID).html(text +' is required!');
+            $(errorElementID).css('color','lightcoral');
+            return false; 
+        }
+        if(!validID.match(/\.(jpg|jpeg|gif|png)$/))
+        {
+            $(errorElementID).html('Invalid ' + text + ' file');
+            $(errorElementID).css('color','lightcoral');
+            return false; 
+        }
+        $(errorElementID).html(text);
+        $(errorElementID).css('color','black');
+        return true;
+    }
               
+
+    $(document).on('keyup','.fullname',function(event){
+        if(event.target === this)
+        {
+            const nameEl = $(this);
+            const errorElement = $(nameEl).siblings('label');
+            fullName(nameEl,errorElement,'Full Name')
+
+        }
+    })
+    $(document).on('keyup','.contact',function(event){
+        if(event.target === this)
+        {
+            const contactEl = $(this);
+            const errorElement = $(contactEl).siblings('label');
+            contact(contactEl,errorElement)
+
+        }
+    })
+    $(document).on('change', '.license', function(event){
+        if(event.target === this)
+        {
+            const licenseEl = $(this);
+            const errorElement = $(licenseEl).siblings('label');
+            fileImage(licenseEl,errorElement,"Driver's License")
+        }
+    })
+    $(document).on('change', '.utility', function(event){
+        if(event.target === this)
+        {
+            const utilityEl = $(this);
+            const errorElement = $(utilityEl).siblings('label');
+            fileImage(utilityEl,errorElement,"Latest Electric/Water Bill")
+        }
+    })
+    $(document).on('keyup','.address',function(event){
+        if(event.target === this)
+        {
+            const addressEl = $(this);
+            const errorElement = $(addressEl).siblings('label');
+            validateAddress(addressEl,errorElement)
+
+        }
+    })
+        //    Add car form validation
+    $('.step-2').on('click', function(event){
+        if(event.target === this)
+        {
+            const stepTwo = $(this).closest('form');
+            const dateInput = $(stepTwo).find('.date-input').val();
+            const region = $(stepTwo).find('.region').val();
+            const province = $(stepTwo).find('.province').val();
+            const city = $(stepTwo).find('.city').val();
+        
+            // const valid = stepOneValidation(dateInput) && stepOneValidation(region) && stepOneValidation(province) && stepOneValidation(city);
+            const valid = true;
+
+            
+            if(valid)
+            {  
+                $(stepTwo).find('.form-step').hide()
+                $(stepTwo).find('.step-two').show() 
+            }
+            else
+            {
+                $(stepTwo).find('.step1-error').removeClass('hidden');
+                setTimeout(function(){
+                    $(stepTwo).find('.step1-error').addClass('hidden');
+                }, 3000);
+
+            }
+        }
+            
+    })
+    $('.step-1').on('click', function(event){
+        if(event.target === this)
+        {
+            const stepOne = $(this).closest('form');
+            $(stepOne).find('.form-step').hide();
+            $(stepOne).find('.step-one').show();
+        }
+    })
+    $('.step-3').on('click', function(event){
+        if(event.target === this)
+        {
+            const stepThree = $(this).closest('form');
+            const fullname = $(stepThree).find('.fullname');
+            const fullNameError = $(fullname).siblings('label');
+            const contactNumber = $(stepThree).find('.contact');
+            const contactNumberError = $(contactNumber).siblings('label');
+            const licenseImg = $(stepThree).find('.license');
+            const licenseImgError = $(licenseImg).siblings('label');
+            const utilityImg = $(stepThree).find('.utility');
+            const utilityImgError = $(utilityImg).siblings('label');
+            const address = $(stepThree).find('.address');
+            const addressError = $(address).siblings('label');
+
+            let valid = false;
+            if(licenseImg.val() === undefined)
+            {
+                 valid = fullName(fullname,fullNameError,'Full Name') && contact(contactNumber,contactNumberError) && fileImage(utilityImg,utilityImgError, "Latest Electric/Water Bill") && validateAddress(address,addressError);
+            }
+            else
+            {
+                 valid = fullName(fullname,fullNameError,'Full Name') && contact(contactNumber,contactNumberError) && fileImage(licenseImg,licenseImgError, "Driver's License") && fileImage(utilityImg,utilityImgError, "Latest Electric/Water Bill") && validateAddress(address,addressError);
+            }
+
+            // return false
+            
+
+            
+            // let valid =  true;
+            if(valid )
+            {
+                $(stepThree).find('.form-step').hide()
+                $(stepThree).find('.step-three').show()
+            }
+        }
+       
+        
+    })        
           
               
     

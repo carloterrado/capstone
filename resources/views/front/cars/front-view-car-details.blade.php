@@ -4,9 +4,9 @@
 <div class="relative w-full max-w-4xl m-auto bg-white rounded-lg">
 
     
-    <form  class=" form relative bg-white rounded-lg shadow " data-yes="yes">
+    <form  class=" form relative bg-white rounded-lg shadow" >
       
-        <div class="view-step detail-one pb-6">
+        <div class="form-step step-one pb-6">
             <div class="flex justify-between px-2 pt-6 pb-4 sm:p-6 rounded-t items-center ">
                 <h2 class="text-lg sm:text-xl font-semibold uppercase leading-4">{{$car['name']}}</h2>
                 <button data-modal-toggle="{{'view-car'.$car['id']}}" type="button" class="cursor-pointer text-gray-400 bg-transparent hover:bg-accent-regular hover:text-white rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" >
@@ -111,7 +111,7 @@
                                         <!-- <label class="block mb-2 text-sm font-semibold text-gray-900 uppercase text-center">Select Date(s) </label> -->
                                         <div class="relative">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="absolute right-2 top-2 pointer-events-none z-50" width="1em" height="1em" viewBox="0 0 24 24"><path fill="#e84949" d="M12 14q-.425 0-.712-.288Q11 13.425 11 13t.288-.713Q11.575 12 12 12t.713.287Q13 12.575 13 13t-.287.712Q12.425 14 12 14Zm-4 0q-.425 0-.713-.288Q7 13.425 7 13t.287-.713Q7.575 12 8 12t.713.287Q9 12.575 9 13t-.287.712Q8.425 14 8 14Zm8 0q-.425 0-.712-.288Q15 13.425 15 13t.288-.713Q15.575 12 16 12t.712.287Q17 12.575 17 13t-.288.712Q16.425 14 16 14Zm-4 4q-.425 0-.712-.288Q11 17.425 11 17t.288-.712Q11.575 16 12 16t.713.288Q13 16.575 13 17t-.287.712Q12.425 18 12 18Zm-4 0q-.425 0-.713-.288Q7 17.425 7 17t.287-.712Q7.575 16 8 16t.713.288Q9 16.575 9 17t-.287.712Q8.425 18 8 18Zm8 0q-.425 0-.712-.288Q15 17.425 15 17t.288-.712Q15.575 16 16 16t.712.288Q17 16.575 17 17t-.288.712Q16.425 18 16 18ZM5 22q-.825 0-1.413-.587Q3 20.825 3 20V6q0-.825.587-1.412Q4.175 4 5 4h1V2h2v2h8V2h2v2h1q.825 0 1.413.588Q21 5.175 21 6v14q0 .825-.587 1.413Q19.825 22 19 22Zm0-2h14V10H5v10Z"/></svg>
-                                            <input type="text"  value="" name="date" class="date-input block px-2.5 py-2 w-full text-xs text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-300 mb-4" placeholder="choose date" >
+                                            <input type="text"  value="" name="date" class="date-input block px-2.5 py-2 w-full text-xs text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-300 mb-4" placeholder="choose date" readonly>
                                         </div>
                                         <div class="text-[10px] grid grid-cols-4 mt-2">
                                             <div class="flex items-center gap-1 col-span-2 ml-4">
@@ -165,9 +165,11 @@
                             <input type="hidden" value="{{ $car['carPrice'][3]['price']}}" name="total-price" class="total-price">
                             <h4 class="total font-semibold">{{'Total: ₱'.number_format($car['carPrice'][3]['price'],2,'.',',')}} </h4>
                         </div>
-
+                        <div class="step1-error p-2 sm:px-6 text-sm font-medium text-accent-regular hidden"> 
+                            The above information is required!  
+                        </div> 
                         <div class="mt-6 px-6">
-                            <button type="submit" class="btn-1 bg-accent-regular w-full   text-white whitespace-nowrap uppercase">Reserve this car</button>
+                            <button type="button" class="step-2 btn-1 bg-accent-regular w-full   text-white whitespace-nowrap uppercase">Reserve this car</button>
                         </div>
                     </div>
                 </div>
@@ -179,8 +181,57 @@
 
 
 
+         <!-- Step 2 -->
+        <div class="form-step step-two hidden">
+            <div class="flex justify-between p-4 rounded-t border-b">
+                <h3 class="text-xl font-semibold text-gray-900 ">
+                    Customer Details
+                </h3>
+                <button data-modal-toggle="{{'view-car'.$car['id']}}" type="button" class="cursor-pointer text-gray-400 bg-transparent hover:bg-accent-regular hover:text-white rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" >
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>  
+                </button>
+            </div>
+
+           
+
+            <div class="p-6 space-y-6">
+                <div class="grid grid-cols-6 gap-6">
+                    <div class="col-span-6 sm:col-span-3 relative">
+                        <input type="text" name="fullname" value="{{Auth::user()->first_name .' '.Auth::user()->last_name}}" class="fullname block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-900 peer" placeholder=" " >
+                        <label class="fullname-error pointer-events-none absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-gray-900 peer-focus:font-semibold peer-placeholder-shown:scale-100 
+                        peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 whitespace-nowrap ">Full Name</label>
+                    </div>
+                    <div class="col-span-6 sm:col-span-3 relative">
+                        <input type="text" name="contact" value="{{Auth::user()->contact}}" class="contact block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-900 peer" placeholder=" " >
+                        <label class="contact-error pointer-events-none absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-gray-900 peer-focus:font-semibold peer-placeholder-shown:scale-100 
+                        peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 whitespace-nowrap ">Contact</label>
+                    </div>
+                    @if ($car['driver'] === '1')
+                    <div class="col-span-6">
+                        <label class="license-error block pb-1 text-sm font-semibold lg:pl-2 text-gray-500" >Driver's License</label>
+                        <input type="file" name="license"  class="license block w-full text-sm text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" aria-describedby="file_input_help">
+                    </div>
+                    @endif
+                    <div class="col-span-6">
+                        <label class="utility-error block pb-1 text-sm font-semibold lg:pl-2 text-gray-500" >Latest Electric/Water Bill</label>
+                        <input type="file" name="utility" class="utility block w-full text-sm text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" aria-describedby="file_input_help">
+                    </div>
+                    <div class="col-span-6  relative">
+                        <input type="text" name="address" class="address block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-900 peer" placeholder=" " >
+                        <label class="address-error pointer-events-none absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-gray-900 peer-focus:font-semibold peer-placeholder-shown:scale-100 
+                        peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 whitespace-nowrap ">Address</label>
+                    </div>
+                </div>
+            </div>
+            <div class="flex items-center flex-wrap sm:justify-between p-6 space-y-2 sm:space-y-0 sm:space-x-2 rounded-b border-t border-gray-200 ">
+                
+                <button type="button" class="step-1 btn-1 bg-accent-regular uppercase w-full  sm:w-[fit-content]   text-white whitespace-nowrap">Previous</button>
+                <button type="button" class="step-3 btn-1 bg-accent-regular uppercase  w-full sm:w-[fit-content]   text-white whitespace-nowrap">Next</button>
+                
+            </div>
+        </div>
          <!-- Step 3 -->
-        <div class="view-step detail-three hidden">
+        <div class="form-step step-three hidden">
             <div class="flex justify-between p-4 rounded-t border-b">
                 <h3 class="text-xl font-semibold text-gray-900 ">
                     Pricing details
@@ -210,7 +261,8 @@
             </div>
             <div class="flex items-center flex-wrap sm:justify-between p-6 space-y-2 sm:space-y-0 sm:space-x-2 rounded-b border-t border-gray-200 ">
                 
-                <button type="button" class="second-details btn-1 bg-accent-regular uppercase w-full  sm:w-[fit-content]   text-white whitespace-nowrap">Previous</button>
+                <button type="button" class="step-2 btn-1 bg-accent-regular uppercase w-full  sm:w-[fit-content]   text-white whitespace-nowrap">Previous</button>
+                <button type="submit" class="edit-step-3 btn-1 bg-accent-regular uppercase  w-full sm:w-[fit-content]   text-white whitespace-nowrap">Submit</button>
                 
             </div>
         </div>
