@@ -104,14 +104,14 @@
                             <p class="text-white text-[10px] text-center">Price may vary as per destination</p>
                         </div>
                        
-                        <div class="p-2 md:p-6  sm:pt-0">
+                        <div class="p-2 md:p-6 md:pb-4 sm:pt-0">
                             <div class="picker">
                                 <div class="picker__item">
                                     <div class="range-input relative">
                                         <!-- <label class="block mb-2 text-sm font-semibold text-gray-900 uppercase text-center">Select Date(s) </label> -->
                                         <div class="relative">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="absolute right-2 top-2 pointer-events-none z-50" width="1em" height="1em" viewBox="0 0 24 24"><path fill="#e84949" d="M12 14q-.425 0-.712-.288Q11 13.425 11 13t.288-.713Q11.575 12 12 12t.713.287Q13 12.575 13 13t-.287.712Q12.425 14 12 14Zm-4 0q-.425 0-.713-.288Q7 13.425 7 13t.287-.713Q7.575 12 8 12t.713.287Q9 12.575 9 13t-.287.712Q8.425 14 8 14Zm8 0q-.425 0-.712-.288Q15 13.425 15 13t.288-.713Q15.575 12 16 12t.712.287Q17 12.575 17 13t-.288.712Q16.425 14 16 14Zm-4 4q-.425 0-.712-.288Q11 17.425 11 17t.288-.712Q11.575 16 12 16t.713.288Q13 16.575 13 17t-.287.712Q12.425 18 12 18Zm-4 0q-.425 0-.713-.288Q7 17.425 7 17t.287-.712Q7.575 16 8 16t.713.288Q9 16.575 9 17t-.287.712Q8.425 18 8 18Zm8 0q-.425 0-.712-.288Q15 17.425 15 17t.288-.712Q15.575 16 16 16t.712.288Q17 16.575 17 17t-.288.712Q16.425 18 16 18ZM5 22q-.825 0-1.413-.587Q3 20.825 3 20V6q0-.825.587-1.412Q4.175 4 5 4h1V2h2v2h8V2h2v2h1q.825 0 1.413.588Q21 5.175 21 6v14q0 .825-.587 1.413Q19.825 22 19 22Zm0-2h14V10H5v10Z"/></svg>
-                                            <input type="text"  value="" name="date" class="date-input block px-2.5 py-2 w-full text-xs text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-300 mb-4" placeholder="choose date" readonly>
+                                            <input type="text"  value="" name="date" class="date-input block px-2.5 py-2 w-full text-xs text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-300 mb-2" placeholder="choose date" readonly>
                                         </div>
                                         <div class="text-[10px] grid grid-cols-4 mt-2">
                                             <div class="flex items-center gap-1 col-span-2 ml-4">
@@ -128,42 +128,54 @@
                             </div>
                             <div class="mt-4">   
                                 <label class="block mb-2 text-sm font-semibold text-gray-900 uppercase text-center">Destination </label>
-                                <label class="block mb-2 text-xs font-medium text-gray-900 uppercase">Region: </label>
+                                <!-- <label class="block mb-2 text-xs font-medium text-gray-900 uppercase">Region: </label> -->
                                 <select name="region" data-price="{{json_encode($car['carPrice'])}}" class="region bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:outline-none focus:ring-0 focus:border-gray-900 block w-full p-2.5 ">
-                                <option disabled selected>Select</option>
+                                <option disabled selected>Select Region</option>
                               
                                 </select>
                             </div> 
                             <div class="mt-4">   
-                                <label class="block mb-2 text-xs font-medium text-gray-900 uppercase">Province: </label>
+                                <!-- <label class="block mb-2 text-xs font-medium text-gray-900 uppercase">Province: </label> -->
                                 <select name="province"  class="province bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:outline-none focus:ring-0 focus:border-gray-900 block w-full p-2.5 ">
-                                <option disabled selected>Select</option>
+                                <option disabled selected>Select Province</option>
                                
                                 </select>
                             </div> 
                             <div class="mt-4">   
-                                <label class="block mb-2 text-xs font-medium text-gray-900 uppercase">City: </label>
+                                <!-- <label class="block mb-2 text-xs font-medium text-gray-900 uppercase">City: </label> -->
                                 <select name="city" class="city bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:outline-none focus:ring-0 focus:border-gray-900 block w-full p-2.5 ">
-                                <option disabled selected>Select</option>
+                                <option disabled selected>Select City</option>
                               
                                 </select>
                             </div> 
                             @if ($car['driver'] === '1')
                             <div class="mt-4">   
                                 <label class="block mb-2 text-sm font-semibold text-gray-900 uppercase text-center">Rent option </label>
-                                <select name="driver" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-0 focus:border-gray-900 block w-full p-2.5 ">
-                                    <option disabled selected>Select</option>
+                                <select name="driver" data-fee="{{$car['drivers_fee']}}" class="driver bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:outline-none focus:ring-0 focus:border-gray-900 block w-full p-2.5 ">
                                     <option value="1">With Driver</option>
-                                    <option value="0">Self Drive</option>
+                                    <option value="0" selected>Self Drive</option>
+                                </select>
+                            </div>
+                            @else
+                            <div class="mt-4 hidden">   
+                                <label class="block mb-2 text-sm font-semibold text-gray-900 uppercase text-center">Rent option </label>
+                                <select name="driver" data-fee="{{json_encode($car['drivers_fee'])}}" class="driver bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:outline-none focus:ring-0 focus:border-gray-900 block w-full p-2.5 ">
+                                    <option value="0" selected>Self Drive</option>
                                 </select>
                             </div>
                             @endif
                         </div>
-                        <div class="mx-2 sm:mx-6 mt-4 sm:mt-0  h-1 rounded-full bg-accent-regular">
+                        <div class="mx-2 sm:mx-6 mt-2 sm:mt-0  h-1 rounded-full bg-accent-regular">
                         </div>
-                        <div class="px-2 py-6 md:p-6">
-                            <input type="hidden" value="{{ $car['carPrice'][3]['price']}}" name="total-price" class="total-price">
-                            <h4 class="total font-semibold">{{'Total: ₱'.number_format($car['carPrice'][3]['price'],2,'.',',')}} </h4>
+                        <div class="px-2 pt-4 md:px-6">
+                            <h4 class="total">{{'Car Fee: ₱'.number_format($car['carPrice'][3]['price'],2,'.',',')}} </h4>
+                        </div>
+                        <div class="px-2 py-1 md:px-6">
+                            <h4 class="drivers-fee" >{{"Driver's Fee: ₱".number_format(0,2,'.',',')}} </h4>
+                        </div>
+                        <div class="px-2 pb-6 md:px-6">
+                            <input type="hidden" value="" name="total-price" class="total-price">
+                            <h4 class="grand-total font-semibold">{{'Total: ₱'.number_format($car['carPrice'][3]['price'],2,'.',',')}} </h4>
                         </div>
                         <div class="step1-error p-2 sm:px-6 text-sm font-medium text-accent-regular hidden"> 
                             The above information is required!  
@@ -206,12 +218,10 @@
                         <label class="contact-error pointer-events-none absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-gray-900 peer-focus:font-semibold peer-placeholder-shown:scale-100 
                         peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 whitespace-nowrap ">Contact</label>
                     </div>
-                    @if ($car['driver'] === '1')
-                    <div class="col-span-6">
+                    <div class="col-span-6 license-container">
                         <label class="license-error block pb-1 text-sm font-semibold lg:pl-2 text-gray-500" >Driver's License</label>
                         <input type="file" name="license"  class="license block w-full text-sm text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" aria-describedby="file_input_help">
                     </div>
-                    @endif
                     <div class="col-span-6">
                         <label class="utility-error block pb-1 text-sm font-semibold lg:pl-2 text-gray-500" >Latest Electric/Water Bill</label>
                         <input type="file" name="utility" class="utility block w-full text-sm text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" aria-describedby="file_input_help">
@@ -232,9 +242,9 @@
         </div>
          <!-- Step 3 -->
         <div class="form-step step-three hidden">
-            <div class="flex justify-between p-4 rounded-t border-b">
+            <div class="flex justify-between p-4 rounded-t ">
                 <h3 class="text-xl font-semibold text-gray-900 ">
-                    Pricing details
+                    Confirm Reservation
                 </h3>
                 <button data-modal-toggle="{{'view-car'.$car['id']}}" type="button" class="cursor-pointer text-gray-400 bg-transparent hover:bg-accent-regular hover:text-white rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" >
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>  
@@ -243,23 +253,43 @@
 
            
 
-            <div class="p-6 space-y-6">
-                <div class="grid grid-cols-6 gap-6">
-                    @foreach ($car['carPrice'] as $price)
-                        <div class="col-span-6 sm:col-span-3 relative">
-                            <label class="block pb-1 text-sm font-medium  text-gray-900" >{{$price['regions']['regDesc']}}</label>
-                            <p  class="block mb-2 text-sm font-medium text-gray-900 "> <span class="font-semibold">{{'₱'.$price['price'].'.00'}}</span></p>
-                        </div>
-                    @endforeach
-                   
+            <div class="px-6 space-y-6">
+                <div class="grid grid-cols-6 gap-2 md:gap-4 font-semibold">
+                    <div class="col-span-6 gap-2 grid grid-cols-6">
+                        <h3 class="col-span-6 sm:col-span-1">Destination:</h3>
+                        <p class="col-span-6 sm:col-span-5 bg-[#f5f5f5] w-fit py-2 px-3 capitalize confirm-destination">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Explicabo repellendus</p>
+                    </div>
+                    <div class="col-span-6 gap-2 grid grid-cols-6">
+                        <h3 class="col-span-3 sm:col-span-1">Rent Option:</h3>
+                        <p class="col-span-3 sm:col-span-5 bg-[#f5f5f5] w-fit py-2 px-3 confirm-driver ">With Driver</p>
+                    </div>
                     
+                    <div class="col-span-6 gap-2 grid grid-cols-6">
+                        <h3 class="col-span-3 sm:col-span-1">Start Date:</h3>
+                        <p class="bg-[#f5f5f5] w-fit py-2 px-3 col-span-3 sm:col-span-5 confirm-start-date">02-12-1995</p>
+                    </div>
+                    <div class="col-span-6 gap-2 grid grid-cols-6">
+                        <h3 class="col-span-3 sm:col-span-1">End Date:</h3>
+                        <p class="bg-[#f5f5f5] w-fit py-2 px-3 col-span-3 sm:col-span-5 confirm-end-date">02-12-1995</p>
+                    </div> 
                    
-                   
-                   
-                  
+                    <div class="bg-accent-regular rounded-full h-1 col-span-6"></div>
+                    <div class="col-span-6 gap-2 grid grid-cols-6">
+                        <h3 class="col-span-3 sm:col-span-1">Car Fee:</h3>
+                        <p class="col-span-3 sm:col-span-5 confirm-car-fee">P 1000</p>
+                    </div>
+                    <div class="col-span-6 gap-2 grid grid-cols-6">
+                        <h3 class="col-span-3 sm:col-span-1">Driver Fee:</h3>
+                        <p class="col-span-3 sm:col-span-5 confirm-driver-fee">P 1000</p>
+                    </div>
+                    <div class="col-span-6 gap-2 grid grid-cols-6">
+                        <h3 class="col-span-3 sm:col-span-1">Grand Total:</h3>
+                        <p class="col-span-3 sm:col-span-5 confirm-total">P 1000</p>
+                    </div>
+                    <div class="bg-accent-regular rounded-full h-1 col-span-6"></div>
                 </div>
             </div>
-            <div class="flex items-center flex-wrap sm:justify-between p-6 space-y-2 sm:space-y-0 sm:space-x-2 rounded-b border-t border-gray-200 ">
+            <div class="flex items-center flex-wrap sm:justify-between p-6 space-y-2 sm:space-y-0 sm:space-x-2 rounded-b">
                 
                 <button type="button" class="step-2 btn-1 bg-accent-regular uppercase w-full  sm:w-[fit-content]   text-white whitespace-nowrap">Previous</button>
                 <button type="submit" class="edit-step-3 btn-1 bg-accent-regular uppercase  w-full sm:w-[fit-content]   text-white whitespace-nowrap">Submit</button>

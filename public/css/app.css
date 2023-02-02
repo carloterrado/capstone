@@ -1997,6 +1997,10 @@ input[type="range"]::-ms-thumb {
 .w-2 {
   width: 0.5rem;
 }
+.w-fit {
+  width: -moz-fit-content;
+  width: fit-content;
+}
 .w-7 {
   width: 1.75rem;
 }
@@ -3677,6 +3681,14 @@ input[type="range"]::-ms-thumb {
     grid-column: span 2 / span 2;
   }
 
+  .sm\:col-span-1 {
+    grid-column: span 1 / span 1;
+  }
+
+  .sm\:col-span-5 {
+    grid-column: span 5 / span 5;
+  }
+
   .sm\:mx-6 {
     margin-left: 1.5rem;
     margin-right: 1.5rem;
@@ -4088,6 +4100,15 @@ input[type="range"]::-ms-thumb {
   .md\:px-12 {
     padding-left: 3rem;
     padding-right: 3rem;
+  }
+
+  .md\:px-6 {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .md\:pb-4 {
+    padding-bottom: 1rem;
   }
 
   .md\:pr-\[25\%\] {
