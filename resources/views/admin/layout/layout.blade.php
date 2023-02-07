@@ -42,7 +42,9 @@
    <script src="{{url('front/js/index.js')}}"></script>
    <script src="{{url('js/jquery.Datatable.js')}}"></script>
    <script>
-       $('#arkilla-table').DataTable();
+       $('#arkilla-table').DataTable({
+        ordering: false,
+       });
    </script>
    <script src="{{url('admins/js/custom.js')}}"></script>
    

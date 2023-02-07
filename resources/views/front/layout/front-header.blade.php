@@ -49,11 +49,15 @@
             </div>
             <ul class="pt-4 pb-2" aria-labelledby="user-menu-button">
                 <li>
-                    <a href="#" class="user-menu-list flex justify-between items-center">
+                    <a href="{{url('reserved-car')}}" class="user-menu-list flex justify-between items-center">
                         <span class="flex-1 whitespace-nowrap flex gap-1">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="#e84949" d="M6 19v1q0 .425-.287.712Q5.425 21 5 21H4q-.425 0-.712-.288Q3 20.425 3 20v-8l2.1-6q.15-.45.538-.725Q6.025 5 6.5 5h11q.475 0 .863.275q.387.275.537.725l2.1 6v8q0 .425-.288.712Q20.425 21 20 21h-1q-.425 0-.712-.288Q18 20.425 18 20v-1Zm-.2-9h12.4l-1.05-3H6.85Zm1.7 6q.625 0 1.062-.438Q9 15.125 9 14.5t-.438-1.062Q8.125 13 7.5 13t-1.062.438Q6 13.875 6 14.5t.438 1.062Q6.875 16 7.5 16Zm9 0q.625 0 1.062-.438Q18 15.125 18 14.5t-.438-1.062Q17.125 13 16.5 13t-1.062.438Q15 13.875 15 14.5t.438 1.062Q15.875 16 16.5 16Z"/></svg>
                             Reserved Car</span>
-                        <span class="inline-flex justify-center items-center p-3 ml-3 w-3 h-3 text-sm font-medium text-accent-regular bg-accent-verylight rounded-full">3</span>
+                            @if (Session::get('carBooked') > 0)
+                                
+                            <span class="inline-flex justify-center items-center p-3 ml-3 w-3 h-3 text-sm font-medium text-accent-regular bg-accent-verylight rounded-full">{{Session::get('carBooked')}}</span>
+                               
+                            @endif
                     </a>
                 </li>
                 <li>

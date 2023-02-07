@@ -52,29 +52,8 @@
                         <label id="edit-address-error" for="edit-address" class="pointer-events-none absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-gray-900 peer-focus:font-semibold peer-placeholder-shown:scale-100 
                         peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 whitespace-nowrap">Address</label>
                     </div>
-                    <div class="col-span-6 sm:col-span-3 relative">
-                        <select id="edit-valid-id" name="edit-valid-id" class="cursor-pointer-none block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-900 appearance-none peer">
-                            <option value="SSS ID" 
-                                @if(Auth::user()->valid_id === 'SSS ID') selected @endif class="cursor-pointer">SSS ID</option>
-                            <option value="PhilHealth ID"
-                                @if(Auth::user()->valid_id === 'PhilHealth ID') selected @endif 
-                                class="cursor-pointer">PhilHealth ID</option>
-                            <option value="PRC ID" 
-                                @if(Auth::user()->valid_id === 'PRC ID') selected @endif class="cursor-pointer">PRC ID</option>
-                            <option value="Passport" 
-                                @if(Auth::user()->valid_id === 'Passport') selected @endif class=cursor-pointer">Passport</option>
-                        </select>
-                        <label id="edit-valid-id-error" for="edit-valid-id" class="pointer-events-none absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-gray-900 peer-focus:font-semibold peer-placeholder-shown:scale-100 
-                        peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 whitespace-nowrap">Choose one valid id</label>
-                    </div>
-                    
-                    <div class="col-span-6 sm:col-span-3 relative">
-                        <input id="edit-id-file" name="edit-id-file" class="w-full mt-2 text-sm text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" aria-describedby="file_input_help" type="file" />
-                        <label id="edit-id-file-error" for="edit-id-file" class=" hidden pb-1 text-sm font-semibold lg:pl-2 text-gray-500">Valid id file</label>
-                    </div>
-                   
-                
-                    <label id="edit-submit-form-error" class=" hidden py-4 text-sm  font-semibold lg:pl-2 text-[lightcoral]"></label>
+                 
+                    <label id="edit-submit-form-error" class="col-span-6 hidden py-4 text-sm  font-semibold lg:pl-2 text-[lightcoral]"></label>
                 </div>
             </div>
             <div class="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">

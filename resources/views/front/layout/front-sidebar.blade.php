@@ -23,9 +23,11 @@
           </a>
         </li>
         <li>
-          <a href="#" class="sidebar-hover">
+          <a href="{{url('reserved-car')}}" class="sidebar-hover">
               <span class="flex-1 ml-3 whitespace-nowrap">Reserved Car</span>
-              <span class="inline-flex justify-center items-center p-3 ml-3 w-3 h-3 text-sm font-medium text-accent-regular bg-accent-verylight rounded-full">3</span>
+              @if (Session::get('carBooked') > 0)
+              <span class="inline-flex justify-center items-center p-3 ml-3 w-3 h-3 text-sm font-medium text-accent-regular bg-accent-verylight rounded-full">{{Session::get('carBooked')}}</span>
+              @endif
           </a>
         </li>
     </ul>

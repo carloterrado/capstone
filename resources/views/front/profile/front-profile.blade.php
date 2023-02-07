@@ -31,10 +31,10 @@
                         <div class="col-span-8 sm:col-span-4">
                             <p  class="block mb-2 text-sm font-medium text-gray-900 ">Birthdate: <span class="font-semibold">{{Auth::user()->birthdate}}</span></p>
                         </div>
-                        <div class="col-span-8 sm:col-span-4">
+                        <!-- <div class="col-span-8 sm:col-span-4">
                             <p  class="block mb-2 text-sm font-medium text-gray-900 ">Valid ID: <span class="font-semibold">{{Auth::user()->valid_id}}</span></p>
                            <a href="{{url('front/images/users/id/'.Auth::user()->valid_id_file)}}" target="_blank"> <img src="{{url('front/images/users/id/'.Auth::user()->valid_id_file)}}" alt="license"> </a>
-                        </div>
+                        </div> -->
                         
                         
                     </div>

@@ -26,6 +26,8 @@ Route::prefix('/')->group(function()
         Route::post('update-profile',[FrontController::class,'updateProfile']);
         Route::post('update-password',[FrontController::class,'updatePassword']);
         Route::post('check-user-password',[FrontController::class,'checkPassword']);
+        Route::post('book-car',[FrontController::class,'bookCar']);
+        Route::get('reserved-car',[FrontController::class,'reservedCar']);
 
     });
     Route::get('about',[FrontController::class,'about']);
@@ -56,6 +58,7 @@ Route::prefix('admin')->group(function()
     Route::group(['middleware'=>['admin']], function()
     {       
         Route::get('dashboard',[AdminController::class,'dashboard']);
+        Route::get('booking',[AdminController::class,'booking']);
         Route::get('car-types',[AdminController::class,'carTypes']);
         Route::post('add-car-type',[AdminController::class,'addCarTypes']);
         Route::post('edit-car-type',[AdminController::class,'editCarTypes']);

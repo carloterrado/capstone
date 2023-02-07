@@ -32,11 +32,11 @@
                 <tr class="border-y">
                    
                     <th scope="col" class="py-3 px-6 whitespace-nowrap">
-                        New owner name
+                        Owner name
                     </th>
                     
                     <th scope="col" class="py-3 px-6">
-                        <span class="sr-only">View details</span>  
+                        <span class="block text-center">View details</span>  
                     </th>
                     <th scope="col" class="py-3 px-6">
                         Status

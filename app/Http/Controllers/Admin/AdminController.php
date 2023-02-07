@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use App\Models\Booking;
 use App\Models\Car;
 use App\Models\CarPhoto;
 use App\Models\CarPrice;
@@ -76,6 +77,23 @@ class AdminController extends Controller
         
     }
     //     CAR Modules
+    public function booking()
+    {
+        Session::put('title','Booking');
+        Session::put('page','booking');
+        if(Auth::guard('admin')->user()->type === 'owner')
+        {
+            return view('owner.dashboard');
+        }
+        $owner_id = Auth::guard('admin')->user()->owner_id;
+        $booking = Booking::with('bookingInfo','bookingInfoId','carInfo')->whereHas('carInfo',
+        function($query) use ($owner_id){
+            $query->where(['owner_id'=>$owner_id]);
+        })->get()->toArray();
+        // dd($booking);
+        return view('admin.dashboard')->with(compact('booking')) ;
+
+    }
     public function carTypes(){
         
         if(Auth::guard('admin')->user()->type === 'owner')

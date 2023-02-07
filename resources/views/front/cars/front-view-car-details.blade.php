@@ -3,8 +3,8 @@
 
 <div class="relative w-full max-w-4xl m-auto bg-white rounded-lg">
 
-    
-    <form  class=" form relative bg-white rounded-lg shadow" >
+    <form  class="car-booking-form form relative bg-white rounded-lg shadow" enctype="multipart/form-data" >
+        @include('message.loading')
       
         <div class="form-step step-one pb-6">
             <div class="flex justify-between px-2 pt-6 pb-4 sm:p-6 rounded-t items-center ">
@@ -28,16 +28,16 @@
 
                     <!-- Tab link -->
                     <div class="my-6 bg-[#f5f5f5]">
-                        <ul class="grid grid-cols-6 -mb-px text-sm font-medium text-center" id="{{'car'.$car['id']}}" data-tabs-toggle="{{'#car-content'.$car['id']}}" role="tablist">
+                        <ul class="grid grid-cols-6 -mb-px text-sm font-medium text-center " id="{{'car'.$car['id']}}" data-tabs-toggle="{{'#car-content'.$car['id']}}" role="tablist">
                             
                             <li class="mr-2 col-span-6 sm:col-span-2" role="presentation">
-                                <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-accent-regular hover:border-accent-regular uppercase" id="{{'car-details-tab'.$car['id']}}" data-tabs-target="{{'#car-details'.$car['id']}}" type="button" role="tab" aria-controls="{{'car-details'.$car['id']}}" aria-selected="false">Car Details</button>
+                                <button class="car-tab inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-accent-regular hover:border-accent-regular uppercase" id="{{'car-details-tab'.$car['id']}}" data-tabs-target="{{'#car-details'.$car['id']}}" type="button" role="tab" aria-controls="{{'car-details'.$car['id']}}" aria-selected="false">Car Details</button>
                             </li>
                             <li class="mr-2 col-span-6 sm:col-span-2" role="presentation">
-                                <button class="inline-block p-4 border-b-2 rounded-t-lg uppercase" id="{{'car-description-tab'.$car['id']}}" data-tabs-target="{{'#car-description'.$car['id']}}" type="button" role="tab" aria-controls="{{'car-description'.$car['id']}}" aria-selected="false">Description</button>
+                                <button class="car-tab inline-block p-4 border-b-2 rounded-t-lg uppercase" id="{{'car-description-tab'.$car['id']}}" data-tabs-target="{{'#car-description'.$car['id']}}" type="button" role="tab" aria-controls="{{'car-description'.$car['id']}}" aria-selected="false">Description</button>
                             </li>
                             <li class="mr-2 col-span-6 sm:col-span-2" role="presentation">
-                                <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-accent-regular hover:border-accent-regular uppercase" id="{{'car-excluded-tab'.$car['id']}}" data-tabs-target="{{'#car-excluded'.$car['id']}}" type="button" role="tab" aria-controls="{{'car-excluded'.$car['id']}}" aria-selected="false">Excluded</button>
+                                <button class="car-tab inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-accent-regular hover:border-accent-regular uppercase" id="{{'car-excluded-tab'.$car['id']}}" data-tabs-target="{{'#car-excluded'.$car['id']}}" type="button" role="tab" aria-controls="{{'car-excluded'.$car['id']}}" aria-selected="false">Excluded</button>
                             </li>
                             
                         </ul>
@@ -103,6 +103,7 @@
                             <h3 class="text-lg sm:text-xl font-semibold text-white text-center mb-2 ">{{'₱'.number_format($car['carPrice'][3]['price'],2,'.',',')}} <span class="text-accent-regular"> / Day</span></h3>
                             <p class="text-white text-[10px] text-center">Price may vary as per destination</p>
                         </div>
+                        <input type="hidden" name="car-id" value="{{$car['id']}}">
                        
                         <div class="p-2 md:p-6 md:pb-4 sm:pt-0">
                             <div class="picker">
@@ -111,7 +112,7 @@
                                         <!-- <label class="block mb-2 text-sm font-semibold text-gray-900 uppercase text-center">Select Date(s) </label> -->
                                         <div class="relative">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="absolute right-2 top-2 pointer-events-none z-50" width="1em" height="1em" viewBox="0 0 24 24"><path fill="#e84949" d="M12 14q-.425 0-.712-.288Q11 13.425 11 13t.288-.713Q11.575 12 12 12t.713.287Q13 12.575 13 13t-.287.712Q12.425 14 12 14Zm-4 0q-.425 0-.713-.288Q7 13.425 7 13t.287-.713Q7.575 12 8 12t.713.287Q9 12.575 9 13t-.287.712Q8.425 14 8 14Zm8 0q-.425 0-.712-.288Q15 13.425 15 13t.288-.713Q15.575 12 16 12t.712.287Q17 12.575 17 13t-.288.712Q16.425 14 16 14Zm-4 4q-.425 0-.712-.288Q11 17.425 11 17t.288-.712Q11.575 16 12 16t.713.288Q13 16.575 13 17t-.287.712Q12.425 18 12 18Zm-4 0q-.425 0-.713-.288Q7 17.425 7 17t.287-.712Q7.575 16 8 16t.713.288Q9 16.575 9 17t-.287.712Q8.425 18 8 18Zm8 0q-.425 0-.712-.288Q15 17.425 15 17t.288-.712Q15.575 16 16 16t.712.288Q17 16.575 17 17t-.288.712Q16.425 18 16 18ZM5 22q-.825 0-1.413-.587Q3 20.825 3 20V6q0-.825.587-1.412Q4.175 4 5 4h1V2h2v2h8V2h2v2h1q.825 0 1.413.588Q21 5.175 21 6v14q0 .825-.587 1.413Q19.825 22 19 22Zm0-2h14V10H5v10Z"/></svg>
-                                            <input type="text"  value="" name="date" class="date-input block px-2.5 py-2 w-full text-xs text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-300 mb-2" placeholder="choose date" readonly>
+                                            <input type="text"  value="" name="date" data-bookdates="{{json_encode($car['carBooking'])}}" class="date-input block px-2.5 py-2 w-full text-xs text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-300 mb-2" placeholder="choose date" readonly>
                                         </div>
                                         <div class="text-[10px] grid grid-cols-4 mt-2">
                                             <div class="flex items-center gap-1 col-span-2 ml-4">
@@ -123,11 +124,15 @@
                                                 <p>Available</p>
                                             </div>
                                         </div>
+                                        <div class="flex mt-2 items-center">
+                                            <label class="w-fit mb-2 text-sm font-semibold text-gray-900 uppercase text-center mr-2 mt-1">Time: </label>
+                                            <input type="time" name="book-time" class="time-input w-full bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:outline-none focus:ring-0 focus:border-gray-900 block px-2.5 py-2 uppercase" placeholder="Select time" >
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="mt-4">   
-                                <label class="block mb-2 text-sm font-semibold text-gray-900 uppercase text-center">Destination </label>
+                                <label class="block mb-2 text-sm font-semibold text-gray-900 uppercase ">Destination </label>
                                 <!-- <label class="block mb-2 text-xs font-medium text-gray-900 uppercase">Region: </label> -->
                                 <select name="region" data-price="{{json_encode($car['carPrice'])}}" class="region bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:outline-none focus:ring-0 focus:border-gray-900 block w-full p-2.5 ">
                                 <option disabled selected>Select Region</option>
@@ -136,6 +141,7 @@
                             </div> 
                             <div class="mt-4">   
                                 <!-- <label class="block mb-2 text-xs font-medium text-gray-900 uppercase">Province: </label> -->
+                                <input type="hidden" value="" name="book-province" class="book-province">
                                 <select name="province"  class="province bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:outline-none focus:ring-0 focus:border-gray-900 block w-full p-2.5 ">
                                 <option disabled selected>Select Province</option>
                                
@@ -143,6 +149,7 @@
                             </div> 
                             <div class="mt-4">   
                                 <!-- <label class="block mb-2 text-xs font-medium text-gray-900 uppercase">City: </label> -->
+                                <input type="hidden" value="" name="book-city" class="book-city">
                                 <select name="city" class="city bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:outline-none focus:ring-0 focus:border-gray-900 block w-full p-2.5 ">
                                 <option disabled selected>Select City</option>
                               
@@ -168,9 +175,11 @@
                         <div class="mx-2 sm:mx-6 mt-2 sm:mt-0  h-1 rounded-full bg-accent-regular">
                         </div>
                         <div class="px-2 pt-4 md:px-6">
+                             <input type="hidden" value="" name="car-price" class="car-price">
                             <h4 class="total">{{'Car Fee: ₱'.number_format($car['carPrice'][3]['price'],2,'.',',')}} </h4>
                         </div>
                         <div class="px-2 py-1 md:px-6">
+                             <input type="hidden" value="" name="driver-fee" class="driver-price">
                             <h4 class="drivers-fee" >{{"Driver's Fee: ₱".number_format(0,2,'.',',')}} </h4>
                         </div>
                         <div class="px-2 pb-6 md:px-6">
@@ -223,11 +232,15 @@
                         <input type="file" name="license"  class="license block w-full text-sm text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" aria-describedby="file_input_help">
                     </div>
                     <div class="col-span-6">
+                        <label class="valid-id-error block pb-1 text-sm font-semibold lg:pl-2 text-gray-500" >Two Valid IDs</label>
+                        <input type="file" name="valid-id[]" class="valid-id block w-full text-sm text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" multiple aria-describedby="file_input_help">
+                    </div>
+                    <div class="col-span-6">
                         <label class="utility-error block pb-1 text-sm font-semibold lg:pl-2 text-gray-500" >Latest Electric/Water Bill</label>
                         <input type="file" name="utility" class="utility block w-full text-sm text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" aria-describedby="file_input_help">
                     </div>
                     <div class="col-span-6  relative">
-                        <input type="text" name="address" class="address block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-900 peer" placeholder=" " >
+                        <input type="text" name="address" value="{{Auth::user()->address}}" class="address block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-900 peer" placeholder=" " >
                         <label class="address-error pointer-events-none absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-gray-900 peer-focus:font-semibold peer-placeholder-shown:scale-100 
                         peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 whitespace-nowrap ">Address</label>
                     </div>
@@ -250,27 +263,33 @@
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>  
                 </button>
             </div>
-
-           
+            <div class="px-6">
+                @include('message.ajax-error')
+                @include('message.ajax-success')
+            </div>
 
             <div class="px-6 space-y-6">
                 <div class="grid grid-cols-6 gap-2 md:gap-4 font-semibold">
                     <div class="col-span-6 gap-2 grid grid-cols-6">
                         <h3 class="col-span-6 sm:col-span-1">Destination:</h3>
-                        <p class="col-span-6 sm:col-span-5 bg-[#f5f5f5] w-fit py-2 px-3 capitalize confirm-destination">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Explicabo repellendus</p>
+                        <p class="col-span-6 sm:col-span-5 bg-[#f5f5f5]  py-2 px-3 capitalize confirm-destination">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Explicabo repellendus</p>
                     </div>
                     <div class="col-span-6 gap-2 grid grid-cols-6">
                         <h3 class="col-span-3 sm:col-span-1">Rent Option:</h3>
-                        <p class="col-span-3 sm:col-span-5 bg-[#f5f5f5] w-fit py-2 px-3 confirm-driver ">With Driver</p>
+                        <p class="col-span-3 sm:col-span-5 bg-[#f5f5f5] py-2 px-3 confirm-driver ">With Driver</p>
                     </div>
                     
                     <div class="col-span-6 gap-2 grid grid-cols-6">
                         <h3 class="col-span-3 sm:col-span-1">Start Date:</h3>
-                        <p class="bg-[#f5f5f5] w-fit py-2 px-3 col-span-3 sm:col-span-5 confirm-start-date">02-12-1995</p>
+                        <p class="bg-[#f5f5f5]  py-2 px-3 col-span-3 sm:col-span-5 confirm-start-date">dd-mm-yyyy</p>
                     </div>
                     <div class="col-span-6 gap-2 grid grid-cols-6">
                         <h3 class="col-span-3 sm:col-span-1">End Date:</h3>
-                        <p class="bg-[#f5f5f5] w-fit py-2 px-3 col-span-3 sm:col-span-5 confirm-end-date">02-12-1995</p>
+                        <p class="bg-[#f5f5f5]  py-2 px-3 col-span-3 sm:col-span-5 confirm-end-date">dd-mm-yyyy</p>
+                    </div> 
+                    <div class="col-span-6 gap-2 grid grid-cols-6">
+                        <h3 class="col-span-3 sm:col-span-1">Time:</h3>
+                        <p class="bg-[#f5f5f5]  py-2 px-3 col-span-3 sm:col-span-5 confirm-time">hh-mm-ss</p>
                     </div> 
                    
                     <div class="bg-accent-regular rounded-full h-1 col-span-6"></div>

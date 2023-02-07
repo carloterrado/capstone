@@ -315,14 +315,15 @@ $(function(){
         validateImageFile('#front-signup-id-file','#front-signup-id-file-error')
     })
     //        Validate signup form upon submission
-    $('#front-signup-form').on('submit', function(event)
+    $('#front-signup-form').on('submit',async function(event)
     {
         event.preventDefault();
      
 
-        function validateSignupForm(){
+       async function validateSignupForm(){
             let valid = validateName('#front-signup-first-name','#front-signup-first-name-error','First name') && validateName('#front-signup-last-name','#front-signup-last-name-error', 'Last name') && validateEmail('#front-signup-email','#front-signup-email-error') && validateBirthdate('#front-signup-birthdate','#front-signup-birthdate-error') && validateContact('#front-signup-contact','#front-signup-contact-error') &&      validateAddress('#front-signup-address','#front-signup-address-error') &&
-            validatePassword('#front-signup-password','#front-signup-password-error') &&  validateConfirmPassword('#front-signup-password','#front-signup-confirm-password','#front-signup-confirm-password-error')  && validateValidID('#front-signup-valid-id','#front-signup-valid-id-error') && validateImageFile('#front-signup-id-file','#front-signup-id-file-error') && validateTerms('#front-signup-terms','#front-signup-terms-error');
+            validatePassword('#front-signup-password','#front-signup-password-error') &&  validateConfirmPassword('#front-signup-password','#front-signup-confirm-password','#front-signup-confirm-password-error') && validateTerms('#front-signup-terms','#front-signup-terms-error');
+           
             if(!valid)
             {  
                 //  event.preventDefault();
@@ -339,10 +340,12 @@ $(function(){
         
 
         let formData = new FormData($(this)[0]);
+       
+       
 
         async function submitSignupForm()
         {
-            $.ajax({
+          await  $.ajax({
                 headers: {
                     "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
                 },
@@ -352,7 +355,8 @@ $(function(){
                 processData: false,
                 contentType: false,
                 success:function(resp){
-                    //  alert(JSON.stringify(resp))
+                    //  console.log(JSON.stringify(resp,null,2))
+                    //  return
                     $('.loading').removeClass('grid')
                     $('.loading').hide()
                     if(resp["status"] === 'success')
@@ -390,14 +394,14 @@ $(function(){
                 }
             })
         }
-        let validated = validateSignupForm()
+        let validated =await validateSignupForm()
        
         if(validated){
             $('#front-signup-form button[type="submit"]').addClass('hidden')
             $('.loading').removeClass('hidden')
             $('.loading').addClass('grid')
             
-            submitSignupForm().catch(function(error){
+           await submitSignupForm().catch(function(error){
                 $('#front-signup-form button[type="submit"]').removeClass('hidden')
                 $('.loading').removeClass('grid')
                 $('.loading').hide()
@@ -425,98 +429,98 @@ $(function(){
     $('#front-login-form').on('submit',function(event){
         event.preventDefault();
     
-    function validateLoginForm()
-    {
-        
-        let valid = validateEmail('#front-login-email','#front-login-email-error') &&
-        validatePassword('#front-login-password','#front-login-password-error');
+        function validateLoginForm()
+        {
+            
+            let valid = validateEmail('#front-login-email','#front-login-email-error') &&
+            validatePassword('#front-login-password','#front-login-password-error');
 
-        if(!valid)
-        { 
-          
-            $('#front-login-submit-form-error').show();
-            $('#front-login-submit-form-error').text('Please fill up the form correctly!');
-            setTimeout(function()
-            {
-                $('#front-login-submit-form-error').hide();
-            },3000);
-            return false;
+            if(!valid)
+            { 
+            
+                $('#front-login-submit-form-error').show();
+                $('#front-login-submit-form-error').text('Please fill up the form correctly!');
+                setTimeout(function()
+                {
+                    $('#front-login-submit-form-error').hide();
+                },3000);
+                return false;
+            }
+            return true;
         }
-        return true;
-    }
-    let formData = new FormData($(this)[0]);
+        let formData = new FormData($(this)[0]);
     
    
-    async function submitLoginForm()
-    {
-        await $.ajax({
-            headers: {
-                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-            },
-            type: "POST",
-            url: "/arkilla-login",
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function (resp) {
-                $('.loading').removeClass('grid')
-                $('.loading').hide()
-                if(resp['status'] === 'active')
-                {
-                        window.location.href = '/';    
-                }
-                else if(resp['status'] === 'inactive')
-                {  
-                    $('.error-container').show();
-                    $('.error-message').html('Please check your email first and verify your account!');
-                    $('#front-login-form button[type="submit"]').removeClass('hidden')
-                    setTimeout(function(){ 
-                        $('.error-container').hide();
-                    },3000)
-                }
-                else 
-                {  
-                    $('.error-container').show();
-                    $(".error-message").html('Invalid email or password!');
-                    $('#front-login-form button[type="submit"]').removeClass('hidden')
-                    setTimeout(function(){ 
-                        $('.error-container').hide();
-                    },3000)
-                }
+        async function submitLoginForm()
+        {
+            await $.ajax({
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                },
+                type: "POST",
+                url: "/arkilla-login",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (resp) {
+                    $('.loading').removeClass('grid')
+                    $('.loading').hide()
+                    if(resp['status'] === 'active')
+                    {
+                            window.location.href = '/';    
+                    }
+                    else if(resp['status'] === 'inactive')
+                    {  
+                        $('.error-container').show();
+                        $('.error-message').html('Please check your email first and verify your account!');
+                        $('#front-login-form button[type="submit"]').removeClass('hidden')
+                        setTimeout(function(){ 
+                            $('.error-container').hide();
+                        },3000)
+                    }
+                    else 
+                    {  
+                        $('.error-container').show();
+                        $(".error-message").html('Invalid email or password!');
+                        $('#front-login-form button[type="submit"]').removeClass('hidden')
+                        setTimeout(function(){ 
+                            $('.error-container').hide();
+                        },3000)
+                    }
+                    
                 
-               
-            },
-            error: function () {
+                },
+                error: function () {
+                    $('.loading').removeClass('grid')
+                    $('.loading').hide()
+                    $('.error-container').show();
+                    $(".error-message").html('System login failed!');
+                    $('#front-login-form button[type="submit"]').removeClass('hidden')
+                    setTimeout(function(){ 
+                        $('.error-container').hide();
+                    },3000)
+                },
+            });
+        }
+
+        const validated = validateLoginForm();
+
+        if(validated)
+        {
+            $('#front-login-form button[type="submit"]').addClass('hidden')
+            $('.loading').removeClass('hidden')
+            $('.loading').addClass('grid')
+            submitLoginForm().catch(function(error){
+                $('#front-login-form button[type="submit"]').removeClass('hidden')
                 $('.loading').removeClass('grid')
                 $('.loading').hide()
                 $('.error-container').show();
                 $(".error-message").html('System login failed!');
-                $('#front-login-form button[type="submit"]').removeClass('hidden')
                 setTimeout(function(){ 
-                    $('.error-container').hide();
+                    window.location.href = '/login'; 
                 },3000)
-            },
-        });
-    }
-
-    const validated = validateLoginForm();
-
-    if(validated)
-    {
-        $('#front-login-form button[type="submit"]').addClass('hidden')
-        $('.loading').removeClass('hidden')
-        $('.loading').addClass('grid')
-        submitLoginForm().catch(function(error){
-            $('#front-login-form button[type="submit"]').removeClass('hidden')
-            $('.loading').removeClass('grid')
-            $('.loading').hide()
-            $('.error-container').show();
-            $(".error-message").html('System login failed!');
-            setTimeout(function(){ 
-                window.location.href = '/login'; 
-            },3000)
-        });
-    }
+            });
+        }
     });
 
 
@@ -628,11 +632,11 @@ $(function(){
          validateConfirmPassword('#new-password','#confirm-password','#confirm-password-error');
      })
      // validate the form before the form upon submission 
-     $('#change-pass-form').on('submit', function(event)
+     $('#change-pass-form').on('submit',async function(event)
      {
          event.preventDefault();
  
-         function validateChangePassForm()
+        async function validateChangePassForm()
          {  
              let valid = validatePassword('#current-password','#current-password-error') &&  validatePassword('#new-password','#new-password-error') && validateConfirmPassword('#new-password','#confirm-password','#confirm-password-error');
                  if(!valid)
@@ -686,10 +690,10 @@ $(function(){
                  },
              });
          }
-         const validated = validateChangePassForm()
+         const validated = await validateChangePassForm()
          if(validated){
             $('#change-pass-form button[type="submit"]').addClass('hidden')
-             submitPassword().catch(function(error){
+            await submitPassword().catch(function(error){
                 $('#change-pass-form button[type="submit"]').removeClass('hidden')
                  $('.error-container').show();
                  $(".error-message").html('Update password failed!');
@@ -724,25 +728,16 @@ $(function(){
     {
         validateAddress('#edit-address','#edit-address-error');
     })
-    $('#edit-valid-id').on('click keypress',function(event)
-    {
-        validateValidID('#edit-valid-id','#edit-valid-id-error');
-    })
-    $('#edit-id-file').on('change',function(){
-    validateImageFile('#edit-id-file','#edit-id-file-error')
-    })
+   
     //        Validate signup form upon submission
-    $('#edit-profile-form').on('submit', function(event)
+    $('#edit-profile-form').on('submit',async function(event)
     {
         event.preventDefault();
 
-        function validateSignupForm(){
+       async function validateSignupForm(){
             
-            let valid_id_file = $('#edit-id-file').val() 
-            
-            if(valid_id_file.length !== 0)
-            {
-            let valid = validateName('#edit-first-name','#edit-first-name-error','First name') && validateName('#edit-last-name','#edit-last-name-error', 'Last name') && validateBirthdate('#edit-birthdate','#edit-birthdate-error') && validateContact('#edit-contact','#edit-contact-error') &&  validateAddress('#edit-address','#edit-address-error')  && validateValidID('#edit-valid-id','#edit-valid-id-error') && validateImageFile('#edit-id-file','#edit-id-file-error');
+            let valid = validateName('#edit-first-name','#edit-first-name-error','First name') && validateName('#edit-last-name','#edit-last-name-error', 'Last name') && validateBirthdate('#edit-birthdate','#edit-birthdate-error') && validateContact('#edit-contact','#edit-contact-error') &&  validateAddress('#edit-address','#edit-address-error');
+          
             if(!valid)
             {  
                 $('#edit-submit-form-error').show();
@@ -754,23 +749,6 @@ $(function(){
                 return false;
             }
             return true;
-            }
-            else
-            {
-                let valid = validateName('#edit-first-name','#edit-first-name-error','First name') && validateName('#edit-last-name','#edit-last-name-error', 'Last name') && validateBirthdate('#edit-birthdate','#edit-birthdate-error') && validateContact('#edit-contact','#edit-contact-error') &&  validateAddress('#edit-address','#edit-address-error')  && validateValidID('#edit-valid-id','#edit-valid-id-error');
-                if(!valid)
-            {  
-                $('#edit-submit-form-error').show();
-                $('#edit-submit-form-error').text('Please fill up the form correctly');
-                setTimeout(function()
-                {
-                    $('#edit-submit-form-error').hide();
-                },3000);
-                return false;
-            }
-            return true;
-
-            }
                 
         }
         
@@ -778,7 +756,7 @@ $(function(){
 
         async function submitSignupForm()
         {
-            $.ajax({
+          await  $.ajax({
                 headers: {
                     "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
                 },
@@ -822,7 +800,7 @@ $(function(){
                 }
             })
         }
-        let validated = validateSignupForm()
+        let validated = await validateSignupForm()
         
         
         if(validated){
@@ -830,7 +808,7 @@ $(function(){
         
             $('.loading').removeClass('hidden')
             $('.loading').addClass('grid')
-            submitSignupForm().catch(function(error){
+           await submitSignupForm().catch(function(error){
             $('#edit-profile-form button[type="submit"]').removeClass('hidden')
                 $('.loading').removeClass('grid')
                 $('.loading').hide()
@@ -858,25 +836,28 @@ $(function(){
         }
     })
 
-    $('#sortCar').on('submit',function(event){
+    $('#sortCar').on('submit', async function(event){
        
-        const type = $('#type').val()
-        const capacity = $('#capacity').val()
-        const driver = $('#driver').val()
-       
-      
-        if(type !== null && capacity !== null && driver !== null )
-        {
-        return true;  
+       async function sortCar(){
+            const type = $('#type').val()
+            const capacity = $('#capacity').val()
+            const driver = $('#driver').val()
+        
+        
+            if(type !== null && capacity !== null && driver !== null )
+            {
+            return true;  
+            }
+            else
+            {
+                event.preventDefault();
+                $('#search-error-message').html('The above information is required!')
+                setTimeout(function(){
+                    $('#search-error-message').html('')
+                },3000)
+            }
         }
-        else
-        {
-            event.preventDefault();
-            $('#search-error-message').html('The above information is required!')
-            setTimeout(function(){
-                $('#search-error-message').html('')
-            },3000)
-        }
+        await sortCar();
        
     })
 
@@ -888,33 +869,47 @@ $(function(){
     });
 
     $(document).on('click','[role="tab"]', function() {
+        if($(this).hasClass('transaction-tab'))
+        {
+              // Remove aria-selected attribute from current active tab
+        $('[role="tab"]').attr("aria-selected", "false");
+        $('[role="tab"]').attr('class','').addClass('text-gray-500 hover:text-accent-regular border-gray-100 hover:border-accent-regular inline-block p-4 border-b-2 border-transparent rounded-t-lg sm:text-lg lg:text-2xl font-bold transaction-tab');
+        // Add aria-selected attribute to clicked tab link
+        $(this).attr("aria-selected", "true");
+        $(this).removeClass('text-gray-500 border-gray-100 border-transparent').addClass('text-accent-regular border-accent-regular');
+
+        }
+        else
+        {
         // Remove aria-selected attribute from current active tab
         $('[role="tab"]').attr("aria-selected", "false");
         $('[role="tab"]').attr('class','').addClass('text-gray-500 hover:text-accent-regular border-gray-100 hover:border-accent-regular inline-block p-4 border-b-2 border-transparent rounded-t-lg uppercase');
         // Add aria-selected attribute to clicked tab link
         $(this).attr("aria-selected", "true");
         $(this).removeClass('text-gray-500 border-gray-100 border-transparent').addClass('text-accent-regular border-accent-regular');
+        }
       });
+   
 
       
 
     // CAR BOOKING CALENDAR
-    var data =  [{
-        'start' : "01/25/2023",
-        'end' : "01/26/2023"
-        },
-        {
-        'start' : "02/04/2023",
-        'end' : "02/07/2023"
-        },
-        {
-            'start' : "02/15/2023",
-            'end' : "02/20/2023"
-        },
-        {
-            'start' : "02/28/2023",
-            'end' : "02/28/2023"
-    }];
+    // var data =  [{
+    //     'start' : "01/25/2023",
+    //     'end' : "01/26/2023"
+    //     },
+    //     {
+    //     'start' : "02/04/2023",
+    //     'end' : "02/07/2023"
+    //     },
+    //     {
+    //         'start' : "02/15/2023",
+    //         'end' : "02/20/2023"
+    //     },
+    //     {
+    //         'start' : "02/28/2023",
+    //         'end' : "02/28/2023"
+    // }];
 
     // FUNCTION TO UPDATE ALL FEE
     function updateFee(element,fee,driverFee,times,text)
@@ -926,16 +921,19 @@ $(function(){
             useGrouping: true
         }));
     }
+    
   
             
     $('.date-input').each(function() {
         var input1 = $(this)[0];
+        
+        var data = $(input1).data('bookdates');
         var bookdates = [];
 
         for (let i = 0; i < data.length; i++) {
-            var starts = new Date(data[i].start);
-            var ends = new Date(data[i].end);
-            var set = new Date(data[0].end);
+            var starts = new Date(data[i].start_date);
+            var ends = new Date(data[i].end_date);
+            var set = new Date(data[0].end_date);
             set.setDate(set.getDate() + 1);
         
             while (starts <= ends) {
@@ -951,6 +949,8 @@ $(function(){
                 var form = $(input1).closest('form')[0]
                 var total = $(form).find('.total')
                 var prices = $(form).find('.region').data('price')
+                var totalCarPrice = $(form).find('.car-price')
+                var totalDriverFee = $(form).find('.driver-price')
                 var grandTotalPrice = $(form).find('.total-price')
                 var region = $(form).find('.region').val()
                 var dateInput = $(form).find('.date-input').val()
@@ -1015,6 +1015,9 @@ $(function(){
                     updateFee(confirmDriverFee,0,driverFee,bookDays,'₱')
                     updateFee(confirmTotal,totalValue,driverFee,bookDays,'₱')
                     
+                    // SET ALL INPUT FEE VALUE
+                    $(totalCarPrice).val(totalValue * bookDays)   
+                    $(totalDriverFee).val(driverFee * bookDays)   
                     $(grandTotalPrice).val((totalValue + driverFee) * bookDays)   
                 }
             }
@@ -1022,6 +1025,7 @@ $(function(){
         
         
     });
+   
 
     //   DESTINATION
 
@@ -1062,6 +1066,9 @@ $(function(){
         {
             driverFee = 0;
         }
+
+        var totalCarPrice = $(form).find('.car-price')
+        var totalDriverFee = $(form).find('.driver-price')
         var grandTotalPrice = $(form).find('.total-price')
         var grandTotal = $(form).find('.grand-total')
 
@@ -1080,6 +1087,10 @@ $(function(){
 
                     // UPDATE TOTAL FEE FOR CAR AND DRIVER
                     updateFee(grandTotal,newPrice,driverFee,1,'Total: ₱')
+
+                    // SET ALL INPUT FEE VALUE
+                    $(totalCarPrice).val(newPrice * 1)   
+                    $(totalDriverFee).val(driverFee * 1)   
                     $(grandTotalPrice).val((newPrice + driverFee) * bookDays)
                 }
                 else
@@ -1110,6 +1121,9 @@ $(function(){
                     updateFee(confirmDriverFee,0,driverFee,bookDays,'₱')
                     updateFee(confirmTotal,newPrice,driverFee,bookDays,'₱')
                    
+                    // SET ALL INPUT FEE VALUE
+                    $(totalCarPrice).val(newPrice * bookDays)   
+                    $(totalDriverFee).val(driverFee * bookDays)   
                     $(grandTotalPrice).val((newPrice + driverFee) * bookDays)
                   
                 }
@@ -1122,6 +1136,8 @@ $(function(){
     $(document).on('change','.province', function(event) {
     if(event.target === this)
     {
+        var form = $(this).closest('form')
+
         var province_id = $(this).val();
         $('.city').html('<option disabled selected>Select City</option>');
         $.each(regions, function(index, region) {
@@ -1129,11 +1145,20 @@ $(function(){
                 if (province.id == province_id) {
                     $.each(province.city, function(index, city) {
                         $("<option>").val(city.id).text(city.citymunDesc).appendTo('.city');
+                        $(form).find('.book-province').val(city.citymunDesc)
                     });
                 }
             });
         });
     }
+    });
+
+    $(document).on('change','.city',function(event){
+        if(event.target === this)
+        {
+            var form = $(this).closest('form')
+            $(form).find('.book-city').val($(this).find(':selected').text())
+        }
     });
 
   
@@ -1148,6 +1173,8 @@ $(function(){
             var form = $(this).closest('form')
             var driverFeeText = $(form).find('.drivers-fee')
             var grandTotal = $(form).find('.grand-total')
+            var totalCarPrice = $(form).find('.car-price')
+            var totalDriverFee = $(form).find('.driver-price')
             var grandTotalPrice = form.find('.total-price')
             var dateInput = form.find('.date-input').val()
             var prices = $(form).find('.region').data('price')
@@ -1196,7 +1223,9 @@ $(function(){
                  // UPDATE TOTAL FEE FOR CAR AND DRIVER
                  updateFee(grandTotal,totalValue,driverFee,1,'Total: ₱')
 
-                 
+                 // SET ALL INPUT FEE VALUE
+                 $(totalCarPrice).val(totalValue * bookDays)   
+                 $(totalDriverFee).val(driverFee * bookDays)   
                  $(grandTotalPrice).val((totalValue + driverFee) * bookDays)
                 
             }
@@ -1228,6 +1257,9 @@ $(function(){
                 updateFee(confirmDriverFee,0,driverFee,bookDays,'₱')
                 updateFee(confirmTotal,totalValue,driverFee,bookDays,'₱')
                 
+                // SET ALL INPUT FEE VALUE
+                $(totalCarPrice).val(totalValue * bookDays)   
+                $(totalDriverFee).val(driverFee * bookDays)   
                 $(grandTotalPrice).val((totalValue + driverFee) * bookDays)   
             }
         } 
@@ -1305,6 +1337,46 @@ $(function(){
         $(errorElement).css('color','black');
         return true; 
     }
+    function fileImageID(imageID,errorElementID,text)
+    {
+        let validID = $(imageID)[0].files;
+        
+
+        if(validID.length === 0)
+        {
+
+            $(errorElementID).html(text +' is required!');
+            $(errorElementID).css('color','lightcoral');
+            return false; 
+        }
+        for(var i=0; i < validID.length; i++){
+            let file = validID[i]
+            let fileName = file.name;
+            let fileExtension = fileName.split('.').pop();
+            if(fileExtension !== 'jpg' && fileExtension !== 'jpeg' && fileExtension !== 'gif' && fileExtension !== 'png')
+            {
+                $(errorElementID).html('Invalid ' + text + ' file');
+                $(errorElementID).css('color','lightcoral');
+                return false; 
+            }
+        }
+        
+        if(validID.length < 2)
+        {
+            $(errorElementID).html('One More Valid ID!');
+            $(errorElementID).css('color','lightcoral');
+            return false; 
+        }
+        if(validID.length > 2)
+        {
+            $(errorElementID).html(text + ' maximum is 2!');
+            $(errorElementID).css('color','lightcoral');
+            return false; 
+        }
+        $(errorElementID).html(text);
+        $(errorElementID).css('color','black');
+        return true;
+    }
     function fileImage(imageID,errorElementID,text)
     {
         let validID = $(imageID).val();
@@ -1353,6 +1425,14 @@ $(function(){
             fileImage(licenseEl,errorElement,"Driver's License")
         }
     })
+    $(document).on('change', '.valid-id', function(event){
+        if(event.target === this)
+        {
+            const validIDEl = $(this);
+            const errorElement = $(validIDEl).siblings('label');
+            fileImageID(validIDEl,errorElement,"Two Valid IDs")
+        }
+    })
     $(document).on('change', '.utility', function(event){
         if(event.target === this)
         {
@@ -1371,66 +1451,81 @@ $(function(){
         }
     })
         //    Add car form validation
-    $('.step-2').on('click', function(event){
+    $('.step-2').on('click', async function(event){
         if(event.target === this)
         {
+            
+            
             const stepTwo = $(this).closest('form');
-            const dateInput = $(stepTwo).find('.date-input').val();
-            const regionID = $(stepTwo).find('.region').val();
-            const provinceID = $(stepTwo).find('.province').val();
-            const cityID = $(stepTwo).find('.city').val();
-            const driver = $(stepTwo).find('.driver').val();
-           
-            const valid = stepOneValidation(dateInput) && stepOneValidation(regionID) && stepOneValidation(provinceID) && stepOneValidation(cityID);
-          
-            if(valid)
-            {  
-               
-                var provinceName, cityName;
-                $.each(regions, function(index, region) {
-                    if (region.id === parseInt(regionID)) 
-                    {
-                        $.each(region.province, function(index, province) {
-                            if(province.id === parseInt(provinceID))
-                            {
-                                provinceName = province.provDesc;
-                                $.each(province.city, function(index, city) {
-                                    if(city.id === parseInt(cityID))
-                                    {
-                                        cityName = city.citymunDesc;
-                                    }
-                                });
-                            }
-                        });
-                    }    
-                });
-                // DISPLAY CONFIRM DESTINATION
-                $(stepTwo).find('.confirm-destination').text(cityName.toLowerCase() + ', ' + provinceName.toLowerCase());
-
-                // DISPLAY CONFIRM DRIVER OPTION
-                driver === "0" ? $(stepTwo).find('.confirm-driver').text('Self Drive') : $(stepTwo).find('.confirm-driver').text('With Driver');
-               
-                const dates = dateInput.split(" - ");
-                const startDate = new Date(dates[0]).toLocaleDateString("en-us", { weekday: "short", year: "numeric", month: "short", day: "numeric" });
-                const endDate = new Date(dates[1]).toLocaleDateString("en-us", { weekday: "short", year: "numeric", month: "short", day: "numeric" });
-                
-                // DISPLAY START AND END DATE
-                $(stepTwo).find('.confirm-start-date').text(startDate)
-                $(stepTwo).find('.confirm-end-date').text(endDate)
-
-
-                // SHOW CUSTOMER DETAILS FORM
-                $(stepTwo).find('.form-step').hide()
-                $(stepTwo).find('.step-two').show() 
-            }
-            else
+           async function openStepTwo()
             {
-                $(stepTwo).find('.step1-error').removeClass('hidden');
-                setTimeout(function(){
-                    $(stepTwo).find('.step1-error').addClass('hidden');
-                }, 3000);
+                const dateInput = $(stepTwo).find('.date-input').val();
+                const timeInput = $(stepTwo).find('.time-input').val();
+                const regionID = $(stepTwo).find('.region').val();
+                const provinceID = $(stepTwo).find('.province').val();
+                const cityID = $(stepTwo).find('.city').val();
+                const driver = $(stepTwo).find('.driver').val();
+            
+                const valid = stepOneValidation(dateInput) && stepOneValidation(timeInput) && stepOneValidation(regionID) && stepOneValidation(provinceID) && stepOneValidation(cityID);
+            
+            
+                if(valid)
+                {  
+                
+                    var provinceName, cityName;
+                    $.each(regions, function(index, region) {
+                        if (region.id === parseInt(regionID)) 
+                        {
+                            $.each(region.province, function(index, province) {
+                                if(province.id === parseInt(provinceID))
+                                {
+                                    provinceName = province.provDesc;
+                                    $.each(province.city, function(index, city) {
+                                        if(city.id === parseInt(cityID))
+                                        {
+                                            cityName = city.citymunDesc;
+                                        }
+                                    });
+                                }
+                            });
+                        }    
+                    });
+                    // DISPLAY CONFIRM DESTINATION
+                    $(stepTwo).find('.confirm-destination').text(cityName.toLowerCase() + ', ' + provinceName.toLowerCase());
 
+                    // DISPLAY CONFIRM DRIVER OPTION
+                    driver === "0" ? $(stepTwo).find('.confirm-driver').text('Self Drive') : $(stepTwo).find('.confirm-driver').text('With Driver');
+                
+                    const dates = dateInput.split(" - ");
+                    const startDate = new Date(dates[0]).toLocaleDateString("en-us", { weekday: "short", year: "numeric", month: "short", day: "numeric" });
+                    const endDate = new Date(dates[1]).toLocaleDateString("en-us", { weekday: "short", year: "numeric", month: "short", day: "numeric" });
+                    
+                    // DISPLAY START AND END DATE
+                    $(stepTwo).find('.confirm-start-date').text(startDate)
+                    $(stepTwo).find('.confirm-end-date').text(endDate)
+                    var time = timeInput;
+                    var hours = parseInt(time.substr(0, 2));
+                    var minutes = time.substr(3, 2);
+                    var ampm = hours >= 12 ? 'PM' : 'AM';
+                    hours = (hours % 12) || 12;
+                    var formattedTimeInput = hours + ':' + minutes + ' ' + ampm;
+                    $(stepTwo).find('.confirm-time').text(formattedTimeInput)
+
+
+                    // SHOW CUSTOMER DETAILS FORM
+                    $(stepTwo).find('.form-step').hide()
+                    $(stepTwo).find('.step-two').show() 
+                }
+                else
+                {
+                    $(stepTwo).find('.step1-error').removeClass('hidden');
+                    setTimeout(function(){
+                        $(stepTwo).find('.step1-error').addClass('hidden');
+                    }, 3000);
+
+                }
             }
+            await openStepTwo();
 
         }
             
@@ -1443,43 +1538,165 @@ $(function(){
             $(stepOne).find('.step-one').show();
         }
     })
-    
-    $('.step-3').on('click', function(event){
+
+    $('.step-3').on('click',async function(event){
         if(event.target === this)
         {
             const stepThree = $(this).closest('form');
-            const fullname = $(stepThree).find('.fullname');
-            const fullNameError = $(fullname).siblings('label');
-            const contactNumber = $(stepThree).find('.contact');
-            const contactNumberError = $(contactNumber).siblings('label');
-            const licenseImg = $(stepThree).find('.license');
-            const licenseImgError = $(licenseImg).siblings('label');
-            const utilityImg = $(stepThree).find('.utility');
-            const utilityImgError = $(utilityImg).siblings('label');
-            const address = $(stepThree).find('.address');
-            const addressError = $(address).siblings('label');
-            const driver = $(stepThree).find('.driver').val();
+           async function openStepThree()
+            {
+                const fullname = $(stepThree).find('.fullname');
+                const fullNameError = $(fullname).siblings('label');
+                const contactNumber = $(stepThree).find('.contact');
+                const contactNumberError = $(contactNumber).siblings('label');
+                const licenseImg = $(stepThree).find('.license');
+                const licenseImgError = $(licenseImg).siblings('label');
+                const validIDImg = $(stepThree).find('.valid-id');
+                const validIDImgError = $(validIDImg).siblings('label');
+                const utilityImg = $(stepThree).find('.utility');
+                const utilityImgError = $(utilityImg).siblings('label');
+                const address = $(stepThree).find('.address');
+                const addressError = $(address).siblings('label');
+                const driver = $(stepThree).find('.driver').val();
 
-            let valid = false;
-            if(driver === "1")
-            {
-                 valid = fullName(fullname,fullNameError,'Full Name') && contact(contactNumber,contactNumberError) && fileImage(utilityImg,utilityImgError, "Latest Electric/Water Bill") && validateAddress(address,addressError);
+                let valid = false;
+                if(driver === "1")
+                {
+                    valid = fullName(fullname,fullNameError,'Full Name') && contact(contactNumber,contactNumberError) && fileImageID(validIDImg,validIDImgError,"Two Valid IDs") && fileImage(utilityImg,utilityImgError, "Latest Electric/Water Bill") && validateAddress(address,addressError);
+                }
+                else
+                {
+                    valid = fullName(fullname,fullNameError,'Full Name') && contact(contactNumber,contactNumberError) && fileImage(licenseImg,licenseImgError, "Driver's License") && fileImageID(validIDImg,validIDImgError,"Two Valid IDs") && fileImage(utilityImg,utilityImgError, "Latest Electric/Water Bill") && validateAddress(address,addressError);
+                }
+            
+                if(valid )
+                {
+                    $(stepThree).find('.form-step').hide()
+                    $(stepThree).find('.step-three').show()
+                }
             }
-            else
-            {
-                 valid = fullName(fullname,fullNameError,'Full Name') && contact(contactNumber,contactNumberError) && fileImage(licenseImg,licenseImgError, "Driver's License") && fileImage(utilityImg,utilityImgError, "Latest Electric/Water Bill") && validateAddress(address,addressError);
-            }
-           
-            if(valid )
-            {
-                $(stepThree).find('.form-step').hide()
-                $(stepThree).find('.step-three').show()
-            }
+            await openStepThree();
         }
        
         
     })        
-          
+         
+    
+    $(document).on('submit','.car-booking-form', async function(event){
+        event.preventDefault()
+        if(event.target === this)
+        {
+            const bookingForm = $(this);
+             async  function validateBookingForm()
+            {
+                
+                const dateInput = $(bookingForm).find('.date-input').val();
+                const timeInput = $(bookingForm).find('.time-input').val();
+                const regionID = $(bookingForm).find('.region').val();
+                const provinceID = $(bookingForm).find('.province').val();
+                const cityID = $(bookingForm).find('.city').val();
+                const driver = $(bookingForm).find('.driver').val();
+                const fullname = $(bookingForm).find('.fullname');
+                const fullNameError = $(fullname).siblings('label');
+                const contactNumber = $(bookingForm).find('.contact');
+                const contactNumberError = $(contactNumber).siblings('label');
+                const licenseImg = $(bookingForm).find('.license');
+                const licenseImgError = $(licenseImg).siblings('label');
+                const validIDImg = $(bookingForm).find('.valid-id');
+                const validIDImgError = $(validIDImg).siblings('label');
+                const utilityImg = $(bookingForm).find('.utility');
+                const utilityImgError = $(utilityImg).siblings('label');
+                const address = $(bookingForm).find('.address');
+                const addressError = $(address).siblings('label');
+
+                var valid = false;
+                if(driver === "1")
+                {
+                    valid = stepOneValidation(dateInput) && stepOneValidation(timeInput) && stepOneValidation(regionID) && stepOneValidation(provinceID) && stepOneValidation(cityID) && fullName(fullname,fullNameError,'Full Name') && contact(contactNumber,contactNumberError) && fileImageID(validIDImg,validIDImgError,"Two Valid IDs") && fileImage(utilityImg,utilityImgError, "Latest Electric/Water Bill") && validateAddress(address,addressError);
+                }
+                else
+                {
+                    valid = stepOneValidation(dateInput) && stepOneValidation(regionID) && stepOneValidation(provinceID) && stepOneValidation(cityID) && fullName(fullname,fullNameError,'Full Name') && contact(contactNumber,contactNumberError) && fileImage(licenseImg,licenseImgError, "Driver's License") && fileImageID(validIDImg,validIDImgError,"Two Valid IDs") && fileImage(utilityImg,utilityImgError, "Latest Electric/Water Bill") && validateAddress(address,addressError);
+                }
+                if(valid)
+                {
+                    return true;
+                }
+                return false;
+            }
+
+            let formData = new FormData($(this)[0]);
+            async function submitBookingForm()
+            {
+             await   $.ajax({
+                    headers: {
+                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                    },
+                    type: 'POST',
+                    url:'/book-car',
+                    data:formData,
+                    processData: false,
+                    contentType: false,
+                    success:function(resp){
+                        $(bookingForm).find('.loading').removeClass('grid')
+                        $(bookingForm).find('.loading').hide()
+                        //    alert(JSON.stringify(resp['data']))
+                        //    return
+                        if(resp["data"] === 'success')
+                        {
+                            $(bookingForm).find('.success-container').show()
+                            $(bookingForm).find('.success-message').html('Car booking submitted successfully!')
+                            setTimeout(function(){
+                                window.location.href = '/reserved-car'; 
+                            },2000)  
+                        }
+                        else 
+                        {  
+                            $(bookingForm).find('.error-container').show()
+                            $(bookingForm).find('.error-message').html('Car booking failed!')
+                            $(bookingForm).find('button[type="submit"]').addClass('hidden')
+                            setTimeout(function(){
+                                $('.error-container').hide()  
+                            },3000)
+                        }
+                        
+                    },
+                    error: function(){
+                        $(bookingForm).find('.loading').removeClass('grid')
+                        $(bookingForm).find('.loading').hide()
+                        $(bookingForm).find('.error-container').show()
+                        $(bookingForm).find('.error-message').html('System error add car failed!')
+                        $(bookingForm).find(bookingForm).find('button[type="submit"]').removeClass('hidden')
+                        setTimeout(function(){
+                            $('.error-container').hide()
+                        },3000)
+                    }
+                })
+            }
+
+            const validated = await validateBookingForm()
+            if(validated)
+            {
+                if(!confirm("Submit your booking?")) return false
+                $(bookingForm).find('button[type="submit"]').addClass('hidden')
+            
+                $(bookingForm).find('.loading').removeClass('hidden')
+                $(bookingForm).find('.loading').addClass('grid')
+           
+                await submitBookingForm().catch(function(error){
+                        $(bookingForm).find('.loading').removeClass('grid')
+                        $(bookingForm).find('.loading').hide()
+                        $(bookingForm).find('.error-container').show()
+                        $(bookingForm).find('.error-message').html('System book car failed!')
+                        setTimeout(function(){
+                            $(bookingForm).find('.error-container').hide()
+                            // window.location.href =  window.location.href;  
+                        },3000)
+                    })
+            }
+            
+        }
+    })
               
     
       

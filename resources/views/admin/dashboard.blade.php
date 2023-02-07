@@ -2,6 +2,9 @@
 @section('content')
  @if (Session::get('page') === 'dashboard')
     @include('admin.dashboard.admin-dashboard')
+
+@elseif (Session::get('page') === 'booking')
+    @include('admin.booking.admin-reserved-cars')
      
  @elseif (Session::get('page') === 'profile')
     @include('admin.profile.admin-profile')

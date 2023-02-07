@@ -11,6 +11,7 @@
 
    <link rel="stylesheet" href="{{url('css/app.css')}}">
    <link rel="stylesheet" href="{{url('css/date-picker.css')}}">
+   <link rel="stylesheet" href="{{url('css/dataTable.css')}}">
    <!-- <link rel="stylesheet" href="{{url('css/datepicker-main.css')}}"> -->
       
  
@@ -36,13 +37,22 @@
    @include('front.layout.front-footer')
    <!-- Footer end -->
    </div>
+   
  
    
    <script src="{{url('js/app.js')}}"></script>
    <script src="{{url('front/js/index.js')}}"></script>
    <script src="{{url('js/jquery.min.js')}}"></script>
    <script src="{{url('front/js/custom.js')}}"></script>
-  
+   <script src="{{url('js/jquery.Datatable.js')}}"></script>
+   <script>
+       $('#ongoing-transaction-table').DataTable({
+        ordering: false,
+       });
+       $('#history-transaction-table').DataTable({
+        ordering: false,
+       });
+   </script>
   
 </body>
 

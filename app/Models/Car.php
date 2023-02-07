@@ -16,6 +16,10 @@ class Car extends Model
     {
         return $this->hasMany(CarPhoto::class,'car_id');
     }
+    public function carBooking()
+    {
+        return $this->hasMany(Booking::class,'car_id');
+    }
     public function carPrice()
     {
         return $this->hasMany(CarPrice::class,'car_id')->with('regions');

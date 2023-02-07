@@ -90,27 +90,6 @@
                         </div>
                       </div>
 
-                        <!-- Valid id Input File -->
-                          <!-- Dropdown -->
-                      <div class="block mt-4">
-                        <div class="relative mb-2">
-                          <select id="front-signup-valid-id" name="front-signup-valid-id" class="cursor-pointer-none block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-900 appearance-none peer">
-                            <option disabled selected ></option>
-                            <option value="SSS ID" class=" cursor-pointer">SSS ID</option>
-                            <option value="PhilHealth ID" class="cursor-pointer">PhilHealth ID</option>
-                            <option value="PRC ID" class=" cursor-pointer">PRC ID</option>
-                            <option value="Passport" class= cursor-pointer">Passport</option>
-                          </select>
-                          <label id="front-signup-valid-id-error" for="front-signup-valid-id" class="pointer-events-none absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-gray-900 peer-focus:font-semibold peer-placeholder-shown:scale-100 
-                        peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 whitespace-nowrap">Choose one valid id</label>
-                        
-                      </div>
-                            
-                      <div class="block w-full">
-                        <label id="front-signup-id-file-error" for="front-signup-id-file" class=" hidden pb-1 text-sm font-semibold lg:pl-2 text-gray-500"></label>
-                          <input id="front-signup-id-file" name="front-signup-id-file" class="w-full mt-2 text-sm text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" aria-describedby="file_input_help" type="file">
-                        </div>
-                      </div>
                      
                       <label id="front-signup-terms-error" for="front-signup-terms" class=" hidden pb-1 text-sm font-semibold lg:pl-2 text-[lightcoral]"></label>
                       <div class="flex items-center mt-4">

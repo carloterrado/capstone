@@ -10,6 +10,9 @@
 @elseif (Session::get('page') === 'cars')
         @include('front.cars.front-cars')
 
+@elseif (Session::get('page') === 'reserved-cars')
+        @include('front.cars.front-reserved-cars')
+
 @elseif (Session::get('page') === 'contact')
         @include('front.contact.front-contact')
 

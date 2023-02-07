@@ -37,10 +37,13 @@
                         Name of car
                     </th>
                     <th scope="col" class="py-3 px-6">
-                        <span class="sr-only">Car image</span>   
+                        <span class="block text-center">Car image</span>   
                     </th>
                     <th scope="col" class="py-3 px-6">
-                        <span class="sr-only">View details</span>  
+                        Owner
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        <span class="block text-center">View details</span>  
                     </th>
                     <th scope="col" class="py-3 px-6">
                         Status
@@ -66,6 +69,13 @@
                         <img src="{{url('owner/images/cars/main/'.$car['main_photo'])}}" alt="Car photo">
                         </div>
                       
+                    </td>
+                    <td class="py-4 px-6 font-semibold text-gray-900 ">
+                        {{$car['car_owner']['first_name']}}
+                        {{$car['car_owner']['last_name']}}
+                        <br>
+                        {{$car['car_owner']['email']}} 
+
                     </td>
                     <td class="py-4 px-6">
                         <div class="flex justify-center">
