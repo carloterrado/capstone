@@ -36,8 +36,7 @@
                             </th>
                             <th scope="col" class="py-3 px-6">
                                 Status
-                            </th>
-                            
+                            </th> 
                         </tr>
                     </thead>
                     <tbody>
@@ -65,7 +64,6 @@
                             </td>
                             <td class="py-4 px-6">
                                 <div class="flex justify-center">
-                                
                                     <button type="button" data-modal-toggle="{{'view-booking'.$book['id']}}"  class="details btn-1 bg-accent-regular uppercase  w-[fit-content]   text-white whitespace-nowrap">View details</button>
                                 </div>
                             </td>
@@ -74,6 +72,7 @@
                                         {{$book['status']}}
                                 </div>
                             </td>
+                           
                         </tr>
                         @include('admin.booking.admin-view-booking-details') 
                     @endforeach    
@@ -83,7 +82,7 @@
         </div>
         <div class="hidden p-4" id="history-detail" role="tabpanel" aria-labelledby="history">
         <div class="overflow-x-auto relative shadow-md sm:rounded-lg pt-4 border">
-                <table id="history-transaction-table" class="cell-border hover w-full text-sm text-left  text-gray-500 mt-8">
+                <table id="arkilla-table" class="cell-border hover w-full text-sm text-left  text-gray-500 mt-8">
                 
                     <thead class=" text-gray-700 uppercase ">
                         <tr class="border-y">

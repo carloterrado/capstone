@@ -1304,20 +1304,20 @@ $(function(){
         $(errorElement).css('color','black');
         return true;
     } 
-    function contact(contactEl,errorElement)
+    function contact(contactEl,errorElement,text)
     {
         let contact = $(contactEl).val();
         let need = 11;
         let more = need - contact.length;
         if(contact.length === 0)
         {
-            $(errorElement).html('Contact is required!');
+            $(errorElement).html(text +' is required!');
             $(errorElement).css('color','lightcoral');
             return false;
         }
         if(!contact.match(/^09[0-9][0-9]*$/))
         {
-            $(errorElement).html('Invalid contact!');
+            $(errorElement).html('Invalid ' + text +'!');
             $(errorElement).css('color','lightcoral');
             return false;  
         }
@@ -1329,11 +1329,11 @@ $(function(){
         }
         if(contact.length > 11)
         {
-            $(errorElement).html('Invalid contact');
+            $(errorElement).html('Invalid '+ text);
             $(errorElement).css('color','lightcoral');
             return false;  
         }
-        $(errorElement).html('Contact');
+        $(errorElement).html(text);
         $(errorElement).css('color','black');
         return true; 
     }
@@ -1413,7 +1413,7 @@ $(function(){
         {
             const contactEl = $(this);
             const errorElement = $(contactEl).siblings('label');
-            contact(contactEl,errorElement)
+            contact(contactEl,errorElement,'Contact')
 
         }
     })
@@ -1693,6 +1693,155 @@ $(function(){
                             // window.location.href =  window.location.href;  
                         },3000)
                     })
+            }
+            
+        }
+    })
+    function amount(contactEl,errorElement,text)
+    {
+        let amount = $(contactEl).val();
+      
+        if(amount.length === 0)
+        {
+            $(errorElement).html(text +' is required!');
+            $(errorElement).css('color','lightcoral');
+            return false;
+        }
+        if(!amount.match(/^[0-9]*$/))
+        {
+            $(errorElement).html('Invalid ' + text +'!');
+            $(errorElement).css('color','lightcoral');
+            return false;  
+        }
+        if( parseInt(amount) === 300)
+        {
+            $(errorElement).html(text);
+            $(errorElement).css('color','black');
+            return true;  
+        }
+        
+        $(errorElement).html('Invalid '+ text +'!');
+        $(errorElement).css('color','lightcoral');
+        return false;  
+        
+        
+    }
+
+    $(document).on('keyup','.sender-number',function(event){
+        if(event.target === this)
+        {
+            const senderNumberEl = $(this);
+            const errorElement = $(senderNumberEl).siblings('label');
+            contact(senderNumberEl,errorElement,'GCash Number')
+
+        }
+    })
+    $(document).on('keyup','.amount',function(event){
+        if(event.target === this)
+        {
+            const amountEl = $(this);
+            const errorElement = $(amountEl).siblings('label');
+            amount(amountEl,errorElement,'Amount')
+
+        }
+    })
+   
+   
+    
+    $(document).on('submit','.reg-fee-form', async function(event){
+        event.preventDefault()
+       
+        if(event.target === this)
+        {
+            const form = $(this);
+           
+            
+            async function validateRegFeeForm()
+            {
+                const senderNumberEl = $(form).find('.sender-number');
+                const senderNumberErrorElement = $(senderNumberEl).siblings('label');
+                const amountEl = $(form).find('.amount');
+                const amountErrorElement = $(amountEl).siblings('label');
+
+                let valid = contact(senderNumberEl,senderNumberErrorElement,'GCash Number') && amount(amountEl,amountErrorElement,'Amount');
+
+                if(valid)
+                {
+                    return true;
+                }
+                return false
+            }
+
+            let formData = new FormData($(this)[0]);
+            async function submitRegFeeForm()
+            {
+             await   $.ajax({
+                    headers: {
+                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                    },
+                    type: 'POST',
+                    url:'/book-car-reg-fee',
+                    data:formData,
+                    processData: false,
+                    contentType: false,
+                    success:function(resp){
+                        $(form).find('.loading').removeClass('grid')
+                        $(form).find('.loading').hide()
+                        //    alert(JSON.stringify(resp['data']))
+                        //    return
+                        if(resp["data"] === 'success')
+                        {
+                            $(form).find('.success-container').show()
+                            $(form).find('.success-message').html('Registration fee submitted successfully!')
+                            setTimeout(function(){
+                              
+                                location.reload()
+                            },2000)  
+                        }
+                        else 
+                        {  
+                            $(form).find('.error-container').show()
+                            $(form).find('.error-message').html('Pay registration failed!')
+                            $(form).find('button[type="submit"]').addClass('hidden')
+                            setTimeout(function(){
+                                $('.error-container').hide()  
+                            },3000)
+                        }
+                        
+                    },
+                    error: function(){
+                        $(form).find('.loading').removeClass('grid')
+                        $(form).find('.loading').hide()
+                        $(form).find('.error-container').show()
+                        $(form).find('.error-message').html('Pay registration failed!')
+                        $(form).find('button[type="submit"]').removeClass('hidden')
+                        setTimeout(function(){
+                            $('.error-container').hide()
+                        },3000)
+                    }
+                })
+            }
+            const validated = await validateRegFeeForm();
+            if(validated)
+            {
+                if(!confirm("Submit registration fee?")) return false
+                $(form).find('button[type="submit"]').addClass('hidden')
+            
+                $(form).find('.loading').removeClass('hidden')
+                $(form).find('.loading').addClass('grid')
+                
+           
+                await submitRegFeeForm().catch(function(error){
+                        $(form).find('.loading').removeClass('grid')
+                        $(form).find('.loading').hide()
+                        $(form).find('.error-container').show()
+                        $(form).find('.error-message').html('System, Pay registration failed!')
+                        setTimeout(function(){
+                            $(form).find('.error-container').hide()
+                            // window.location.href =  window.location.href;  
+                        },3000)
+                    })
+
             }
             
         }

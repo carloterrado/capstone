@@ -76,6 +76,7 @@
     
   </nav>
 </div>
+</div>
 
 
 <!-- Main modal for change password -->

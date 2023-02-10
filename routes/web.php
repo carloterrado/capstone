@@ -59,6 +59,9 @@ Route::prefix('admin')->group(function()
     {       
         Route::get('dashboard',[AdminController::class,'dashboard']);
         Route::get('booking',[AdminController::class,'booking']);
+        Route::get('new-booking',[AdminController::class,'newBooking']);
+        Route::post('update-booking-account',[AdminController::class,'updateBookingAccount']);
+        Route::post('book-car-reg-fee',[AdminController::class,'bookCarRegFee']);
         Route::get('car-types',[AdminController::class,'carTypes']);
         Route::post('add-car-type',[AdminController::class,'addCarTypes']);
         Route::post('edit-car-type',[AdminController::class,'editCarTypes']);

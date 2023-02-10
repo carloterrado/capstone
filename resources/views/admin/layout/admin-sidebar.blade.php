@@ -45,8 +45,13 @@
                 </a>
                 <ul class="sub-menu hidden">
                   <li>
+                    <a href="{{url('admin/new-booking')}}" class="sidebar-list sidebar-hover flex justify-between">
+                      <span class="ml-12">new bookings</span>
+                    </a>
+                  </li>
+                  <li>
                     <a href="{{url('admin/booking')}}" class="sidebar-list sidebar-hover flex justify-between">
-                      <span class="ml-12">bookings</span>
+                      <span class="ml-12">ongoing bookings</span>
                     </a>
                   </li>
                 </ul>

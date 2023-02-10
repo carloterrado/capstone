@@ -77,6 +77,67 @@ class AdminController extends Controller
         
     }
     //     CAR Modules
+    public function newBooking()
+    {
+        Session::put('title','New Booking');
+        Session::put('page','new-booking');
+        if(Auth::guard('admin')->user()->type === 'owner')
+        {
+            return view('owner.dashboard');
+        }
+        $owner_id = Auth::guard('admin')->user()->owner_id;
+        $booking = Booking::with('bookingInfo','bookingInfoId','carInfo')->whereHas('carInfo',
+        function($query) use ($owner_id){
+            $query->where(['owner_id'=>$owner_id]);
+        })->where(['status'=>'pending'])->get()->toArray();
+        // dd($booking);
+       
+       
+        return view('admin.dashboard')->with(compact('booking')) ;
+
+    }
+    public function updateBookingAccount(Request $request)
+    { 
+        if($request->ajax()){
+            $data = $request->all();
+            $booking = Booking::with('bookingInfo')->find($data['booking_id']);
+            $user = User::find($booking['user_id']);
+            
+            
+             // Send confirmation email to owner email
+          
+             $email = $user->email;
+             $name = $booking->bookingInfo->fullname; 
+           ;
+           
+             
+             $account = $data['account'] ;
+           
+            if($data['account'] === 'approve'){
+                $accountMessage = 'All the information provided have been verified by the admin. Please check your reserved car and pay for reservation fee to fully validate your booking. The reservation fee will be deducted to the total amount of your booking fee. Please take note that reservation fee is not refundable.';
+              
+            }
+            else if ($data['account'] === 'decline')
+            {
+                
+               $accountMessage = (string) 'All the information provided have been verified by the admin. However, the information you provided doesn\'t meet the requirement needed. Therefore, your car booking have been declined.';
+            } 
+            $messageData = [
+                'email' => $user->email,
+                'name' => $name,
+                'newmessage' => $accountMessage,
+               
+            ];
+            $booking->status = $account;
+            $booking->save();
+            
+           Mail::send('emails.user.user-booking-message',$messageData, function($message)use($email){
+                $message->to($email)->subject('Car Booking Status');
+            });
+
+            return response()->json(['data'=>$account]);
+        }
+    }
     public function booking()
     {
         Session::put('title','Booking');
@@ -89,7 +150,7 @@ class AdminController extends Controller
         $booking = Booking::with('bookingInfo','bookingInfoId','carInfo')->whereHas('carInfo',
         function($query) use ($owner_id){
             $query->where(['owner_id'=>$owner_id]);
-        })->get()->toArray();
+        })->where(['status'=>'ongoing'])->get()->toArray();
         // dd($booking);
         return view('admin.dashboard')->with(compact('booking')) ;
 
@@ -330,7 +391,16 @@ class AdminController extends Controller
                 $car->type_id = (int)$data['edit-admin-set-car-type'];
             if($car->capacity  !== (int)$data['edit-admin-car-capacity'])
                 $car->capacity = (int)$data['edit-admin-car-capacity'];
-            // return response()->json(['data'=>$car]);
+            if($car->description  !== $data['edit-admin-car-description'])
+                $car->description = $data['edit-admin-car-description'];
+            if($car->pickup_location  !== $data['edit-admin-car-pickup-location'])
+                $car->pickup_location = $data['edit-admin-car-pickup-location'];
+            if($car->driver_fee  !== $data['edit-admin-car-drivers-fee'])
+            {
+                $car->driver = $data['edit-admin-car-driver'];
+                $car->drivers_fee = $data['edit-admin-car-drivers-fee'];
+            }
+            // return response()->json(['data'=>$data]);
             if($request->hasFile('edit-admin-car-main-photo'))
             {
                 if($car->owner_id === 0)

@@ -1,6 +1,7 @@
 <main id="cars" class="min-h-[calc(100vh-5rem)] md:min-h-[calc(100vh-5.5rem)]  p-2 pb-12 pt-6  sm:p-14 sm:pt-4">
+   
      <!-- Tab link -->
-     <div class="mb-6 ">
+    <div class="mb-6 ">
         <ul class="flex -mb-px text-sm font-medium text-center" id="transaction-link" data-tabs-toggle="transaction" role="tablist">
             
             <li class="mr-2 col-span-3 md:col-span-1" role="presentation">
@@ -19,6 +20,8 @@
         <div class="hidden p-4" id="ongoing-details" role="tabpanel" aria-labelledby="ongoing">
             <div class="overflow-x-auto relative shadow-md sm:rounded-lg pt-4 border">
                 <table id="ongoing-transaction-table" class="cell-border hover w-full text-sm text-left  text-gray-500 mt-8">
+             
+
                 
                     <thead class=" text-gray-700 uppercase ">
                         <tr class="border-y">
@@ -37,16 +40,21 @@
                             <th scope="col" class="py-3 px-6">
                                 Status
                             </th>
+                            <th scope="col" class="py-3 px-6">
+                                <span class="block text-center">Requirement</span>  
+                            </th>
+                            
                             
                         </tr>
                     </thead>
                     <tbody>
                     
-                    @foreach($booking as $book)    
-                    
+                        @foreach($booking as $book)    
+                        
                         <tr class="bg-white border-b  hover:bg-gray-50  ">
                             <td class="py-4 px-6 font-semibold text-gray-900 ">
                                 {{'#'.$book['id']}}
+                               
                             </td>
                             <td class="py-4 px-6 font-semibold text-gray-900 ">
                                 {{'#'.$book['car_id']}}
@@ -68,21 +76,31 @@
                                 
                                     <button type="button" data-modal-toggle="{{'view-booking'.$book['id']}}"  class="details btn-1 bg-accent-regular uppercase  w-[fit-content]   text-white whitespace-nowrap">View details</button>
                                 </div>
+                            @include('front.cars.front-view-booking-details') 
+    
                             </td>
                             <td class="py-4 px-6 font-semibold text-gray-900 ">
                                 <div class="py-6">
                                         {{$book['status']}}
                                 </div>
                             </td>
+                            <td class="py-4 px-6 font-semibold text-gray-900 ">
+                                <div class="py-6 flex justify-center ">
+                                    <button data-modal-toggle="{{'reg-fee'.$book['id']}}"  class="btn-1 reg-fee-btn bg-accent-green w-[fit-content]    text-white whitespace-nowrap">registration fee</button>
+                                </div>
+                                @include('front.cars.front-car-registration-fee-form') 
+                            </td>
+                            
                         </tr>
-                        @include('front.cars.front-view-booking-details') 
-                    @endforeach    
+                        
+                        @endforeach    
                     </tbody>
                 </table>
             </div>
         </div>
+  
         <div class="hidden p-4" id="history-detail" role="tabpanel" aria-labelledby="history">
-        <div class="overflow-x-auto relative shadow-md sm:rounded-lg pt-4 border">
+            <div class="overflow-x-auto relative shadow-md sm:rounded-lg pt-4 border">
                 <table id="history-transaction-table" class="cell-border hover w-full text-sm text-left  text-gray-500 mt-8">
                 
                     <thead class=" text-gray-700 uppercase ">
@@ -103,11 +121,12 @@
                                 Status
                             </th>
                             
+                            
                         </tr>
                     </thead>
                     <tbody>
                     
-                    @foreach($booking as $book)    
+                        @foreach($booking as $book)    
                     
                         <tr class="bg-white border-b  hover:bg-gray-50  ">
                             <td class="py-4 px-6 font-semibold text-gray-900 ">
@@ -130,7 +149,6 @@
                             </td>
                             <td class="py-4 px-6">
                                 <div class="flex justify-center">
-                                
                                     <button type="button"   class="details btn-1 bg-accent-regular uppercase  w-[fit-content]   text-white whitespace-nowrap">View details</button>
                                 </div>
                             </td>
@@ -139,16 +157,13 @@
                                         {{$book['status']}}
                                 </div>
                             </td>
+                            
                         </tr>
                         
-                    @endforeach    
+                        @endforeach    
                     </tbody>
                 </table>
             </div>
         </div>
-         
     </div>
-
-
-    
  </main> 

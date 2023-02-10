@@ -214,6 +214,15 @@ class FrontController extends Controller
         // dd($booking);
         return view('front.home')->with(compact('booking'));
     }
+    public function bookCarRegFee(Request $request)
+    {
+        
+        if($request->ajax())
+        {
+            $data =$request->all();
+            return response()->json(['data'=>'success']);
+        }
+    }
     public function about(Request $request)
     {
         Session::forget('error_message');

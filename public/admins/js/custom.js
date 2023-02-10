@@ -817,7 +817,7 @@ $(function(){
                         $('.success-container').show()
                         $('.success-message').text('New car type created successfully!')
                         setTimeout(function(){
-                           window.location.href = '/admin/car-types'
+                           location.reload()
                         },3000)
                     }
                     
@@ -941,7 +941,7 @@ $(function(){
                         $('.success-container').show()
                         $('.success-message').text('Car type updated successfully!')
                         setTimeout(function(){
-                           window.location.href = '/admin/car-types'
+                           location.reload()
                         },3000)
                     }
                     
@@ -1423,7 +1423,7 @@ $(function(){
                         $('.success-container').show()
                         $('.success-message').html('Car added successfully!')
                         setTimeout(function(){
-                            window.location.href = window.location.href; 
+                            location.reload(); 
                         },1500)  
                     }
                     else 
@@ -1464,7 +1464,7 @@ $(function(){
                 $('.error-container').show()
                 $('.error-message').html('System add car failed!')
                 setTimeout(function(){
-                    window.location.href = '/admin/cars';  
+                    location.reload();  
                 },3000)
             })
         }
@@ -1769,18 +1769,19 @@ $(function(){
                 type: 'POST',
                 url:'/admin/edit-car',
                 data:formData,
-                processData: false,
+                processData: false, 
                 contentType: false,
                 success:function(resp){
                     $('.loading').removeClass('grid')
                     $('.loading').hide()
-                    //    alert(JSON.stringify(resp['data']))
+                    //    alert(JSON.stringify(resp['data'],null,2))
+                    //    return
                     if(resp["data"] === 'success')
                     {
                         $('.success-container').show()
                         $('.success-message').html('Car updated successfully!')
                         setTimeout(function(){
-                            window.location.href = window.location.href;   
+                            location.reload()
                         },1500)  
                     }
                     else 
@@ -1821,7 +1822,7 @@ $(function(){
                 $('.error-container').show()
                 $('.error-message').html('System edit car failed!')
                 setTimeout(function(){
-                    window.location.href = window.location.href;  
+                    location.reload()  
                 },3000)
             })
         }
@@ -1913,6 +1914,75 @@ $(function(){
             $(this).attr("aria-selected", "true");
             $(this).removeClass('text-gray-500 border-gray-100 border-transparent').addClass('text-accent-regular border-accent-regular');
         }
+    });
+
+    $("#arkilla-table").on("click",".updateBooking", async function (event) 
+    {
+       
+           
+            var account = $(this).children("button").attr("account");
+            var row = $(this).parentsUntil("tbody");
+            var booking_id = $(this).attr("booking_id");
+
+            if(!confirm("Want to "+ account +" this booking?")) return false
+            $('.loading').removeClass('hidden')
+            $('.loading').addClass('grid')
+            await  $.ajax({
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                        "content"
+                    ),
+                },
+                type: "post",
+                url: "/admin/update-booking-account",
+                data: { account: account, booking_id: booking_id },
+                success: function (resp) {
+                    $('.loading').removeClass('grid')
+                    $('.loading').hide()
+                   
+                    // alert(resp['data'])
+                    // return
+                    if(resp['data'] === 'approve')
+                    {
+                        $('.success-container').show()
+                        $('.success-message').html('New booking approved successfully!')
+                        // row.remove()
+                        location.reload()
+                        setTimeout(function(){
+                            $('.success-container').hide()
+                        },6000)
+                    }    
+                    else if(resp['data'] === 'decline')
+                    {
+                        $('.success-container').show()
+                        $('.success-message').html('New booking declined successfully!')
+                        row.remove()
+                        setTimeout(function(){
+                            $('.success-container').hide()
+                        },6000)
+                    }  
+                    else
+                    {
+                        $('.error-container').show()
+                        $('.error-message').html('Failed to '+ account +' booking!')
+                        setTimeout(function(){
+                            $('.error-container').hide()
+                        },6000)
+                      
+                    } 
+                        
+                },
+                error: function (resp) {
+                    $('.loading').removeClass('grid')
+                    $('.loading').hide()
+                    alert("Booking "+account +" failed! System error.")
+                    $('.error-container').show()
+                        $('.error-message').html('Booking '+account +' failed! System error.')
+                        setTimeout(function(){
+                            $('.error-container').hide()
+                        },3000)
+                },
+            });
     });
     
 });

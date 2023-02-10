@@ -14,9 +14,9 @@
                 </div>
                 <div class="px-2 sm:px-6 grid grid-cols-8 gap-x-6">
                     <div class="col-span-8 md:col-span-5 mb-6">
-                        <div class="relative h-56 overflow-hidden" id="car-photos">
+                        <div class="relative h-42 sm:h-56 overflow-hidden" id="car-photos">
                                
-                                <img src="{{url('admins/images/cars/main/'.$book['car_info']['main_photo'])}}" class="absolute block w-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 " alt="...">
+                                <img src="{{url('admins/images/cars/main/'.$book['car_info']['main_photo'])}}" class="h-full w-full object-cover " alt="...">
                               
                                 <!-- <img src="{{url('owner/images/cars/main/'.$book['car_info']['main_photo'])}}" class="absolute block w-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 " alt="..."></a> -->
                               
@@ -66,8 +66,9 @@
                                 <h3 class="text-sm font-semibold">Valid IDs:</h3>
                                 <div class="grid grid-cols-6 gap-1">
                                     @foreach ($book['booking_info_id'] as $id)
-                                        <div class="relative h-42 col-span-6 sm:col-span-3 border">
-                                            <img src="{{url('front/images/users/id/'.$id['images'])}}" class="w-full h-full object-cover " alt="...">
+                                        <div class="relative h-42 col-span-6 sm:col-span-3">
+                                            <a href="{{url('front/images/users/id/'.$id['images'])}}" target="_blank">
+                                            <img src="{{url('front/images/users/id/'.$id['images'])}}" class="w-full h-full object-cover " alt="..."></a>
                                         </div>
                                     @endforeach
                                 </div>
@@ -75,14 +76,16 @@
                                     <div class="col-span-6 sm:col-span-3">
                                         <h3 class="text-sm font-semibold mt-4">Utility Bill:</h3>
                                         <div class="relative h-42 ">
-                                            <img src="{{url('front/images/users/utility/'.$book['booking_info']['utility'])}}" class="w-full h-full object-cover " alt="...">
+                                            <a href="{{url('front/images/users/utility/'.$book['booking_info']['utility'])}}">
+                                            <img src="{{url('front/images/users/utility/'.$book['booking_info']['utility'])}}" class="w-full h-full object-cover " alt="..."></a>
                                         </div> 
                                     </div>
                                     @if (!empty($book['booking_info']['license']))
                                     <div class="col-span-6 sm:col-span-3">
                                         <h3 class="text-sm font-semibold mt-4">Driver's License:</h3>
                                         <div class="relative h-42 ">
-                                            <img src="{{url('front/images/users/license/'.$book['booking_info']['license'])}}" class="w-full h-full object-cover " alt="...">
+                                            <a href="{{url('front/images/users/license/'.$book['booking_info']['license'])}}">
+                                            <img src="{{url('front/images/users/license/'.$book['booking_info']['license'])}}" class="w-full h-full object-cover " alt="..."></a>
                                         </div>
                                     </div>   
                                     @endif

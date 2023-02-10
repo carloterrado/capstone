@@ -46,6 +46,11 @@
         ordering: false,
        });
    </script>
+   <script>
+       $('#ongoing-transaction-table').DataTable({
+        ordering: false,
+       });
+   </script>
    <script src="{{url('admins/js/custom.js')}}"></script>
    
    
