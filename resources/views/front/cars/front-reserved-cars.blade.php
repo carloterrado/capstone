@@ -37,12 +37,12 @@
                             <th scope="col" class="py-3 px-6">
                                 <span class="block text-center">View details</span>  
                             </th>
-                            <th scope="col" class="py-3 px-6">
-                                Status
+                            <th scope="col" class="py-3 px-6 ">
+                                <span class="block text-center">Status</span>  
                             </th>
-                            <th scope="col" class="py-3 px-6">
+                            <!-- <th scope="col" class="py-3 px-6">
                                 <span class="block text-center">Requirement</span>  
-                            </th>
+                            </th> -->
                             
                             
                         </tr>
@@ -80,16 +80,25 @@
     
                             </td>
                             <td class="py-4 px-6 font-semibold text-gray-900 ">
-                                <div class="py-6">
-                                        {{$book['status']}}
-                                </div>
-                            </td>
-                            <td class="py-4 px-6 font-semibold text-gray-900 ">
                                 <div class="py-6 flex justify-center ">
-                                    <button data-modal-toggle="{{'reg-fee'.$book['id']}}"  class="btn-1 reg-fee-btn bg-accent-green w-[fit-content]    text-white whitespace-nowrap">registration fee</button>
+                                    <div class="btn-1 reg-fee-btn
+                                    @if ($book['status'] === 'approve')
+                                        bg-accent-green
+                                    @elseif ($book['status'] === 'pending')
+                                        bg-[#F28123]
+                                    @elseif ($book['status'] === 'cancel')
+                                        bg-accent-regular
+                                    @endif
+                                      w-[fit-content]    text-white whitespace-nowrap">
+                                        {{$book['status']}}
+                                    </div>
                                 </div>
-                                @include('front.cars.front-car-registration-fee-form') 
                             </td>
+                            <!-- <td class="py-4 px-6 font-semibold text-gray-900 ">
+                                <div class="py-6 flex justify-center ">
+                                    <button  class="btn-1 reg-fee-btn bg-accent-green w-[fit-content]    text-white whitespace-nowrap">registration fee</button>
+                                </div>
+                            </td> -->
                             
                         </tr>
                         

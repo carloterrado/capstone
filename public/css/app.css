@@ -2547,6 +2547,10 @@ input[type="range"]::-ms-thumb {
   --tw-bg-opacity: 1;
   background-color: rgb(28 176 105 / var(--tw-bg-opacity));
 }
+.bg-\[\#F28123\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(242 129 35 / var(--tw-bg-opacity));
+}
 .bg-green-300 {
   --tw-bg-opacity: 1;
   background-color: rgb(132 225 188 / var(--tw-bg-opacity));
