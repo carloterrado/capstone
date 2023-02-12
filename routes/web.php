@@ -28,7 +28,9 @@ Route::prefix('/')->group(function()
         Route::post('check-user-password',[FrontController::class,'checkPassword']);
         Route::post('book-car',[FrontController::class,'bookCar']);
         Route::get('reserved-car',[FrontController::class,'reservedCar']);
-
+        Route::post('cancel-booking',[FrontController::class,'cancelBooking']);
+        Route::post('delete-booking',[FrontController::class,'deleteBooking']);
+        
     });
     Route::get('about',[FrontController::class,'about']);
     Route::get('contact',[FrontController::class,'contact']);
@@ -61,6 +63,9 @@ Route::prefix('admin')->group(function()
         Route::get('booking',[AdminController::class,'booking']);
         Route::get('new-booking',[AdminController::class,'newBooking']);
         Route::post('update-booking-account',[AdminController::class,'updateBookingAccount']);
+        Route::match(['get','post'],'cancel-booking',[AdminController::class,'cancelBooking']);
+        Route::post('delete-booking',[AdminController::class,'deleteBooking']);
+
         Route::post('book-car-reg-fee',[AdminController::class,'bookCarRegFee']);
         Route::get('car-types',[AdminController::class,'carTypes']);
         Route::post('add-car-type',[AdminController::class,'addCarTypes']);

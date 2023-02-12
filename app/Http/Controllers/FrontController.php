@@ -50,15 +50,10 @@ class FrontController extends Controller
             $priceFrom = (int)$data['from'];
             $priceTo = (int)$data['to'];
             
-           
-           
-                
                     $cars = Car::with('carPhotos','carPrice','carTypes','carBooking')->whereHas('carPrice',function($query) use ($priceFrom,$priceTo){
                         $query->where(['reg_id'=>4])->whereBetween('price',[$priceFrom,$priceTo]);
                     })->where(['status'=>1,'account'=>'verified','type_id'=>$data['type'],['capacity','>=',(int)$data['capacity']],'driver'=>$data['driver']])->orderBy('id')->paginate(6);
             
-              
-          
             return view('front.home')->with(compact('cars','cartypes','regions'));
            
         }
@@ -78,7 +73,7 @@ class FrontController extends Controller
                 
                 $cars = Car::with('carPhotos','carPrice','carTypes','carBooking')->where(['status'=>1,'account'=>'verified'])->orderBy('id')->paginate(6);
             }
-            
+            // dd($cars);
             return view('front.home')->with(compact('cars','cartypes','regions'));
 
            
@@ -210,9 +205,44 @@ class FrontController extends Controller
         Session::put('title','Reserved Cars');  
 
         $booking = Booking::with('bookingInfo','bookingInfoId','carInfo')->where('user_id',Auth::user()->id)->get()->toArray();
-        
-        // dd($booking);
+      
         return view('front.home')->with(compact('booking'));
+    }
+    public function cancelBooking(Request $request)
+    {
+        if($request->ajax())
+        {
+            $data = $request->all();
+            $booking = Booking::find($data['booking_id']);
+            $booking->status = $data['account'];
+            $booking->save();
+            return response()->json(['data'=>$data['account']]);
+        }
+    }
+    public function deleteBooking(Request $request)
+    {
+        if($request->ajax())
+        {
+            $data = $request->all();
+            
+            $canceledBooking = Booking::with('bookingInfoId','bookingInfo')->find($data['booking_id']);
+            if($canceledBooking->bookingInfo->license !== null)
+            {
+                $bookingLicense = public_path('front/images/users/license/'.$canceledBooking->bookingInfo->license);
+                    File::delete($bookingLicense);
+            }
+            $bookingUtility = public_path('front/images/users/utility/'.$canceledBooking->bookingInfo->utility);
+                    File::delete($bookingUtility);
+
+            foreach($canceledBooking->bookingInfoId as $ids)
+            {
+                $bookingImg = public_path('front/images/users/id/'.$ids->images);
+                File::delete($bookingImg);
+            }
+            $canceledBooking->delete();
+           
+            return response()->json(['data'=>'success']);
+        }
     }
     public function bookCarRegFee(Request $request)
     {

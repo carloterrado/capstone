@@ -893,23 +893,7 @@ $(function(){
 
       
 
-    // CAR BOOKING CALENDAR
-    // var data =  [{
-    //     'start' : "01/25/2023",
-    //     'end' : "01/26/2023"
-    //     },
-    //     {
-    //     'start' : "02/04/2023",
-    //     'end' : "02/07/2023"
-    //     },
-    //     {
-    //         'start' : "02/15/2023",
-    //         'end' : "02/20/2023"
-    //     },
-    //     {
-    //         'start' : "02/28/2023",
-    //         'end' : "02/28/2023"
-    // }];
+   
 
     // FUNCTION TO UPDATE ALL FEE
     function updateFee(element,fee,driverFee,times,text)
@@ -929,16 +913,20 @@ $(function(){
         
         var data = $(input1).data('bookdates');
         var bookdates = [];
+        console.log(data)
 
         for (let i = 0; i < data.length; i++) {
-            var starts = new Date(data[i].start_date);
-            var ends = new Date(data[i].end_date);
-            var set = new Date(data[0].end_date);
-            set.setDate(set.getDate() + 1);
-        
-            while (starts <= ends) {
-                bookdates.push(fecha.format(new Date(starts), 'YYYY-MM-DD'));
-                starts.setDate(starts.getDate() + 1);
+            if(data[i].status === 'approved')
+            {
+                var starts = new Date(data[i].start_date);
+                var ends = new Date(data[i].end_date);
+                var set = new Date(data[0].end_date);
+                set.setDate(set.getDate() + 1);
+            
+                while (starts <= ends) {
+                    bookdates.push(fecha.format(new Date(starts), 'YYYY-MM-DD'));
+                    starts.setDate(starts.getDate() + 1);
+                }
             }
         }
         var picker = new Datepicker(input1, {
@@ -1745,9 +1733,6 @@ $(function(){
 
         }
     })
-   
-   
-    
     $(document).on('submit','.reg-fee-form', async function(event){
         event.preventDefault()
        
@@ -1846,6 +1831,125 @@ $(function(){
             
         }
     })
+
+    $("#ongoing-transaction-table").on("click",".cancelBooking", async function (event) 
+    {
+            var account = $(this).children("button").attr("account");
+            var booking_id = $(this).attr("booking_id");
+           
+
+            if(!confirm("Want to cancel this booking?")) return false
+            $(this).hide()
+            $('.loading').removeClass('hidden')
+            $('.loading').addClass('grid')
+           
+            await  $.ajax({
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                        "content"
+                    ),
+                },
+                type: "post",
+                url: "/cancel-booking",
+                data: { account: account, booking_id: booking_id },
+                success: function (resp) {
+                    $('.loading').removeClass('grid')
+                    $('.loading').hide()
+                    
+                    if(resp['data'] === 'cancelled')
+                    {
+                        $('.success-container').show()
+                        $('.success-message').html('Booking cancelled successfully!')
+                        // row.remove()
+                        setTimeout(function(){
+                            location.reload()
+                           
+                        },3000)
+                    }    
+                     
+                    else
+                    {
+                        $('.error-container').show()
+                        $('.error-message').html('Failed to cancel booking!')
+                        setTimeout(function(){
+                            $('.error-container').hide()
+                        },4000)
+                      
+                    } 
+                        
+                },
+                error: function (resp) {
+                    $('.loading').removeClass('grid')
+                    $('.loading').hide()
+                    
+                    $('.error-container').show()
+                        $('.error-message').html('Booking cancel failed! System error.')
+                        setTimeout(function(){
+                            $('.error-container').hide()
+                        },3000)
+                },
+            });
+        
+    });
+
+
+    // DELETE CANCELLED BOOKING
+    $("#ongoing-transaction-table").on("click",".confirmDelete", async function () 
+    {
+       
+        var booking_id = $(this).attr("moduleid");
+
+        if(!confirm("Want to delete this booking?")) return false
+        $(this).hide()
+            $('.loading').removeClass('hidden')
+            $('.loading').addClass('grid')
+
+      await  $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                    "content"
+                ),
+            },
+            type: "post",
+            url: "/delete-booking",
+            data: { booking_id:booking_id },
+            success: function (resp) {
+                $('.loading').removeClass('grid')
+                $('.loading').hide()
+                // alert(JSON.stringify(resp['data'],null,2))
+                // return
+                if(resp['data'] === 'success')
+                    {
+                        $('.success-container').show()
+                        $('.success-message').html('Booking deleted successfully!')
+                        // row.remove()
+                        location.reload()
+                    }    
+                    else
+                    {
+                        $('.error-container').show()
+                        $('.error-message').html('Failed to delete booking!')
+                        setTimeout(function(){
+                            $('.error-container').hide()
+                        },6000)
+                      
+                    } 
+            },
+            error: function (resp) {
+                $('.loading').removeClass('grid')
+                $('.loading').hide()
+               
+                $('.error-container').show()
+                    $('.error-message').html('Booking deletion failed! System error.')
+                    setTimeout(function(){
+                        $('.error-container').hide()
+                    },3000)
+            },
+        });
+    });
+
+
+
               
     
       

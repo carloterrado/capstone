@@ -8,6 +8,9 @@
 
 @elseif (Session::get('page') === 'new-booking')
     @include('admin.booking.admin-new-reserved-cars')
+
+@elseif (Session::get('page') === 'cancelled-booking')
+    @include('admin.booking.admin-cancelled-cars')
      
  @elseif (Session::get('page') === 'profile')
     @include('admin.profile.admin-profile')

@@ -65,6 +65,7 @@
                                     $date2 = new DateTime($book['end_date']);
                                     $interval = $date1->diff($date2);
                                    
+                                   
                                 ?>
                                 <div class="grid grid-cols-6 border-b-2 mb-4">
                                     <h3 class="col-span-3 text-sm font-semibold">Driver's Fee:</h3>

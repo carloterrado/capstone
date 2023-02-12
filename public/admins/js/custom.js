@@ -1918,15 +1918,19 @@ $(function(){
 
     $("#arkilla-table").on("click",".updateBooking", async function (event) 
     {
-       
-           
             var account = $(this).children("button").attr("account");
             var row = $(this).parentsUntil("tbody");
             var booking_id = $(this).attr("booking_id");
+            if(account === 'declined') var status = 'decline';
+            else var status = 'approve'
 
-            if(!confirm("Want to "+ account +" this booking?")) return false
+            if(!confirm("Want to "+ status +" this booking?")) return false
+            $(this).hide()
             $('.loading').removeClass('hidden')
             $('.loading').addClass('grid')
+
+           async function updateBooking()
+           {
             await  $.ajax({
                 headers: {
                     "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
@@ -1942,32 +1946,32 @@ $(function(){
                    
                     // alert(resp['data'])
                     // return
-                    if(resp['data'] === 'approve')
+                    if(resp['data'] === 'approved')
                     {
                         $('.success-container').show()
                         $('.success-message').html('New booking approved successfully!')
                         // row.remove()
-                        location.reload()
+                        
                         setTimeout(function(){
-                            $('.success-container').hide()
-                        },6000)
+                            location.reload()
+                        },1500)
                     }    
-                    else if(resp['data'] === 'decline')
+                    else if(resp['data'] === 'declined')
                     {
                         $('.success-container').show()
                         $('.success-message').html('New booking declined successfully!')
-                        row.remove()
+                        
                         setTimeout(function(){
-                            $('.success-container').hide()
-                        },6000)
+                            location.reload()
+                        },1500)
                     }  
                     else
                     {
                         $('.error-container').show()
-                        $('.error-message').html('Failed to '+ account +' booking!')
+                        $('.error-message').html('Failed to '+ status +' booking!')
                         setTimeout(function(){
                             $('.error-container').hide()
-                        },6000)
+                        },3000)
                       
                     } 
                         
@@ -1975,14 +1979,136 @@ $(function(){
                 error: function (resp) {
                     $('.loading').removeClass('grid')
                     $('.loading').hide()
-                    alert("Booking "+account +" failed! System error.")
                     $('.error-container').show()
-                        $('.error-message').html('Booking '+account +' failed! System error.')
+                        $('.error-message').html('Booking '+status +' failed! System error.')
                         setTimeout(function(){
                             $('.error-container').hide()
                         },3000)
                 },
             });
+        }
+        await updateBooking();
+    });
+
+    $("#ongoing-transaction-table").on("click",".cancelBooking", async function (event) 
+    {
+        var account = $(this).children("button").attr("account");
+        var booking_id = $(this).attr("booking_id");
+        
+
+        if(!confirm("Want to cancel this booking?")) return false
+        $(this).hide()
+        $('.loading').removeClass('hidden')
+        $('.loading').addClass('grid')
+        
+        await  $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                    "content"
+                ),
+            },
+            type: "post",
+            url: "/admin/cancel-booking",
+            data: { account: account, booking_id: booking_id },
+            success: function (resp) {
+                $('.loading').removeClass('grid')
+                $('.loading').hide()
+                
+                if(resp['data'] === 'cancelled')
+                {
+                    $('.success-container').show()
+                    $('.success-message').html('Booking cancelled successfully!')
+                    // row.remove()
+                    setTimeout(function(){
+                        location.reload()
+                        
+                    },3000)
+                }    
+                    
+                else
+                {
+                    $('.error-container').show()
+                    $('.error-message').html('Failed to cancel booking!')
+                    setTimeout(function(){
+                        $('.error-container').hide()
+                    },3000)
+                    
+                } 
+                    
+            },
+            error: function (resp) {
+                $('.loading').removeClass('grid')
+                $('.loading').hide()
+                
+                $('.error-container').show()
+                    $('.error-message').html('Booking cancel failed! System error.')
+                    setTimeout(function(){
+                        $('.error-container').hide()
+                    },3000)
+            },
+        });
+        
+    });
+
+    // DELETE CANCELLED BOOKING
+    $(document).on("click",".confirmDeleteBooking", async function () 
+    {
+       
+       
+       
+        var booking_id = $(this).attr("moduleid");
+
+        if(!confirm("Want to delete this booking?")) return false
+        $(this).hide()
+      
+            $('.loading').removeClass('hidden')
+            $('.loading').addClass('grid')
+
+      await  $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                    "content"
+                ),
+            },
+            type: "post",
+            url: "/admin/delete-booking",
+            data: { booking_id:booking_id },
+            success: function (resp) {
+                $('.loading').removeClass('grid')
+                $('.loading').hide()
+                // alert(JSON.stringify(resp['data'],null,2))
+                // return
+                if(resp['data'] === 'success')
+                    {
+                        $('.success-container').show()
+                        $('.success-message').html('Booking deleted successfully!')
+                        // row.remove()
+                        setTimeout(function(){
+                            location.reload()
+                        },3000)
+                       
+                    }    
+                    else
+                    {
+                        $('.error-container').show()
+                        $('.error-message').html('Failed to delete booking!')
+                        setTimeout(function(){
+                            $('.error-container').hide()
+                        },4000)
+                      
+                    } 
+            },
+            error: function (resp) {
+                $('.loading').removeClass('grid')
+                $('.loading').hide()
+               
+                $('.error-container').show()
+                    $('.error-message').html('Booking deletion failed! System error.')
+                    setTimeout(function(){
+                        $('.error-container').hide()
+                    },3000)
+            },
+        });
     });
     
 });

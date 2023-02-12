@@ -39,8 +39,8 @@
             <!-- TRANSACTION MANAGEMENT -->
               <li>
                 <a href="javascript:void(0)" class="menu sidebar-list sidebar-hover flex justify-between">
-                    <span class="ml-3"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" class="inline mb-1" viewBox="0 0 256 256"><path fill="currentColor" d="M208 32h-24v-8a8 8 0 0 0-16 0v8H88v-8a8 8 0 0 0-16 0v8H48a16 16 0 0 0-16 16v160a16 16 0 0 0 16 16h160a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16Zm-38.5 101.8l-46.7 44a7.7 7.7 0 0 1-5.5 2.2a7.9 7.9 0 0 1-5.5-2.2l-25.3-24a8 8 0 1 1 11-11.6l19.8 18.8l41.2-38.8a7.9 7.9 0 0 1 11.3.3a8 8 0 0 1-.3 11.3ZM208 80H48V48h24v8a8 8 0 0 0 16 0v-8h80v8a8 8 0 0 0 16 0v-8h24Z"/></svg> 
-                      Transaction Management</span>
+                    <span class="ml-3"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" class="inline mb-1" viewBox="0 0 15 15"><path fill="currentColor" d="M10.5 1a1 1 0 0 0-1 1H2v1l1 1l1-1l1 1l1-1l1 1h2.5a1 1 0 0 0 1 1h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-2Zm.5 1.5a.5.5 0 0 1 1 0v1a.5.5 0 0 1-1 0v-1ZM2.146 9.354A.5.5 0 0 0 2 9.707V13.5a.5.5 0 0 0 .5.5H4a.5.5 0 0 0 .5-.5V13h6v.5a.5.5 0 0 0 .5.5h1.5a.5.5 0 0 0 .5-.5V9.707a.5.5 0 0 0-.146-.353L12 8.5l-1.354-2.257a.5.5 0 0 0-.43-.243H4.784a.5.5 0 0 0-.429.243L3 8.5l-.854.854ZM11.134 9H3.866l1.2-2h4.868l1.2 2ZM5.5 10.828v.372a.3.3 0 0 1-.3.3H3.3a.3.3 0 0 1-.3-.3v-.834a.3.3 0 0 1 .359-.294l1.82.364a.4.4 0 0 1 .321.392Zm6.5-.34v.712a.3.3 0 0 1-.3.3H9.8a.3.3 0 0 1-.3-.3v-.454a.3.3 0 0 1 .241-.294l1.78-.356a.4.4 0 0 1 .479.392Z"/></svg> 
+                      Rentals</span>
                     <svg class="chevron-right rotate-90" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M9.29 6.71a.996.996 0 0 0 0 1.41L13.17 12l-3.88 3.88a.996.996 0 1 0 1.41 1.41l4.59-4.59a.996.996 0 0 0 0-1.41L10.7 6.7c-.38-.38-1.02-.38-1.41.01z"/></svg>
                 </a>
                 <ul class="sub-menu hidden">
@@ -52,6 +52,11 @@
                   <li>
                     <a href="{{url('admin/booking')}}" class="sidebar-list sidebar-hover flex justify-between">
                       <span class="ml-12">ongoing bookings</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{{url('admin/cancel-booking')}}" class="sidebar-list sidebar-hover flex justify-between">
+                      <span class="ml-12">cancelled bookings</span>
                     </a>
                   </li>
                 </ul>

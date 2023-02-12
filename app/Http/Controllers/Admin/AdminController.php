@@ -89,12 +89,63 @@ class AdminController extends Controller
         $booking = Booking::with('bookingInfo','bookingInfoId','carInfo')->whereHas('carInfo',
         function($query) use ($owner_id){
             $query->where(['owner_id'=>$owner_id]);
-        })->where(['status'=>'pending'])->get()->toArray();
+        })->where(['status'=>'pending'])->orWhere('status','approved')->get()->toArray();
         // dd($booking);
        
        
         return view('admin.dashboard')->with(compact('booking')) ;
 
+    }
+    public function cancelBooking(Request $request)
+    {
+        
+        if($request->ajax())
+        {
+            $data = $request->all();
+            $booking = Booking::find($data['booking_id']);
+            $booking->status = $data['account'];
+            $booking->save();
+            return response()->json(['data'=>$data['account']]);
+        }
+        Session::put('title','Cancelled Booking');
+        Session::put('page','cancelled-booking');
+        if(Auth::guard('admin')->user()->type === 'owner')
+        {
+            return view('owner.dashboard');
+        }
+        $owner_id = Auth::guard('admin')->user()->owner_id;
+        $booking = Booking::with('bookingInfo','bookingInfoId','carInfo')->whereHas('carInfo',
+        function($query) use ($owner_id){
+            $query->where(['owner_id'=>$owner_id]);
+        })->where(['status'=>'cancelled'])->get()->toArray();
+       
+
+        return view('admin.dashboard')->with(compact('booking')) ;
+    }
+    public function deleteBooking(Request $request)
+    {
+        if($request->ajax())
+        {
+            $data = $request->all();
+            
+            $canceledBooking = Booking::with('bookingInfoId','bookingInfo')->find($data['booking_id']);
+            if($canceledBooking->bookingInfo->license !== null)
+            {
+                $bookingLicense = public_path('front/images/users/license/'.$canceledBooking->bookingInfo->license);
+                    File::delete($bookingLicense);
+            }
+            $bookingUtility = public_path('front/images/users/utility/'.$canceledBooking->bookingInfo->utility);
+                    File::delete($bookingUtility);
+
+            foreach($canceledBooking->bookingInfoId as $ids)
+            {
+                $bookingImg = public_path('front/images/users/id/'.$ids->images);
+                File::delete($bookingImg);
+            }
+            $canceledBooking->delete();
+           
+            return response()->json(['data'=>'success']);
+        }
     }
     public function updateBookingAccount(Request $request)
     { 
@@ -108,16 +159,14 @@ class AdminController extends Controller
           
              $email = $user->email;
              $name = $booking->bookingInfo->fullname; 
-           ;
            
-             
              $account = $data['account'] ;
            
-            if($data['account'] === 'approve'){
-                $accountMessage = 'All the information provided have been verified by the admin. Please check your reserved car and pay for reservation fee to fully validate your booking. The reservation fee will be deducted to the total amount of your booking fee. Please take note that reservation fee is not refundable.';
+            if($data['account'] === 'approved'){
+                $accountMessage = 'All the information provided have been verified by the admin. Please check your reserved car. Thank you.';
               
             }
-            else if ($data['account'] === 'decline')
+            else if ($data['account'] === 'declined')
             {
                 
                $accountMessage = (string) 'All the information provided have been verified by the admin. However, the information you provided doesn\'t meet the requirement needed. Therefore, your car booking have been declined.';
