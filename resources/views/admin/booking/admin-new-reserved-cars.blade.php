@@ -100,8 +100,8 @@
                                         </div> 
                                     </td>
                                 
+                                    @include('admin.booking.admin-view-booking-details') 
                                 </tr>
-                                @include('admin.booking.admin-view-booking-details') 
                             @endif 
                         @endforeach   
                     </tbody>
@@ -160,7 +160,7 @@
                                     </td>
                                     <td class="py-4 px-6">
                                         <div class="flex justify-center">
-                                            <button type="button" data-modal-toggle="{{'view-booking'.$book['id']}}"  class="details btn-1 bg-accent-regular uppercase  w-[fit-content]   text-white whitespace-nowrap">View details</button>
+                                            <button type="button" data-modal-toggle="{{'view-booking-page2'.$book['id']}}"  class="details btn-1 bg-accent-regular uppercase  w-[fit-content]   text-white whitespace-nowrap">View details</button>
                                         </div>
                                     </td>
                                     <td class="py-4 px-6 font-semibold text-gray-900 ">
@@ -183,7 +183,7 @@
                                     </td>
                                 
                                 </tr>
-                                @include('admin.booking.admin-view-booking-details') 
+                                @include('admin.booking.admin-view-booking-details-second-page') 
                             @endif 
                         @endforeach    
                     </tbody>
