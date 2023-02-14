@@ -25,6 +25,8 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Str;
+use Mpdf\Mpdf;
+
 
 
 class AdminController extends Controller
@@ -277,7 +279,7 @@ class AdminController extends Controller
         {
             return view('owner.dashboard');
         }
-        // $pages = View::make('admin.booking.admin-view-booking-history-details',$histories);
+        
         return view('admin.dashboard')->with(compact('histories')) ;
     }
     public function deleteBookingHistory(Request $request)
@@ -289,14 +291,18 @@ class AdminController extends Controller
             return response()->json(['data'=>'success']);
         }
     }
-    public function downloadBookingHistory(Request $request)
+    public function downloadBookingHistory($booking_id)
     {
-        if($request->ajax())
-        {
-        //     $data = $request->all();
-        //    $output =  History::find($data['history_id'])->toArray();
-            return response()->json(['data'=>'success']);
-        }
+      
+       
+           $history =  History::find($booking_id)->toArray();
+           $pages = view('admin.booking.booking-pdf-template',['history'=>$history])->render();
+           $mpdf = new Mpdf(); // Create new mPDF instance
+            $mpdf->WriteHTML($pages); // Load HTML
+            $mpdf->Output('booking.pdf', 'D'); // Output the generated PDF to the browser
+          
+
+        
     }
     public function booking()
     {

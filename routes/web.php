@@ -70,7 +70,7 @@ Route::prefix('admin')->group(function()
         Route::post('booking-return-confirmed',[AdminController::class,'bookingReturnConfirmed']);
         Route::get('booking-history',[AdminController::class,'bookingHistory']);
         Route::post('delete-booking-history',[AdminController::class,'deleteBookingHistory']);
-        Route::post('download-booking-history',[AdminController::class,'downloadBookingHistory']);
+        Route::get('download-booking-history/{id}',[AdminController::class,'downloadBookingHistory']);
 
         Route::post('book-car-reg-fee',[AdminController::class,'bookCarRegFee']);
         Route::get('car-types',[AdminController::class,'carTypes']);
