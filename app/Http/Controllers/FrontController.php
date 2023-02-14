@@ -240,6 +240,8 @@ class FrontController extends Controller
                 File::delete($bookingImg);
             }
             $canceledBooking->delete();
+            BookingInfo::where('booking_id',$data['booking_id'])->delete();
+            BookingInfoId::where('booking_id',$data['booking_id'])->delete();
            
             return response()->json(['data'=>'success']);
         }
@@ -250,6 +252,17 @@ class FrontController extends Controller
         if($request->ajax())
         {
             $data =$request->all();
+            return response()->json(['data'=>'success']);
+        }
+    }
+    public function bookingChecklistConfirmed(Request $request)
+    {
+        if($request->ajax())
+        {
+            $data = $request->all();
+            $booking = Booking::find($data['booking_id']);
+            $booking->status = 'ongoing';
+            $booking->save();
             return response()->json(['data'=>'success']);
         }
     }

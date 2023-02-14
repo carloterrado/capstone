@@ -7,15 +7,14 @@
         
             <div class="form-step step-one pb-6">
                 <div class="flex justify-between px-2 pt-6 pb-4 sm:p-6 rounded-t items-center ">
-                <h2 class="text-lg sm:text-xl font-semibold uppercase leading-4">{{$book['car_info']['name']}}</h2>
+                    <h2 class="text-lg sm:text-xl font-semibold uppercase leading-4">{{$book['car_info']['name']}}</h2>
                     <button data-modal-toggle="{{'view-booking-page2'.$book['id']}}" type="button" class="cursor-pointer text-gray-400 bg-transparent hover:bg-accent-regular hover:text-white rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" >
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>  
                     </button>
                 </div>
                 <div class="px-2 sm:px-6 grid grid-cols-8 gap-x-6">
                     <div class="col-span-8 md:col-span-5 mb-6">
-                        <div class="relative h-42 sm:h-56 overflow-hidden" id="car-photos">
-                               
+                        <div class="relative h-42 sm:h-56 overflow-hidden" id="car-photos">    
                                 <img src="{{url('admins/images/cars/main/'.$book['car_info']['main_photo'])}}" class="h-full w-full object-cover " alt="...">
                               
                                 <!-- <img src="{{url('owner/images/cars/main/'.$book['car_info']['main_photo'])}}" class="absolute block w-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 " alt="..."></a> -->
@@ -26,7 +25,7 @@
                         <div class="my-6 bg-[#f5f5f5]">
                             <ul class="grid grid-cols-6 -mb-px text-sm font-medium text-center " id="{{'car2'.$book['id']}}" data-tabs-toggle="{{'#car-content2'.$book['id']}}" role="tablist">
                                 <li class="mr-2 col-span-6 sm:col-span-2" role="presentation">
-                                    <button class="transaction-tab inline-block p-4 border-b-2 rounded-t-lg uppercase" id="{{'car-description-tab2'.$book['id']}}" data-tabs-target="{{'#car-description2'.$book['id']}}" type="button" role="tab" aria-controls="{{'car-description2'.$book['id']}}" aria-selected="false">User Details</button>
+                                    <button class="car-tab inline-block p-4 border-b-2 rounded-t-lg uppercase" id="{{'car-description-tab2'.$book['id']}}" data-tabs-target="{{'#car-description2'.$book['id']}}" type="button" role="tab" aria-controls="{{'car-description2'.$book['id']}}" aria-selected="false">User Details</button>
                                 </li>
                                 <li class="mr-2 col-span-6 sm:col-span-2" role="presentation">
                                     <button class="car-tab inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-accent-regular hover:border-accent-regular uppercase" id="{{'car-excluded-tab2'.$book['id']}}" data-tabs-target="{{'#car-excluded2'.$book['id']}}" type="button" role="tab" aria-controls="{{'car-excluded2'.$book['id']}}" aria-selected="false">User IDs</button>

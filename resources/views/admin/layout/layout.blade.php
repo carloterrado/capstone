@@ -44,11 +44,13 @@
    <script>
        $('#arkilla-table').DataTable({
         ordering: false,
+        stateSave: true,
        });
    </script>
    <script>
        $('#ongoing-transaction-table').DataTable({
         ordering: false,
+        stateSave: true,
        });
    </script>
    <script src="{{url('admins/js/custom.js')}}"></script>

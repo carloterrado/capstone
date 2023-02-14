@@ -30,6 +30,7 @@ Route::prefix('/')->group(function()
         Route::get('reserved-car',[FrontController::class,'reservedCar']);
         Route::post('cancel-booking',[FrontController::class,'cancelBooking']);
         Route::post('delete-booking',[FrontController::class,'deleteBooking']);
+        Route::post('booking-checklist-confirmed',[FrontController::class,'bookingChecklistConfirmed']);
         
     });
     Route::get('about',[FrontController::class,'about']);
@@ -62,9 +63,14 @@ Route::prefix('admin')->group(function()
         Route::get('dashboard',[AdminController::class,'dashboard']);
         Route::get('booking',[AdminController::class,'booking']);
         Route::get('new-booking',[AdminController::class,'newBooking']);
+        Route::get('approved-booking',[AdminController::class,'approvedBooking']);
         Route::post('update-booking-account',[AdminController::class,'updateBookingAccount']);
         Route::match(['get','post'],'cancel-booking',[AdminController::class,'cancelBooking']);
         Route::post('delete-booking',[AdminController::class,'deleteBooking']);
+        Route::post('booking-return-confirmed',[AdminController::class,'bookingReturnConfirmed']);
+        Route::get('booking-history',[AdminController::class,'bookingHistory']);
+        Route::post('delete-booking-history',[AdminController::class,'deleteBookingHistory']);
+        Route::post('download-booking-history',[AdminController::class,'downloadBookingHistory']);
 
         Route::post('book-car-reg-fee',[AdminController::class,'bookCarRegFee']);
         Route::get('car-types',[AdminController::class,'carTypes']);

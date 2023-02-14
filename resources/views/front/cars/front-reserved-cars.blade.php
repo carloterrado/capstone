@@ -49,14 +49,11 @@
                                 <span class="block text-center">Action</span>  
                             </th>
                             
-                            
                         </tr>
                     </thead>
                     <tbody>
                     @include('message.loading')
-
                         @foreach($booking as $book)    
-                        
                         <tr class="bg-white border-b  hover:bg-gray-50  ">
                             <td class="py-4 px-6 font-semibold text-gray-900 ">
                                 {{'#'.$book['id']}}
@@ -79,11 +76,9 @@
                             </td>
                             <td class="py-4 px-6">
                                 <div class="flex justify-center">
-                                
                                     <button type="button" data-modal-toggle="{{'view-booking'.$book['id']}}"  class="details btn-1 bg-accent-regular uppercase  w-[fit-content]   text-white whitespace-nowrap">View details</button>
                                 </div>
-                            @include('front.cars.front-view-booking-details') 
-    
+                                @include('front.cars.front-view-booking-details') 
                             </td>
                             <td class="py-4 px-6 font-semibold text-gray-900 ">
                                 <div class="py-6 flex justify-center ">
@@ -109,18 +104,23 @@
                                         <a module="booking"   moduleid="{{$book['id']}}" class="confirmDelete cursor-pointer"><div class="btn-1 bg-accent-regular w-[fit-content]  text-white whitespace-nowrap">
                                             Delete
                                         </div></a>
-                                    @elseif ($book['status'] === 'ongoing') 
-                                        <button   class="btn-1 bg-accent-green w-[fit-content]   text-white whitespace-nowrap">checklist</button>
-                                    @else
-                                        @if ((Carbon::now() < $start_date->subDay() && $book['status'] === 'approved') || (Carbon::now() < $start_date && $book['status'] === 'pending'))
+                                        <!-- CHECK IF THE STATUS IS APPROVED AND THE DATE TODAY IS LESS THAN A DAY BEFORE START DATE -->
+                                    @elseif ($book['status'] === 'approved' && Carbon::now() < $start_date->subDay())
                                         <a class="cancelBooking"  booking_id="{{$book['id']}}" user_id="{{$book['user_id']}}">
                                         <button account="cancelled"  class="btn-1 bg-accent-regular w-[fit-content]   text-white whitespace-nowrap">Cancel</button></a>
-                                       
-                                        @elseif (Carbon::now()->subDay() >= $start_date && $book['status'] === 'pending')
-                                        <a module="booking"   moduleid="{{$book['id']}}" class="confirmDelete cursor-pointer"><div class="btn-1 bg-accent-regular w-[fit-content]  text-white whitespace-nowrap">
-                                        Delete
-                                        </div></a>
-                                        @endif
+                                        <!-- CHECK IF THE STATUS IS APPROVED AND THE DATE TODAY IS EQUAL OR GREATER THAN THE DAY BEFORE START DATE -->
+                                    @elseif (($book['status'] === 'approved' && Carbon::now() >= $start_date->subDay()) || $book['status'] === 'ongoing' )
+                                        <button data-modal-toggle="{{'view-checklist'.$book['id']}}"   class="btn-1 bg-accent-green w-[fit-content]   text-white whitespace-nowrap">view checklist</button>
+                                        @include('front.cars.front-car-view-checklist')
+                                        <!-- CHECK IF THE STATUS IS PENDING AND THE DATE TODAY IS LESS THAN A DAY BEFORE START DATE -->   
+                                    @elseif ( $book['status'] === 'pending' && Carbon::now() < $start_date->subDay() )
+                                            <a class="cancelBooking"  booking_id="{{$book['id']}}" user_id="{{$book['user_id']}}">
+                                            <button account="cancelled"  class="btn-1 bg-accent-regular w-[fit-content]   text-white whitespace-nowrap">Cancel</button></a>
+                                        <!-- CHECK IF THE STATUS IS PENDING AND THE DATE TODAY IS EQUAL OR GREATER THAN THE DAY BEFORE START DATE -->
+                                    @elseif ($book['status'] === 'pending' && Carbon::now() >= $start_date->subDay())
+                                            <a module="booking"   moduleid="{{$book['id']}}" class="confirmDelete cursor-pointer"><div class="btn-1 bg-accent-regular w-[fit-content]  text-white whitespace-nowrap">
+                                            Delete
+                                            </div></a>
                                     @endif
 
                                 </div>

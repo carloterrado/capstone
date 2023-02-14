@@ -5,10 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\Booking;
+use App\Models\BookingInfo;
+use App\Models\BookingInfoId;
 use App\Models\Car;
 use App\Models\CarPhoto;
 use App\Models\CarPrice;
 use App\Models\CarType;
+use App\Models\History;
 use App\Models\OwnerDetail;
 use App\Models\User;
 use Carbon\Carbon;
@@ -19,6 +22,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\View;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Str;
 
@@ -89,7 +93,26 @@ class AdminController extends Controller
         $booking = Booking::with('bookingInfo','bookingInfoId','carInfo')->whereHas('carInfo',
         function($query) use ($owner_id){
             $query->where(['owner_id'=>$owner_id]);
-        })->where(['status'=>'pending'])->orWhere('status','approved')->get()->toArray();
+        })->where(['status'=>'pending'])->get()->toArray();
+        // dd($booking);
+       
+       
+        return view('admin.dashboard')->with(compact('booking')) ;
+
+    }
+    public function approvedBooking()
+    {
+        Session::put('title','Approved Booking');
+        Session::put('page','approved-booking');
+        if(Auth::guard('admin')->user()->type === 'owner')
+        {
+            return view('owner.dashboard');
+        }
+        $owner_id = Auth::guard('admin')->user()->owner_id;
+        $booking = Booking::with('bookingInfo','bookingInfoId','carInfo')->whereHas('carInfo',
+        function($query) use ($owner_id){
+            $query->where(['owner_id'=>$owner_id]);
+        })->where(['status'=>'approved'])->get()->toArray();
         // dd($booking);
        
        
@@ -187,19 +210,108 @@ class AdminController extends Controller
             return response()->json(['data'=>$account]);
         }
     }
-    public function booking()
+    public function bookingReturnConfirmed(Request $request)
     {
-        Session::put('title','Booking');
-        Session::put('page','booking');
+        if($request->ajax())
+        {
+            $data = $request->all();
+            
+            $returnBooking = Booking::with('bookingInfoId','bookingInfo','carInfo')->find($data['booking_id']);
+            $history = new History;
+            $history->name = $returnBooking->bookingInfo->fullname;
+            $history->contact = $returnBooking->bookingInfo->contact;
+            $history->address = $returnBooking->bookingInfo->address;
+            $history->car_name = $returnBooking->carInfo->name;
+            $history->plate_number = $returnBooking->carInfo->plate_number;
+            $history->capacity = $returnBooking->carInfo->capacity;
+            $history->car_type = $returnBooking->carInfo->carTypes->name;
+            $history->start_date = $returnBooking->start_date;
+            $history->end_date = $returnBooking->end_date;
+            $history->time = $returnBooking->time;
+            $history->destination = $returnBooking->bookingInfo->destination;
+            if($returnBooking->bookingInfo->driver === "0")
+            {
+                $history->driver = "Self Drive";
+            }
+            else
+            {
+                $history->driver = "With Driver";
+            }
+            $history->driver_fee = $returnBooking->bookingInfo->driver_fee;
+            $history->car_price = $returnBooking->bookingInfo->car_price;
+            $history->grand_total = $returnBooking->bookingInfo->grand_total;
+            $history->user_id = $returnBooking->user_id;
+            $history->car_id = $returnBooking->car_id;
+            $history->booking_id = $returnBooking->id;
+            $history->owner_id = $returnBooking->carInfo->owner_id;
+            $history->save();
+
+            if($returnBooking->bookingInfo->license !== null)
+            {
+                $bookingLicense = public_path('front/images/users/license/'.$returnBooking->bookingInfo->license);
+                    File::delete($bookingLicense);
+            }
+            $bookingUtility = public_path('front/images/users/utility/'.$returnBooking->bookingInfo->utility);
+                    File::delete($bookingUtility);
+
+            foreach($returnBooking->bookingInfoId as $ids)
+            {
+                $bookingImg = public_path('front/images/users/id/'.$ids->images);
+                File::delete($bookingImg);
+            }
+            $returnBooking->delete();
+            BookingInfo::where('booking_id',$data['booking_id'])->delete();
+            BookingInfoId::where('booking_id',$data['booking_id'])->delete();
+            return response()->json(['data'=>'success']);
+
+            
+        }
+    }
+    public function bookingHistory()
+    {
+        Session::put('title','Booking History');
+        Session::put('page','booking-history');
+        $owner_id = Auth::guard('admin')->user()->owner_id;
+        $histories = History::where('owner_id',$owner_id)->get()->toArray();
         if(Auth::guard('admin')->user()->type === 'owner')
         {
             return view('owner.dashboard');
         }
+        // $pages = View::make('admin.booking.admin-view-booking-history-details',$histories);
+        return view('admin.dashboard')->with(compact('histories')) ;
+    }
+    public function deleteBookingHistory(Request $request)
+    {
+        if($request->ajax())
+        {
+            $data = $request->all();
+            History::find($data['history_id'])->delete();
+            return response()->json(['data'=>'success']);
+        }
+    }
+    public function downloadBookingHistory(Request $request)
+    {
+        if($request->ajax())
+        {
+        //     $data = $request->all();
+        //    $output =  History::find($data['history_id'])->toArray();
+            return response()->json(['data'=>'success']);
+        }
+    }
+    public function booking()
+    {
+        Session::put('title','Booking');
+        Session::put('page','booking');
         $owner_id = Auth::guard('admin')->user()->owner_id;
         $booking = Booking::with('bookingInfo','bookingInfoId','carInfo')->whereHas('carInfo',
         function($query) use ($owner_id){
             $query->where(['owner_id'=>$owner_id]);
         })->where(['status'=>'ongoing'])->get()->toArray();
+        if(Auth::guard('admin')->user()->type === 'owner')
+        {
+            return view('owner.dashboard')->with(compact('booking'));
+        }
+        
         // dd($booking);
         return view('admin.dashboard')->with(compact('booking')) ;
 

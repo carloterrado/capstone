@@ -47,7 +47,7 @@
                     <select name="driver" id="driver" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-0 focus:border-gray-900 block w-full p-2.5 ">
                     <option disabled selected>Select</option>
                     <option value="1" @if ((isset($_POST['driver']) && $_POST['driver'] === '1') || (isset($_GET['driver']) && $_GET['driver'] === '1')) selected @endif>With driver</option>
-                    <option value="0" @if ((isset($_POST['driver']) && $_POST['driver'] === '0') || (isset($_GET['driver']) && $_GET['driver'] === '0')) selected @endif>Car only</option>
+                    <option value="0" @if ((isset($_POST['driver']) && $_POST['driver'] === '0') || (isset($_GET['driver']) && $_GET['driver'] === '0')) selected @endif>Self drive</option>
                     </select>
                 </div> 
                 

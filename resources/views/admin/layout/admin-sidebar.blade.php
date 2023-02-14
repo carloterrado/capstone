@@ -50,6 +50,11 @@
                     </a>
                   </li>
                   <li>
+                    <a href="{{url('admin/approved-booking')}}" class="sidebar-list sidebar-hover flex justify-between">
+                      <span class="ml-12">approved bookings</span>
+                    </a>
+                  </li>
+                  <li>
                     <a href="{{url('admin/booking')}}" class="sidebar-list sidebar-hover flex justify-between">
                       <span class="ml-12">ongoing bookings</span>
                     </a>
@@ -57,6 +62,11 @@
                   <li>
                     <a href="{{url('admin/cancel-booking')}}" class="sidebar-list sidebar-hover flex justify-between">
                       <span class="ml-12">cancelled bookings</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{{url('admin/booking-history')}}" class="sidebar-list sidebar-hover flex justify-between">
+                      <span class="ml-12">history</span>
                     </a>
                   </li>
                 </ul>

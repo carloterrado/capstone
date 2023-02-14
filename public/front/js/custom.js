@@ -1948,6 +1948,61 @@ $(function(){
         });
     });
 
+    // CONFIRM THE CHECKLIST OF THE CAR
+    $("#ongoing-transaction-table").on("click",".confirmedChecklist", async function () 
+    {
+       var checklist = (this).closest('.checklist-form');
+        var booking_id = $(this).attr("bookingid");
+
+        if(!confirm("Checklist already confirmed?")) return false
+        $(this).hide()
+            $(checklist).find('.loading').removeClass('hidden')
+            $(checklist).find('.loading').addClass('grid')
+
+      await  $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                    "content"
+                ),
+            },
+            type: "post",
+            url: "/booking-checklist-confirmed",
+            data: { booking_id:booking_id },
+            success: function (resp) {
+                $(checklist).find('.loading').removeClass('grid')
+                $(checklist).find('.loading').hide()
+                // alert(JSON.stringify(resp['data'],null,2))
+                // return
+                if(resp['data'] === 'success')
+                    {
+                        $(checklist).find('.success-container').show()
+                        $(checklist).find('.success-message').html('Checklist confirmed!')
+                        // row.remove()
+                        location.reload()
+                    }    
+                    else
+                    {
+                        $(checklist).find('.error-container').show()
+                        $(checklist).find('.error-message').html('Failed to confirmed checklist!')
+                        setTimeout(function(){
+                            $('.error-container').hide()
+                        },6000)
+                      
+                    } 
+            },
+            error: function (resp) {
+                $(checklist).find('.loading').removeClass('grid')
+                $(checklist).find('.loading').hide()
+               
+                $(checklist).find('.error-container').show()
+                    $(checklist).find('.error-message').html('Confirm checklist failed! System error.')
+                    setTimeout(function(){
+                        $(checklist).find('.error-container').hide()
+                    },3000)
+            },
+        });
+    });
+
 
 
               

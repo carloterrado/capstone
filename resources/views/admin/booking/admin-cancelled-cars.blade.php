@@ -7,13 +7,7 @@
     
      <!-- Tab link -->
     <div class="mb-6 ">
-        <ul class="flex -mb-px text-sm font-medium text-center" id="transaction-link" data-tabs-toggle="transaction" role="tablist">
-            <li class="mr-2 col-span-3 md:col-span-1" role="presentation">
-                <button class="transaction-tab inline-block p-4 border-b-2 rounded-t-lg sm:text-lg lg:text-2xl font-bold text-accent-regular border-accent-regular"  type="button"  aria-selected="false">Cancelled booking</button>
-            </li> 
-           
-           
-        </ul>
+        <h2 class="inline-block p-4 border-b-2 border-accent-regular text-accent-regular rounded-t-lg sm:text-lg lg:text-2xl font-bold">Cancelled Booking</h2>
     </div>
 
     <!-- Tab content -->
@@ -22,7 +16,6 @@
             <div class="overflow-x-auto relative shadow-md sm:rounded-lg pt-4 border">
                 @include('message.loading')
                 <table id="arkilla-table" class="cell-border hover w-full text-sm text-left  text-gray-500 mt-8">
-                
                     <thead class=" text-gray-700 uppercase ">
                         <tr class="border-y">
                             <th scope="col" class="py-3 px-6 ">
@@ -47,8 +40,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                    
-                    
                         @foreach($booking as $book)  
                             @if ($book['status'] === 'cancelled')
                                 <tr class="bg-white border-b  hover:bg-gray-50  ">

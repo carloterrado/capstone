@@ -42,7 +42,10 @@
    <script src="{{url('js/jquery.Datatable.js')}}"></script>
    <script src="{{url('owner/js/custom.js')}}"></script>
    <script>
-       $('#arkilla-table').DataTable();
+       $('#arkilla-table').DataTable({
+         ordering: false,
+        stateSave: true,
+       });
    </script>
 
  

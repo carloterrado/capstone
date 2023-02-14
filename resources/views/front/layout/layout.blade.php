@@ -48,9 +48,11 @@
    <script>
        $('#ongoing-transaction-table').DataTable({
         ordering: false,
+        stateSave: true,
        });
        $('#history-transaction-table').DataTable({
         ordering: false,
+        stateSave: true,
        });
    </script>
   

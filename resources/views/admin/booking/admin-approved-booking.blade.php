@@ -7,15 +7,15 @@
     
      <!-- Tab link -->
     <div class="mb-6 ">
-        <h2 class="inline-block p-4 border-b-2 border-accent-regular text-accent-regular rounded-t-lg sm:text-lg lg:text-2xl font-bold">New Booking</h2>
+        <h2 class="inline-block p-4 border-b-2 border-accent-regular text-accent-regular rounded-t-lg sm:text-lg lg:text-2xl font-bold">Approved Booking</h2>
     </div>
 
     <!-- Tab content -->
     <div id="transaction">
-        <div class=" p-4" id="new-booking"  role="tabpanel" aria-labelledby="ongoing">
+       
+        <div class=" p-4" id="approved-booking" role="tabpanel" aria-labelledby="history">
             <div class="overflow-x-auto relative shadow-md sm:rounded-lg pt-4 border">
-                @include('message.loading')
-                <table id="arkilla-table" class="cell-border hover w-full text-sm text-left  text-gray-500 mt-8">
+                <table id="ongoing-transaction-table" class="cell-border hover w-full text-sm text-left  text-gray-500 mt-8">
                 
                     <thead class=" text-gray-700 uppercase ">
                         <tr class="border-y">
@@ -41,10 +41,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                    
+                    @include('message.loading')
                     
                         @foreach($booking as $book)  
-                            @if ($book['status'] === 'pending')
+                           
                                 <tr class="bg-white border-b  hover:bg-gray-50  ">
                                     <td class="py-4 px-6 font-semibold text-gray-900 ">
                                         {{'#'.$book['id']}}
@@ -65,12 +65,12 @@
                                     </td>
                                     <td class="py-4 px-6">
                                         <div class="flex justify-center">
-                                            <button type="button" data-modal-toggle="{{'view-booking'.$book['id']}}"  class="details btn-1 bg-accent-regular uppercase  w-[fit-content]   text-white whitespace-nowrap">View details</button>
+                                            <button type="button" data-modal-toggle="{{'view-booking-page2'.$book['id']}}"  class="details btn-1 bg-accent-regular uppercase  w-[fit-content]   text-white whitespace-nowrap">View details</button>
                                         </div>
                                     </td>
                                     <td class="py-4 px-6 font-semibold text-gray-900 ">
                                         <div class="py-6 flex justify-center ">
-                                            <div class="btn-1 pointer-events-none bg-[#F28123] w-[fit-content]  text-white whitespace-nowrap">
+                                            <div class="btn-1 pointer-events-none bg-accent-green w-[fit-content]  text-white whitespace-nowrap">
                                                 {{$book['status']}}
                                             </div>
                                         </div>
@@ -79,25 +79,20 @@
                                         <?php
                                         $start_date = Carbon::createFromFormat('Y-m-d H:i A',$book['start_date'].' '. $book['time']);
                                         ?>
-                                        <div class="flex gap-4 py-6 justify-center"> 
-                                        @if (Carbon::now() > $start_date && $book['status'] === 'pending') 
-                                        @else
-                                            <a class="updateBooking"  booking_id="{{$book['id']}}" user_id="{{$book['user_id']}}">
-                                            <button account="approved"  class="btn-1 bg-accent-green w-[fit-content]   text-white whitespace-nowrap">approve</button></a>
-                                            <a class="updateBooking"  booking_id="{{$book['id']}}" user_id="{{$book['user_id']}}">
-                                            <button account="declined"  class="btn-1 bg-accent-regular w-[fit-content]   text-white whitespace-nowrap">decline</button></a>
-                                        @endif
-                                        </div> 
+                                        <div class="py-6 flex justify-center ">
+                                            @if (Carbon::now() < $start_date->subDay())
+                                                <a class="cancelBooking"  booking_id="{{$book['id']}}" user_id="{{$book['user_id']}}">
+                                                <button account="cancelled"  class="btn-1 bg-accent-regular w-[fit-content]   text-white whitespace-nowrap">Cancel</button></a>
+                                            @endif
+                                        </div>
                                     </td>
-                                
-                                    @include('admin.booking.admin-view-booking-details') 
+                                            @include('admin.booking.admin-view-booking-details-second-page') 
                                 </tr>
-                            @endif 
-                        @endforeach   
+                          
+                        @endforeach    
                     </tbody>
                 </table>
             </div>
-        </div> 
-        
+        </div>
     </div>
 </main> 
