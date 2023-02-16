@@ -8,15 +8,17 @@ class Checkbox extends Component
 {
     public $name;
     public $labelText;
+    public $value;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($name, $labelText)
+    public function __construct($name, $labelText, $value)
     {
         $this->name = $name;
         $this->labelText = $labelText;
+        $this->value = $value;
     }
 
     /**

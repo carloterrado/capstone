@@ -1,3 +1,5 @@
+
+
 $(function(){
     $('.menu').on('click', function()
     {
@@ -2275,6 +2277,81 @@ $(function(){
             },
         });
     });
+
+   
+    $(document).on('submit','.check-list-form', async function(event){
+        event.preventDefault();
+    
+        if (event.target === this) {
+            const error = $(this).find('.checklist-error');
+            async function verifiedChecklist(form) {
+                const fieldsToCheck = [
+                    'windshield',
+                    'hood',
+                    'grill',
+                    'frontPlate',
+                    'bumper',
+                    'headlights',
+                    'rearWindow',
+                    'bootTrunk',
+                    'backPlate',
+                    'rearBumper',
+                    'tailLights',
+                    'rightSideMirror',
+                    'rightSideFrontFender',
+                    'rightSideFrontDoorWindow',
+                    'rightSideRearDoorWindow',
+                    'rightSideFrontDoor',
+                    'rightSideRearDoor',
+                    'rightSideRearFender',
+                    'rightSideFrontWheels',
+                    'rightSideBackWheels',
+                    'leftSideMirror',
+                    'leftSideFrontFender',
+                    'leftSideFrontDoorWindow',
+                    'leftSideRearDoorWindow',
+                    'leftSideFrontDoor',
+                    'leftSideRearDoor',
+                    'leftSideRearFender',
+                    'leftSideFrontWheels',
+                    'leftSideBackWheels',
+                    'seatBelts',
+                    'airbags',
+                    'signalLights',
+                    'hazardLights',
+                    'frontExteriorLights',
+                    'backExteriorLights',
+                    'acceleratorPedal',
+                    'breakPedal',
+                    'clutchPedal',
+                    'gearShift',
+                    'steeringWheel',
+                    'horn',
+                ];
+    
+                for (const field of fieldsToCheck) {
+                    const inputs = form.find(`input[name="${field}[]"]:checked`);
+                    if (inputs.length === 0) {
+                        error.text(`Please select ${field.split(/(?=[A-Z])/).join(' ').toLowerCase()}`).show();
+                        setTimeout(function(){
+                            error.hide();
+                        },2000)
+                        return false;
+                    }
+                }
+               
+                return true;
+            }
+            const isCheckListVerified = await verifiedChecklist($(this));
+            if (isCheckListVerified) {
+                // Your logic to submit the form
+                console.log('goods')
+            }
+           
+        }
+    });
+    
+    
     
     
 });
