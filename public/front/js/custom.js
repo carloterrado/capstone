@@ -1419,7 +1419,15 @@ $(function(){
         {
             const validIDEl = $(this);
             const errorElement = $(validIDEl).siblings('label');
-            fileImageID(validIDEl,errorElement,"Two Valid IDs")
+            fileImage(validIDEl,errorElement,"Valid ID")
+        }
+    })
+    $(document).on('change', '.valid-id-2', function(event){
+        if(event.target === this)
+        {
+            const validIDEl = $(this);
+            const errorElement = $(validIDEl).siblings('label');
+            fileImage(validIDEl,errorElement,"Another Valid ID")
         }
     })
     $(document).on('change', '.utility', function(event){
@@ -1542,6 +1550,8 @@ $(function(){
                 const licenseImgError = $(licenseImg).siblings('label');
                 const validIDImg = $(stepThree).find('.valid-id');
                 const validIDImgError = $(validIDImg).siblings('label');
+                const validIDImg2 = $(stepThree).find('.valid-id-2');
+                const validIDImg2Error = $(validIDImg2).siblings('label');
                 const utilityImg = $(stepThree).find('.utility');
                 const utilityImgError = $(utilityImg).siblings('label');
                 const address = $(stepThree).find('.address');
@@ -1551,11 +1561,11 @@ $(function(){
                 let valid = false;
                 if(driver === "1")
                 {
-                    valid = fullName(fullname,fullNameError,'Full Name') && contact(contactNumber,contactNumberError) && fileImageID(validIDImg,validIDImgError,"Two Valid IDs") && fileImage(utilityImg,utilityImgError, "Latest Electric/Water Bill") && validateAddress(address,addressError);
+                    valid = fullName(fullname,fullNameError,'Full Name') && contact(contactNumber,contactNumberError) && fileImage(validIDImg,validIDImgError,"Valid ID") && fileImage(validIDImg2,validIDImg2Error,"Another Valid ID") && fileImage(utilityImg,utilityImgError, "Latest Electric/Water Bill") && validateAddress(address,addressError);
                 }
                 else
                 {
-                    valid = fullName(fullname,fullNameError,'Full Name') && contact(contactNumber,contactNumberError) && fileImage(licenseImg,licenseImgError, "Driver's License") && fileImageID(validIDImg,validIDImgError,"Two Valid IDs") && fileImage(utilityImg,utilityImgError, "Latest Electric/Water Bill") && validateAddress(address,addressError);
+                    valid = fullName(fullname,fullNameError,'Full Name') && contact(contactNumber,contactNumberError) && fileImage(licenseImg,licenseImgError, "Driver's License") && fileImage(validIDImg,validIDImgError,"Valid ID") && fileImage(validIDImg2,validIDImg2Error,"Another Valid ID") && fileImage(utilityImg,utilityImgError, "Latest Electric/Water Bill") && validateAddress(address,addressError);
                 }
             
                 if(valid )
@@ -1593,6 +1603,8 @@ $(function(){
                 const licenseImgError = $(licenseImg).siblings('label');
                 const validIDImg = $(bookingForm).find('.valid-id');
                 const validIDImgError = $(validIDImg).siblings('label');
+                const validIDImg2 = $(bookingForm).find('.valid-id');
+                const validIDImg2Error = $(validIDImg2).siblings('label');
                 const utilityImg = $(bookingForm).find('.utility');
                 const utilityImgError = $(utilityImg).siblings('label');
                 const address = $(bookingForm).find('.address');
@@ -1601,11 +1613,11 @@ $(function(){
                 var valid = false;
                 if(driver === "1")
                 {
-                    valid = stepOneValidation(dateInput) && stepOneValidation(timeInput) && stepOneValidation(regionID) && stepOneValidation(provinceID) && stepOneValidation(cityID) && fullName(fullname,fullNameError,'Full Name') && contact(contactNumber,contactNumberError) && fileImageID(validIDImg,validIDImgError,"Two Valid IDs") && fileImage(utilityImg,utilityImgError, "Latest Electric/Water Bill") && validateAddress(address,addressError);
+                    valid = stepOneValidation(dateInput) && stepOneValidation(timeInput) && stepOneValidation(regionID) && stepOneValidation(provinceID) && stepOneValidation(cityID) && fullName(fullname,fullNameError,'Full Name') && contact(contactNumber,contactNumberError) && fileImage(validIDImg,validIDImgError,"Valid ID")  && fileImage(validIDImg2,validIDImg2Error,"Another Valid ID") && fileImage(utilityImg,utilityImgError, "Latest Electric/Water Bill") && validateAddress(address,addressError);
                 }
                 else
                 {
-                    valid = stepOneValidation(dateInput) && stepOneValidation(regionID) && stepOneValidation(provinceID) && stepOneValidation(cityID) && fullName(fullname,fullNameError,'Full Name') && contact(contactNumber,contactNumberError) && fileImage(licenseImg,licenseImgError, "Driver's License") && fileImageID(validIDImg,validIDImgError,"Two Valid IDs") && fileImage(utilityImg,utilityImgError, "Latest Electric/Water Bill") && validateAddress(address,addressError);
+                    valid = stepOneValidation(dateInput) && stepOneValidation(regionID) && stepOneValidation(provinceID) && stepOneValidation(cityID) && fullName(fullname,fullNameError,'Full Name') && contact(contactNumber,contactNumberError) && fileImage(licenseImg,licenseImgError, "Driver's License") && fileImage(validIDImg,validIDImgError,"Valid ID")  && fileImage(validIDImg2,validIDImg2Error,"Another Valid ID") && fileImage(utilityImg,utilityImgError, "Latest Electric/Water Bill") && validateAddress(address,addressError);
                 }
                 if(valid)
                 {

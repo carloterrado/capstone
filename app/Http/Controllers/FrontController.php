@@ -167,19 +167,40 @@ class FrontController extends Controller
             $booking_info->save();
 
            
-            foreach($data['valid-id'] as $identification)
-            {
-                $img_tmp = $identification;
-                if($img_tmp->isValid())
+            // foreach($data['valid-id'] as $identification)
+            // {
+            //     $img_tmp = $identification;
+            //     if($img_tmp->isValid())
+            //     {
+            //         $extension = $img_tmp->getClientOriginalExtension();
+            //         // --- Generate new image name --- //
+            //         $imgName = rand(111,99999).'.'.$extension;
+                    
+            //             $imgPath ='front/images/users/id/'.$imgName;
+                    
+            //         // --- Upload the image --- //
+            //         Image::make($img_tmp)->resize(800,800,function($constraint)
+            //         {
+            //             $constraint->aspectRatio();
+            //         })->save($imgPath); 
+                    
+            //         $booking_id = new BookingInfoId;
+            //         $booking_id->images = $imgName;
+            //         $booking_id->booking_id = $booking_table->id;
+            //         $booking_id->save();
+            //     }
+            // }
+            $img_tmp3 = $request->file('valid-id');
+            if($img_tmp3->isValid())
                 {
-                    $extension = $img_tmp->getClientOriginalExtension();
+                    $extension = $img_tmp3->getClientOriginalExtension();
                     // --- Generate new image name --- //
                     $imgName = rand(111,99999).'.'.$extension;
                     
                         $imgPath ='front/images/users/id/'.$imgName;
                     
                     // --- Upload the image --- //
-                    Image::make($img_tmp)->resize(800,800,function($constraint)
+                    Image::make($img_tmp3)->resize(800,800,function($constraint)
                     {
                         $constraint->aspectRatio();
                     })->save($imgPath); 
@@ -189,7 +210,26 @@ class FrontController extends Controller
                     $booking_id->booking_id = $booking_table->id;
                     $booking_id->save();
                 }
-            }
+            $img_tmp4 = $request->file('valid-id-2');
+            if($img_tmp4->isValid())
+                {
+                    $extension = $img_tmp3->getClientOriginalExtension();
+                    // --- Generate new image name --- //
+                    $imgName = rand(111,99999).'.'.$extension;
+                    
+                        $imgPath ='front/images/users/id/'.$imgName;
+                    
+                    // --- Upload the image --- //
+                    Image::make($img_tmp4)->resize(800,800,function($constraint)
+                    {
+                        $constraint->aspectRatio();
+                    })->save($imgPath); 
+                    
+                    $booking_id = new BookingInfoId;
+                    $booking_id->images = $imgName;
+                    $booking_id->booking_id = $booking_table->id;
+                    $booking_id->save();
+                }
 
     
             $carBooked = Booking::where('user_id',Auth::user()->id)->count();
