@@ -1,3 +1,4 @@
+
 <main id="cars" class="min-h-[calc(100vh-5rem)] md:min-h-[calc(100vh-5.5rem)]  p-2 pb-12 pt-6  sm:p-14 sm:pt-4">
      <!-- Tab link -->
      <div class="mb-6 ">
@@ -63,7 +64,7 @@
                                     <div class="flex justify-center">
                                         <button type="button" data-modal-toggle="{{'view-booking'.$book['id']}}"  class="details btn-1 bg-accent-regular uppercase  w-[fit-content]   text-white whitespace-nowrap">View details</button>
                                     </div>
-                                    @include('admin.booking.admin-view-booking-details') 
+                                    @include('owner.booking.owner-view-booking-details') 
                                 </td>
                                 <td class="py-4 px-6 font-semibold text-gray-900 ">
                                     <div class="py-6 flex justify-center ">
@@ -74,8 +75,9 @@
                                 </td>
                                 <td class="py-4 px-6">
                                     <div class="flex justify-center">
+                                        
                                         <button bookingid="{{$book['id']}}" type="button"   class="confirmReturn btn-1 bg-accent-regular uppercase  w-[fit-content]   text-white whitespace-nowrap">Return</button>
-                                    </div>
+                                    </div> 
                                 </td>
                             </tr>
                             

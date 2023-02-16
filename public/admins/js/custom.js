@@ -2129,7 +2129,7 @@ $(function(){
                  if(resp['data'] === 'success')
                      {
                          $('.success-container').show()
-                         $('.success-message').html('Checklist confirmed!')
+                         $('.success-message').html('Confirmed car return!')
                          // row.remove()
                          setTimeout(function(){
                             location.reload()
@@ -2139,7 +2139,7 @@ $(function(){
                      else
                      {
                          $('.error-container').show()
-                         $('.error-message').html('Failed to confirmed checklist!')
+                         $('.error-message').html('Failed to confirmed car return!')
                          setTimeout(function(){
                              $('.error-container').hide()
                          },6000)
@@ -2151,7 +2151,7 @@ $(function(){
                  $('.loading').hide()
                 
                  $('.error-container').show()
-                     $('.error-message').html('Confirm checklist failed! System error.')
+                     $('.error-message').html('Car return failed! System error.')
                      setTimeout(function(){
                          $('.error-container').hide()
                      },3000)
@@ -2217,12 +2217,13 @@ $(function(){
             },
         });
     });
-    $(document).on("click",".downloadPDF", async function () 
+     // CONFIRM COMMISSION
+    $(document).on("click",".confirmCommissionFee", async function () 
     {
        
         var history_id = $(this).attr("historyid");
 
-        if(!confirm("Want to download this booking history?")) return false
+        if(!confirm("Want to confirm commission fee?")) return false
         $(this).hide()
       
             $('.loading').removeClass('hidden')
@@ -2235,27 +2236,27 @@ $(function(){
                 ),
             },
             type: "post",
-            url: "/admin/download-booking-history",
+            url: "/admin/confirm-commission-fee",
             data: { history_id:history_id },
             success: function (resp) {
                 $('.loading').removeClass('grid')
                 $('.loading').hide()
-                alert(JSON.stringify(resp['data'],null,2))
-                return
+                // alert(JSON.stringify(resp['data'],null,2))
+                // return
                 if(resp['data'] === 'success')
                     {
                         $('.success-container').show()
-                        $('.success-message').html('Booking downloaded deleted successfully!')
+                        $('.success-message').html('Confirmed commission fee!')
                         // row.remove()
                         setTimeout(function(){
-                            $('.success-container').hide()
+                            location.reload()
                         },3000)
                        
                     }    
                     else
                     {
                         $('.error-container').show()
-                        $('.error-message').html('Failed to download booking history!')
+                        $('.error-message').html('Failed to confirm commission fee!')
                         setTimeout(function(){
                             $('.error-container').hide()
                         },4000)
@@ -2267,12 +2268,13 @@ $(function(){
                 $('.loading').hide()
                
                 $('.error-container').show()
-                    $('.error-message').html('Booking history download failed! System error.')
+                    $('.error-message').html('Confirm commission fee failed! System error.')
                     setTimeout(function(){
                         $('.error-container').hide()
                     },3000)
             },
         });
     });
+    
     
 });

@@ -43,6 +43,9 @@
                         <span class="block text-center">View details</span>  
                     </th>
                     <th scope="col" class="py-3 px-6">
+                        <span class="block text-center">Checklist</span>  
+                    </th>
+                    <th scope="col" class="py-3 px-6">
                         Status
                     </th>
                     <th scope="col" class="py-3 px-6">
@@ -69,9 +72,15 @@
                     </td>
                     <td class="py-4 px-6">
                         <div class="flex justify-center">
-                           
                             <button  data-modal-toggle="{{'view-car'.$car['id']}}" class="details btn-1 bg-accent-regular uppercase  w-[fit-content]   text-white whitespace-nowrap">View details</button>
                         </div>
+                        @include('admin.cars.admin-view-car-details')
+                    </td>
+                    <td class="py-4 px-6">
+                        <div class="flex justify-center">
+                            <button  data-modal-toggle="{{'car-checklist'.$car['id']}}" class="details btn-1 bg-accent-regular uppercase  w-[fit-content]   text-white whitespace-nowrap">Add Checklist</button>
+                        </div>
+                        @include('admin.cars.admin-checklist')
                     </td>
                     <td class="py-4 px-6 font-semibold text-gray-900 ">
                     <div class="py-6">
@@ -86,10 +95,11 @@
                         <div class="flex items-center">
                             <a car="{{ $car['name'] }}" moduleid="{{$car['id']}}" class="confirmDeleteCar cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="#e84949" d="M7 21q-.825 0-1.412-.587Q5 19.825 5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413Q17.825 21 17 21Zm2-4h2V8H9Zm4 0h2V8h-2Z"/></svg></a>
                             <i id="{{ $car['id'] }}" car="{{$car['name']}}" data-info="{{json_encode($car)}}" data-modal-toggle="edit-car"  class='edit ml-4 text-4xl cursor-pointer text-accent-regular'><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" class="mb-1" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="#e84949" d="M5 23.7q-.825 0-1.413-.588Q3 22.525 3 21.7v-14q0-.825.587-1.413Q4.175 5.7 5 5.7h8.925l-2 2H5v14h14v-6.95l2-2v8.95q0 .825-.587 1.412q-.588.588-1.413.588Zm7-9Zm4.175-8.425l1.425 1.4l-6.6 6.6V15.7h1.4l6.625-6.625l1.425 1.4l-6.625 6.625q-.275.275-.637.438q-.363.162-.763.162H10q-.425 0-.712-.287Q9 17.125 9 16.7v-2.425q0-.4.15-.763q.15-.362.425-.637Zm4.275 4.2l-4.275-4.2l2.5-2.5q.6-.6 1.438-.6q.837 0 1.412.6l1.4 1.425q.575.575.575 1.4T22.925 8Z"/></svg></i>
+                            
                         </div>
                     </td>
                 </tr>
-                @include('admin.cars.admin-view-car-details')
+               
             @endforeach
                 
             </tbody>

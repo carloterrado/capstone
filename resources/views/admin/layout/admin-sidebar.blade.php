@@ -69,6 +69,11 @@
                       <span class="ml-12">history</span>
                     </a>
                   </li>
+                  <li>
+                    <a href="{{url('admin/commission-history')}}" class="sidebar-list sidebar-hover flex justify-between">
+                      <span class="ml-12">commission</span>
+                    </a>
+                  </li>
                 </ul>
               </li>
             <!-- CAR MANAGEMENT -->

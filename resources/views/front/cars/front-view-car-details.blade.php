@@ -222,10 +222,12 @@
                         <div class="col-span-6 license-container">
                             <label class="license-error block pb-1 text-sm font-semibold lg:pl-2 text-gray-500" >Driver's License</label>
                             <input type="file" name="license"  class="license block w-full text-sm text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" aria-describedby="file_input_help">
+                            
                         </div>
                         <div class="col-span-6">
                             <label class="valid-id-error block pb-1 text-sm font-semibold lg:pl-2 text-gray-500" >Two Valid IDs</label>
-                            <input type="file" name="valid-id[]" class="valid-id block w-full text-sm text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" multiple aria-describedby="file_input_help">
+                            <input type="file" name="valid-id[]" accept="image/*" capture class="valid-id block w-full text-sm text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" multiple aria-describedby="file_input_help">
+                            
                         </div>
                         <div class="col-span-6">
                             <label class="utility-error block pb-1 text-sm font-semibold lg:pl-2 text-gray-500" >Latest Electric/Water Bill</label>

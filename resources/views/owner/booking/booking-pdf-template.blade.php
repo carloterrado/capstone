@@ -31,10 +31,6 @@
                         <li>{{$history['car_price']}}</li>
                         <li>{{$history['grand_total']}}</li>
                         <li>{{$history['car_id']}}</li>
-                        @if ($history['commission_fee'] !== null)
-                        <li>{{$history['commission_fee']}}</li>
-                        <li>{{$history['commission']}}</li>
-                        @endif
                     </ul>
                     
                 </div>

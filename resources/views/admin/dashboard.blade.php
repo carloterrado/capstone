@@ -17,6 +17,9 @@
 
 @elseif (Session::get('page') === 'booking-history')
     @include('admin.booking.admin-booking-history')
+
+@elseif (Session::get('page') === 'commission')
+    @include('admin.booking.admin-commission')
      
  @elseif (Session::get('page') === 'profile')
     @include('admin.profile.admin-profile')

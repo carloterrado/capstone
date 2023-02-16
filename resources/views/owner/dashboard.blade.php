@@ -3,6 +3,21 @@
 @if (Session::get('page') === 'dashboard')
     @include('owner.dashboard.owner-dashboard')
 
+@elseif (Session::get('page') === 'booking')
+    @include('owner.booking.owner-reserved-cars')
+
+@elseif (Session::get('page') === 'new-booking')
+    @include('owner.booking.owner-new-reserved-cars')
+
+@elseif (Session::get('page') === 'approved-booking')
+    @include('owner.booking.owner-approved-booking')
+
+@elseif (Session::get('page') === 'cancelled-booking')
+    @include('owner.booking.owner-cancelled-cars')
+
+@elseif (Session::get('page') === 'booking-history')
+    @include('owner.booking.owner-booking-history')
+
  @elseif (Session::get('page') === 'cars')
     @include('owner.cars.owner-cars')
 

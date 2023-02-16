@@ -1681,5 +1681,337 @@ $(function(){
           }
   
       })
+
+
+      var $tabLinks = $("[role='tab']");
+      $tabLinks.each(function(){
+          if ($(this).attr("aria-selected") === "true") {
+              $(this).removeClass('text-blue-600 border-blue-600 border-transparent').addClass('text-accent-regular border-accent-regular');
+          } 
+      });
+  
+      $(document).on('click','[role="tab"]', function() {
+         
+              // Remove aria-selected attribute from current active tab
+              $('[role="tab"]').attr("aria-selected", "false");
+              $('[role="tab"]').attr('class','').addClass('text-gray-500 hover:text-accent-regular border-gray-100 hover:border-accent-regular inline-block p-4 border-b-2 border-transparent rounded-t-lg uppercase');
+              // Add aria-selected attribute to clicked tab link
+              $(this).attr("aria-selected", "true");
+              $(this).removeClass('text-gray-500 border-gray-100 border-transparent').addClass('text-accent-regular border-accent-regular');
+      });
+  
+      $("#arkilla-table").on("click",".updateBooking", async function (event) 
+      {
+              var account = $(this).children("button").attr("account");
+              var row = $(this).parentsUntil("tbody");
+              var booking_id = $(this).attr("booking_id");
+              if(account === 'declined') var status = 'decline';
+              else var status = 'approve'
+  
+              if(!confirm("Want to "+ status +" this booking?")) return false
+              $(this).hide()
+              $('.loading').removeClass('hidden')
+              $('.loading').addClass('grid')
+  
+             async function updateBooking()
+             {
+              await  $.ajax({
+                  headers: {
+                      "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                          "content"
+                      ),
+                  },
+                  type: "post",
+                  url: "/admin/update-booking-account",
+                  data: { account: account, booking_id: booking_id },
+                  success: function (resp) {
+                      $('.loading').removeClass('grid')
+                      $('.loading').hide()
+                     
+                      // alert(resp['data'])
+                      // return
+                      if(resp['data'] === 'approved')
+                      {
+                          $('.success-container').show()
+                          $('.success-message').html('New booking approved successfully!')
+                          // row.remove()
+                          
+                          setTimeout(function(){
+                              location.reload()
+                          },1500)
+                      }    
+                      else if(resp['data'] === 'declined')
+                      {
+                          $('.success-container').show()
+                          $('.success-message').html('New booking declined successfully!')
+                          
+                          setTimeout(function(){
+                              location.reload()
+                          },1500)
+                      }  
+                      else
+                      {
+                          $('.error-container').show()
+                          $('.error-message').html('Failed to '+ status +' booking!')
+                          setTimeout(function(){
+                              $('.error-container').hide()
+                          },3000)
+                        
+                      } 
+                          
+                  },
+                  error: function (resp) {
+                      $('.loading').removeClass('grid')
+                      $('.loading').hide()
+                      $('.error-container').show()
+                          $('.error-message').html('Booking '+status +' failed! System error.')
+                          setTimeout(function(){
+                              $('.error-container').hide()
+                          },3000)
+                  },
+              });
+          }
+          await updateBooking();
+      });
+  
+      $("#ongoing-transaction-table").on("click",".cancelBooking", async function (event) 
+      {
+          var account = $(this).children("button").attr("account");
+          var booking_id = $(this).attr("booking_id");
+          
+  
+          if(!confirm("Want to cancel this booking?")) return false
+          $(this).hide()
+          $('.loading').removeClass('hidden')
+          $('.loading').addClass('grid')
+          
+          await  $.ajax({
+              headers: {
+                  "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                      "content"
+                  ),
+              },
+              type: "post",
+              url: "/admin/cancel-booking",
+              data: { account: account, booking_id: booking_id },
+              success: function (resp) {
+                  $('.loading').removeClass('grid')
+                  $('.loading').hide()
+                  
+                  if(resp['data'] === 'cancelled')
+                  {
+                      $('.success-container').show()
+                      $('.success-message').html('Booking cancelled successfully!')
+                      // row.remove()
+                      setTimeout(function(){
+                          location.reload()
+                          
+                      },3000)
+                  }    
+                      
+                  else
+                  {
+                      $('.error-container').show()
+                      $('.error-message').html('Failed to cancel booking!')
+                      setTimeout(function(){
+                          $('.error-container').hide()
+                      },3000)
+                      
+                  } 
+                      
+              },
+              error: function (resp) {
+                  $('.loading').removeClass('grid')
+                  $('.loading').hide()
+                  
+                  $('.error-container').show()
+                      $('.error-message').html('Booking cancel failed! System error.')
+                      setTimeout(function(){
+                          $('.error-container').hide()
+                      },3000)
+              },
+          });
+          
+      });
+  
+      // DELETE CANCELLED BOOKING
+      $(document).on("click",".confirmDeleteBooking", async function () 
+      {
+         
+         
+         
+          var booking_id = $(this).attr("moduleid");
+  
+          if(!confirm("Want to delete this booking?")) return false
+          $(this).hide()
+        
+              $('.loading').removeClass('hidden')
+              $('.loading').addClass('grid')
+  
+        await  $.ajax({
+              headers: {
+                  "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                      "content"
+                  ),
+              },
+              type: "post",
+              url: "/admin/delete-booking",
+              data: { booking_id:booking_id },
+              success: function (resp) {
+                  $('.loading').removeClass('grid')
+                  $('.loading').hide()
+                  // alert(JSON.stringify(resp['data'],null,2))
+                  // return
+                  if(resp['data'] === 'success')
+                      {
+                          $('.success-container').show()
+                          $('.success-message').html('Booking deleted successfully!')
+                          // row.remove()
+                          setTimeout(function(){
+                              location.reload()
+                          },3000)
+                         
+                      }    
+                      else
+                      {
+                          $('.error-container').show()
+                          $('.error-message').html('Failed to delete booking!')
+                          setTimeout(function(){
+                              $('.error-container').hide()
+                          },4000)
+                        
+                      } 
+              },
+              error: function (resp) {
+                  $('.loading').removeClass('grid')
+                  $('.loading').hide()
+                 
+                  $('.error-container').show()
+                      $('.error-message').html('Booking deletion failed! System error.')
+                      setTimeout(function(){
+                          $('.error-container').hide()
+                      },3000)
+              },
+          });
+      });
+  
+  
+       // CONFIRM THE RETURN OF THE CAR
+       $("#ongoing-transaction-table").on("click",".confirmReturn", async function () 
+       {
+         
+          var booking_id = $(this).attr("bookingid");
+  
+          if(!confirm("Car is already returned?")) return false
+          $(this).hide()
+          $('.loading').removeClass('hidden')
+          $('.loading').addClass('grid')
+              
+   
+         await  $.ajax({
+               headers: {
+                   "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                       "content"
+                   ),
+               },
+               type: "post",
+               url: "/admin/booking-return-confirmed",
+               data: { booking_id:booking_id },
+               success: function (resp) {
+                   $('.loading').removeClass('grid')
+                   $('.loading').hide()
+                //    alert(JSON.stringify(resp['data'],null,2))
+                //    return
+                   if(resp['data'] === 'success')
+                       {
+                           $('.success-container').show()
+                           $('.success-message').html('Returned successfully!')
+                           // row.remove()
+                           setTimeout(function(){
+                              location.reload()
+                          },2000)
+                           
+                       }    
+                       else
+                       {
+                           $('.error-container').show()
+                           $('.error-message').html('Failed to return car!')
+                           setTimeout(function(){
+                               $('.error-container').hide()
+                           },6000)
+                         
+                       } 
+               },
+               error: function (resp) {
+                   $('.loading').removeClass('grid')
+                   $('.loading').hide()
+                  
+                   $('.error-container').show()
+                       $('.error-message').html('Return car failed! System error.')
+                       setTimeout(function(){
+                           $('.error-container').hide()
+                       },3000)
+               },
+           });
+       });
+  
+       // DELETE BOOKING HISTORY
+      $(document).on("click",".confirmDeleteHistory", async function () 
+      {
+         
+          var history_id = $(this).attr("historyid");
+  
+          if(!confirm("Want to delete this booking history?")) return false
+          $(this).hide()
+        
+              $('.loading').removeClass('hidden')
+              $('.loading').addClass('grid')
+  
+        await  $.ajax({
+              headers: {
+                  "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                      "content"
+                  ),
+              },
+              type: "post",
+              url: "/admin/delete-booking-history",
+              data: { history_id:history_id },
+              success: function (resp) {
+                  $('.loading').removeClass('grid')
+                  $('.loading').hide()
+                  // alert(JSON.stringify(resp['data'],null,2))
+                  // return
+                  if(resp['data'] === 'success')
+                      {
+                          $('.success-container').show()
+                          $('.success-message').html('Booking history deleted successfully!')
+                          // row.remove()
+                          setTimeout(function(){
+                              location.reload()
+                          },3000)
+                         
+                      }    
+                      else
+                      {
+                          $('.error-container').show()
+                          $('.error-message').html('Failed to delete booking history!')
+                          setTimeout(function(){
+                              $('.error-container').hide()
+                          },4000)
+                        
+                      } 
+              },
+              error: function (resp) {
+                  $('.loading').removeClass('grid')
+                  $('.loading').hide()
+                 
+                  $('.error-container').show()
+                      $('.error-message').html('Booking history deletion failed! System error.')
+                      setTimeout(function(){
+                          $('.error-container').hide()
+                      },3000)
+              },
+          });
+      });
    
 });

@@ -913,7 +913,7 @@ $(function(){
         
         var data = $(input1).data('bookdates');
         var bookdates = [];
-        console.log(data)
+        
 
         for (let i = 0; i < data.length; i++) {
             if(data[i].status === 'approved')
@@ -1409,6 +1409,7 @@ $(function(){
         if(event.target === this)
         {
             const licenseEl = $(this);
+           
             const errorElement = $(licenseEl).siblings('label');
             fileImage(licenseEl,errorElement,"Driver's License")
         }

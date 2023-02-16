@@ -47,6 +47,13 @@
         stateSave: true,
        });
    </script>
+  
+   <script>
+       $('#ongoing-transaction-table').DataTable({
+        ordering: false,
+        stateSave: true,
+       });
+   </script>
 
  
 </body>

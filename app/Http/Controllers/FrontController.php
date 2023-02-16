@@ -8,6 +8,7 @@ use App\Models\BookingInfo;
 use App\Models\BookingInfoId;
 use App\Models\Car;
 use App\Models\CarType;
+use App\Models\History;
 use App\Models\Refregion;
 use App\Models\User;
 use Carbon\Carbon;
@@ -19,7 +20,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
-
+use Mpdf\Mpdf;
 
 class FrontController extends Controller
 {
@@ -205,8 +206,11 @@ class FrontController extends Controller
         Session::put('title','Reserved Cars');  
 
         $booking = Booking::with('bookingInfo','bookingInfoId','carInfo')->where('user_id',Auth::user()->id)->get()->toArray();
+     
+        $histories = History::where('user_id',Auth::user()->id)->get()->toArray();
+       
       
-        return view('front.home')->with(compact('booking'));
+        return view('front.home')->with(compact('booking','histories'));
     }
     public function cancelBooking(Request $request)
     {
@@ -265,6 +269,15 @@ class FrontController extends Controller
             $booking->save();
             return response()->json(['data'=>'success']);
         }
+    }
+    public function downloadBookingHistory($booking_id)
+    {
+        $history =  History::find($booking_id)->toArray();
+        $pdf = view('front.cars.booking-pdf-template',['history'=>$history])->render();
+        $mpdf = new Mpdf(); // Create new mPDF instance
+        $mpdf->WriteHTML($pdf); // Load HTML
+        $mpdf->Output('booking.pdf', 'D'); // Output the generated PDF to the browser
+
     }
     public function about(Request $request)
     {

@@ -87,17 +87,17 @@ class AdminController extends Controller
     {
         Session::put('title','New Booking');
         Session::put('page','new-booking');
-        if(Auth::guard('admin')->user()->type === 'owner')
-        {
-            return view('owner.dashboard');
-        }
+        
         $owner_id = Auth::guard('admin')->user()->owner_id;
         $booking = Booking::with('bookingInfo','bookingInfoId','carInfo')->whereHas('carInfo',
         function($query) use ($owner_id){
             $query->where(['owner_id'=>$owner_id]);
         })->where(['status'=>'pending'])->get()->toArray();
         // dd($booking);
-       
+        if(Auth::guard('admin')->user()->type === 'owner')
+        {
+            return view('owner.dashboard')->with(compact('booking'));
+        }
        
         return view('admin.dashboard')->with(compact('booking')) ;
 
@@ -106,17 +106,17 @@ class AdminController extends Controller
     {
         Session::put('title','Approved Booking');
         Session::put('page','approved-booking');
-        if(Auth::guard('admin')->user()->type === 'owner')
-        {
-            return view('owner.dashboard');
-        }
+       
         $owner_id = Auth::guard('admin')->user()->owner_id;
         $booking = Booking::with('bookingInfo','bookingInfoId','carInfo')->whereHas('carInfo',
         function($query) use ($owner_id){
             $query->where(['owner_id'=>$owner_id]);
         })->where(['status'=>'approved'])->get()->toArray();
         // dd($booking);
-       
+        if(Auth::guard('admin')->user()->type === 'owner')
+        {
+            return view('owner.dashboard')->with(compact('booking'));
+        }
        
         return view('admin.dashboard')->with(compact('booking')) ;
 
@@ -134,15 +134,16 @@ class AdminController extends Controller
         }
         Session::put('title','Cancelled Booking');
         Session::put('page','cancelled-booking');
-        if(Auth::guard('admin')->user()->type === 'owner')
-        {
-            return view('owner.dashboard');
-        }
+        
         $owner_id = Auth::guard('admin')->user()->owner_id;
         $booking = Booking::with('bookingInfo','bookingInfoId','carInfo')->whereHas('carInfo',
         function($query) use ($owner_id){
             $query->where(['owner_id'=>$owner_id]);
         })->where(['status'=>'cancelled'])->get()->toArray();
+        if(Auth::guard('admin')->user()->type === 'owner')
+        {
+            return view('owner.dashboard')->with(compact('booking'));
+        }
        
 
         return view('admin.dashboard')->with(compact('booking')) ;
@@ -246,6 +247,14 @@ class AdminController extends Controller
             $history->car_id = $returnBooking->car_id;
             $history->booking_id = $returnBooking->id;
             $history->owner_id = $returnBooking->carInfo->owner_id;
+            if(Auth::guard('admin')->user()->owner_id !== 0)
+            {
+                $history->commission = "unpaid";
+                $history->commission_fee = (string)((int)$returnBooking->bookingInfo->car_price * 0.02);
+
+            }
+            
+
             $history->save();
 
             if($returnBooking->bookingInfo->license !== null)
@@ -277,7 +286,20 @@ class AdminController extends Controller
         $histories = History::where('owner_id',$owner_id)->get()->toArray();
         if(Auth::guard('admin')->user()->type === 'owner')
         {
-            return view('owner.dashboard');
+            return view('owner.dashboard')->with(compact('histories'));
+        }
+        
+        return view('admin.dashboard')->with(compact('histories')) ;
+    }
+    public function commissionHistory()
+    {
+        Session::put('title','Commission');
+        Session::put('page','commission');
+        
+        $histories = History::where('owner_id','!=',0)->get()->toArray();
+        if(Auth::guard('admin')->user()->type === 'owner')
+        {
+            return view('owner.dashboard')->with(compact('histories'));
         }
         
         return view('admin.dashboard')->with(compact('histories')) ;
@@ -291,18 +313,37 @@ class AdminController extends Controller
             return response()->json(['data'=>'success']);
         }
     }
+    public function confirmCommissionFee(Request $request)
+    {
+        if($request->ajax())
+        {
+            $data = $request->all();
+            $commission = History::find($data['history_id']);
+            $commission->commission = "paid";
+            $commission->save();
+            return response()->json(['data'=>'success']);
+        }
+    }
     public function downloadBookingHistory($booking_id)
     {
+        $history =  History::find($booking_id)->toArray();
+        $pdf = view('admin.booking.booking-pdf-template',['history'=>$history])->render();
       
-       
-           $history =  History::find($booking_id)->toArray();
-           $pages = view('admin.booking.booking-pdf-template',['history'=>$history])->render();
-           $mpdf = new Mpdf(); // Create new mPDF instance
-            $mpdf->WriteHTML($pages); // Load HTML
-            $mpdf->Output('booking.pdf', 'D'); // Output the generated PDF to the browser
-          
+        $mpdf = new Mpdf(); // Create new mPDF instance
+        $mpdf->WriteHTML($pdf); // Load HTML
+        $mpdf->Output('booking.pdf', 'D'); // Output the generated PDF to the browser
 
-        
+    }
+    public function downloadCarChecklist()
+    {
+        // $history =  History::find($booking_id)->toArray();
+        // $pdf = view('admin.booking.booking-pdf-template',['history'=>$history])->render();
+        $pdf = view('admin.cars.car-checklist-pdf',[])->render();
+      
+        $mpdf = new Mpdf(); // Create new mPDF instance
+        $mpdf->WriteHTML($pdf); // Load HTML
+        $mpdf->Output('booking.pdf', 'D'); // Output the generated PDF to the browser
+
     }
     public function booking()
     {

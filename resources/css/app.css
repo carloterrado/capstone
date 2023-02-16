@@ -229,13 +229,15 @@
   
      
   
-    
-   
 
     /* File input */
     #file_input::-webkit-file-upload-button {
         background-color: rgb(173, 141, 141);
         /* min-width: 7.5rem; */
+    }
+
+    table.dataTable.dtr-inline.collapsed>tbody>tr.parent>td:first-child:before, table.dataTable.dtr-inline.collapsed>tbody>tr.parent>th:first-child:before{
+        @apply w-4 h-4;
     }
     /* @import '../../node_modules/boxicons/css/boxicons.min.css'; */
     

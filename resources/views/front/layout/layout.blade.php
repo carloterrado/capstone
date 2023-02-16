@@ -12,8 +12,9 @@
    <link rel="stylesheet" href="{{url('css/app.css')}}">
    <link rel="stylesheet" href="{{url('css/date-picker.css')}}">
    <link rel="stylesheet" href="{{url('css/dataTable.css')}}">
+   
    <!-- <link rel="stylesheet" href="{{url('css/datepicker-main.css')}}"> -->
-      
+  
  
 </head>
 
@@ -31,6 +32,7 @@
    <div id="main" class="main-content">
       @yield('content')
    </div>
+
    <!-- Main content end -->
    
    <!-- Footer start -->
@@ -45,16 +47,24 @@
    <script src="{{url('js/jquery.min.js')}}"></script>
    <script src="{{url('front/js/custom.js')}}"></script>
    <script src="{{url('js/jquery.Datatable.js')}}"></script>
+  -->
    <script>
        $('#ongoing-transaction-table').DataTable({
         ordering: false,
         stateSave: true,
+      
        });
        $('#history-transaction-table').DataTable({
         ordering: false,
         stateSave: true,
+       
        });
+     
+   
+
+
    </script>
+   
   
 </body>
 
