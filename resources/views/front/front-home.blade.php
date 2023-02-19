@@ -28,7 +28,7 @@
             </div>
             <div class="max-w-[400px] py-6 sm:px-6 border-t border-t-accent-regular sm:border-t-0">
                 <div class="flex justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 2048 2048"><path fill="#e84949" d="M896 512v128H512V512h384zM512 896V768h384v128H512zm0 256v-128h256v128H512zM384 512v128H256V512h128zm0 256v128H256V768h128zm-128 384v-128h128v128H256zM128 128v1792h640v128H0V0h1115l549 549v219h-128V640h-512V128H128zm1024 91v293h293l-293-293zm640 805h256v1024H896V1024h256V896h128v128h384V896h128v128zm128 896v-512h-896v512h896zm0-640v-128h-896v128h896z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" viewBox="0 0 2048 2048"><path fill="#e84949" d="M896 512v128H512V512h384zM512 896V768h384v128H512zm0 256v-128h256v128H512zM384 512v128H256V512h128zm0 256v128H256V768h128zm-128 384v-128h128v128H256zM128 128v1792h640v128H0V0h1115l549 549v219h-128V640h-512V128H128zm1024 91v293h293l-293-293zm640 805h256v1024H896V1024h256V896h128v128h384V896h128v128zm128 896v-512h-896v512h896zm0-640v-128h-896v128h896z"/></svg>
                 </div>
                 <h3 class="mb-3 text-[1.2rem] lg:text-[1.5rem] font-bold">Booking & Reservation</h3>
                 <p class="font-medium ">You can book your desired car online or make reservations simple and convenient. We strive to provide fast and efficient service so that you can hit the road as soon as possible.</p>
