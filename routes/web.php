@@ -32,9 +32,11 @@ Route::prefix('/')->group(function()
         Route::post('delete-booking',[FrontController::class,'deleteBooking']);
         Route::post('booking-checklist-confirmed',[FrontController::class,'bookingChecklistConfirmed']);
         Route::get('download-booking-history/{id}',[FrontController::class,'downloadBookingHistory']);
+        Route::get('download-checklist/{id}',[FrontController::class,'downloadChecklist']);
         
     });
     Route::get('about',[FrontController::class,'about']);
+    Route::get('frequently-asked-questions',[FrontController::class,'frequentlyAskedQuestions']);
     Route::get('contact',[FrontController::class,'contact']);
     Route::get('login',[FrontController::class,'getLogin'])->name('login');
     Route::post('arkilla-login',[FrontController::class,'login']);
@@ -75,6 +77,7 @@ Route::prefix('admin')->group(function()
         Route::get('download-booking-history/{id}',[AdminController::class,'downloadBookingHistory']);
         Route::post('confirm-commission-fee',[AdminController::class,'confirmCommissionFee']);
         Route::get('download-car-checklist',[AdminController::class,'downloadCarChecklist']);
+        Route::post('car-checklist',[AdminController::class,'carChecklist']);
         
 
         Route::post('book-car-reg-fee',[AdminController::class,'bookCarRegFee']);

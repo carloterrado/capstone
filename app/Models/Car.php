@@ -32,5 +32,9 @@ class Car extends Model
     {
         return $this->belongsTo(Admin::class,'admin_id');
     }
+    public function carChecklist()
+    {
+        return $this->hasOne(CarCheckList::class,'car_id');
+    }
    
 }

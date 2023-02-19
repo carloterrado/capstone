@@ -23,6 +23,6 @@ class Booking extends Model
     }
     public function carInfo()
     {
-        return $this->belongsTo(Car::class,'car_id')->with('carTypes');
+        return $this->belongsTo(Car::class,'car_id')->with('carTypes','carChecklist');
     }
 }

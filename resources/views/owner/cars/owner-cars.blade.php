@@ -38,10 +38,13 @@
                         Name of car
                     </th>
                     <th scope="col" class="py-3 px-6">
-                        <span class="sr-only">Car image</span>   
+                        <span class="block text-center">Car image</span>   
                     </th>
                     <th scope="col" class="py-3 px-6">
-                        <span class="sr-only">View details</span>  
+                        <span class="block text-center">View details</span>  
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        <span class="block text-center">Checklist</span>  
                     </th>
                     <th scope="col" class="py-3 px-6">
                         Status
@@ -70,9 +73,21 @@
                     </td>
                     <td class="py-4 px-6">
                         <div class="flex justify-center">
-                           
                             <button  data-modal-toggle="{{'view-car'.$car['id']}}" class="details btn-1 bg-accent-regular uppercase  w-[fit-content]   text-white whitespace-nowrap">View details</button>
                         </div>
+                        @include('owner.cars.owner-view-car-details')
+                    </td>
+                    <td class="py-4 px-6">
+                        <div class="flex justify-center">
+                            <button  data-modal-toggle="{{'car-checklist'.$car['id']}}" class="details btn-1 bg-accent-regular uppercase  w-[fit-content]   text-white whitespace-nowrap">
+                                @if ($car['car_checklist'] === null) 
+                                Add Checklist
+                                @else
+                                Edit Checklist
+                                @endif
+                            </button>
+                        </div>
+                        @include('owner.cars.admin-checklist')
                     </td>
                     <td class="py-4 px-6 font-semibold text-gray-900 ">
                     <div class="py-6">
@@ -94,7 +109,7 @@
                         </div>
                     </td>
                 </tr>
-                @include('owner.cars.owner-view-car-details')
+               
             @endforeach
                 
             </tbody>

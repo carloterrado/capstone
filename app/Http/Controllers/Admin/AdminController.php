@@ -8,6 +8,7 @@ use App\Models\Booking;
 use App\Models\BookingInfo;
 use App\Models\BookingInfoId;
 use App\Models\Car;
+use App\Models\CarCheckList;
 use App\Models\CarPhoto;
 use App\Models\CarPrice;
 use App\Models\CarType;
@@ -37,6 +38,18 @@ class AdminController extends Controller
         Session::put('page','dashboard');
         if(Auth::guard('admin')->user()->type === 'owner')
         {
+            $unpaidCount = History::where('owner_id',Auth::guard('admin')->user()->owner_id)->where('commission','unpaid')->count();
+
+            if($unpaidCount > 3)
+            {
+                Session::put('title','Booking History');
+                Session::put('page','booking-history');
+                Session::put('commission_error_message','You need to settle the unpaid commissions first');
+                $owner_id = Auth::guard('admin')->user()->owner_id;
+                $histories = History::where('owner_id',$owner_id)->get()->toArray();
+                return view('owner.dashboard')->with(compact('histories'));
+            }
+            Session::forget('commission_error_message');
             $car = Car::where('admin_id',Auth::guard('admin')->user()->id)->get();
             $ownerCar = $car->where('account','verified')->count();
             $ownerCarRequest = $car->where('account','unverified')->count();
@@ -96,6 +109,18 @@ class AdminController extends Controller
         // dd($booking);
         if(Auth::guard('admin')->user()->type === 'owner')
         {
+            $unpaidCount = History::where('owner_id',Auth::guard('admin')->user()->owner_id)->where('commission','unpaid')->count();
+
+            if($unpaidCount > 3)
+            {
+                Session::put('title','Booking History');
+                Session::put('page','booking-history');
+                Session::put('commission_error_message','You need to settle the unpaid commissions first');
+                $owner_id = Auth::guard('admin')->user()->owner_id;
+                $histories = History::where('owner_id',$owner_id)->get()->toArray();
+                return view('owner.dashboard')->with(compact('histories'));
+            }
+            Session::forget('commission_error_message');
             return view('owner.dashboard')->with(compact('booking'));
         }
        
@@ -115,6 +140,18 @@ class AdminController extends Controller
         // dd($booking);
         if(Auth::guard('admin')->user()->type === 'owner')
         {
+            $unpaidCount = History::where('owner_id',Auth::guard('admin')->user()->owner_id)->where('commission','unpaid')->count();
+
+            if($unpaidCount > 3)
+            {
+                Session::put('title','Booking History');
+                Session::put('page','booking-history');
+                Session::put('commission_error_message','You need to settle the unpaid commissions first');
+                $owner_id = Auth::guard('admin')->user()->owner_id;
+                $histories = History::where('owner_id',$owner_id)->get()->toArray();
+                return view('owner.dashboard')->with(compact('histories'));
+            }
+            Session::forget('commission_error_message');
             return view('owner.dashboard')->with(compact('booking'));
         }
        
@@ -142,6 +179,18 @@ class AdminController extends Controller
         })->where(['status'=>'cancelled'])->get()->toArray();
         if(Auth::guard('admin')->user()->type === 'owner')
         {
+            $unpaidCount = History::where('owner_id',Auth::guard('admin')->user()->owner_id)->where('commission','unpaid')->count();
+
+            if($unpaidCount > 3)
+            {
+                Session::put('title','Booking History');
+                Session::put('page','booking-history');
+                Session::put('commission_error_message','You need to settle the unpaid commissions first');
+                $owner_id = Auth::guard('admin')->user()->owner_id;
+                $histories = History::where('owner_id',$owner_id)->get()->toArray();
+                return view('owner.dashboard')->with(compact('histories'));
+            }
+            Session::forget('commission_error_message');
             return view('owner.dashboard')->with(compact('booking'));
         }
        
@@ -220,8 +269,11 @@ class AdminController extends Controller
             $data = $request->all();
             
             $returnBooking = Booking::with('bookingInfoId','bookingInfo','carInfo')->find($data['booking_id']);
+            $userEmail = User::find($returnBooking->user_id);
+            
             $history = new History;
             $history->name = $returnBooking->bookingInfo->fullname;
+            $history->email = $userEmail->email;
             $history->contact = $returnBooking->bookingInfo->contact;
             $history->address = $returnBooking->bookingInfo->address;
             $history->car_name = $returnBooking->carInfo->name;
@@ -286,6 +338,18 @@ class AdminController extends Controller
         $histories = History::where('owner_id',$owner_id)->get()->toArray();
         if(Auth::guard('admin')->user()->type === 'owner')
         {
+            $unpaidCount = History::where('owner_id',Auth::guard('admin')->user()->owner_id)->where('commission','unpaid')->count();
+
+            if($unpaidCount > 3)
+            {
+                Session::put('title','Booking History');
+                Session::put('page','booking-history');
+                Session::put('commission_error_message','You need to settle the unpaid commissions first');
+                $owner_id = Auth::guard('admin')->user()->owner_id;
+                $histories = History::where('owner_id',$owner_id)->get()->toArray();
+                return view('owner.dashboard')->with(compact('histories'));
+            }
+            Session::forget('commission_error_message');
             return view('owner.dashboard')->with(compact('histories'));
         }
         
@@ -326,12 +390,18 @@ class AdminController extends Controller
     }
     public function downloadBookingHistory($booking_id)
     {
+        
+      
         $history =  History::find($booking_id)->toArray();
         $pdf = view('admin.booking.booking-pdf-template',['history'=>$history])->render();
       
+        
         $mpdf = new Mpdf(); // Create new mPDF instance
+        
         $mpdf->WriteHTML($pdf); // Load HTML
         $mpdf->Output('booking.pdf', 'D'); // Output the generated PDF to the browser
+      
+        
 
     }
     public function downloadCarChecklist()
@@ -341,9 +411,96 @@ class AdminController extends Controller
         $pdf = view('admin.cars.car-checklist-pdf',[])->render();
       
         $mpdf = new Mpdf(); // Create new mPDF instance
+        header('Content-Type: application/pdf');
         $mpdf->WriteHTML($pdf); // Load HTML
         $mpdf->Output('booking.pdf', 'D'); // Output the generated PDF to the browser
+        
 
+    }
+    public function carChecklist(Request $request)
+    {
+        if($request->ajax())
+        {
+            $data = $request->all();
+            $fieldsToInsert = [
+                'windshield',
+                'hood',
+                'grill',
+                'frontPlate',
+                'bumper',
+                'headlights',
+                'rearWindow',
+                'bootTrunk',
+                'backPlate',
+                'rearBumper',
+                'tailLights',
+                'rightSideMirror',
+                'rightSideFrontFender',
+                'rightSideFrontDoorWindow',
+                'rightSideRearDoorWindow',
+                'rightSideFrontDoor',
+                'rightSideRearDoor',
+                'rightSideRearFender',
+                'rightSideFrontWheels',
+                'rightSideBackWheels',
+                'leftSideMirror',
+                'leftSideFrontFender',
+                'leftSideFrontDoorWindow',
+                'leftSideRearDoorWindow',
+                'leftSideFrontDoor',
+                'leftSideRearDoor',
+                'leftSideRearFender',
+                'leftSideFrontWheels',
+                'leftSideBackWheels',
+                'seatBelts',
+                'airbags',
+                'signalLights',
+                'hazardLights',
+                'frontExteriorLights',
+                'backExteriorLights',
+                'acceleratorPedal',
+                'breakPedal',
+                'clutchPedal',
+                'gearShift',
+                'steeringWheel',
+                'horn',
+            ];
+            $car = Car::with('carChecklist')->find($data['car_id']);
+        
+            if($car->carChecklist === null)
+            {
+                $checklist = new CarCheckList;
+                foreach($fieldsToInsert as $field)
+                {
+                        $propertyName = $field;
+                    $checklist->$propertyName = json_encode($data[$field]);
+                }
+                if($request->has('others'))
+                {
+                    $checklist->others = $data['others'];   
+                }
+                $checklist->car_id = $data['car_id'];
+                $checklist->save();  
+            }
+            else
+            {
+                foreach($fieldsToInsert as $field)
+                {
+                    $propertyName = $field;
+                    if( $car->carChecklist->$propertyName !== json_encode($data[$field]))
+                    {
+                        $car->carChecklist->$propertyName = json_encode($data[$field]);
+                    }
+                }
+                if($car->carChecklist->others !== $data['others'])
+                {
+                    $car->carChecklist->others = $data['others'];
+                }
+                $car->carChecklist->save();
+            }
+           
+            return response()->json(['data'=>'success']);
+        }
     }
     public function booking()
     {
@@ -356,6 +513,18 @@ class AdminController extends Controller
         })->where(['status'=>'ongoing'])->get()->toArray();
         if(Auth::guard('admin')->user()->type === 'owner')
         {
+            $unpaidCount = History::where('owner_id',Auth::guard('admin')->user()->owner_id)->where('commission','unpaid')->count();
+
+            if($unpaidCount > 3)
+            {
+                Session::put('title','Booking History');
+                Session::put('page','booking-history');
+                Session::put('commission_error_message','You need to settle the unpaid commissions first');
+                $owner_id = Auth::guard('admin')->user()->owner_id;
+                $histories = History::where('owner_id',$owner_id)->get()->toArray();
+                return view('owner.dashboard')->with(compact('histories'));
+            }
+            Session::forget('commission_error_message');
             return view('owner.dashboard')->with(compact('booking'));
         }
         
@@ -438,10 +607,24 @@ class AdminController extends Controller
         $cartypes = CarType::where('status',1)->get()->toArray();
         if(Auth::guard('admin')->user()->type === 'owner')
         {
-            $cars = Car::with(['carPhotos','carPrice','carTypes'])->where(['account'=>'verified','admin_id'=>Auth::guard('admin')->user()->id])->get()->toArray();
+            $cars = Car::with(['carPhotos','carPrice','carTypes','carChecklist'])->where(['account'=>'verified','admin_id'=>Auth::guard('admin')->user()->id])->get()->toArray();
+            $unpaidCount = History::where('owner_id',Auth::guard('admin')->user()->owner_id)->where('commission','unpaid')->count();
+
+            if($unpaidCount > 3)
+            {
+                Session::put('title','Booking History');
+                Session::put('page','booking-history');
+                Session::put('commission_error_message','You need to settle the unpaid commissions first');
+                $owner_id = Auth::guard('admin')->user()->owner_id;
+                $histories = History::where('owner_id',$owner_id)->get()->toArray();
+                return view('owner.dashboard')->with(compact('histories'));
+            }
+            Session::forget('commission_error_message');
             return view('owner.dashboard')->with(compact('cartypes','cars'));
         }
-        $cars = Car::with(['carPhotos','carPrice','carTypes'])->where('owner_id',0)->get()->toArray();
+        $cars = Car::with(['carPhotos','carPrice','carTypes','carChecklist'])->where('owner_id',0)->get()->toArray();
+      
+        
         // dd($cars);
         return view('admin.dashboard')->with(compact('cartypes','cars'));
 
@@ -741,9 +924,6 @@ class AdminController extends Controller
         {
             $data = $request->all();
 
-           
-      
-            
             $mainImage = Car::where('id',$data['id'])->get()->first();
             if($mainImage->registration !== null)
             {
@@ -775,7 +955,10 @@ class AdminController extends Controller
 
             
            
-            Car::where('id',$data['id'])->delete();  
+            Car::where('id',$data['id'])->delete();
+            CarCheckList::where('car_id',$data['id'])->delete(); 
+            CarPhoto::where('car_id',$data['id'])->delete();
+            CarPrice::where('car_id',$data['id'])->delete();
             return response()->json(['status'=>'deleted']);
         }
     }
@@ -804,6 +987,18 @@ class AdminController extends Controller
         {
             $cartypes = CarType::where('status',1)->get()->toArray();
             $cars = Car::with(['carPhotos','carPrice','carTypes','carOwner'])->where([['account','=','unverified'],['owner_id','=',Auth::guard('admin')->user()->owner_id]])->get()->toArray();
+            $unpaidCount = History::where('owner_id',Auth::guard('admin')->user()->owner_id)->where('commission','unpaid')->count();
+
+            if($unpaidCount > 3)
+            {
+                Session::put('title','Booking History');
+                Session::put('page','booking-history');
+                Session::put('commission_error_message','You need to settle the unpaid commissions first');
+                $owner_id = Auth::guard('admin')->user()->owner_id;
+                $histories = History::where('owner_id',$owner_id)->get()->toArray();
+                return view('owner.dashboard')->with(compact('histories'));
+            }
+            Session::forget('commission_error_message');
             return view('owner.dashboard')->with(compact('cartypes','cars'));
         }
         $cartypes = CarType::where('status',1)->get()->toArray();
@@ -858,8 +1053,21 @@ class AdminController extends Controller
         Session::put('page','car-declined');
         if(Auth::guard('admin')->user()->type === 'owner')
         {
+            $unpaidCount = History::where('owner_id',Auth::guard('admin')->user()->owner_id)->where('commission','unpaid')->count();
+
+            if($unpaidCount > 3)
+            {
+                Session::put('title','Booking History');
+                Session::put('page','booking-history');
+                Session::put('commission_error_message','You need to settle the unpaid commissions first');
+                $owner_id = Auth::guard('admin')->user()->owner_id;
+                $histories = History::where('owner_id',$owner_id)->get()->toArray();
+                return view('owner.dashboard')->with(compact('histories'));
+            }
+            Session::forget('commission_error_message');
             $cartypes = CarType::where('status',1)->get()->toArray();
             $cars = Car::with(['carPhotos','carPrice','carTypes','carOwner'])->where([['account','=','declined'],['owner_id','=',Auth::guard('admin')->user()->owner_id]])->get()->toArray();
+            
             return view('owner.dashboard')->with(compact('cartypes','cars'));
         }
         $cartypes = CarType::where('status',1)->get()->toArray();

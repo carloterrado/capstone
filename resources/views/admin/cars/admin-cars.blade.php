@@ -79,7 +79,13 @@
                     </td>
                     <td class="py-4 px-6">
                         <div class="flex justify-center">
-                            <button  data-modal-toggle="{{'car-checklist'.$car['id']}}" class="details btn-1 bg-accent-regular uppercase  w-[fit-content]   text-white whitespace-nowrap">Add Checklist</button>
+                            <button  data-modal-toggle="{{'car-checklist'.$car['id']}}" class="details btn-1 bg-accent-regular uppercase  w-[fit-content]   text-white whitespace-nowrap">
+                                @if ($car['car_checklist'] === null) 
+                                Add Checklist
+                                @else
+                                Edit Checklist
+                                @endif
+                            </button>
                         </div>
                         @include('admin.cars.admin-checklist')
                     </td>

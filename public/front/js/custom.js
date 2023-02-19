@@ -869,7 +869,7 @@ $(function(){
     });
 
     $(document).on('click','[role="tab"]', function() {
-        if($(this).hasClass('transaction-tab'))
+        if($([role="tab"]).hasClass('transaction-tab'))
         {
               // Remove aria-selected attribute from current active tab
         $('[role="tab"]').attr("aria-selected", "false");
@@ -889,9 +889,28 @@ $(function(){
         $(this).removeClass('text-gray-500 border-gray-100 border-transparent').addClass('text-accent-regular border-accent-regular');
         }
       });
+
+      $(document).on('click','.booking-btn',function(event){
+        $('.booking-btn').removeAttr('class').addClass('booking-btn inline-block hover:text-accent-regular hover:border-accent-regular p-4 border-b-2 border-transparent rounded-t-lg sm:text-lg lg:text-2xl font-bold');
+        if(event.target === this)
+        {
+            $(this).removeClass('border-transparent').addClass('text-accent-regular border-accent-regular')
+        }
+      })
+      $(document).on('click','#ongoing',function(){
+        $('.tables').hide();
+        $('#ongoing-details').show();
+      })
+      $(document).on('click','#history',function(){
+        $('.tables').hide();
+        $('#history-details').show();
+      })
    
 
-      
+      var url = window.location.href;
+
+  // Add the 'active' class to the corresponding link
+  $('.nav-list[href="'+url+'"]').addClass('underline');
 
    
 
@@ -906,7 +925,7 @@ $(function(){
         }));
     }
     
-  
+    //   CAR BOOKING CALENDAR
             
     $('.date-input').each(function() {
         var input1 = $(this)[0];
@@ -916,7 +935,7 @@ $(function(){
         
 
         for (let i = 0; i < data.length; i++) {
-            if(data[i].status === 'approved')
+            if(data[i].status === 'approved' || data[i].status === 'ongoing')
             {
                 var starts = new Date(data[i].start_date);
                 var ends = new Date(data[i].end_date);
@@ -2016,11 +2035,14 @@ $(function(){
         });
     });
 
-    
+    $('textarea').each(function() {
+        const text = $(this).val();
+        const firstLine = text.split('\n')[0]; // get the first line of the text
+        const cleanedText = text.replace(firstLine, firstLine.trim()); // remove leading white space from the first line
+        $(this).val(cleanedText);
+      });
 
-
-
-              
+ 
     
       
     

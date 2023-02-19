@@ -16,7 +16,7 @@
         @apply text-sm text-dark font-medium items-center;
     }
     .hover-nav {
-        @apply hover:text-accent-regular focus:text-accent-regular focus:underline underline-offset-8 decoration-inherit decoration-1;
+        @apply hover:text-accent-regular focus:text-accent-regular focus:underline active:underline underline-offset-8 decoration-inherit decoration-1;
     }
     .user-menu-list {
         @apply block my-1 px-4 py-2 text-sm rounded-lg text-dark hover:text-accent-regular focus:bg-gray-100 focus:text-accent-regular;
@@ -236,9 +236,7 @@
         /* min-width: 7.5rem; */
     }
 
-    table.dataTable.dtr-inline.collapsed>tbody>tr.parent>td:first-child:before, table.dataTable.dtr-inline.collapsed>tbody>tr.parent>th:first-child:before{
-        @apply w-4 h-4;
-    }
+  
     /* @import '../../node_modules/boxicons/css/boxicons.min.css'; */
     
 }

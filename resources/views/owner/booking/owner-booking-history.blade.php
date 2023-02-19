@@ -3,6 +3,7 @@
     <div class="relative md:w-1/2 mx-auto">
     @include('message.ajax-success')
     @include('message.ajax-error')
+    @include('message.commission-error')
     </div>
     
      <!-- Tab link -->
@@ -35,7 +36,7 @@
                                 <span class="block text-center">End date</span>  
                             </th>
                             <th scope="col" class="py-3 px-6">
-                                <span class="block text-center">Action</span>  
+                                <span class="block text-center">Commission</span>  
                             </th>
                             <th scope="col" class="py-3 px-6">
                                 <span class="block text-center">Download</span>  
@@ -71,7 +72,12 @@
                                     </td>
                                     <td class="py-4 px-6 font-semibold text-gray-900 ">
                                         <div class="flex justify-center">
-                                            <button historyid="{{$history['id']}}" type="button"   class="confirmDeleteHistory btn-1 bg-accent-regular uppercase  w-[fit-content]   text-white whitespace-nowrap">Delete</button>
+                                            @if ($history['commission'] === 'unpaid')
+                                                <button  class=" btn-1 pointer-events-none bg-accent-regular uppercase  w-[fit-content]   text-white whitespace-nowrap">{{$history['commission']}}</button>
+                                            @else
+                                                <button  class=" btn-1 pointer-events-none bg-accent-green uppercase  w-[fit-content]   text-white whitespace-nowrap">{{$history['commission']}}</button>
+                                            @endif
+                                            
                                         </div>
                                     </td>
                                     <td class="py-4 px-6 font-semibold text-gray-900 ">

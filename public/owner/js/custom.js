@@ -1955,63 +1955,142 @@ $(function(){
            });
        });
   
-       // DELETE BOOKING HISTORY
-      $(document).on("click",".confirmDeleteHistory", async function () 
-      {
-         
-          var history_id = $(this).attr("historyid");
-  
-          if(!confirm("Want to delete this booking history?")) return false
-          $(this).hide()
-        
-              $('.loading').removeClass('hidden')
-              $('.loading').addClass('grid')
-  
-        await  $.ajax({
-              headers: {
-                  "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
-                      "content"
-                  ),
-              },
-              type: "post",
-              url: "/admin/delete-booking-history",
-              data: { history_id:history_id },
-              success: function (resp) {
-                  $('.loading').removeClass('grid')
-                  $('.loading').hide()
-                  // alert(JSON.stringify(resp['data'],null,2))
-                  // return
-                  if(resp['data'] === 'success')
-                      {
-                          $('.success-container').show()
-                          $('.success-message').html('Booking history deleted successfully!')
-                          // row.remove()
-                          setTimeout(function(){
-                              location.reload()
-                          },3000)
-                         
-                      }    
-                      else
-                      {
-                          $('.error-container').show()
-                          $('.error-message').html('Failed to delete booking history!')
-                          setTimeout(function(){
-                              $('.error-container').hide()
-                          },4000)
+      
+
+      //    ADD CAR CHECKLIST
+    $(document).on('submit','.check-list-form', async function(event){
+        event.preventDefault();
+    
+        if (event.target === this) {
+            const error = $(this).find('.checklist-error');
+            async function verifiedChecklist(form) {
+                const fieldsToCheck = [
+                    'windshield',
+                    'hood',
+                    'grill',
+                    'frontPlate',
+                    'bumper',
+                    'headlights',
+                    'rearWindow',
+                    'bootTrunk',
+                    'backPlate',
+                    'rearBumper',
+                    'tailLights',
+                    'rightSideMirror',
+                    'rightSideFrontFender',
+                    'rightSideFrontDoorWindow',
+                    'rightSideRearDoorWindow',
+                    'rightSideFrontDoor',
+                    'rightSideRearDoor',
+                    'rightSideRearFender',
+                    'rightSideFrontWheels',
+                    'rightSideBackWheels',
+                    'leftSideMirror',
+                    'leftSideFrontFender',
+                    'leftSideFrontDoorWindow',
+                    'leftSideRearDoorWindow',
+                    'leftSideFrontDoor',
+                    'leftSideRearDoor',
+                    'leftSideRearFender',
+                    'leftSideFrontWheels',
+                    'leftSideBackWheels',
+                    'seatBelts',
+                    'airbags',
+                    'signalLights',
+                    'hazardLights',
+                    'frontExteriorLights',
+                    'backExteriorLights',
+                    'acceleratorPedal',
+                    'breakPedal',
+                    'clutchPedal',
+                    'gearShift',
+                    'steeringWheel',
+                    'horn',
+                ];
+    
+                for (const field of fieldsToCheck) {
+                    const inputs = form.find(`input[name="${field}[]"]:checked`);
+                    if (inputs.length === 0) {
+                        error.text(`Please select ${field.split(/(?=[A-Z])/).join(' ').toLowerCase()}`).show();
+                        setTimeout(function(){
+                            error.hide();
+                        },2000)
+                        return false;
+                    }
+                }
+               
+                return true;
+            }
+
+            const checklistForm = $(this);
+            const formData = $(checklistForm).serialize();
+            
+            async function submitChecklistForm()
+            {
+             await   $.ajax({
+                    headers: {
+                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                    },
+                    type: 'POST',
+                    url:'/admin/car-checklist',
+                    data:formData,
+                    success:function(resp){
+                        $(checklistForm).find('.loading').removeClass('grid')
+                        $(checklistForm).find('.loading').hide()
+                        //    console.log(JSON.stringify(resp['data'],null,2))
+                        //    return
+                        if(resp["data"] === 'success')
+                        {
+                            $(checklistForm).find('.success-container').show()
+                            $(checklistForm).find('.success-message').html('Car checklist added successfully!')
+                            setTimeout(function(){
+                                location.reload() 
+                            },2000)  
+                        }
+                        else 
+                        {  
+                            $(checklistForm).find('.error-container').show()
+                            $(checklistForm).find('.error-message').html('Add car checklist failed!')
+                            $(checklistForm).find('button[type="submit"]').addClass('hidden')
+                            setTimeout(function(){
+                                $('.error-container').hide()  
+                            },3000)
+                        }
                         
-                      } 
-              },
-              error: function (resp) {
-                  $('.loading').removeClass('grid')
-                  $('.loading').hide()
-                 
-                  $('.error-container').show()
-                      $('.error-message').html('Booking history deletion failed! System error.')
-                      setTimeout(function(){
-                          $('.error-container').hide()
-                      },3000)
-              },
-          });
-      });
+                    },
+                    error: function(){
+                        $(checklistForm).find('.loading').removeClass('grid')
+                        $(checklistForm).find('.loading').hide()
+                        $(checklistForm).find('.error-container').show()
+                        $(checklistForm).find('.error-message').html('Internal error! add car checklist failed!')
+                        $(checklistForm).find('button[type="submit"]').removeClass('hidden')
+                        setTimeout(function(){
+                            $('.error-container').hide()
+                        },3000)
+                    }
+                })
+            }
+            const isCheckListVerified = await verifiedChecklist($(this));
+            if (isCheckListVerified) {
+                if(!confirm("Confirm checklist?")) return false
+                $(checklistForm).find('button[type="submit"]').addClass('hidden')
+            
+                $(checklistForm).find('.loading').removeClass('hidden')
+                $(checklistForm).find('.loading').addClass('grid')
+           
+                await submitChecklistForm().catch(function(error){
+                        $(checklistForm).find('.loading').removeClass('grid')
+                        $(checklistForm).find('.loading').hide()
+                        $(checklistForm).find('.error-container').show()
+                        $(checklistForm).find('.error-message').html('System error! add car checklist failed!')
+                        setTimeout(function(){
+                            $(checklistForm).find('.error-container').hide()
+                            // window.location.href =  window.location.href;  
+                        },3000)
+                    })
+            }
+           
+        }
+    });
    
 });

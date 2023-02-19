@@ -5,11 +5,11 @@
     <div class="mb-6 ">
         <ul class="flex -mb-px text-sm font-medium text-center" id="transaction-link" data-tabs-toggle="transaction" role="tablist">
             
-            <li class="mr-2 col-span-3 md:col-span-1" role="presentation">
-                <button class="transaction-tab inline-block p-4 border-b-2 border-transparent rounded-t-lg sm:text-lg lg:text-2xl font-bold" id="ongoing" data-tabs-target="#ongoing-details" type="button" role="tab" aria-controls="ongoing-details" aria-selected="false">On Going</button>
+            <li class="mr-2 col-span-3 md:col-span-1">
+                <button class="booking-btn inline-block hover:text-accent-regular hover:border-accent-regular text-accent-regular p-4 border-b-2 border-accent-regular rounded-t-lg sm:text-lg lg:text-2xl font-bold" id="ongoing"  type="button" >On Going</button>
             </li>
-            <li class="mr-2 col-span-3 md:col-span-1" role="presentation">
-                <button class="transaction-tab inline-block p-4 border-b-2 border-transparent rounded-t-lg sm:text-lg lg:text-2xl font-bold" id="history" data-tabs-target="#history-detail" type="button" role="tab" aria-controls="history-details" aria-selected="false">History</button>
+            <li class="mr-2 col-span-3 md:col-span-1">
+                <button class="booking-btn inline-block hover:text-accent-regular hover:border-accent-regular p-4 border-b-2 border-transparent rounded-t-lg sm:text-lg lg:text-2xl font-bold" id="history"  type="button" >History</button>
             </li> 
         </ul>
     </div>
@@ -17,7 +17,7 @@
     <!-- Tab content -->
     <div id="transaction">
         
-        <div class="hidden p-4" id="ongoing-details" role="tabpanel" aria-labelledby="ongoing">
+        <div class="tables  p-4" id="ongoing-details" >
             
             <div class="mx-auto md:w-1/2">
                 @include('message.ajax-error')
@@ -93,6 +93,7 @@
                                       w-[fit-content]    text-white whitespace-nowrap">
                                         {{$book['status']}}
                                     </div>
+                                    
                                 </div>
                             </td>
                             <td class="py-4 px-6 font-semibold text-gray-900 ">
@@ -110,7 +111,13 @@
                                         <button account="cancelled"  class="btn-1 bg-accent-regular w-[fit-content]   text-white whitespace-nowrap">Cancel</button></a>
                                         <!-- CHECK IF THE STATUS IS APPROVED AND THE DATE TODAY IS EQUAL OR GREATER THAN THE DAY BEFORE START DATE -->
                                     @elseif (($book['status'] === 'approved' && Carbon::now() >= $start_date->subDay()) || $book['status'] === 'ongoing' )
-                                        <button data-modal-toggle="{{'view-checklist'.$book['id']}}"   class="btn-1 bg-accent-green w-[fit-content]   text-white whitespace-nowrap">view checklist</button>
+                                        <button data-modal-toggle="{{'view-checklist'.$book['id']}}"   class="btn-1 bg-accent-green w-[fit-content]   text-white whitespace-nowrap">
+                                            @if ($book['status'] === 'approved')
+                                                confirm checklist
+                                            @else
+                                                view checklist
+                                            @endif
+                                        </button>
                                         @include('front.cars.front-car-view-checklist')
                                         <!-- CHECK IF THE STATUS IS PENDING AND THE DATE TODAY IS LESS THAN A DAY BEFORE START DATE -->   
                                     @elseif ( $book['status'] === 'pending' && Carbon::now() < $start_date )
@@ -134,7 +141,7 @@
             </div>
         </div>
   
-        <div class="hidden p-4" id="history-detail" role="tabpanel" aria-labelledby="history">
+        <div class="tables hidden p-4" id="history-details" >
             <div class="overflow-x-auto relative shadow-md sm:rounded-lg pt-4 border">
                 <table id="history-transaction-table" class="cell-border hover w-full text-sm text-left  text-gray-500 mt-8">
                 

@@ -50,13 +50,15 @@
   -->
    <script>
        $('#ongoing-transaction-table').DataTable({
-        ordering: false,
+      //   ordering: false,
         stateSave: true,
+        order: [[2, 'desc']],
       
        });
        $('#history-transaction-table').DataTable({
-        ordering: false,
+      //   ordering: false,
         stateSave: true,
+        order: [[0, 'desc']],
        
        });
      

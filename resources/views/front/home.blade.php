@@ -7,6 +7,9 @@
 @elseif (Session::get('page') === 'about')
         @include('front.about.front-about')
 
+@elseif (Session::get('page') === 'frequently-asked-questions')
+        @include('front.faqs.faqs')
+
 @elseif (Session::get('page') === 'cars')
         @include('front.cars.front-cars')
 

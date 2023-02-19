@@ -9,6 +9,7 @@ class Checkbox extends Component
     public $name;
     public $labelText;
     public $value;
+    
     /**
      * Create a new component instance.
      *
@@ -19,6 +20,7 @@ class Checkbox extends Component
         $this->name = $name;
         $this->labelText = $labelText;
         $this->value = $value;
+        
     }
 
     /**

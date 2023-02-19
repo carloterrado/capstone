@@ -7,6 +7,7 @@ use App\Models\Booking;
 use App\Models\BookingInfo;
 use App\Models\BookingInfoId;
 use App\Models\Car;
+use App\Models\CarCheckList;
 use App\Models\CarType;
 use App\Models\History;
 use App\Models\Refregion;
@@ -248,7 +249,7 @@ class FrontController extends Controller
         $booking = Booking::with('bookingInfo','bookingInfoId','carInfo')->where('user_id',Auth::user()->id)->get()->toArray();
      
         $histories = History::where('user_id',Auth::user()->id)->get()->toArray();
-       
+    //    dd($booking);
       
         return view('front.home')->with(compact('booking','histories'));
     }
@@ -319,11 +320,31 @@ class FrontController extends Controller
         $mpdf->Output('booking.pdf', 'D'); // Output the generated PDF to the browser
 
     }
+    public function downloadChecklist($book_id)
+    {
+        $book =  Booking::with('carInfo')->find($book_id)->toArray();
+       
+        // $pdf = view('admin.booking.booking-pdf-template',['history'=>$history])->render();
+        $pdf = view('front.cars.pdf-car-checklist',['book'=>$book])->render();
+      
+        $mpdf = new Mpdf(); // Create new mPDF instance
+        $mpdf->WriteHTML($pdf); // Load HTML
+        $mpdf->Output('checklist.pdf', 'D'); // Output the generated PDF to the browser
+
+    }
     public function about(Request $request)
     {
         Session::forget('error_message');
         Session::put('page','about');
         Session::put('title','About Us');
+       return view('front.home');
+
+    }
+    public function frequentlyAskedQuestions()
+    {
+        Session::forget('error_message');
+        Session::put('page','frequently-asked-questions');
+        Session::put('title','Frequently Asked Questions');
        return view('front.home');
 
     }

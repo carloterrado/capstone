@@ -2278,7 +2278,7 @@ $(function(){
         });
     });
 
-   
+    //    ADD CAR CHECKLIST
     $(document).on('submit','.check-list-form', async function(event){
         event.preventDefault();
     
@@ -2342,14 +2342,86 @@ $(function(){
                
                 return true;
             }
+
+            const checklistForm = $(this);
+            const formData = $(checklistForm).serialize();
+            
+            async function submitChecklistForm()
+            {
+             await   $.ajax({
+                    headers: {
+                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                    },
+                    type: 'POST',
+                    url:'/admin/car-checklist',
+                    data:formData,
+                    success:function(resp){
+                        $(checklistForm).find('.loading').removeClass('grid')
+                        $(checklistForm).find('.loading').hide()
+                        //    console.log(JSON.stringify(resp['data'],null,2))
+                        //    return
+                        if(resp["data"] === 'success')
+                        {
+                            $(checklistForm).find('.success-container').show()
+                            $(checklistForm).find('.success-message').html('Car checklist added successfully!')
+                            setTimeout(function(){
+                                location.reload() 
+                            },2000)  
+                        }
+                        else 
+                        {  
+                            $(checklistForm).find('.error-container').show()
+                            $(checklistForm).find('.error-message').html('Add car checklist failed!')
+                            $(checklistForm).find('button[type="submit"]').addClass('hidden')
+                            setTimeout(function(){
+                                $('.error-container').hide()  
+                            },3000)
+                        }
+                        
+                    },
+                    error: function(){
+                        $(checklistForm).find('.loading').removeClass('grid')
+                        $(checklistForm).find('.loading').hide()
+                        $(checklistForm).find('.error-container').show()
+                        $(checklistForm).find('.error-message').html('Internal error! add car checklist failed!')
+                        $(checklistForm).find('button[type="submit"]').removeClass('hidden')
+                        setTimeout(function(){
+                            $('.error-container').hide()
+                        },3000)
+                    }
+                })
+            }
             const isCheckListVerified = await verifiedChecklist($(this));
             if (isCheckListVerified) {
-                // Your logic to submit the form
-                console.log('goods')
+                if(!confirm("Confirm checklist?")) return false
+                $(checklistForm).find('button[type="submit"]').addClass('hidden')
+            
+                $(checklistForm).find('.loading').removeClass('hidden')
+                $(checklistForm).find('.loading').addClass('grid')
+           
+                await submitChecklistForm().catch(function(error){
+                        $(checklistForm).find('.loading').removeClass('grid')
+                        $(checklistForm).find('.loading').hide()
+                        $(checklistForm).find('.error-container').show()
+                        $(checklistForm).find('.error-message').html('System error! add car checklist failed!')
+                        setTimeout(function(){
+                            $(checklistForm).find('.error-container').hide()
+                            // window.location.href =  window.location.href;  
+                        },3000)
+                    })
             }
            
         }
     });
+
+
+    
+    $('textarea').each(function() {
+        const text = $(this).val();
+        const firstLine = text.split('\n')[0]; // get the first line of the text
+        const cleanedText = text.replace(firstLine, firstLine.trim()); // remove leading white space from the first line
+        $(this).val(cleanedText);
+      });
     
     
     
