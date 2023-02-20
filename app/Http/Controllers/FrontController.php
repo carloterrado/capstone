@@ -214,7 +214,7 @@ class FrontController extends Controller
             $img_tmp4 = $request->file('valid-id-2');
             if($img_tmp4->isValid())
                 {
-                    $extension = $img_tmp3->getClientOriginalExtension();
+                    $extension = $img_tmp4->getClientOriginalExtension();
                     // --- Generate new image name --- //
                     $imgName = rand(111,99999).'.'.$extension;
                     
