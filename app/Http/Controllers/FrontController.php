@@ -118,29 +118,49 @@ class FrontController extends Controller
             $booking_info->grand_total = $data['total-price'];
             $booking_info->address = $data['address'];
             
-            if ($request->hasFile('license') ) {
-                $img_tmp1 = $request->file('license');
-                if ($img_tmp1->isValid() ) {
-                    $extension1 = $img_tmp1->getClientOriginalExtension();
-                    $imgName1 = rand(111, 99999) . '.' . $extension1;
-                    $imgPath1 = 'front/images/users/license/' . $imgName1;
-                    $img_tmp1->move(public_path($imgPath1));
-                    $booking_info->license = $imgName1;
-                }
-            }
-          
-            if ($request->hasFile('utility')) {
+            if($request->hasFile('license') && $request->hasFile('utility'))
+            {
+                $img_tmp1 = $request->file('license'); 
                 $img_tmp2 = $request->file('utility');
-                if ($img_tmp2->isValid()) {
-                    $extension2 = $img_tmp2->getClientOriginalExtension();
-                    $imgName2 = rand(111, 99999) . '.' . $extension2;
-                    $imgPath2 = 'front/images/users/utility/' . $imgName2;
-                    $img_tmp2->move(public_path($imgPath2));
+                if($img_tmp1->isValid() && $img_tmp2->isValid()){
+                    // --- Get image extension --- //
+                    $extension1 = $img_tmp1->getClientOriginalExtension(); 
+                    $extension2 = $img_tmp2->getClientOriginalExtension(); 
+                    // --- Generate new image name --- //
+                    $imgName1 = rand(111,99999).'.'.$extension1; 
+                    $imgPath1 ='front/images/users/license/'.$imgName1;
+                    $imgName2 = rand(111,99999).'.'.$extension2;
+                    $imgPath2 ='front/images/users/utility/'.$imgName2;
+                
+                    // --- Upload and resize the image --- //
+                    Image::make($img_tmp1)->resize(800,800,function($constraint){
+                            $constraint->aspectRatio();
+                        })->save($imgPath1);
+                    Image::make($img_tmp2)->resize(800,800,function($constraint){
+                            $constraint->aspectRatio();
+                        })->save($imgPath2);
+                    $booking_info->license = $imgName1;
                     $booking_info->utility = $imgName2;
                 }
             }
-
-         
+            else
+            {
+               
+                $img_tmp2 = $request->file('utility');
+                if($img_tmp2->isValid()){
+                    // --- Get image extension --- // 
+                    $extension2 = $img_tmp2->getClientOriginalExtension(); 
+                    // --- Generate new image name --- //
+                    $imgName2 = rand(111,99999).'.'.$extension2;
+                    $imgPath2 ='front/images/users/utility/'.$imgName2;
+                
+                    // --- Upload and resize the image --- //
+                    Image::make($img_tmp2)->resize(800,800,function($constraint){
+                            $constraint->aspectRatio();
+                        })->save($imgPath2);
+                        $booking_info->utility = $imgName2;
+                }
+            }
             
            
             $booking_info->booking_id = $booking_table->id;
@@ -171,47 +191,46 @@ class FrontController extends Controller
             //         $booking_id->save();
             //     }
             // }
-         $img_tmp3 = $request->file('valid-id');
-        if ($img_tmp3->isValid()) {
-            // --- Get image extension --- //
-            $extension = $img_tmp3->getClientOriginalExtension(); 
-
-            // --- Generate new image name --- //
-            $imgName = rand(111, 99999).'.'.$extension;
-            $imgPath = 'front/images/users/id/'.$imgName;
-
-            // --- Move the uploaded file --- //
-            $img_tmp3->move(public_path($imgPath));
-
-            // --- Upload and resize the image --- //
-            Image::make($imgPath)->resize(800, 800, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save();
-
-            $booking_id = new BookingInfoId;
-            $booking_id->images = $imgName;
-            $booking_id->booking_id = $booking_table->id;
-            $booking_id->save();
-        }
-
-        
-        if ($request->hasFile('valid-id-2')) {
+            $img_tmp3 = $request->file('valid-id');
+            if($img_tmp3->isValid())
+                {
+                    $extension = $img_tmp3->getClientOriginalExtension();
+                    // --- Generate new image name --- //
+                    $imgName = rand(111,99999).'.'.$extension;
+                    
+                        $imgPath ='front/images/users/id/'.$imgName;
+                    
+                    // --- Upload the image --- //
+                    Image::make($img_tmp3)->resize(800,800,function($constraint)
+                    {
+                        $constraint->aspectRatio();
+                    })->save($imgPath); 
+                    
+                    $booking_id = new BookingInfoId;
+                    $booking_id->images = $imgName;
+                    $booking_id->booking_id = $booking_table->id;
+                    $booking_id->save();
+                }
             $img_tmp4 = $request->file('valid-id-2');
-            if ($img_tmp4->isValid()) {
-                $extension = $img_tmp4->getClientOriginalExtension();
-                // --- Generate new image name --- //
-                $imgName = rand(111,99999).'.'.$extension;
-                $imgPath = 'front/images/users/id/'.$imgName;
-
-                // --- Upload the image --- //
-                $img_tmp4->move(public_path($imgPath));
-                            
-                $booking_id = new BookingInfoId;
-                $booking_id->images = $imgName;
-                $booking_id->booking_id = $booking_table->id;
-                $booking_id->save();
-            }
-        }
+            if($img_tmp4->isValid())
+                {
+                    $extension = $img_tmp4->getClientOriginalExtension();
+                    // --- Generate new image name --- //
+                    $imgName = rand(111,99999).'.'.$extension;
+                    
+                        $imgPath ='front/images/users/id/'.$imgName;
+                    
+                    // --- Upload the image --- //
+                    Image::make($img_tmp4)->resize(800,800,function($constraint)
+                    {
+                        $constraint->aspectRatio();
+                    })->save($imgPath); 
+                    
+                    $booking_id = new BookingInfoId;
+                    $booking_id->images = $imgName;
+                    $booking_id->booking_id = $booking_table->id;
+                    $booking_id->save();
+                }
 
     
             $carBooked = Booking::where('user_id',Auth::user()->id)->count();
