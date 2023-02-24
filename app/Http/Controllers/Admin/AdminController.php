@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Str;
@@ -635,40 +636,33 @@ class AdminController extends Controller
         if($request->ajax())
         {
             $data = $request->all();
-            // return response()->json(['data'=>$data]);
+           
             $car = new Car;
             $car->owner_id = Auth::guard('admin')->user()->owner_id;
             $car->admin_id = Auth::guard('admin')->user()->id;
             $car->name = $data['add-admin-car-name'];
             $car->plate_number = $data['add-admin-car-plate-number'];
             $car->type_id = (int)$data['add-admin-set-car-type'];
+            $car->fuel_type = $data['add-admin-car-fuel-type'];
             $car->capacity = (int)$data['add-admin-car-capacity'];
             $main_img = $data['add-admin-car-main-photo'];
+            
             if($main_img->isValid())
             {
                 $extension = $main_img->getClientOriginalExtension();
-                // --- Generate new image name --- //
-                $imgMain = rand(111,99999).'.'.$extension;
-             
-                if(Auth::guard('admin')->user()->type === 'owner')
-                {  
-                    $imgPath ='owner/images/cars/main/'.$imgMain;  
-                }
-                else
-                {
-                    $imgPath ='admins/images/cars/main/'.$imgMain;
-                }
-
-        
-                // --- Upload the image --- //
-                Image::make($main_img)->resize(1000,1000,function($constraint)
+                 
+               $main =  Image::make($main_img)->resize(800,800,function($constraint)
                 {
                     $constraint->aspectRatio();
-                })->save($imgPath); 
-                $car->main_photo = $imgMain;
-             
+                });
+                $imageData = base64_encode($main->encode($extension));
+               
+                 $car->main_photo = $imageData;
+                
+              
             }
-            
+           
+              
             if(Auth::guard('admin')->user()->type === 'owner')
             {
                 $car->terms = $data['add-admin-terms'];
@@ -676,18 +670,14 @@ class AdminController extends Controller
                
                 if($registration_img->isValid())
                 {
-                    $extension = $registration_img->getClientOriginalExtension();
-                    // --- Generate new image name --- //
-                    $imgRegistration = rand(111,99999).'.'.$extension;
-                    $imgPath ='owner/images/cars/registration/'.$imgRegistration;
-            
-                    // --- Upload the image --- //
-                    Image::make($registration_img)->resize(1000,1000,function($constraint)
-                    {
+                    $extension1 = $registration_img->getClientOriginalExtension();
+                    $registrationImage = Image::make($main_img)->resize(800, 800, function ($constraint) {
                         $constraint->aspectRatio();
-                    })->save($imgPath); 
-                    
-                    $car->registration = $imgRegistration;
+                    });
+                    // --- Get the binary data of the modified image --- //
+                    $registrationData = base64_encode($registrationImage->encode($extension1));
+            
+                    $car->registration = $registrationData;
                     
                 }
                
@@ -703,7 +693,9 @@ class AdminController extends Controller
                 $car->account = 'verified';
             }
            
+            
             $car->save();
+            
           
             // Assign the new car to $newCar to get its id
             $newCar = $car;
@@ -730,33 +722,24 @@ class AdminController extends Controller
                 $carPrice->save();
             }
            
-           
           
             foreach($data['add-admin-car-photos'] as $photo)
             {
                 $img_tmp = $photo;
                 if($img_tmp->isValid())
                 {
-                    $extension = $img_tmp->getClientOriginalExtension();
-                    // --- Generate new image name --- //
-                    $imgName = rand(111,99999).'.'.$extension;
-                    if(Auth::guard('admin')->user()->type === 'owner')
-                    {
-                        $imgPath ='owner/images/cars/'.$imgName;
-                    }
-                    else
-                    {
-                        $imgPath ='admins/images/cars/'.$imgName;
-                    }
+                    $extension2 = $img_tmp->getClientOriginalExtension();
+                   
                     // --- Upload the image --- //
-                    Image::make($img_tmp)->resize(1000,1000,function($constraint)
-                    {
+                    $carPhotos = Image::make($img_tmp)->resize(800, 800, function ($constraint) {
                         $constraint->aspectRatio();
-                    })->save($imgPath); 
+                    });
+                    // --- Get the binary data of the modified image --- //
+                    $carPhotosData = base64_encode($carPhotos->encode($extension2));
                     
                     $carPhoto = new CarPhoto;
                     $carPhoto->car_id = $newCar->id;
-                    $carPhoto->photos = $imgName;
+                    $carPhoto->photos = $carPhotosData;
                     $carPhoto->save();
                 }
             }

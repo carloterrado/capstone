@@ -67,7 +67,7 @@
                     </td>
                     <td class="p-4">
                         <div class="w-32 mx-auto overflow-hidden rounded-lg">
-                        <img src="{{url('admins/images/cars/main/'.$car['main_photo'])}}" alt="Car photo">
+                        <img src="data:image/jpeg;base64,{{$car['main_photo']}}" alt="Car photo">
                         </div>
                       
                     </td>

@@ -21,17 +21,17 @@
                 <div class="p-6 space-y-6">
                   
                     <div class="grid grid-cols-6 gap-6">
-                        <div class="col-span-6 sm:col-span-3 relative">
+                        <div class="col-span-6 relative">
                             <input type="text" name="add-admin-car-name" id="add-admin-car-name" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-900 peer" placeholder=" " >
                             <label id="add-admin-car-name-error" for="add-admin-car-name" class="pointer-events-none absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-gray-900 peer-focus:font-semibold peer-placeholder-shown:scale-100 
-                            peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 whitespace-nowrap ">Name of car</label>
+                            peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 whitespace-nowrap ">Brand and Model</label>
                         </div>
-                        <div class="col-span-6 sm:col-span-3 relative">
+                        <div class="col-span-6 md:col-span-3 relative">
                             <input type="text" id="add-admin-car-plate-number" name="add-admin-car-plate-number" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-900 peer" placeholder=" " />
                             <label id="add-admin-car-plate-number-error" for="add-admin-car-plate-number" class="pointer-events-none absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-gray-900 peer-focus:font-semibold peer-placeholder-shown:scale-100 
                             peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 whitespace-nowrap">Plate number</label>
                         </div>
-                        <div class="col-span-6 sm:col-span-3 relative">
+                        <div class="col-span-6 md:col-span-3 relative">
                             <select id="add-admin-set-car-type" name="add-admin-set-car-type" class="cursor-pointer-none block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-900 appearance-none peer">
                                 <option disabled selected ></option>
                                 @foreach ($cartypes as $cartype )
@@ -41,20 +41,25 @@
                             <label id="add-admin-set-car-type-error" for="add-admin-set-car-type" class="pointer-events-none absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-gray-900 peer-focus:font-semibold peer-placeholder-shown:scale-100 
                             peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 whitespace-nowrap">Car type</label>
                         </div>
-                        <div class="col-span-6 sm:col-span-3 relative">
+                        <div class="col-span-6 md:col-span-3 relative">
+                            <input type="text" name="add-admin-car-fuel-type" id="add-admin-car-fuel-type" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-900 peer" placeholder=" " >
+                            <label id="add-admin-car-fuel-type-error" for="add-admin-car-fuel-type" class="pointer-events-none absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-gray-900 peer-focus:font-semibold peer-placeholder-shown:scale-100 
+                            peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 whitespace-nowrap ">Fuel Type</label>
+                        </div>
+                        <div class="col-span-6 md:col-span-3 relative">
                             <input type="text" id="add-admin-car-capacity" name="add-admin-car-capacity" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-900 peer" placeholder=" " />
                             <label id="add-admin-car-capacity-error" for="add-admin-car-capacity" class="pointer-events-none absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-gray-900 peer-focus:font-semibold peer-placeholder-shown:scale-100 
                             peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 whitespace-nowrap">Car capacity</label>
                         </div>
-                        <div class="col-span-6">
+                        <div class="col-span-6 md:col-span-3">
                             <label id="add-admin-car-main-photo-error" for="add-admin-car-main-photo" class="block pb-1 text-sm font-semibold lg:pl-2 text-gray-500" >Main car photo</label>
                             <input id="add-admin-car-main-photo" name="add-admin-car-main-photo" type="file" class="block w-full text-sm text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" aria-describedby="file_input_help">
                         </div>
-                        <div class="col-span-6">
+                        <div class="col-span-6 md:col-span-3">
                             <label id="add-admin-car-photos-error" for="add-admin-car-photos" class="block pb-1 text-sm font-semibold lg:pl-2 text-gray-500" >Photos of car</label>
                             <input id="add-admin-car-photos" name="add-admin-car-photos[]" type="file" class="block w-full text-sm text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" aria-describedby="file_input_help"  multiple>
                         </div>
-                        <div class="col-span-6">
+                        <div class="col-span-6 ">
                             <label id="add-admin-car-description-error" for="add-admin-car-description" class="block pb-1 text-sm font-semibold lg:pl-2 text-gray-500">Description</label>
                             <textarea id="add-admin-car-description" name="add-admin-car-description" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-900 " placeholder="Write your description here..."></textarea>
 

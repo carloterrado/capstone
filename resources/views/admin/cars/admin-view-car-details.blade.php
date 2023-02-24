@@ -19,15 +19,16 @@
                          <!-- Carousel wrapper -->
                         <div class="relative h-56 overflow-hidden rounded-lg " id="car-photos">
                             <div  class="hidden duration-700 ease-in-out" data-carousel-item="active" >
-                                <a href="{{url('admins/images/cars/main/'.$car['main_photo'])}}" target="_blank">
-                                <img src="{{url('admins/images/cars/main/'.$car['main_photo'])}}" class="absolute block w-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 " alt="..."></a>
+                                <a class="zoomable-image" href="data:image/jpeg;base64,{{$car['main_photo']}}">
+                                <img src="data:image/jpeg;base64,{{$car['main_photo']}}" class="absolute block w-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 " alt="..."></a>
                             </div>
                             @foreach ($car['car_photos'] as $photo)
                             <div class="hidden duration-700 ease-in-out" data-carousel-item >
-                                <a href="{{url('admins/images/cars/'.$photo['photos'])}}" target="_blank">
-                                <img src="{{url('admins/images/cars/'.$photo['photos'])}}" class="absolute block w-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 " alt="..."></a>
+                            <a class="zoomable-image" href="data:image/jpeg;base64,{{$photo['photos']}}">
+                                <img src="data:image/jpeg;base64,{{$photo['photos']}}" class="absolute block w-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 " alt="..."></a>
                             </div>
                             @endforeach
+                           
                           
                         </div>
                          <!-- Slider controls -->

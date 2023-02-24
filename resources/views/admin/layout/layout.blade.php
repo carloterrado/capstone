@@ -12,6 +12,7 @@
       rel="stylesheet">
       <link rel="stylesheet" href="{{url('css/app.css')}}">
       <link rel="stylesheet" href="{{url('css/dataTable.css')}}">
+      <link rel="stylesheet" href="{{url('css/magnific-popup.min.css')}}">
    
     
    
@@ -40,18 +41,25 @@
    <script src="{{url('js/app.js')}}"></script>
    <script src="{{url('js/jquery.min.js')}}"></script>
    <script src="{{url('front/js/index.js')}}"></script>
+   <script src="{{url('js/magnific-popup.min.js')}}"></script>
+
    <script src="{{url('js/jquery.Datatable.js')}}"></script>
    <script>
        $('#arkilla-table').DataTable({
         ordering: false,
         stateSave: true,
        });
-   </script>
-   <script>
+   
        $('#ongoing-transaction-table').DataTable({
         ordering: false,
         stateSave: true,
        });
+       $('.zoomable-image').magnificPopup({
+            type: 'image',
+            gallery: {
+            enabled: true
+            }
+        });
    </script>
    <script src="{{url('admins/js/custom.js')}}"></script>
    
