@@ -408,7 +408,7 @@ $(function(){
                 $('.error-container').show()
                 $('.error-message').html('System account registration failed!')
                 setTimeout(function(){
-                    window.location.href = '/signup';  
+                    location.reload();  
                 },3000)
             })
         } 
@@ -1661,6 +1661,7 @@ $(function(){
                         $(bookingForm).find('.loading').removeClass('grid')
                         $(bookingForm).find('.loading').hide()
                         //    alert(JSON.stringify(resp['data']))
+                        //    $(bookingForm).find('button[type="submit"]').show()
                         //    return
                         if(resp["data"] === 'success')
                         {
@@ -1674,7 +1675,7 @@ $(function(){
                         {  
                             $(bookingForm).find('.error-container').show()
                             $(bookingForm).find('.error-message').html('Car booking failed!')
-                            $(bookingForm).find('button[type="submit"]').addClass('hidden')
+                            $(bookingForm).find('button[type="submit"]').show()
                             setTimeout(function(){
                                 $('.error-container').hide()  
                             },3000)
@@ -1686,7 +1687,7 @@ $(function(){
                         $(bookingForm).find('.loading').hide()
                         $(bookingForm).find('.error-container').show()
                         $(bookingForm).find('.error-message').html('System error add car failed!')
-                        $(bookingForm).find(bookingForm).find('button[type="submit"]').removeClass('hidden')
+                        $(bookingForm).find('button[type="submit"]').show()
                         setTimeout(function(){
                             $('.error-container').hide()
                         },3000)
@@ -1698,7 +1699,7 @@ $(function(){
             if(validated)
             {
                 if(!confirm("Submit your booking?")) return false
-                $(bookingForm).find('button[type="submit"]').addClass('hidden')
+                $(bookingForm).find('button[type="submit"]').hide()
             
                 $(bookingForm).find('.loading').removeClass('hidden')
                 $(bookingForm).find('.loading').addClass('grid')
@@ -1707,6 +1708,7 @@ $(function(){
                         $(bookingForm).find('.loading').removeClass('grid')
                         $(bookingForm).find('.loading').hide()
                         $(bookingForm).find('.error-container').show()
+                        $(bookingForm).find('button[type="submit"]').show()
                         $(bookingForm).find('.error-message').html('System book car failed!')
                         setTimeout(function(){
                             $(bookingForm).find('.error-container').hide()
@@ -1866,12 +1868,12 @@ $(function(){
 
     $("#ongoing-transaction-table").on("click",".cancelBooking", async function (event) 
     {
-            var account = $(this).children("button").attr("account");
-            var booking_id = $(this).attr("booking_id");
-           
+            const account = $(this).children("button").attr("account");
+            const booking_id = $(this).attr("booking_id");
+           const cancelButton = $(this);
 
             if(!confirm("Want to cancel this booking?")) return false
-            $(this).hide()
+            $(cancelButton).hide()
             $('.loading').removeClass('hidden')
             $('.loading').addClass('grid')
            
@@ -1887,7 +1889,9 @@ $(function(){
                 success: function (resp) {
                     $('.loading').removeClass('grid')
                     $('.loading').hide()
-                    
+                    // $(cancelButton).show()
+                    //    alert(JSON.stringify(resp['data']))
+                    //    return
                     if(resp['data'] === 'cancelled')
                     {
                         $('.success-container').show()
@@ -1896,7 +1900,7 @@ $(function(){
                         setTimeout(function(){
                             location.reload()
                            
-                        },3000)
+                        },2000)
                     }    
                      
                     else
@@ -1905,7 +1909,7 @@ $(function(){
                         $('.error-message').html('Failed to cancel booking!')
                         setTimeout(function(){
                             $('.error-container').hide()
-                        },4000)
+                        },3000)
                       
                     } 
                         
@@ -1915,10 +1919,11 @@ $(function(){
                     $('.loading').hide()
                     
                     $('.error-container').show()
-                        $('.error-message').html('Booking cancel failed! System error.')
-                        setTimeout(function(){
-                            $('.error-container').hide()
-                        },3000)
+                    $('.error-message').html('Booking cancel failed! System error.')
+                    $(cancelButton).show()
+                    setTimeout(function(){
+                        $('.error-container').hide()
+                    },3000)
                 },
             });
         

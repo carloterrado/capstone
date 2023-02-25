@@ -12,6 +12,7 @@
    <link rel="stylesheet" href="{{url('css/app.css')}}">
    <link rel="stylesheet" href="{{url('css/date-picker.css')}}">
    <link rel="stylesheet" href="{{url('css/dataTable.css')}}">
+   <link rel="stylesheet" href="{{url('css/magnific-popup.min.css')}}">
    
    <!-- <link rel="stylesheet" href="{{url('css/datepicker-main.css')}}"> -->
   
@@ -46,13 +47,14 @@
    <script src="{{url('front/js/index.js')}}"></script>
    <script src="{{url('js/jquery.min.js')}}"></script>
    <script src="{{url('front/js/custom.js')}}"></script>
+   <script src="{{url('js/magnific-popup.min.js')}}"></script>
    <script src="{{url('js/jquery.Datatable.js')}}"></script>
   -->
    <script>
        $('#ongoing-transaction-table').DataTable({
-      //   ordering: false,
+        ordering: false,
         stateSave: true,
-        order: [[2, 'desc']],
+      
       
        });
        $('#history-transaction-table').DataTable({
@@ -61,6 +63,12 @@
         order: [[0, 'desc']],
        
        });
+       $('.zoomable-image').magnificPopup({
+            type: 'image',
+            gallery: {
+            enabled: false
+            }
+        });
      
    
 

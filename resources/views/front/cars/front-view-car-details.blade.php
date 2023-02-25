@@ -14,14 +14,8 @@
                 <div class="px-2 sm:px-6 grid grid-cols-8 gap-x-6">
                     <div class="col-span-8 md:col-span-5 mb-6">
                         <div class="relative h-42 sm:h-56 overflow-hidden" id="car-photos">
-                            
-                                @if ($car['owner_id'] === 0)
-                                <a href="{{url('admins/images/cars/main/'.$car['main_photo'])}}" target="_blank">
-                                <img src="{{url('admins/images/cars/main/'.$car['main_photo'])}}" class="h-full w-full object-cover" alt="..."></a>
-                                @else
-                                <a href="{{url('owner/images/cars/main/'.$car['main_photo'])}}" target="_blank">
-                                <img src="{{url('owner/images/cars/main/'.$car['main_photo'])}}" class="h-full w-full object-cover" alt="..."></a>
-                                @endif
+                            <a class="zoomable-image" href="data:image/jpeg;base64,{{$car['main_photo']}}">
+                                <img src="data:image/jpeg;base64,{{$car['main_photo']}}" class="h-full w-full object-cover" alt="..."></a>
                         </div>
 
                         <!-- Tab link -->
@@ -51,6 +45,10 @@
                                     <p class="col-span-3 text-sm font-semibold">{{$car['capacity']}} Seats</p>
                                 </div>
                                 <div class="grid grid-cols-6 border-b-2 mb-4">
+                                    <h3 class="col-span-3 text-sm font-semibold">Fuel:</h3>
+                                    <p class="col-span-3 text-sm font-semibold">{{$car['fuel_type']}}</p>
+                                </div>
+                                <div class="grid grid-cols-6 border-b-2 mb-4">
                                     <h3 class="col-span-3 text-sm font-semibold">Location:</h3>
                                     <p class="col-span-3 text-sm font-semibold">{{$car['pickup_location']}}</p>
                                 </div>
@@ -72,7 +70,7 @@
                                 </div>
                             </div>
                             <div class="hidden p-4" id="{{'car-description'.$car['id']}}" role="tabpanel" aria-labelledby="{{'car-description-tab'.$car['id']}}">
-                                <p class="text-sm font-semibold ">{{$car['description']}}</p>
+                                <p class="text-sm ">{{$car['description']}}</p>
                             </div>
                             <div class="hidden p-4" id="{{'car-excluded'.$car['id']}}" role="tabpanel" aria-labelledby="{{'car-excluded-tab'.$car['id']}}">
                                 <div class="border-b-2 mb-4">
@@ -100,6 +98,7 @@
                                 <p class="text-white text-[10px] text-center">Price may vary as per destination</p>
                             </div>
                             <input type="hidden" name="car-id" value="{{$car['id']}}">
+                            <input type="hidden" name="owner-id" value="{{$car['owner_id']}}">
                         
                             <div class="p-2 md:p-6 md:pb-4 sm:pt-0">
                                 <div class="picker">

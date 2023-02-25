@@ -34,13 +34,14 @@
                        Car ID
                     </th>
                     <th scope="col" class="py-3 px-6 whitespace-nowrap">
-                        Name of car
+                       
+                        <span class="block text-center">Brand and model</span>  
                     </th>
                     <th scope="col" class="py-3 px-6">
-                        <span class="sr-only">Car image</span>   
+                        <span class="block text-center">Car image</span>   
                     </th>
                     <th scope="col" class="py-3 px-6">
-                        <span class="sr-only">View details</span>  
+                        <span class="block text-center" >Car details</span>  
                     </th>
                   
                    
@@ -54,15 +55,15 @@
                @foreach($cars as $car)    
               
                 <tr class="bg-white border-b  hover:bg-gray-50  ">
-                    <td class="py-4 px-6 font-semibold text-gray-900 ">
+                    <td class="py-4 px-6 font-semibold  text-gray-900 ">
                         {{'#'.$car['id']}}
                     </td>
-                    <td class="py-4 px-6 font-semibold text-gray-900 ">
+                    <td class="py-4 px-6 font-semibold text-center text-gray-900 ">
                         {{$car['name']}}
                     </td>
                     <td class="p-4">
                         <div class="w-32 mx-auto overflow-hidden rounded-lg">
-                        <img src="{{url('owner/images/cars/main/'.$car['main_photo'])}}" alt="Car photo">
+                        <img src="data:image/jpeg;base64,{{$car['main_photo']}}" alt="Car photo">
                         </div>
                       
                     </td>
@@ -71,6 +72,7 @@
                            
                             <button  data-modal-toggle="{{'view-car'.$car['id']}}" class="details btn-1 bg-accent-regular uppercase  w-[fit-content]   text-white whitespace-nowrap">View details</button>
                         </div>
+                        @include('owner.cars.owner-view-car-details')
                     </td>
                   
                     <td class="py-4 px-6">
@@ -83,7 +85,7 @@
                         </div>
                     </td>
                 </tr>
-                @include('admin.cars.admin-view-owner-car-details')
+               
             @endforeach
                 
             </tbody>

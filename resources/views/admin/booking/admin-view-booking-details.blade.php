@@ -16,10 +16,8 @@
                     <div class="col-span-8 md:col-span-5 mb-6">
                         <div class="relative h-42 sm:h-56 overflow-hidden" id="car-photos">
                                
-                                <img src="{{url('admins/images/cars/main/'.$book['car_info']['main_photo'])}}" class="h-full w-full object-cover " alt="...">
-                              
-                                <!-- <img src="{{url('owner/images/cars/main/'.$book['car_info']['main_photo'])}}" class="absolute block w-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 " alt="..."></a> -->
-                              
+                            <a class="zoomable-image" href="data:image/jpeg;base64,{{$book['car_info']['main_photo']}}">
+                            <img src="data:image/jpeg;base64,{{$book['car_info']['main_photo']}}" class="h-full w-full object-cover " alt="..."></a>
                         </div>
 
                         <!-- Tab link -->
@@ -67,8 +65,8 @@
                                 <div class="grid grid-cols-6 gap-1">
                                     @foreach ($book['booking_info_id'] as $id)
                                         <div class="relative h-42 col-span-6 sm:col-span-3">
-                                            <a href="{{url('front/images/users/id/'.$id['images'])}}" target="_blank">
-                                            <img src="{{url('front/images/users/id/'.$id['images'])}}" class="w-full h-full object-cover " alt="..."></a>
+                                            <a class="zoomable-image" href="data:image/jpeg;base64,{{$id['images']}}">
+                                            <img src="data:image/jpeg;base64,{{$id['images']}}" class="w-full h-full object-cover " alt="..."></a>
                                         </div>
                                     @endforeach
                                 </div>
@@ -76,16 +74,16 @@
                                     <div class="col-span-6 sm:col-span-3">
                                         <h3 class="text-sm font-semibold mt-4">Utility Bill:</h3>
                                         <div class="relative h-42 ">
-                                            <a href="{{url('front/images/users/utility/'.$book['booking_info']['utility'])}}">
-                                            <img src="{{url('front/images/users/utility/'.$book['booking_info']['utility'])}}" class="w-full h-full object-cover " alt="..."></a>
+                                            <a class="zoomable-image" href="data:image/jpeg;base64,{{$book['booking_info']['utility']}}">
+                                            <img src="data:image/jpeg;base64,{{$book['booking_info']['utility']}}" class="w-full h-full object-cover " alt="..."></a>
                                         </div> 
                                     </div>
                                     @if (!empty($book['booking_info']['license']))
                                     <div class="col-span-6 sm:col-span-3">
                                         <h3 class="text-sm font-semibold mt-4">Driver's License:</h3>
                                         <div class="relative h-42 ">
-                                            <a href="{{url('front/images/users/license/'.$book['booking_info']['license'])}}">
-                                            <img src="{{url('front/images/users/license/'.$book['booking_info']['license'])}}" class="w-full h-full object-cover " alt="..."></a>
+                                        <a class="zoomable-image" href="data:image/jpeg;base64,{{$book['booking_info']['license']}}">
+                                            <img src="data:image/jpeg;base64,{{$book['booking_info']['license']}}" class="w-full h-full object-cover " alt="..."></a>
                                         </div>
                                     </div>   
                                     @endif
@@ -101,6 +99,10 @@
                                 <div class="grid grid-cols-6 border-b-2 mb-4">
                                     <h3 class="col-span-3 text-sm font-semibold">Capacity:</h3>
                                     <p class="col-span-3 text-sm font-semibold">{{$book['car_info']['capacity']}} Seats</p>
+                                </div>
+                                <div class="grid grid-cols-6 border-b-2 mb-4">
+                                    <h3 class="col-span-3 text-sm font-semibold">Fuel:</h3>
+                                    <p class="col-span-3 text-sm font-semibold">{{$book['car_info']['fuel_type']}}</p>
                                 </div>
                                 <div class="grid grid-cols-6 border-b-2 mb-4">
                                     <h3 class="col-span-3 text-sm font-semibold">Location:</h3>
@@ -128,7 +130,11 @@
                                     <p class="col-span-3 text-sm font-semibold">
                                         
                                         @if ($book['booking_info']['driver'] === '1')
-                                            {{'₱ '.number_format($book['booking_info']['driver_fee'],2,'.',',') . ' / '.intval($interval->format('%R%a')).' Days' }}    
+                                            @if (intval($interval->format('%R%a')) > 1)
+                                                {{'₱ '.number_format($book['booking_info']['driver_fee'],2,'.',',') . ' / '.intval($interval->format('%R%a')).' Days' }}   
+                                            @else
+                                                {{'₱ '.number_format($book['booking_info']['driver_fee'],2,'.',',') . ' / '.intval($interval->format('%R%a')).' Day' }}
+                                            @endif   
                                         @else
                                             {{'₱ '.number_format($book['booking_info']['driver_fee'],2,'.',',')}}
                                         @endif 

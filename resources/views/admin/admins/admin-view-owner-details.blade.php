@@ -2,7 +2,7 @@
     <div id="{{'admin'.$admin['id']}}" tabindex="-1" aria-hidden="true" class=" hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center p-4 w-full md:inset-0 h-modal md:h-full  rounded-lg">
         <div class="relative w-full max-w-2xl m-auto bg-white rounded-lg">
             
-            <form action="#" class="relative bg-white rounded-lg shadow">
+            <form  class="relative bg-white rounded-lg shadow">
                 
                 <div class="flex justify-between items-start p-4 rounded-t ">
                     <h3 class="text-xl font-semibold text-gray-900 ">
@@ -36,11 +36,11 @@
                         </div>  
                         <div class="col-span-6 sm:col-span-3">
                             <p  class="block mb-2 text-sm font-medium text-gray-900 ">License</p>
-                           <a href="{{url('owner/images/license/'.$admin['admins']['license'])}}" target="_blank"> <img src="{{url('owner/images/license/'.$admin['admins']['license'])}}" alt="license"> </a>
+                           <a class="zoomable-image" href="data:image/jpeg;base64,{{$admin['admins']['license']}}"> <img src="data:image/jpeg;base64,{{$admin['admins']['license']}}" alt="license"> </a>
                         </div>  
                         <div class="col-span-6 sm:col-span-3">
                             <p  class="block mb-2 text-sm font-medium text-gray-900 ">Valid ID: <span class="font-semibold">{{$admin['admins']['valid_id']}}</span></p>
-                           <a href="{{url('owner/images/id/'.$admin['admins']['valid_id_file'])}}" target="_blank"> <img src="{{url('owner/images/id/'.$admin['admins']['valid_id_file'])}}" alt="license"> </a>
+                           <a class="zoomable-image" href="data:image/jpeg;base64,{{$admin['admins']['valid_id_file']}}"> <img src="data:image/jpeg;base64,{{$admin['admins']['valid_id_file']}}" alt="license"> </a>
                         </div>  
                     </div>
                 </div>

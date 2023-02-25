@@ -168,6 +168,22 @@ class AdminController extends Controller
             $booking = Booking::find($data['booking_id']);
             $booking->status = $data['account'];
             $booking->save();
+            $user = User::find($booking->user_id);
+
+            // Send cancelation email to user email
+            $email = $user->email;
+            $name = $user->first_name . ' ' .$user->last_name; 
+            
+            $messageData = [
+                'email' => $email,
+                'name' => $name,
+                'booking' => $booking,
+            ];
+
+             Mail::send('emails.owner.cancelled-booking',$messageData, function($message)use($email){
+                $message->to($email)->subject('Car Booking Cancellation');
+            });
+
             return response()->json(['data'=>$data['account']]);
         }
         Session::put('title','Cancelled Booking');
@@ -178,6 +194,7 @@ class AdminController extends Controller
         function($query) use ($owner_id){
             $query->where(['owner_id'=>$owner_id]);
         })->where(['status'=>'cancelled'])->get()->toArray();
+
         if(Auth::guard('admin')->user()->type === 'owner')
         {
             $unpaidCount = History::where('owner_id',Auth::guard('admin')->user()->owner_id)->where('commission','unpaid')->count();
@@ -203,23 +220,10 @@ class AdminController extends Controller
         if($request->ajax())
         {
             $data = $request->all();
+             Booking::find($data['booking_id'])->delete();
+             BookingInfo::where('booking_id',$data['booking_id'])->delete();
+             BookingInfoId::where('booking_id',$data['booking_id'])->delete();
             
-            $canceledBooking = Booking::with('bookingInfoId','bookingInfo')->find($data['booking_id']);
-            if($canceledBooking->bookingInfo->license !== null)
-            {
-                $bookingLicense = public_path('front/images/users/license/'.$canceledBooking->bookingInfo->license);
-                    File::delete($bookingLicense);
-            }
-            $bookingUtility = public_path('front/images/users/utility/'.$canceledBooking->bookingInfo->utility);
-                    File::delete($bookingUtility);
-
-            foreach($canceledBooking->bookingInfoId as $ids)
-            {
-                $bookingImg = public_path('front/images/users/id/'.$ids->images);
-                File::delete($bookingImg);
-            }
-            $canceledBooking->delete();
-           
             return response()->json(['data'=>'success']);
         }
     }
@@ -671,7 +675,7 @@ class AdminController extends Controller
                 if($registration_img->isValid())
                 {
                     $extension1 = $registration_img->getClientOriginalExtension();
-                    $registrationImage = Image::make($main_img)->resize(800, 800, function ($constraint) {
+                    $registrationImage = Image::make($registration_img)->resize(800, 800, function ($constraint) {
                         $constraint->aspectRatio();
                     });
                     // --- Get the binary data of the modified image --- //
@@ -692,6 +696,11 @@ class AdminController extends Controller
                 $car->terms = 'agree';
                 $car->account = 'verified';
             }
+            else
+            {
+                $car->terms = $data['add-admin-terms'];
+            }
+
            
             
             $car->save();
@@ -966,6 +975,8 @@ class AdminController extends Controller
        
         Session::put('title','Car Request');
         Session::put('page','car-request');
+       
+      
         if(Auth::guard('admin')->user()->type === 'owner')
         {
             $cartypes = CarType::where('status',1)->get()->toArray();
@@ -995,6 +1006,7 @@ class AdminController extends Controller
         if($request->ajax()){
             $data = $request->all();
             
+            
             $car = Car::find($data['car_id']);
            
              // Send confirmation email to owner email
@@ -1006,15 +1018,18 @@ class AdminController extends Controller
                  'name' => $name,
              ];
             
+             
             // echo '<pre>'; print_r($data);die;
            
             if($data['account'] === 'verified'){
                 $car->account = $data['account'] ;
                 $car->save();
                 
+                
                 Mail::send('emails.owner.owner-car-account-accepted',$messageData, function($message)use($email){
                     $message->to($email)->subject('New Registered Car Status');
                 });
+                
                 
             }
             else if ($data['account'] === 'declined')
@@ -1273,6 +1288,7 @@ class AdminController extends Controller
                 Mail::send('emails.owner.owner-car-accepted',$messageData, function($message)use($email){
                     $message->to($email)->subject('Owner Account Status');
                 });
+                return response()->json(['data'=>'verified']);
             }
             else if ($data['account'] === 'declined')
             {
@@ -1281,9 +1297,10 @@ class AdminController extends Controller
                 Mail::send('emails.owner.owner-car-declined',$messageData, function($message)use($email){
                     $message->to($email)->subject('Owner Account Status');
                 });
+                return response()->json(['data'=>'declined']);
             } 
 
-            return response()->json(['data'=>$account]);
+            
         }
     }
     public function deleteUserAccount(Request $request)
@@ -1303,12 +1320,6 @@ class AdminController extends Controller
             $admin = Admin::find($data['admin_id']);
             if($admin->type === 'owner')
             {
-                $owner = OwnerDetail::find($admin->owner_id);
-                $license = public_path('owner/images/license/'.$owner->license);
-                File::delete($license);
-                $id = public_path('owner/images/id/'.$owner->valid_id_file);
-                File::delete($id);
-                Admin::where('id',$data['admin_id'])->delete();  
                 OwnerDetail::where('id',$admin->owner_id)->delete();  
             }
            Admin::where('id',$data['admin_id'])->delete();  
@@ -1525,26 +1536,28 @@ class AdminController extends Controller
                 {
                     $img_tmp1 = $request->file('owner-signup-license'); 
                     $img_tmp2 = $request->file('owner-signup-id-file');
-                    if($img_tmp1->isValid() && $img_tmp2->isValid()){
+                   
+                    if($img_tmp1->isValid() && $img_tmp2->isValid())
+                    {
                         // --- Get image extension --- //
                         $extension1 = $img_tmp1->getClientOriginalExtension(); 
                         $extension2 = $img_tmp2->getClientOriginalExtension(); 
-                        // --- Generate new image name --- //
-                        $imgName1 = rand(111,99999).'.'.$extension1; 
-                        $imgPath1 ='owner/images/license/'.$imgName1;
-                        $imgName2 = rand(111,99999).'.'.$extension2;
-                        $imgPath2 ='owner/images/id/'.$imgName2;
-                    
-                        // --- Upload and resize the image --- //
-                        Image::make($img_tmp1)->resize(1000,1000,function($constraint){
-                                $constraint->aspectRatio();
-                            })->save($imgPath1);
-                        Image::make($img_tmp2)->resize(1000,1000,function($constraint){
-                                $constraint->aspectRatio();
-                            })->save($imgPath2);
-                    
+                        
+                        $license =  Image::make($img_tmp1)->resize(800,800,function($constraint)
+                        {
+                            $constraint->aspectRatio();
+                        });
+                        $licenseData = base64_encode($license->encode($extension1));
+
+                        $idFile =  Image::make($img_tmp2)->resize(800,800,function($constraint)
+                        {
+                            $constraint->aspectRatio();
+                        });
+                        $idData = base64_encode($idFile->encode($extension2));
                     }
                 }
+
+                
 
                 $owner = new OwnerDetail;
                 $owner->contact = $data['owner-signup-contact'];
@@ -1553,9 +1566,9 @@ class AdminController extends Controller
                 $inputDate = explode('/', $data['owner-signup-birthdate'] ); 
                 $birthdate = $inputDate[2].'-'.$inputDate[1].'-'.$inputDate[0];
                 $owner->birthdate = $birthdate ;
-                $owner->license =  $imgName1;
+                $owner->license =  $licenseData;
                 $owner->valid_id = $data['owner-signup-valid-id'];
-                $owner->valid_id_file =  $imgName2;
+                $owner->valid_id_file =  $idData;
                 $owner->terms = $data['owner-signup-terms'];
                 $owner->save();
 

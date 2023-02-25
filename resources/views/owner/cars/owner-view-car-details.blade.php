@@ -19,16 +19,15 @@
                          <!-- Carousel wrapper -->
                         <div class="relative h-56 overflow-hidden rounded-lg " id="car-photos">
                             <div  class="hidden duration-700 ease-in-out" data-carousel-item="active" >
-                                <a href="{{url('owner/images/cars/main/'.$car['main_photo'])}}" target="_blank">
-                                <img src="{{url('owner/images/cars/main/'.$car['main_photo'])}}" class="absolute block w-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 " alt="..."></a>
+                                <a class="zoomable-image" href="data:image/jpeg;base64,{{$car['main_photo']}}">
+                                <img src="data:image/jpeg;base64,{{$car['main_photo']}}" class="absolute block w-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 " alt="..."></a>
                             </div>
                             @foreach ($car['car_photos'] as $photo)
                             <div class="hidden duration-700 ease-in-out" data-carousel-item >
-                                <a href="{{url('owner/images/cars/'.$photo['photos'])}}" target="_blank">
-                                <img src="{{url('owner/images/cars/'.$photo['photos'])}}" class="absolute block w-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 " alt="..."></a>
+                            <a class="zoomable-image" href="data:image/jpeg;base64,{{$photo['photos']}}">
+                                <img src="data:image/jpeg;base64,{{$photo['photos']}}" class="absolute block w-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 " alt="..."></a>
                             </div>
                             @endforeach
-                          
                         </div>
                          <!-- Slider controls -->
                         <button type="button" class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
@@ -47,17 +46,24 @@
                     <div class="mt-6">
                         <h3 class="text-lg sm:text-xl font-semibold text-accent-regular mb-2 ">Car Details</h3>
                         <div>
-                            <h4  class="block text-sm font-semibold text-gray-900 ">Name of Car: </h4>
+                            <h4  class="block text-sm font-semibold text-gray-900 ">Brand and Model: </h4>
                             <p class="text-sm sm:text-base" >{{$car['name']}}</p>
-                        </div>
-                        <div class="mt-2">
-                            <h4  class="block text-sm font-semibold text-gray-900 ">Plate Number: </h4>
-                            <p class="text-sm sm:text-base" >{{$car['plate_number']}}</p>
                         </div>
                         <div class="mt-2 grid grid-cols-2">
                             <div class="col-span-1">
+                                <h4  class="block text-sm font-semibold text-gray-900 ">Plate Number: </h4>
+                                <p class="text-sm sm:text-base" >{{$car['plate_number']}}</p>
+                            </div>
+                            <div class="col-span-1">
                                 <h4  class="block text-sm font-semibold text-gray-900 ">Car Type: </h4>
                                 <p class="text-sm sm:text-base">{{$car['car_types']['name']}}</p>
+                            </div>
+                            
+                        </div>
+                        <div class="mt-2 grid grid-cols-2">
+                            <div class="col-span-1">
+                                <h4  class="block text-sm font-semibold text-gray-900 ">Fuel Type: </h4>
+                                <p class="text-sm sm:text-base">{{$car['fuel_type']}}</p>
                             </div>
                             <div class="col-span-1">
                                 <h4  class="block text-sm font-semibold text-gray-900 ">Capacity: </h4>
@@ -68,12 +74,12 @@
                             <h4  class="block text-sm font-semibold text-gray-900 mb-2">Car Registration: 
                             <svg xmlns="http://www.w3.org/2000/svg" class="view-registration-image inline-block cursor-pointer" width="35" height="35" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256"><path fill="#e84949" d="M208 32H48a16 16 0 0 0-16 16v160a16 16 0 0 0 16 16h160a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16Zm-28.7 80a16.1 16.1 0 0 0-22.6 0L112 156.7L91.3 136a16.1 16.1 0 0 0-22.6 0L48 156.7V48h160v92.7ZM112 92a12 12 0 1 1-12-12a12 12 0 0 1 12 12Z"/></svg>
                             </h4>
-                            <a  class="hidden registration-image" href="{{url('owner/images/cars/registration/'.$car['registration'])}}" target="_blank">
-                            <img src="{{url('owner/images/cars/registration/'.$car['registration'])}}" class=" block object-cover h-56" alt="..."></a>
+                            <a  class="hidden registration-image zoomable-image" href="data:image/jpeg;base64,{{$car['registration']}}" target="_blank">
+                            <img src="data:image/jpeg;base64,{{$car['registration']}}" class=" block object-cover h-56" alt="..."></a>
                         </div>
                         <div class="mt-2">
                             <h4  class="block text-sm font-semibold text-gray-900 ">Description: </h4>
-                            <p class="text-sm sm:text-base" >{{$car['description']}}</p>
+                            <p class="text-xs" >{{$car['description']}}</p>
                         </div>
                     </div>
                 </div>

@@ -54,19 +54,14 @@
                                     </td>
                                     <td class="p-4">
                                         <div class="w-32 mx-auto overflow-hidden rounded-lg">
-                                        <img src="
-                                        @if ($book['car_info']['owner_id'] === 0)
-                                        {{url('admins/images/cars/main/'.$book['car_info']['main_photo'])}} 
-                                        @else
-                                        {{url('owner/images/cars/main/'.$book['car_info']['main_photo'])}}  
-                                        @endif
-                                        " alt="Car photo">
+                                        <img src="data:image/jpeg;base64,{{$book['car_info']['main_photo']}}" alt="Car photo">
                                         </div> 
                                     </td>
                                     <td class="py-4 px-6">
                                         <div class="flex justify-center">
                                             <button type="button" data-modal-toggle="{{'view-booking'.$book['id']}}"  class="details btn-1 bg-accent-regular uppercase  w-[fit-content]   text-white whitespace-nowrap">View details</button>
                                         </div>
+                                        @include('owner.booking.owner-view-booking-details') 
                                     </td>
                                     <td class="py-4 px-6 font-semibold text-gray-900 ">
                                         <div class="py-6 flex justify-center ">
@@ -90,7 +85,7 @@
                                         </div> 
                                     </td>
                                 
-                                    @include('owner.booking.owner-view-booking-details') 
+                                    
                                 </tr>
                             @endif 
                         @endforeach   

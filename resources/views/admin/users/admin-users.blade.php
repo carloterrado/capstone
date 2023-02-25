@@ -30,12 +30,15 @@
             <thead class=" text-gray-700 uppercase ">
                 <tr class="border-y">
                    
-                    <th scope="col" class="py-3 px-6 whitespace-nowrap">
+                    <th scope="col" class="py-3 px-6 ">
+                        ID
+                    </th>
+                    <th scope="col" class="py-3 px-6 ">
                         User name
                     </th>
                     
                     <th scope="col" class="py-3 px-6">
-                        <span class="sr-only">View details</span>  
+                        View details  
                     </th>
                     <th scope="col" class="py-3 px-6">
                         Status
@@ -51,6 +54,9 @@
                 
                     <tr class="bg-white border-b  hover:bg-gray-50  ">
                         
+                        <td class="p-4 px-6  font-semibold text-gray-900">
+                        {{'#'.$user['id']}}
+                        </td>
                         <td class="p-4 px-6  font-semibold text-gray-900">
                         {{$user['first_name'].' '.$user['last_name']}}
                         </td>

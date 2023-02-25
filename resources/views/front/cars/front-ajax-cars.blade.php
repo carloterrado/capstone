@@ -29,15 +29,7 @@
             
         </div>
     
-        <img class="rounded-lg h-40 w-full object-cover" src="
-        @if ($car['owner_id'] === 0)
-            
-        {{url('admins/images/cars/main/'.$car['main_photo'])}}
-        @else
-        {{url('owner/images/cars/main/'.$car['main_photo'])}}
-            
-        @endif
-        " alt="" />
+        <img class="rounded-lg h-40 w-full object-cover" src="data:image/jpeg;base64,{{$car['main_photo']}}" alt="" />
         <button  type="button"  data-modal-toggle="{{'view-car'.$car['id']}}"  class="car-detail btn-1 bg-accent-regular uppercase  w-full mt-6  text-white whitespace-nowrap">Reserve now</button>
     </div>
     @include('front.cars.front-view-car-details')

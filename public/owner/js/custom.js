@@ -1024,9 +1024,15 @@ $(function(){
             }
 
         } 
-        if(files.length > 9)
+        if(imageType === 'Photos of cars' && files.length < 2)
         {
-            $(errorElementID).html(imageType + ' maximum is 9!');
+            $(errorElementID).html( 'Need more photos!');
+            $(errorElementID).css('color','lightcoral');
+            return false; 
+        }
+        if(files.length > 4)
+        {
+            $(errorElementID).html(imageType + ' maximum is 4!');
             $(errorElementID).css('color','lightcoral');
             return false; 
         }
@@ -1126,7 +1132,7 @@ $(function(){
     //    Car form validation
     $('#add-admin-car-name').on('keyup keypress',function()
     {
-        validateCarName('#add-admin-car-name','#add-admin-car-name-error','Name of car ');
+        validateCarName('#add-admin-car-name','#add-admin-car-name-error','Brand and Model');
     })
     $('#add-admin-car-plate-number').on('keyup keypress',function()
     {
@@ -1135,6 +1141,10 @@ $(function(){
     $('#add-admin-set-car-type').on('click keypress',function()
     {
         validateCarType('#add-admin-set-car-type','#add-admin-set-car-type-error');
+    })
+    $('#add-admin-car-fuel-type').on('keyup keypress',function()
+    {
+        validateName('#add-admin-car-fuel-type','#add-admin-car-fuel-type-error','Fuel Type');
     })
     $('#add-admin-car-capacity').on('keyup keypress',function()
     {
@@ -1211,7 +1221,7 @@ $(function(){
     $('.step-2').on('click', function(){
 
         
-        let valid = validateCarName('#add-admin-car-name','#add-admin-car-name-error','Name of car ') && validatePlateNumber('#add-admin-car-plate-number','#add-admin-car-plate-number-error','Plate number') && validateCarType('#add-admin-set-car-type','#add-admin-set-car-type-error') && validateCarCapacity('#add-admin-car-capacity','#add-admin-car-capacity-error') && validateCarImageFile('#add-admin-car-registration','#add-admin-car-registration-error','Car registration') && validateCarImageFile('#add-admin-car-main-photo','#add-admin-car-main-photo-error','Main car photo') && validateCarImageFile('#add-admin-car-photos','#add-admin-car-photos-error','Photos of cars') ;
+        let valid = validateCarName('#add-admin-car-name','#add-admin-car-name-error','Brand and Model') && validatePlateNumber('#add-admin-car-plate-number','#add-admin-car-plate-number-error','Plate number') && validateCarType('#add-admin-set-car-type','#add-admin-set-car-type-error') && validateName('#add-admin-car-fuel-type','#add-admin-car-fuel-type-error','Fuel Type') && validateCarCapacity('#add-admin-car-capacity','#add-admin-car-capacity-error') && validateCarImageFile('#add-admin-car-registration','#add-admin-car-registration-error','Car registration') && validateCarImageFile('#add-admin-car-main-photo','#add-admin-car-main-photo-error','Main car photo') && validateCarImageFile('#add-admin-car-photos','#add-admin-car-photos-error','Photos of cars') ;
        
 
       
@@ -1243,14 +1253,14 @@ $(function(){
         
     })
     
-    $('#add-car-form').on('submit',function(event){
+    $('#add-car-form').on('submit', async function(event){
         event.preventDefault()
        
 
-        function validateAddCarForm()
+      async  function validateAddCarForm()
         {
 
-            let valid = validateCarName('#add-admin-car-name','#add-admin-car-name-error','Name of car ') && validatePlateNumber('#add-admin-car-plate-number','#add-admin-car-plate-number-error','Plate number') && validateCarType('#add-admin-set-car-type','#add-admin-set-car-type-error') && validateCarCapacity('#add-admin-car-capacity','#add-admin-car-capacity-error') && validateCarImageFile('#add-admin-car-registration','#add-admin-car-registration-error','Car registration') && validateCarImageFile('#add-admin-car-main-photo','#add-admin-car-main-photo-error','Main car photo') && validateCarImageFile('#add-admin-car-photos','#add-admin-car-photos-error','Photos of cars') && validatePickupLocation('#add-admin-car-pickup-location','#add-admin-car-pickup-location-error','Pick-up location') && validateCarDescription('#add-admin-car-description','#add-admin-car-description-error') && validateCarPrice('#add-admin-car-price-cagayan-valley','#add-admin-car-price-cagayan-valley-error','REGION II (CAGAYAN VALLEY)') && validateCarPrice('#add-admin-car-price-central-luzon','#add-admin-car-price-central-luzon-error','REGION III (CENTRAL LUZON)') &&  validateCarPrice('#add-admin-car-price-calabarzon','#add-admin-car-price-calabarzon-error','REGION IV-A (CALABARZON)') && validateCarPrice('#add-admin-car-price-mimaropa','#add-admin-car-price-mimaropa-error','REGION IV-B (MIMAROPA)') && validateCarPrice('#add-admin-car-price-bicol-region','#add-admin-car-price-bicol-region-error','REGION V (BICOL REGION)') && validateCarPrice('#add-admin-car-price-ncr','#add-admin-car-price-ncr-error','NATIONAL CAPITAL REGION (NCR)') && validateCarPrice('#add-admin-car-price-car','#add-admin-car-price-car-error','CORDILLERA ADMINISTRATIVE REGION (CAR)') && validateTerms('#add-admin-terms','#add-admin-terms-error') ;
+            let valid = validateCarName('#add-admin-car-name','#add-admin-car-name-error','Brand and Model') && validatePlateNumber('#add-admin-car-plate-number','#add-admin-car-plate-number-error','Plate number') && validateCarType('#add-admin-set-car-type','#add-admin-set-car-type-error') && validateName('#add-admin-car-fuel-type','#add-admin-car-fuel-type-error','Fuel Type') && validateCarCapacity('#add-admin-car-capacity','#add-admin-car-capacity-error') && validateCarImageFile('#add-admin-car-registration','#add-admin-car-registration-error','Car registration') && validateCarImageFile('#add-admin-car-main-photo','#add-admin-car-main-photo-error','Main car photo') && validateCarImageFile('#add-admin-car-photos','#add-admin-car-photos-error','Photos of cars') && validatePickupLocation('#add-admin-car-pickup-location','#add-admin-car-pickup-location-error','Pick-up location') && validateCarDescription('#add-admin-car-description','#add-admin-car-description-error') && validateCarPrice('#add-admin-car-price-cagayan-valley','#add-admin-car-price-cagayan-valley-error','REGION II (CAGAYAN VALLEY)') && validateCarPrice('#add-admin-car-price-central-luzon','#add-admin-car-price-central-luzon-error','REGION III (CENTRAL LUZON)') &&  validateCarPrice('#add-admin-car-price-calabarzon','#add-admin-car-price-calabarzon-error','REGION IV-A (CALABARZON)') && validateCarPrice('#add-admin-car-price-mimaropa','#add-admin-car-price-mimaropa-error','REGION IV-B (MIMAROPA)') && validateCarPrice('#add-admin-car-price-bicol-region','#add-admin-car-price-bicol-region-error','REGION V (BICOL REGION)') && validateCarPrice('#add-admin-car-price-ncr','#add-admin-car-price-ncr-error','NATIONAL CAPITAL REGION (NCR)') && validateCarPrice('#add-admin-car-price-car','#add-admin-car-price-car-error','CORDILLERA ADMINISTRATIVE REGION (CAR)') && validateTerms('#add-admin-terms','#add-admin-terms-error') ;
             let driversFee = true;
             if($('#add-admin-car-with-driver').is(':checked'))
             {
@@ -1286,7 +1296,7 @@ $(function(){
                         $('.success-container').show()
                         $('.success-message').html('Car added successfully!')
                         setTimeout(function(){
-                            window.location.href = window.location.href;   
+                            location.reload() 
                         },1500)  
                     }
                     else 
@@ -1312,7 +1322,7 @@ $(function(){
                 }
             })
         }
-        let validated = validateAddCarForm()
+        let validated = await validateAddCarForm()
         
         
         if(validated){
@@ -1321,13 +1331,13 @@ $(function(){
             $('.loading').removeClass('hidden')
             $('.loading').addClass('grid')
            
-            submitAddCarForm().catch(function(error){
+          await  submitAddCarForm().catch(function(error){
                 $('.loading').removeClass('grid')
                 $('.loading').hide()
                 $('.error-container').show()
                 $('.error-message').html('System add car failed!')
                 setTimeout(function(){
-                    window.location.href = '/admin/cars';  
+                    location.reload()  
                 },3000)
             })
         }

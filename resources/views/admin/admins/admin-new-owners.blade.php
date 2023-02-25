@@ -23,8 +23,13 @@
         </li>
     </ol>
     </nav>
+    <div class="md:w-1/2 mx-auto">
+        @include('message.ajax-error')
+        @include('message.ajax-success')
+    </div>
 
     <div class="overflow-x-auto relative shadow-md sm:rounded-lg pt-4 border">
+        
         
         <table id="arkilla-table" class="cell-border hover w-full text-sm text-left  text-gray-500 mt-8">
            
@@ -59,6 +64,7 @@
                             <div class="flex justify-center py-6">  
                                 <button data-modal-toggle="{{'admin'.$admin['id']}}"   class="details btn-1 bg-accent-regular w-[fit-content]   text-white whitespace-nowrap">View details</button>
                             </div>
+                            @include('admin.admins.admin-view-owner-details')
                         </td>
                         <td class="py-4 px-6 font-semibold text-gray-900 ">
                             @if ($admin['status'] === 1) 
@@ -80,7 +86,7 @@
                        
                     </tr>
 
-                    @include('admin.admins.admin-view-owner-details')
+                    
                         
                 @endforeach
 

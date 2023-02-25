@@ -15,7 +15,7 @@
                 <div class="px-2 sm:px-6 grid grid-cols-8 gap-x-6">
                     <div class="col-span-8 md:col-span-5 mb-6">
                         <div class="relative h-42 sm:h-56 overflow-hidden" id="car-photos">    
-                                <img src="{{url('admins/images/cars/main/'.$book['car_info']['main_photo'])}}" class="h-full w-full object-cover " alt="...">
+                                <img src="data:image/jpeg;base64,{{$book['car_info']['main_photo']}}" class="h-full w-full object-cover " alt="...">
                               
                                 <!-- <img src="{{url('owner/images/cars/main/'.$book['car_info']['main_photo'])}}" class="absolute block w-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 " alt="..."></a> -->
                               

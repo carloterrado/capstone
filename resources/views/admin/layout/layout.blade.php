@@ -46,13 +46,15 @@
    <script src="{{url('js/jquery.Datatable.js')}}"></script>
    <script>
        $('#arkilla-table').DataTable({
-        ordering: false,
+        // ordering: false,
         stateSave: true,
+        order: [[0, 'desc']],
        });
    
        $('#ongoing-transaction-table').DataTable({
-        ordering: false,
+        // ordering: false,
         stateSave: true,
+        order: [[0, 'desc']],
        });
        $('.zoomable-image').magnificPopup({
             type: 'image',

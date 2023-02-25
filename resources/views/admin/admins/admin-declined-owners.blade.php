@@ -22,6 +22,11 @@
         </li>
     </ol>
     </nav>
+    <div class="md:w-1/2 mx-auto">
+        @include('message.ajax-error')
+        @include('message.ajax-success')
+        @include('message.loading')
+    </div>
 
     <div class="overflow-x-auto relative shadow-md sm:rounded-lg pt-4 border">
         
@@ -56,9 +61,9 @@
                     </td>
                     <td class="py-4 px-6">
                         <div class="flex justify-center py-6">
-                            
                             <button data-modal-toggle="{{'admin'.$admin['id']}}"   class="details btn-1 bg-accent-regular uppercase  w-[fit-content]   text-white whitespace-nowrap">View details</button>
                         </div>
+                        @include('admin.admins.admin-view-owner-details')
                     </td>
                     <td class="py-4 px-6 font-semibold text-gray-900 ">
                         @if ($admin['status'] === 1) 
@@ -74,7 +79,7 @@
                     </td>
                 </tr>
 
-                @include('admin.admins.admin-view-owner-details')
+                
                     
                 @endforeach
                 

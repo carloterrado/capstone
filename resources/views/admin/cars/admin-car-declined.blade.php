@@ -34,16 +34,16 @@
                        Car ID
                     </th>
                     <th scope="col" class="py-3 px-6 whitespace-nowrap">
-                        Name of car
+                        Brand and Model
                     </th>
                     <th scope="col" class="py-3 px-6">
-                        <span class="sr-only">Car image</span>   
+                        <span class="block text-center">Car image</span>   
                     </th>
                     <th scope="col" class="py-3 px-6">
                         Owner
                     </th>
                     <th scope="col" class="py-3 px-6">
-                        <span class="sr-only">View details</span>  
+                        <span class="block text-center">View details</span>  
                     </th>
                    
                     <th scope="col" class="py-3 px-6">
@@ -64,7 +64,7 @@
                     </td>
                     <td class="p-4">
                         <div class="w-32 mx-auto overflow-hidden rounded-lg">
-                        <img src="{{url('owner/images/cars/main/'.$car['main_photo'])}}" alt="Car photo">
+                        <img src="data:image/jpeg;base64,{{$car['main_photo']}}" alt="Car photo">
                         </div>
                       
                     </td>

@@ -707,8 +707,10 @@ $(function(){
         var account = $(this).children("button").attr("account");
         var row = $(this).parentsUntil("tbody");
         var admin_id = $(this).attr("admin_account_id");
+        
 
         if(!confirm("Want to "+ account +" this account?")) return false
+        $('.updateAdminAccount').hide()
         $('.loading').removeClass('hidden')
         $('.loading').addClass('grid')
       await  $.ajax({
@@ -723,25 +725,38 @@ $(function(){
             success: function (resp) {
                 $('.loading').removeClass('grid')
                 $('.loading').hide()
+               
                 if(resp['data'] === 'verified')
                 {
-                    row.remove()
+                   
+                    $('.success-container').show()
+                    $('.success-message').html('Account successfully verified!')
+                    setTimeout(function(){
+                        location.reload(); 
+                    },1500)  
+                    
                 }    
-                else if(resp['data'] === 'declined')
+                else 
                 {
-                    row.remove()
+                    $('.success-container').show()
+                    $('.success-message').html('Account successfully declined!')
+                    
+                    setTimeout(function(){
+                        location.reload();   
+                    },1500)
                 } 
                     
-                else
-                {
-                    alert('Failed to '+ account +' admin!')
-                } 
                     
             },
             error: function (resp) {
                 $('.loading').removeClass('grid')
                 $('.loading').hide()
-                alert(account +" failed! System error.")
+                $('.error-container').show()
+                    $('.error-message').html('System error!')
+                    $('.updateAdminAccount').show()
+                    setTimeout(function(){
+                        $('.error-container').hide()  
+                    },3000)
             },
         });
     });
@@ -754,6 +769,9 @@ $(function(){
         var admin_id = $(this).attr("moduleid");
 
         if(!confirm("Want to delete this "+ type + "?")) return false
+        $(this).hide()
+        $('.loading').removeClass('hidden')
+        $('.loading').addClass('grid')
 
       await  $.ajax({
             headers: {
@@ -765,11 +783,35 @@ $(function(){
             url: "/admin/delete-" + module,
             data: { admin_id:admin_id },
             success: function (resp) {
-                if(resp['status'] === 'deleted') row.remove()
-                else alert('Failed to delete '+ type +'!')
+                
+
+                if(resp['status'] === 'deleted')
+                {
+                    $('.success-container').show()
+                    $('.success-message').html('Account deleted successfully!')
+                    setTimeout(function(){
+                        location.reload(); 
+                    },1500)  
+                }    
+                else 
+                {
+                    $('.success-container').show()
+                    $('.success-message').html('Failed to delete '+ type +'!')
+                    setTimeout(function(){
+                        location.reload();   
+                    },1500)
+                } 
             },
             error: function (resp) {
-                alert("Delete failed! System error.")
+                $('.loading').removeClass('grid')
+                $('.loading').hide()
+                $('.error-container').show()
+                    $('.error-message').html('System error!')
+                    $('.updateAdminAccount').show()
+                    setTimeout(function(){
+                        $('.error-container').hide()  
+                    },3000)
+                
             },
         });
     });
@@ -1429,9 +1471,9 @@ $(function(){
                 success:function(resp){
                     $('.loading').removeClass('grid')
                     $('.loading').hide()
-                       console.log(JSON.stringify(resp['data'],null,2))
+                    //    console.log(JSON.stringify(resp['data'],null,2))
                     //    alert(JSON.stringify(resp['data'],null,2))
-                       return
+                    //    return
                     if(resp["data"] === 'success')
                     {
                         $('.success-container').show()
@@ -1562,7 +1604,7 @@ $(function(){
             success: function (resp) {
                 if(resp['status'] === 'deleted') 
                 {
-                    window.location.href = '/admin/cars' 
+                    location.reload() 
                 }
                 else alert('Failed to delete '+car +'!')
             },
@@ -1847,14 +1889,15 @@ $(function(){
     //         Approve or Decline Car
     $("#arkilla-table").on("click",".updateCarAccount", async function () 
     {
+        const carAccount = $(this);
        async function updateCarAccount()
         {
   
-            var account = $(this).children("button").attr("account");
-            var row = $(this).parentsUntil("tbody");
-            var car_id = $(this).attr("car_account_id");
-            var email = $(this).attr("owner_email");
-            var name = $(this).attr("owner_name");
+            const account = $(carAccount).children("button").attr("account");
+            
+            const car_id = $(carAccount).attr("car_account_id");
+            const email = $(carAccount).attr("owner_email");
+            const name = $(carAccount).attr("owner_name");
 
             if(!confirm("Continue to "+ account +" this car?")) return false
             $('.loading').removeClass('hidden')
@@ -1876,26 +1919,33 @@ $(function(){
                 success: function (resp) {
                     $('.loading').removeClass('grid')
                     $('.loading').hide()
-                //   alert(JSON.stringify(resp['data']))
+                 
                     if(resp['data'] === 'verified')
                     {
-                        row.remove()
+                        $('.success-container').show()
+                        $('.success-message').html('Car approved successfully!')
+                        setTimeout(function(){
+                            location.reload(); 
+                        },1500)  
                     }    
-                    else if(resp['data'] === 'declined')
-                    {
-                        row.remove()
-                    } 
-                        
                     else
                     {
-                        alert('Failed to '+ account +' car!')
+                        $('.success-container').show()
+                        $('.success-message').html('Car declined successfully!')
+                        setTimeout(function(){
+                            location.reload(); 
+                        },1500) 
                     } 
+                   
                         
                 },
                 error: function (resp) {
-                    $('.loading').removeClass('grid')
-                    $('.loading').hide()
-                    alert(account +" failed! System error.")
+                    $('.error-container').show()
+                    $('.error-message').html('System error!')
+                    
+                    setTimeout(function(){
+                        $('.error-container').hide()  
+                    },3000)
                 },
             });
         }

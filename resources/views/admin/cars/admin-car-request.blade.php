@@ -1,5 +1,5 @@
 <div class="p-4 sm:p-6 lg:p-14 lg:pt-7 min-h-[calc(100vh-5rem)] md:min-h-[calc(100vh-5.5rem)]">
-@include('message.loading')
+
     <div class="flex justify-end sm:justify-between">
         <nav class="hidden sm:flex mb-4 sm:mb-6 lg:mb-7" aria-label="Breadcrumb">
             <ul class="inline-flex items-center space-x-1 md:space-x-3">
@@ -25,32 +25,37 @@
         </nav>
       
     </div>
+    <div class="md:w-1/2 mx-auto">
+        @include('message.ajax-error')
+        @include('message.ajax-success')
+        @include('message.loading')
+    </div>
     <div class="overflow-x-auto relative shadow-md sm:rounded-lg pt-4 border">
         
         <table id="arkilla-table" class="cell-border hover w-full text-sm text-left  text-gray-500 mt-8">
            
             <thead class=" text-gray-700 uppercase ">
                 <tr class="border-y">
-                    <th scope="col" class="py-3 px-6 whitespace-nowrap">
+                    <th scope="col" class="py-3 px-6">
                        Car ID
                     </th>
-                    <th scope="col" class="py-3 px-6 whitespace-nowrap">
-                        Name of car
+                    <th scope="col" class="py-3 ">
+                        <span class="block text-center">Brand and Model</span>   
                     </th>
-                    <th scope="col" class="py-3 px-6">
-                        <span class="sr-only">Car image</span>   
+                    <th scope="col" class="py-3 ">
+                        <span class="block text-center">Car image</span>   
                     </th>
-                    <th scope="col" class="py-3 px-6">
-                        Owner
+                    <th scope="col" class="py-3 ">
+                    <span class="block text-center">Owner</span>  
                     </th>
-                    <th scope="col" class="py-3 px-6">
-                        <span class="sr-only">View details</span>  
+                    <th scope="col" class="py-3 ">
+                        <span class="block text-center">View details</span>  
                     </th>
-                    <th scope="col" class="py-3 px-6">
-                        Status
+                    <th scope="col" class="py-3">
+                        <h2 class="block text-center">Status</h2> 
                     </th>
-                    <th scope="col" class="py-3 px-6">
-                            Action
+                    <th scope="col" class="py-3 ">
+                        <span class="block text-center">Action</span> 
                     </th>
                 </tr>
             </thead>
@@ -62,16 +67,16 @@
                     <td class="py-4 px-6 font-semibold text-gray-900 ">
                         {{'#'.$car['id']}}
                     </td>
-                    <td class="py-4 px-6 font-semibold text-gray-900 ">
+                    <td class="py-4 px-6 font-semibold text-center text-gray-900 ">
                         {{$car['name']}}
                     </td>
                     <td class="p-4">
                         <div class="w-32 mx-auto overflow-hidden rounded-lg">
-                        <img src="{{url('owner/images/cars/main/'.$car['main_photo'])}}" alt="Car photo">
+                        <img src="data:image/jpeg;base64,{{$car['main_photo']}}" alt="Car photo">
                         </div>
                       
                     </td>
-                    <td class="py-4 px-6 font-semibold text-gray-900 ">
+                    <td class="py-4 px-6 font-semibold text-center text-gray-900 ">
                         {{$car['car_owner']['first_name']}}
                         {{$car['car_owner']['last_name']}}
                         <br>
@@ -83,9 +88,10 @@
                            
                             <button  data-modal-toggle="{{'view-car'.$car['id']}}" class="details btn-1 bg-accent-regular uppercase  w-[fit-content]   text-white whitespace-nowrap">View details</button>
                         </div>
+                        @include('admin.cars.admin-view-owner-car-details')
                     </td>
                     <td class="py-4 px-6 font-semibold text-gray-900 ">
-                    <div class="py-6">
+                        <div class="py-6 flex justify-center">
                             @if ($car['status'] === 1) 
                             <a id="car-{{$car['id']}}" car_id="{{$car['id']}}" class="updateCarStatus cursor-pointer"><svg status="Active" xmlns="http://www.w3.org/2000/svg" width="40" height="40" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="#e84949" d="m10.6 13.8l-2.175-2.175q-.275-.275-.675-.275t-.7.3q-.275.275-.275.7q0 .425.275.7L9.9 15.9q.275.275.7.275q.425 0 .7-.275l5.675-5.675q.275-.275.275-.675t-.3-.7q-.275-.275-.7-.275q-.425 0-.7.275ZM12 22q-2.075 0-3.9-.788q-1.825-.787-3.175-2.137q-1.35-1.35-2.137-3.175Q2 14.075 2 12t.788-3.9q.787-1.825 2.137-3.175q1.35-1.35 3.175-2.138Q9.925 2 12 2t3.9.787q1.825.788 3.175 2.138q1.35 1.35 2.137 3.175Q22 9.925 22 12t-.788 3.9q-.787 1.825-2.137 3.175q-1.35 1.35-3.175 2.137Q14.075 22 12 22Z"/></svg></a>    
                             @else 
@@ -94,7 +100,7 @@
                         </div>
                     </td>
                     <td class="py-4 px-6">
-                        <div class="flex items-center">
+                        <div class="flex items-center justify-center">
                             <div class="flex gap-4 py-6">  
                                 <a class="updateCarAccount" owner_email="{{$car['car_owner']['email']}}" owner_name="{{$car['car_owner']['first_name'].' '.$car['car_owner']['last_name']}}" car_account_id="{{$car['id']}}">
                                 <button account="verified"  class="btn-1 bg-accent-green w-[fit-content]   text-white whitespace-nowrap">approve</button></a>
@@ -105,7 +111,7 @@
                         </div>
                     </td>
                 </tr>
-                @include('admin.cars.admin-view-owner-car-details')
+               
             @endforeach
                 
             </tbody>
