@@ -1709,7 +1709,7 @@ $(function(){
                         $(bookingForm).find('.loading').hide()
                         $(bookingForm).find('.error-container').show()
                         $(bookingForm).find('button[type="submit"]').show()
-                        $(bookingForm).find('.error-message').html('System book car failed!')
+                        $(bookingForm).find('.error-message').html(error)
                         alert(error)
                         setTimeout(function(){
                             $(bookingForm).find('.error-container').hide()
