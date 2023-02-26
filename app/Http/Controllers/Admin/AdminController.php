@@ -673,25 +673,28 @@ class AdminController extends Controller
             $car->type_id = (int)$data['add-admin-set-car-type'];
             $car->fuel_type = $data['add-admin-car-fuel-type'];
             $car->capacity = (int)$data['add-admin-car-capacity'];
-            $main_img = $request->file('add-admin-car-main-photo');
-            
-            if($main_img->isValid())
+            if($request->hasFile('add-admin-car-main-photo'))
             {
-                $extension = $main_img->getClientOriginalExtension();
-                 
-               $main =  Image::make($main_img)->resize(800,800,function($constraint)
+                $main_img = $request->file('add-admin-car-main-photo');
+            
+                if($main_img->isValid())
                 {
-                    $constraint->aspectRatio();
-                });
-                $imageData = base64_encode($main->encode($extension));
-               
-                 $car->main_photo = $imageData;
-                
-              
+                    $extension = $main_img->getClientOriginalExtension();
+                     
+                   $main =  Image::make($main_img)->resize(800,800,function($constraint)
+                    {
+                        $constraint->aspectRatio();
+                    });
+                    $imageData = base64_encode($main->encode($extension));
+                   
+                     $car->main_photo = $imageData;  
+                }
+
             }
            
+           
               
-            if(Auth::guard('admin')->user()->type === 'owner')
+            if(Auth::guard('admin')->user()->type === 'owner' && $request->hasFile('add-admin-car-registration'))
             {
                 $car->terms = $data['add-admin-terms'];
                 $registration_img = $request->file('add-admin-car-registration');
@@ -755,7 +758,8 @@ class AdminController extends Controller
                 $carPrice->save();
             }
            
-          
+          if($request->hasFile('add-admin-car-photos'))
+          {
             foreach($request->file('add-admin-car-photos') as $photo)
             {
                 $img_tmp = $photo;
@@ -776,6 +780,8 @@ class AdminController extends Controller
                     $carPhoto->save();
                 }
             }
+          }
+           
             
             return response()->json(['data'=>'success']);
 
