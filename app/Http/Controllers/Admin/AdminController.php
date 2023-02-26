@@ -662,7 +662,6 @@ class AdminController extends Controller
         if($request->ajax())
         {
           
-            
             $data = $request->all();
             // return response()->json(['data'=>$data]);
            
@@ -674,7 +673,7 @@ class AdminController extends Controller
             $car->type_id = (int)$data['add-admin-set-car-type'];
             $car->fuel_type = $data['add-admin-car-fuel-type'];
             $car->capacity = (int)$data['add-admin-car-capacity'];
-            $main_img = $data['add-admin-car-main-photo'];
+            $main_img = $request->file('add-admin-car-main-photo');
             
             if($main_img->isValid())
             {
@@ -695,7 +694,7 @@ class AdminController extends Controller
             if(Auth::guard('admin')->user()->type === 'owner')
             {
                 $car->terms = $data['add-admin-terms'];
-                $registration_img = $data['add-admin-car-registration'];
+                $registration_img = $request->file('add-admin-car-registration');
                
                 if($registration_img->isValid())
                 {
@@ -757,7 +756,7 @@ class AdminController extends Controller
             }
            
           
-            foreach($data['add-admin-car-photos'] as $photo)
+            foreach($request->file('add-admin-car-photos') as $photo)
             {
                 $img_tmp = $photo;
                 if($img_tmp->isValid())
