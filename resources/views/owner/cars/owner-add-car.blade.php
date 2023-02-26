@@ -4,7 +4,7 @@
 <div class="relative w-full max-w-2xl m-auto">
     @include('message.loading')
         
-        <form id="add-car-form"  method="POST" class="relative bg-white rounded-lg shadow ">
+        <form id="add-car-form"  method="POST" class="relative bg-white rounded-lg shadow " enctype="multipart/form-data">
             @csrf
         
              <!-- Step 1 -->

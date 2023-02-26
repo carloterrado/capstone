@@ -659,8 +659,8 @@ class AdminController extends Controller
     public function addCar(Request $request)
     {
              
-        // if($request->ajax())
-        // {
+        if($request->ajax())
+        {
           
             
             $data = $request->all();
@@ -676,19 +676,20 @@ class AdminController extends Controller
             $car->capacity = (int)$data['add-admin-car-capacity'];
             $main_img = $data['add-admin-car-main-photo'];
             
-           
-            $extension = $main_img->getClientOriginalExtension();
-                
-            $main =  Image::make($main_img)->resize(800,800,function($constraint)
+            if($main_img->isValid())
             {
-                $constraint->aspectRatio();
-            });
-            $imageData = base64_encode($main->encode($extension));
-            
-            $car->main_photo = $imageData;
+                $extension = $main_img->getClientOriginalExtension();
+                 
+               $main =  Image::make($main_img)->resize(800,800,function($constraint)
+                {
+                    $constraint->aspectRatio();
+                });
+                $imageData = base64_encode($main->encode($extension));
+               
+                 $car->main_photo = $imageData;
                 
               
-            
+            }
            
               
             if(Auth::guard('admin')->user()->type === 'owner')
@@ -696,17 +697,18 @@ class AdminController extends Controller
                 $car->terms = $data['add-admin-terms'];
                 $registration_img = $data['add-admin-car-registration'];
                
-                
-                $extension1 = $registration_img->getClientOriginalExtension();
-                $registrationImage = Image::make($registration_img)->resize(800, 800, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
-                // --- Get the binary data of the modified image --- //
-                $registrationData = base64_encode($registrationImage->encode($extension1));
-        
-                $car->registration = $registrationData;
+                if($registration_img->isValid())
+                {
+                    $extension1 = $registration_img->getClientOriginalExtension();
+                    $registrationImage = Image::make($registration_img)->resize(800, 800, function ($constraint) {
+                        $constraint->aspectRatio();
+                    });
+                    // --- Get the binary data of the modified image --- //
+                    $registrationData = base64_encode($registrationImage->encode($extension1));
+            
+                    $car->registration = $registrationData;
                     
-                
+                }
                
             }
           
@@ -758,28 +760,29 @@ class AdminController extends Controller
             foreach($data['add-admin-car-photos'] as $photo)
             {
                 $img_tmp = $photo;
-               
-                $extension2 = $img_tmp->getClientOriginalExtension();
-                
-                // --- Upload the image --- //
-                $carPhotos = Image::make($img_tmp)->resize(800, 800, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
-                // --- Get the binary data of the modified image --- //
-                $carPhotosData = base64_encode($carPhotos->encode($extension2));
-                
-                $carPhoto = new CarPhoto;
-                $carPhoto->car_id = $newCar->id;
-                $carPhoto->photos = $carPhotosData;
-                $carPhoto->save();
-                
+                if($img_tmp->isValid())
+                {
+                    $extension2 = $img_tmp->getClientOriginalExtension();
+                   
+                    // --- Upload the image --- //
+                    $carPhotos = Image::make($img_tmp)->resize(800, 800, function ($constraint) {
+                        $constraint->aspectRatio();
+                    });
+                    // --- Get the binary data of the modified image --- //
+                    $carPhotosData = base64_encode($carPhotos->encode($extension2));
+                    
+                    $carPhoto = new CarPhoto;
+                    $carPhoto->car_id = $newCar->id;
+                    $carPhoto->photos = $carPhotosData;
+                    $carPhoto->save();
+                }
             }
             
-            // return response()->json(['data'=>'success']);
+            return response()->json(['data'=>'success']);
 
             
                     
-        // }
+        }
     }
     public function editCar(Request $request)
     {

@@ -1434,7 +1434,7 @@ $(function(){
         
     })
 
-    $('#add-car-for').on('submit',async function(event){
+    $('#add-car-form').on('submit',async function(event){
         event.preventDefault()
        
 
@@ -1472,8 +1472,8 @@ $(function(){
                     $('.loading').removeClass('grid')
                     $('.loading').hide()
                     //    console.log(JSON.stringify(resp['data'],null,2))
-                       alert(JSON.stringify(resp['data'],null,2))
-                       return
+                    //    alert(JSON.stringify(resp['data'],null,2))
+                    //    return
                     if(resp["data"] === 'success')
                     {
                         $('.success-container').show()

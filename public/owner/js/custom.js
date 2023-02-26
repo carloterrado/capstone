@@ -919,8 +919,8 @@ $(function(){
             return false;
         }
        
-        if( name.length > 8){  
-            $(errorElementID).html(type + ' is too long!');
+        if( name.length > 8 || name.length < 5){  
+            $(errorElementID).html('Invalid ' + type + '!');
             $(errorElementID).css('color','lightcoral');
             return false;
         }
