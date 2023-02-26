@@ -230,6 +230,9 @@
                             
                         </div>
                     </div>
+                    <h2 class="col-span-8 uppercase text-center text-lg">List of Possible issues</h2>
+                    <h2 class="col-span-8  text-center "><b>A</b>-None <b> B</b>-Bent <b> C</b>-Dented <b> D</b>-Scratched <b> E</b>-Loose <b> F</b>-Missing</h2>
+                    <h2 class="col-span-8 text-sm text-accent-regular text-center ">*Please check the box if any issues occur </h2>
                     <div class="col-span-8 grid grid-cols-8 mt-6 gap-6">
                         <div class="col-span-8 md:col-span-4">
                             <img class="w-full block my-auto" src="{{url('admins/images/Passenger_s-side.png')}}" alt="front-image">
@@ -538,6 +541,9 @@
                             
                         </div>
                     </div>
+                    <h2 class="col-span-8 uppercase mt-6 text-center text-lg">List of Possible issues</h2>
+                    <h2 class="col-span-8  text-center "><b>A</b>-None <b> B</b>-Bent <b> C</b>-Dented <b> D</b>-Scratched <b> E</b>-Loose <b> F</b>-Missing</h2>
+                    <h2 class="col-span-8 text-sm text-accent-regular text-center ">*Please check the box if any issues occur </h2>
                     <div class="col-span-8 grid grid-cols-8 mt-6 gap-6">
                         
                         <div class="col-span-8 md:col-span-4 m-auto w-full">
