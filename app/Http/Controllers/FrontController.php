@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use Mpdf\Mpdf;
-use Illuminate\Support\Facades\Redis;
+
 
 class FrontController extends Controller
 {

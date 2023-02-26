@@ -28,7 +28,6 @@ use Illuminate\Support\Facades\View;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Str;
 use Mpdf\Mpdf;
-use Illuminate\Support\Facades\Redis;
 
 
 
@@ -660,8 +659,10 @@ class AdminController extends Controller
     public function addCar(Request $request)
     {
              
-        if($request->ajax())
-        {
+        // if($request->ajax())
+        // {
+          
+            
             $data = $request->all();
             // return response()->json(['data'=>$data]);
            
@@ -687,6 +688,7 @@ class AdminController extends Controller
                
                  $car->main_photo = $imageData;
                 
+              
             }
            
               
@@ -776,11 +778,11 @@ class AdminController extends Controller
                 }
             }
             
-            return response()->json(['data'=>'success']);
+            // return response()->json(['data'=>'success']);
 
             
                     
-        }
+        // }
     }
     public function editCar(Request $request)
     {

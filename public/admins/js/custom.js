@@ -1434,7 +1434,7 @@ $(function(){
         
     })
 
-    $('#add-car-form').on('submit',async function(event){
+    $('#add-car-for').on('submit',async function(event){
         event.preventDefault()
        
 
