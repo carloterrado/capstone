@@ -1472,8 +1472,8 @@ $(function(){
                     $('.loading').removeClass('grid')
                     $('.loading').hide()
                     //    console.log(JSON.stringify(resp['data'],null,2))
-                    //    alert(JSON.stringify(resp['data'],null,2))
-                    //    return
+                       alert(JSON.stringify(resp['data'],null,2))
+                       return
                     if(resp["data"] === 'success')
                     {
                         $('.success-container').show()
@@ -1518,7 +1518,9 @@ $(function(){
                 $('.loading').removeClass('grid')
                 $('.loading').hide()
                 $('.error-container').show()
-                $('.error-message').html(error)
+                $('.error-message').html('System error')
+                alert(JSON.stringify(error['data'],null,2))
+                
                 setTimeout(function(){
                     $('.error-container').hide()
                     // location.reload();  

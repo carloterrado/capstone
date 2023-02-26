@@ -661,6 +661,8 @@ class AdminController extends Controller
              
         if($request->ajax())
         {
+            try {
+            
             $data = $request->all();
            
             $car = new Car;
@@ -776,6 +778,11 @@ class AdminController extends Controller
             }
             
             return response()->json(['data'=>'success']);
+
+                //code...
+            } catch (\Illuminate\Validation\ValidationException $e) {
+                return response()->json(['data'=>$e->errors()],400);
+            }
         }
     }
     public function editCar(Request $request)
