@@ -782,7 +782,18 @@ class AdminController extends Controller
                 //code...
             } catch (\Illuminate\Validation\ValidationException $e) {
                 return response()->json(['data'=>$e->errors()],400);
+            }catch (\Illuminate\Database\QueryException $e) {
+                // Handle database query exceptions
+                return response()->json([
+                    'error' => $e->getMessage()
+                ], 500);
+            } catch (\Exception $e) {
+                // Handle all other exceptions
+                return response()->json([
+                    'error' => $e->getMessage()
+                ], 500);
             }
+                    
         }
     }
     public function editCar(Request $request)
