@@ -1629,6 +1629,7 @@ $(function(){
                 $(this).attr('selected',true)
             }
         })
+        $('#edit-admin-car-fuel-type').val(car['fuel_type'])
         $('#edit-admin-car-capacity').val(car['capacity'])
         $('#edit-admin-car-description').val(car['description'])
         $('#edit-admin-car-pickup-location').val(car['pickup_location'])
@@ -1669,7 +1670,7 @@ $(function(){
     })
     $('#edit-admin-car-name').on('keyup keypress',function()
     {
-        validateCarName('#edit-admin-car-name','#edit-admin-car-name-error','Name of car ');
+        validateCarName('#edit-admin-car-name','#edit-admin-car-name-error','Brand and Model');
     })
     $('#edit-admin-car-plate-number').on('keyup keypress',function()
     {
@@ -1678,6 +1679,10 @@ $(function(){
     $('#edit-admin-set-car-type').on('click keypress',function()
     {
         validateCarType('#edit-admin-set-car-type','#edit-admin-set-car-type-error');
+    })
+    $('#edit-admin-car-fuel-type').on('keyup',function()
+    {
+        validateName('#edit-admin-car-fuel-type','#edit-admin-car-fuel-type-error','Fuel Type');
     })
     $('#edit-admin-car-capacity').on('keyup keypress',function()
     {
@@ -1746,19 +1751,19 @@ $(function(){
             var valid;
             if(carPhotos.length !== 0 && mainPhoto.length !== 0)
             {
-                valid = validateCarName('#edit-admin-car-name','#edit-admin-car-name-error','Name of car ') && validatePlateNumber('#edit-admin-car-plate-number','#edit-admin-car-plate-number-error','Plate number') && validateCarType('#edit-admin-set-car-type','#edit-admin-set-car-type-error') && validateCarCapacity('#edit-admin-car-capacity','#edit-admin-car-capacity-error') && validateImageFile('#edit-admin-car-main-photo','#edit-admin-car-main-photo-error','Main car photo') && validateImageFile('#edit-admin-car-photos','#edit-admin-car-photos-error','Photos of cars') && validateCarDescription('#edit-admin-car-description','#edit-admin-car-description-error');
+                valid = validateCarName('#edit-admin-car-name','#edit-admin-car-name-error','Brand and Model') && validatePlateNumber('#edit-admin-car-plate-number','#edit-admin-car-plate-number-error','Plate number') && validateCarType('#edit-admin-set-car-type','#edit-admin-set-car-type-error') && validateName('#edit-admin-car-fuel-type','#edit-admin-car-fuel-type-error','Fuel Type') && validateCarCapacity('#edit-admin-car-capacity','#edit-admin-car-capacity-error') && validateImageFile('#edit-admin-car-main-photo','#edit-admin-car-main-photo-error','Main car photo') && validateImageFile('#edit-admin-car-photos','#edit-admin-car-photos-error','Photos of cars') && validateCarDescription('#edit-admin-car-description','#edit-admin-car-description-error');
             }
             if(carPhotos.length === 0 && mainPhoto.length === 0)
             {
-                valid = validateCarName('#edit-admin-car-name','#edit-admin-car-name-error','Name of car ') && validatePlateNumber('#edit-admin-car-plate-number','#edit-admin-car-plate-number-error','Plate number') && validateCarType('#edit-admin-set-car-type','#edit-admin-set-car-type-error') && validateCarCapacity('#edit-admin-car-capacity','#edit-admin-car-capacity-error') && validateCarDescription('#edit-admin-car-description','#edit-admin-car-description-error');
+                valid = validateCarName('#edit-admin-car-name','#edit-admin-car-name-error','Brand and Model') && validatePlateNumber('#edit-admin-car-plate-number','#edit-admin-car-plate-number-error','Plate number') && validateCarType('#edit-admin-set-car-type','#edit-admin-set-car-type-error') && validateName('#edit-admin-car-fuel-type','#edit-admin-car-fuel-type-error','Fuel Type') && validateCarCapacity('#edit-admin-car-capacity','#edit-admin-car-capacity-error') && validateCarDescription('#edit-admin-car-description','#edit-admin-car-description-error');
             }
             if(carPhotos.length !== 0 && mainPhoto.length === 0)
             {
-                valid = validateCarName('#edit-admin-car-name','#edit-admin-car-name-error','Name of car ') && validatePlateNumber('#edit-admin-car-plate-number','#edit-admin-car-plate-number-error','Plate number') && validateCarType('#edit-admin-set-car-type','#edit-admin-set-car-type-error') && validateCarCapacity('#edit-admin-car-capacity','#edit-admin-car-capacity-error') && validateImageFile('#edit-admin-car-photos','#edit-admin-car-photos-error','Photos of cars') && validateCarDescription('#edit-admin-car-description','#edit-admin-car-description-error');
+                valid = validateCarName('#edit-admin-car-name','#edit-admin-car-name-error','Brand and Model') && validatePlateNumber('#edit-admin-car-plate-number','#edit-admin-car-plate-number-error','Plate number') && validateCarType('#edit-admin-set-car-type','#edit-admin-set-car-type-error') && validateName('#edit-admin-car-fuel-type','#edit-admin-car-fuel-type-error','Fuel Type') && validateCarCapacity('#edit-admin-car-capacity','#edit-admin-car-capacity-error') && validateImageFile('#edit-admin-car-photos','#edit-admin-car-photos-error','Photos of cars') && validateCarDescription('#edit-admin-car-description','#edit-admin-car-description-error');
             }
             if(carPhotos.length === 0 && mainPhoto.length !== 0)
             {
-                valid = validateCarName('#edit-admin-car-name','#edit-admin-car-name-error','Name of car ') && validatePlateNumber('#edit-admin-car-plate-number','#edit-admin-car-plate-number-error','Plate number') && validateCarType('#edit-admin-set-car-type','#edit-admin-set-car-type-error') && validateCarCapacity('#edit-admin-car-capacity','#edit-admin-car-capacity-error') && validateImageFile('#edit-admin-car-main-photo','#edit-admin-car-main-photo-error','Main car photo') && validateCarDescription('#edit-admin-car-description','#edit-admin-car-description-error');
+                valid = validateCarName('#edit-admin-car-name','#edit-admin-car-name-error','Brand and Model') && validatePlateNumber('#edit-admin-car-plate-number','#edit-admin-car-plate-number-error','Plate number') && validateCarType('#edit-admin-set-car-type','#edit-admin-set-car-type-error') && validateName('#edit-admin-car-fuel-type','#edit-admin-car-fuel-type-error','Fuel Type') && validateCarCapacity('#edit-admin-car-capacity','#edit-admin-car-capacity-error') && validateImageFile('#edit-admin-car-main-photo','#edit-admin-car-main-photo-error','Main car photo') && validateCarDescription('#edit-admin-car-description','#edit-admin-car-description-error');
             }
 
             if(valid)
@@ -2169,10 +2174,10 @@ $(function(){
      $("#ongoing-transaction-table").on("click",".confirmReturn", async function () 
      {
        
-        var booking_id = $(this).attr("bookingid");
-
+        const booking_id = $(this).attr("bookingid");
+        const returned = $(this);
         if(!confirm("Car is already returned?")) return false
-        $(this).hide()
+        $(returned).hide()
         $('.loading').removeClass('hidden')
         $('.loading').addClass('grid')
             
@@ -2189,7 +2194,8 @@ $(function(){
              success: function (resp) {
                  $('.loading').removeClass('grid')
                  $('.loading').hide()
-                //  console.log(JSON.stringify(resp['data'],null,2))
+                
+                //  alert(JSON.stringify(resp['data'],null,2))
                 //  return
                  if(resp['data'] === 'success')
                      {
@@ -2203,6 +2209,7 @@ $(function(){
                      }    
                      else
                      {
+                        $(returned).show()
                          $('.error-container').show()
                          $('.error-message').html('Failed to confirmed car return!')
                          setTimeout(function(){
@@ -2216,10 +2223,11 @@ $(function(){
                  $('.loading').hide()
                 
                  $('.error-container').show()
-                     $('.error-message').html('Car return failed! System error.')
-                     setTimeout(function(){
-                         $('.error-container').hide()
-                     },3000)
+                 $(returned).show()
+                $('.error-message').html('Car return failed! System error.')
+                setTimeout(function(){
+                    $('.error-container').hide()
+                },3000)
              },
          });
      });

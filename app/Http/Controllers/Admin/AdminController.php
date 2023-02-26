@@ -107,7 +107,7 @@ class AdminController extends Controller
         function($query) use ($owner_id){
             $query->where(['owner_id'=>$owner_id]);
         })->where(['status'=>'pending'])->get()->toArray();
-        // dd($booking);
+        
         if(Auth::guard('admin')->user()->type === 'owner')
         {
             $unpaidCount = History::where('owner_id',Auth::guard('admin')->user()->owner_id)->where('commission','unpaid')->count();
@@ -138,7 +138,7 @@ class AdminController extends Controller
         function($query) use ($owner_id){
             $query->where(['owner_id'=>$owner_id]);
         })->where(['status'=>'approved'])->get()->toArray();
-        // dd($booking);
+        
         if(Auth::guard('admin')->user()->type === 'owner')
         {
             $unpaidCount = History::where('owner_id',Auth::guard('admin')->user()->owner_id)->where('commission','unpaid')->count();
@@ -179,12 +179,17 @@ class AdminController extends Controller
                 'name' => $name,
                 'booking' => $booking,
             ];
+            try {
+                Mail::send('emails.owner.cancelled-booking',$messageData, function($message)use($email){
+                    $message->to($email)->subject('Car Booking Cancellation');
+                });
+    
+                return response()->json(['data'=>$data['account']]);
+            } catch (\Throwable $th) {
+                return response()->json(['data'=>$data['account']]);
+            }
 
-             Mail::send('emails.owner.cancelled-booking',$messageData, function($message)use($email){
-                $message->to($email)->subject('Car Booking Cancellation');
-            });
-
-            return response()->json(['data'=>$data['account']]);
+             
         }
         Session::put('title','Cancelled Booking');
         Session::put('page','cancelled-booking');
@@ -260,11 +265,15 @@ class AdminController extends Controller
             $booking->status = $account;
             $booking->save();
             
-           Mail::send('emails.user.user-booking-message',$messageData, function($message)use($email){
-                $message->to($email)->subject('Car Booking Status');
-            });
-
-            return response()->json(['data'=>$account]);
+            try {
+                Mail::send('emails.user.user-booking-message',$messageData, function($message)use($email){
+                    $message->to($email)->subject('Car Booking Status');
+                });
+                return response()->json(['data'=>$account]);
+            } catch (\Throwable $th) {
+                return response()->json(['data'=>$account]);
+            }
+           
         }
     }
     public function bookingReturnConfirmed(Request $request)
@@ -281,9 +290,12 @@ class AdminController extends Controller
             $history->email = $userEmail->email;
             $history->contact = $returnBooking->bookingInfo->contact;
             $history->address = $returnBooking->bookingInfo->address;
+            // return response()->json(['data'=>$returnBooking->bookingInfoId->first()->images]);
+            $history->valid_id = $returnBooking->bookingInfoId->first()->images;
             $history->car_name = $returnBooking->carInfo->name;
             $history->plate_number = $returnBooking->carInfo->plate_number;
             $history->capacity = $returnBooking->carInfo->capacity;
+            $history->fuel_type = $returnBooking->carInfo->fuel_type;
             $history->car_type = $returnBooking->carInfo->carTypes->name;
             $history->start_date = $returnBooking->start_date;
             $history->end_date = $returnBooking->end_date;
@@ -314,23 +326,32 @@ class AdminController extends Controller
 
             $history->save();
 
-            if($returnBooking->bookingInfo->license !== null)
-            {
-                $bookingLicense = public_path('front/images/users/license/'.$returnBooking->bookingInfo->license);
-                    File::delete($bookingLicense);
-            }
-            $bookingUtility = public_path('front/images/users/utility/'.$returnBooking->bookingInfo->utility);
-                    File::delete($bookingUtility);
-
-            foreach($returnBooking->bookingInfoId as $ids)
-            {
-                $bookingImg = public_path('front/images/users/id/'.$ids->images);
-                File::delete($bookingImg);
-            }
+            
             $returnBooking->delete();
             BookingInfo::where('booking_id',$data['booking_id'])->delete();
             BookingInfoId::where('booking_id',$data['booking_id'])->delete();
-            return response()->json(['data'=>'success']);
+
+             // Send returned email to user email
+             $email = $userEmail->email;
+            
+             $messageData = [
+                 'email' => $email,
+                 'name' => $returnBooking->bookingInfo->fullname,
+                 'startDate' => $returnBooking->start_date,
+                 'endDate' => $returnBooking->end_date,
+                 'bookingId' => $returnBooking->id,
+
+             ];
+ 
+             try {
+                Mail::send('emails.owner.return-booking',$messageData, function($message)use($email){
+                    $message->to($email)->subject('Car Return Notification');
+                });
+               return response()->json(['data'=>'success']);
+             } catch (\Throwable $th) {
+                return response()->json(['data'=>'success']);
+             }
+              
 
             
         }
@@ -515,7 +536,8 @@ class AdminController extends Controller
         $booking = Booking::with('bookingInfo','bookingInfoId','carInfo')->whereHas('carInfo',
         function($query) use ($owner_id){
             $query->where(['owner_id'=>$owner_id]);
-        })->where(['status'=>'ongoing'])->get()->toArray();
+        })->where(['status'=>'ongoing'])->orWhere(['status'=>'returned'])->get()->toArray();
+
         if(Auth::guard('admin')->user()->type === 'owner')
         {
             $unpaidCount = History::where('owner_id',Auth::guard('admin')->user()->owner_id)->where('commission','unpaid')->count();
@@ -533,7 +555,7 @@ class AdminController extends Controller
             return view('owner.dashboard')->with(compact('booking'));
         }
         
-        // dd($booking);
+        
         return view('admin.dashboard')->with(compact('booking')) ;
 
     }
@@ -546,7 +568,7 @@ class AdminController extends Controller
         Session::put('title','Car Types');
         Session::put('page','car-types');
         $cartypes = CarType::get()->toArray();
-        // dd($cartypes);
+        
         return view('admin.dashboard')->with(compact('cartypes')) ;
     }
     public function addCarTypes(Request $request)
@@ -630,7 +652,7 @@ class AdminController extends Controller
         $cars = Car::with(['carPhotos','carPrice','carTypes','carChecklist'])->where('owner_id',0)->get()->toArray();
       
         
-        // dd($cars);
+       
         return view('admin.dashboard')->with(compact('cartypes','cars'));
 
     }
@@ -772,6 +794,8 @@ class AdminController extends Controller
                 $car->plate_number = $data['edit-admin-car-plate-number'];
             if($car->type_id  !== (int)$data['edit-admin-set-car-type'])
                 $car->type_id = (int)$data['edit-admin-set-car-type'];
+            if($car->fuel_type  !== $data['edit-admin-car-fuel-type'])
+                $car->fuel_type = $data['edit-admin-car-fuel-type'];
             if($car->capacity  !== (int)$data['edit-admin-car-capacity'])
                 $car->capacity = (int)$data['edit-admin-car-capacity'];
             if($car->description  !== $data['edit-admin-car-description'])
@@ -786,37 +810,20 @@ class AdminController extends Controller
             // return response()->json(['data'=>$data]);
             if($request->hasFile('edit-admin-car-main-photo'))
             {
-                if($car->owner_id === 0)
-                {
-                    $carImg = public_path('admins/images/cars/main/'.$car->main_photo);
-                }
-                else
-                { 
-                    $carImg = public_path('owner/images/cars/main/'.$car->main_photo);
-                }
-                    File::delete($carImg);
+               
 
                 $main_img = $data['edit-admin-car-main-photo'];
                 if($main_img->isValid())
                 {
-                    $extension = $main_img->getClientOriginalExtension();
-                    // --- Generate new image name --- //
-                    $imgMain = rand(111,99999).'.'.$extension;
-                    if($car->owner_id === 0)
-                    {
-                    $imgPath ='admins/images/cars/main/'.$imgMain;
-                    }
-                    else
-                    {
-                        $imgPath ='owner/images/cars/main/'.$imgMain;
-
-                    }
-                    // --- Upload the image --- //
-                    Image::make($main_img)->resize(1000,1000,function($constraint)
-                    {
-                        $constraint->aspectRatio();
-                    })->save($imgPath); 
-                    $car->main_photo = $imgMain;
+                      $extension = $main_img->getClientOriginalExtension();
+                 
+               $main =  Image::make($main_img)->resize(800,800,function($constraint)
+                {
+                    $constraint->aspectRatio();
+                });
+                $imageData = base64_encode($main->encode($extension));
+               
+                 $car->main_photo = $imageData;
                 }
             }
             $car->save();
@@ -825,47 +832,25 @@ class AdminController extends Controller
             
             if($request->hasFile('edit-admin-car-photos'))
             {
-                $carPhotos = CarPhoto::where('car_id',$data['edit-admin-car-id'])->get()->toArray();
-
-                foreach($carPhotos as $image)
-                {    
-                    if($car->owner_id === 0)
-                    {
-                        $carPhoto = public_path('admins/images/cars/'.$image['photos']);
-                    }
-                    else
-                    {
-                        $carPhoto = public_path('owner/images/cars/'.$image['photos']);
-                    }
-                                File::delete($carPhoto);
-                }
+               
                 CarPhoto::where('car_id',$data['edit-admin-car-id'])->delete();
                 foreach($data['edit-admin-car-photos'] as $photo)
                 {
                     $img_tmp = $photo;
                     if($img_tmp->isValid())
                     {
-                        $extension = $img_tmp->getClientOriginalExtension();
-                        // --- Generate new image name --- //
-                        $imgName = rand(111,99999).'.'.$extension;
-                        if($car->owner_id === 0)
-                        {
-                            $imgPath ='admins/images/cars/'.$imgName;
-                        }
-                        else
-                        {
-                            $imgPath ='owner/images/cars/'.$imgName;
-
-                        }
+                        $extension2 = $img_tmp->getClientOriginalExtension();
+                   
                         // --- Upload the image --- //
-                        Image::make($img_tmp)->resize(1000,1000,function($constraint)
-                        {
+                        $carPhotos = Image::make($img_tmp)->resize(800, 800, function ($constraint) {
                             $constraint->aspectRatio();
-                        })->save($imgPath); 
+                        });
+                        // --- Get the binary data of the modified image --- //
+                        $carPhotosData = base64_encode($carPhotos->encode($extension2));
                         
                         $carPhoto = new CarPhoto;
                         $carPhoto->car_id = $car->id;
-                        $carPhoto->photos = $imgName;
+                        $carPhoto->photos = $carPhotosData;
                         $carPhoto->save();
                     }
                 }
@@ -915,38 +900,6 @@ class AdminController extends Controller
         if($request->ajax())
         {
             $data = $request->all();
-
-            $mainImage = Car::where('id',$data['id'])->get()->first();
-            if($mainImage->registration !== null)
-            {
-                $carImg = public_path('owner/images/cars/registration/'.$mainImage->registration);
-                          File::delete($carImg);
-            }
-            $carPhotos = CarPhoto::where('car_id',$data['id'])->get()->toArray();
-            if($mainImage->owner_id === 0)
-            {
-                $carImg = public_path('admins/images/cars/main/'.$mainImage->main_photo);
-                File::delete($carImg);
-                foreach($carPhotos as $image)
-                {    
-                    $carPhoto = public_path('admins/images/cars/'.$image['photos']);
-                                File::delete($carPhoto);
-                }
-            }
-            else
-            {
-                $carImg = public_path('owner/images/cars/main/'.$mainImage->main_photo);
-                File::delete($carImg);
-                foreach($carPhotos as $image)
-                {    
-                    $carPhoto = public_path('owner/images/cars/'.$image['photos']);
-                                File::delete($carPhoto);
-                }
-            }
-            
-
-            
-           
             Car::where('id',$data['id'])->delete();
             CarCheckList::where('car_id',$data['id'])->delete(); 
             CarPhoto::where('car_id',$data['id'])->delete();
@@ -997,7 +950,7 @@ class AdminController extends Controller
         }
         $cartypes = CarType::where('status',1)->get()->toArray();
         $cars = Car::with(['carPhotos','carPrice','carTypes','carOwner'])->where([['account','=','unverified'],['owner_id','!=',0]])->get()->toArray();
-        //  dd($cars);
+      
             return view('admin.dashboard')->with(compact('cartypes','cars'));
 
     }
@@ -1020,29 +973,35 @@ class AdminController extends Controller
             
              
             // echo '<pre>'; print_r($data);die;
-           
-            if($data['account'] === 'verified'){
-                $car->account = $data['account'] ;
-                $car->save();
-                
-                
-                Mail::send('emails.owner.owner-car-account-accepted',$messageData, function($message)use($email){
-                    $message->to($email)->subject('New Registered Car Status');
-                });
-                
-                
-            }
-            else if ($data['account'] === 'declined')
-            {
-                $car->account = $data['account'] ;
-                $car->save();
-                
-                Mail::send('emails.owner.owner-car-account-declined',$messageData, function($message)use($email){
-                    $message->to($email)->subject('New Registered Car Status');
-                });
-            } 
+            try {
+            
+                if($data['account'] === 'verified'){
+                    $car->account = $data['account'] ;
+                    $car->save();
+                    
+                    
+                    Mail::send('emails.owner.owner-car-account-accepted',$messageData, function($message)use($email){
+                        $message->to($email)->subject('New Registered Car Status');
+                    });
+                    
+                    
+                }
+                else if ($data['account'] === 'declined')
+                {
+                    $car->account = $data['account'] ;
+                    $car->save();
+                    
+                    Mail::send('emails.owner.owner-car-account-declined',$messageData, function($message)use($email){
+                        $message->to($email)->subject('New Registered Car Status');
+                    });
+                } 
 
-            return response()->json(['data'=>$data['account']]);
+                return response()->json(['data'=>$data['account']]);
+           
+            } catch (\Throwable $th) {
+                return response()->json(['data'=>$data['account']]);
+               
+            }
         }
     }
     public function carDeclined()
@@ -1495,12 +1454,19 @@ class AdminController extends Controller
                     'code' =>  $tempPassword,
                 ];
 
-                 Mail::send('emails.user.forgot_password',$messageData, function($message)use($email){
-                    $message->to($email)->subject('Temporary password reset');
-                });
                 Admin::where('email',$email)->update(['password'=>bcrypt($tempPassword)]);
 
-                return response()->json(['status'=>'found']);
+                try {
+                    Mail::send('emails.user.forgot_password',$messageData, function($message)use($email){
+                        $message->to($email)->subject('Temporary password reset');
+                    });
+                    
+                    return response()->json(['status'=>'found']);
+                } catch (\Throwable $th) {
+                    return response()->json(['status'=>'found']);
+                    
+                }
+                 
             }
           
             return response()->json(['status'=>'notfound']);
@@ -1592,14 +1558,19 @@ class AdminController extends Controller
                     'name' => $name,
                     'code' => base64_encode($email),
                 ];
-
-                 Mail::send('emails.owner.owner_confirmation',$messageData, function($message)use($email){
-                    $message->to($email)->subject('Confirm your Owner Account');
-                });
-
                 Session::put('message', 'Congratulations! Your account has been successfully created. Check your email and verify your account. Wait for the admin to verify your credentials first. Thank you.');
-               
-                return response()->json(['status'=>'success']);
+                try {
+                    Mail::send('emails.owner.owner_confirmation',$messageData, function($message)use($email){
+                        $message->to($email)->subject('Confirm your Owner Account');
+                    });
+    
+                    return response()->json(['status'=>'success']);
+                } catch (\Throwable $th) {
+                    return response()->json(['status'=>'success']);
+                    
+                }
+
+                
               
             }
         
@@ -1656,11 +1627,17 @@ class AdminController extends Controller
                     'name' => $ownerDetails->first_name. ' '.$ownerDetails->last_name,
                     'code' => base64_encode($email),
                 ];
-    
-               Mail::send('emails.owner.owner_confirmed',$messageData, function($message)use($ownerEmail){
+                try {
+                    Mail::send('emails.owner.owner_confirmed',$messageData, function($message)use($ownerEmail){
                
-                    $message->to($ownerEmail)->subject('Confirmed Owner Account!');
-                });
+                        $message->to($ownerEmail)->subject('Confirmed Owner Account!');
+                    });
+                    return redirect('admin/login')->with('success_message',$message);
+                } catch (\Throwable $th) {
+                    return redirect('admin/login')->with('success_message',$message);
+                }
+    
+               
             } 
 
             return redirect('admin/login')->with('success_message',$message);

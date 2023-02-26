@@ -22,10 +22,10 @@
                   
                     <div class="grid grid-cols-6 gap-6">
                         <input type="hidden" name="edit-admin-car-id" id="edit-admin-car-id">
-                        <div class="col-span-6 sm:col-span-3 relative">
+                        <div class="col-span-6 relative">
                             <input type="text" name="edit-admin-car-name" id="edit-admin-car-name" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-900 peer" placeholder=" " >
                             <label id="edit-admin-car-name-error" for="edit-admin-car-name" class="pointer-events-none absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-gray-900 peer-focus:font-semibold peer-placeholder-shown:scale-100 
-                            peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 whitespace-nowrap ">Name of car</label>
+                            peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 whitespace-nowrap ">Brand and Model</label>
                         </div>
                         <div class="col-span-6 sm:col-span-3 relative">
                             <input type="text" id="edit-admin-car-plate-number" name="edit-admin-car-plate-number" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-900 peer" placeholder=" " />
@@ -41,6 +41,11 @@
                             </select>
                             <label id="edit-admin-set-car-type-error" for="edit-admin-set-car-type" class="pointer-events-none absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-gray-900 peer-focus:font-semibold peer-placeholder-shown:scale-100 
                             peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 whitespace-nowrap">Car type</label>
+                        </div>
+                        <div class="col-span-6 sm:col-span-3  relative">
+                            <input type="text" name="edit-admin-car-fuel-type" id="edit-admin-car-fuel-type" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-900 peer" placeholder=" " >
+                            <label id="edit-admin-car-fuel-type-error" for="edit-admin-car-fuel-type" class="pointer-events-none absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-gray-900 peer-focus:font-semibold peer-placeholder-shown:scale-100 
+                            peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 whitespace-nowrap ">Fuel Type</label>
                         </div>
                         <div class="col-span-6 sm:col-span-3 relative">
                             <input type="text" id="edit-admin-car-capacity" name="edit-admin-car-capacity" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-900 peer" placeholder=" " />

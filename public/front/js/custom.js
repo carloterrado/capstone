@@ -1985,6 +1985,8 @@ $(function(){
         });
     });
 
+
+
     // CONFIRM THE CHECKLIST OF THE CAR
     $("#ongoing-transaction-table").on("click",".confirmedChecklist", async function () 
     {
@@ -2035,6 +2037,64 @@ $(function(){
                     $(checklist).find('.error-message').html('Confirm checklist failed! System error.')
                     setTimeout(function(){
                         $(checklist).find('.error-container').hide()
+                    },3000)
+            },
+        });
+    });
+
+    // RETURN BOOKING
+    $("#ongoing-transaction-table").on("click",".confirmReturn", async function () 
+    {
+       
+        var booking_id = $(this).attr("moduleid");
+        const confirmReturn = $(this);
+
+        if(!confirm("Want to return this booking?")) return false
+        $(confirmReturn).hide()
+            $('.loading').removeClass('hidden')
+            $('.loading').addClass('grid')
+
+      await  $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                    "content"
+                ),
+            },
+            type: "post",
+            url: "/return-booking",
+            data: { booking_id:booking_id },
+            success: function (resp) {
+                $('.loading').removeClass('grid')
+                $('.loading').hide()
+                // alert(JSON.stringify(resp['data'],null,2))
+                // $(confirmReturn).show()
+                // return
+                if(resp['data'] === 'success')
+                    {
+                        $('.success-container').show()
+                        $('.success-message').html('Booking returned successfully!')
+                        // row.remove()
+                        location.reload()
+                    }    
+                    else
+                    {
+                        $('.error-container').show()
+                        $('.error-message').html('Failed to returned booking!')
+                        $(confirmReturn).show()
+                        setTimeout(function(){
+                            $('.error-container').hide()
+                        },6000)
+                      
+                    } 
+            },
+            error: function (resp) {
+                $('.loading').removeClass('grid')
+                $('.loading').hide()
+                $(confirmReturn).show()
+                $('.error-container').show()
+                    $('.error-message').html('Booking return failed! System error.')
+                    setTimeout(function(){
+                        $('.error-container').hide()
                     },3000)
             },
         });

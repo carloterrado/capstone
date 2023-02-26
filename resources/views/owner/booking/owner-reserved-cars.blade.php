@@ -51,13 +51,7 @@
                                 </td>
                                 <td class="p-4">
                                     <div class="w-32 mx-auto overflow-hidden rounded-lg">
-                                    <img src="
-                                    @if ($book['car_info']['owner_id'] === 0)
-                                    {{url('admins/images/cars/main/'.$book['car_info']['main_photo'])}} 
-                                    @else
-                                    {{url('owner/images/cars/main/'.$book['car_info']['main_photo'])}}  
-                                    @endif
-                                    " alt="Car photo">
+                                    <img src="data:image/jpeg;base64,{{$book['car_info']['main_photo']}}" alt="Car photo">
                                     </div> 
                                 </td>
                                 <td class="py-4 px-6">
@@ -75,8 +69,9 @@
                                 </td>
                                 <td class="py-4 px-6">
                                     <div class="flex justify-center">
-                                        
-                                        <button bookingid="{{$book['id']}}" type="button"   class="confirmReturn btn-1 bg-accent-regular uppercase  w-[fit-content]   text-white whitespace-nowrap">Return</button>
+                                        @if ($book['status'] === 'returned')
+                                            <button bookingid="{{$book['id']}}" type="button"   class="confirmReturn btn-1 bg-accent-regular uppercase  w-[fit-content]   text-white whitespace-nowrap">Return</button>
+                                        @endif
                                     </div> 
                                 </td>
                             </tr>

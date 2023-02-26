@@ -77,7 +77,7 @@
                             <td class="py-4 px-6 font-semibold text-gray-900 ">
                                 <div class="py-6 flex justify-center ">
                                     <div class="btn-1 pointer-events-none
-                                    @if ($book['status'] === 'approved' || $book['status'] === 'ongoing')
+                                    @if ($book['status'] === 'approved' || $book['status'] === 'ongoing' || $book['status'] === 'returned')
                                         bg-accent-green
                                     @elseif ($book['status'] === 'pending')
                                         bg-[#F28123]
@@ -121,6 +121,12 @@
                                     @elseif ($book['status'] === 'pending' && Carbon::now() >= $start_date)
                                             <a module="booking"   moduleid="{{$book['id']}}" class="confirmDelete cursor-pointer"><div class="btn-1 bg-accent-regular w-[fit-content]  text-white whitespace-nowrap">
                                             Delete
+                                            </div></a>
+                                    @endif
+
+                                    @if ($book['status'] === 'ongoing')
+                                        <a module="booking"   moduleid="{{$book['id']}}" class="confirmReturn cursor-pointer ml-4"><div class="btn-1 bg-accent-green w-[fit-content]  text-white whitespace-nowrap">
+                                            return
                                             </div></a>
                                     @endif
 

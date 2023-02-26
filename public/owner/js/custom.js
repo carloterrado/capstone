@@ -1446,6 +1446,7 @@ $(function(){
                   $(this).attr('selected',true)
               }
           })
+          $('#edit-admin-car-fuel-type').val(car['fuel_type'])
           $('#edit-admin-car-capacity').val(car['capacity'])
           $('#edit-admin-car-description').val(car['description'])
           $('#edit-admin-car-pickup-location').val(car['pickup_location'])
@@ -1496,6 +1497,10 @@ $(function(){
       {
           validateCarType('#edit-admin-set-car-type','#edit-admin-set-car-type-error');
       })
+      $('#edit-admin-car-fuel-type').on('keyup',function()
+    {
+        validateName('#edit-admin-car-fuel-type','#edit-admin-car-fuel-type-error','Fuel Type');
+    })
       $('#edit-admin-car-capacity').on('keyup keypress',function()
       {
           validateCarCapacity('#edit-admin-car-capacity','#edit-admin-car-capacity-error');
@@ -1560,19 +1565,19 @@ $(function(){
           var valid;
           if(carPhotos.length !== 0 && mainPhoto.length !== 0)
           {
-               valid = validateCarName('#edit-admin-car-name','#edit-admin-car-name-error','Name of car ') && validatePlateNumber('#edit-admin-car-plate-number','#edit-admin-car-plate-number-error','Plate number') && validateCarType('#edit-admin-set-car-type','#edit-admin-set-car-type-error') && validateCarCapacity('#edit-admin-car-capacity','#edit-admin-car-capacity-error') && validateImageFile('#edit-admin-car-main-photo','#edit-admin-car-main-photo-error','Main car photo') && validateImageFile('#edit-admin-car-photos','#edit-admin-car-photos-error','Photos of cars') && validateCarDescription('#edit-admin-car-description','#edit-admin-car-description-error');
+               valid = validateCarName('#edit-admin-car-name','#edit-admin-car-name-error','Brand and Model') && validatePlateNumber('#edit-admin-car-plate-number','#edit-admin-car-plate-number-error','Plate number') && validateCarType('#edit-admin-set-car-type','#edit-admin-set-car-type-error') && validateName('#edit-admin-car-fuel-type','#edit-admin-car-fuel-type-error','Fuel Type') && validateCarCapacity('#edit-admin-car-capacity','#edit-admin-car-capacity-error') && validateImageFile('#edit-admin-car-main-photo','#edit-admin-car-main-photo-error','Main car photo') && validateImageFile('#edit-admin-car-photos','#edit-admin-car-photos-error','Photos of cars') && validateCarDescription('#edit-admin-car-description','#edit-admin-car-description-error');
           }
           if(carPhotos.length === 0 && mainPhoto.length === 0)
           {
-              valid = validateCarName('#edit-admin-car-name','#edit-admin-car-name-error','Name of car ') && validatePlateNumber('#edit-admin-car-plate-number','#edit-admin-car-plate-number-error','Plate number') && validateCarType('#edit-admin-set-car-type','#edit-admin-set-car-type-error') && validateCarCapacity('#edit-admin-car-capacity','#edit-admin-car-capacity-error') && validateCarDescription('#edit-admin-car-description','#edit-admin-car-description-error');
+              valid = validateCarName('#edit-admin-car-name','#edit-admin-car-name-error','Brand and Model') && validatePlateNumber('#edit-admin-car-plate-number','#edit-admin-car-plate-number-error','Plate number') && validateCarType('#edit-admin-set-car-type','#edit-admin-set-car-type-error') && validateName('#edit-admin-car-fuel-type','#edit-admin-car-fuel-type-error','Fuel Type') && validateCarCapacity('#edit-admin-car-capacity','#edit-admin-car-capacity-error') && validateCarDescription('#edit-admin-car-description','#edit-admin-car-description-error');
           }
           if(carPhotos.length !== 0 && mainPhoto.length === 0)
           {
-               valid = validateCarName('#edit-admin-car-name','#edit-admin-car-name-error','Name of car ') && validatePlateNumber('#edit-admin-car-plate-number','#edit-admin-car-plate-number-error','Plate number') && validateCarType('#edit-admin-set-car-type','#edit-admin-set-car-type-error') && validateCarCapacity('#edit-admin-car-capacity','#edit-admin-car-capacity-error') && validateImageFile('#edit-admin-car-photos','#edit-admin-car-photos-error','Photos of cars') && validateCarDescription('#edit-admin-car-description','#edit-admin-car-description-error');
+               valid = validateCarName('#edit-admin-car-name','#edit-admin-car-name-error','Brand and Model') && validatePlateNumber('#edit-admin-car-plate-number','#edit-admin-car-plate-number-error','Plate number') && validateCarType('#edit-admin-set-car-type','#edit-admin-set-car-type-error') && validateName('#edit-admin-car-fuel-type','#edit-admin-car-fuel-type-error','Fuel Type') && validateCarCapacity('#edit-admin-car-capacity','#edit-admin-car-capacity-error') && validateImageFile('#edit-admin-car-photos','#edit-admin-car-photos-error','Photos of cars') && validateCarDescription('#edit-admin-car-description','#edit-admin-car-description-error');
           }
           if(carPhotos.length === 0 && mainPhoto.length !== 0)
           {
-              valid = validateCarName('#edit-admin-car-name','#edit-admin-car-name-error','Name of car ') && validatePlateNumber('#edit-admin-car-plate-number','#edit-admin-car-plate-number-error','Plate number') && validateCarType('#edit-admin-set-car-type','#edit-admin-set-car-type-error') && validateCarCapacity('#edit-admin-car-capacity','#edit-admin-car-capacity-error') && validateImageFile('#edit-admin-car-main-photo','#edit-admin-car-main-photo-error','Main car photo') && validateCarDescription('#edit-admin-car-description','#edit-admin-car-description-error');
+              valid = validateCarName('#edit-admin-car-name','#edit-admin-car-name-error','Brand and Model') && validatePlateNumber('#edit-admin-car-plate-number','#edit-admin-car-plate-number-error','Plate number') && validateCarType('#edit-admin-set-car-type','#edit-admin-set-car-type-error') && validateName('#edit-admin-car-fuel-type','#edit-admin-car-fuel-type-error','Fuel Type') && validateCarCapacity('#edit-admin-car-capacity','#edit-admin-car-capacity-error') && validateImageFile('#edit-admin-car-main-photo','#edit-admin-car-main-photo-error','Main car photo') && validateCarDescription('#edit-admin-car-description','#edit-admin-car-description-error');
           }
   
      

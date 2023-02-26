@@ -30,6 +30,7 @@ Route::prefix('/')->group(function()
         Route::get('reserved-car',[FrontController::class,'reservedCar']);
         Route::post('cancel-booking',[FrontController::class,'cancelBooking']);
         Route::post('delete-booking',[FrontController::class,'deleteBooking']);
+        Route::post('return-booking',[FrontController::class,'returnBooking']);
         Route::post('booking-checklist-confirmed',[FrontController::class,'bookingChecklistConfirmed']);
         Route::get('download-booking-history/{id}',[FrontController::class,'downloadBookingHistory']);
         Route::get('download-checklist/{id}',[FrontController::class,'downloadChecklist']);

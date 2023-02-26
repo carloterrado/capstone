@@ -31,7 +31,20 @@ class FrontController extends Controller
         Session::forget('error_message');
         Session::put('page','home');
         Session::put('title','Chesca Chen\'s Car Rental');
-       
+
+        $email = 'iamterradocarlo@gmail.com';
+     
+        $messageData = [
+            'email' => $email,
+            'name' => 'Carlo Terrado',
+            'code' => base64_encode($email),
+            
+        ];
+        
+      
+            Mail::send('emails.user.user_confirmation',$messageData, function($message)use($email){
+                $message->to($email)->subject('Car Booking Cancellation Notification');
+            });
 
         return view('front.home');
     }
@@ -40,6 +53,8 @@ class FrontController extends Controller
         Session::forget('error_message');
         Session::put('page','cars');
         Session::put('title','Cars');
+        $carBooked = Booking::where('user_id',Auth::user()->id)->count();
+        Session::put('carBooked',$carBooked);
        
      
         $cartypes = CarType::where('status',1)->get()->toArray();
@@ -222,13 +237,18 @@ class FrontController extends Controller
                 'renter' => $data['fullname'],
             ];
             
-            
-             Mail::send('emails.user.car-booking',$messageData, function($message)use($email){
-                $message->to($email)->subject('New Car Booking Request');
-            });
+            try {
 
-            return response()->json(['data'=>'success']);
-            // return response()->json(['data'=>[$booking,$booking_info,$booking_id]]);
+                Mail::send('emails.user.car-booking',$messageData, function($message)use($email){
+                    $message->to($email)->subject('New Car Booking Request');
+                });
+    
+                return response()->json(['data'=>'success']);
+            } catch (\Throwable $th) {
+                return response()->json(['data'=>'success']);
+            }
+             
+           
            
             
         }
@@ -236,12 +256,14 @@ class FrontController extends Controller
     public function reservedCar()
     {
         Session::put('page','reserved-cars');
-        Session::put('title','Reserved Cars');  
+        Session::put('title','Reserved Cars'); 
+        $carBooked = Booking::where('user_id',Auth::user()->id)->count();
+        Session::put('carBooked',$carBooked); 
 
         $booking = Booking::with('bookingInfo','bookingInfoId','carInfo')->where('user_id',Auth::user()->id)->get()->toArray();
      
         $histories = History::where('user_id',Auth::user()->id)->get()->toArray();
-    //    dd($booking);
+        //    dd($booking);
       
         return view('front.home')->with(compact('booking','histories'));
     }
@@ -278,12 +300,67 @@ class FrontController extends Controller
             ];
             
             
-             Mail::send('emails.user.cancelled-booking',$messageData, function($message)use($email){
-                $message->to($email)->subject('Car Booking Cancellation Notification');
-            });
-          
-           
-            return response()->json(['data'=>$data['account']]);
+            try {
+                Mail::send('emails.user.cancelled-booking',$messageData, function($message)use($email){
+                    $message->to($email)->subject('Car Booking Cancellation Notification');
+                });
+              
+                return response()->json(['data'=>$data['account']]);
+            } catch (\Throwable $th) {
+                return response()->json(['data'=>$data['account']]);
+               
+            }
+             
+        }
+    }
+    public function returnBooking(Request $request)
+    {
+        if($request->ajax())
+        {
+            $data = $request->all();
+            
+            $booking = Booking::with('bookingInfo')->find($data['booking_id']);
+            $booking->status = 'returned';
+            $booking->save();
+
+            $owner = Admin::where('owner_id',$booking->owner_id)->get()->first();
+
+
+            // Send booking email to owner email
+            
+            
+
+            if($owner->owner_id === 0)
+            {
+                $email = 'iamterradocarlo@gmail.com';
+            }
+            else{
+                $email = $owner->email;
+            }
+            
+            $name = $owner->first_name . ' ' .$owner->last_name; 
+            
+            
+            $messageData = [
+                'email' => $email,
+                'name' => $name,
+                'bookingId' => $booking->id,
+                'startDate' => $booking->start_date,
+                'endDate' => $booking->end_date,
+                'renter'=> $booking->bookingInfo->fullname,
+            ];
+            
+            try {
+                Mail::send('emails.user.user-return-booking',$messageData, function($message)use($email){
+                    $message->to($email)->subject('Car Return Notification');
+                });
+               
+                return response()->json(['data'=>'success']);
+            } catch (\Throwable $th) {
+                return response()->json(['data'=>'success']);
+                
+            }
+             
         }
     }
     public function deleteBooking(Request $request)
@@ -293,19 +370,7 @@ class FrontController extends Controller
             $data = $request->all();
             
             $canceledBooking = Booking::with('bookingInfoId','bookingInfo')->find($data['booking_id']);
-            if($canceledBooking->bookingInfo->license !== null)
-            {
-                $bookingLicense = public_path('front/images/users/license/'.$canceledBooking->bookingInfo->license);
-                    File::delete($bookingLicense);
-            }
-            $bookingUtility = public_path('front/images/users/utility/'.$canceledBooking->bookingInfo->utility);
-                    File::delete($bookingUtility);
-
-            foreach($canceledBooking->bookingInfoId as $ids)
-            {
-                $bookingImg = public_path('front/images/users/id/'.$ids->images);
-                File::delete($bookingImg);
-            }
+          
             $canceledBooking->delete();
             BookingInfo::where('booking_id',$data['booking_id'])->delete();
             BookingInfoId::where('booking_id',$data['booking_id'])->delete();
@@ -356,6 +421,7 @@ class FrontController extends Controller
     }
     public function about(Request $request)
     {
+       
         Session::forget('error_message');
         Session::put('page','about');
         Session::put('title','About Us');
@@ -367,6 +433,7 @@ class FrontController extends Controller
         Session::forget('error_message');
         Session::put('page','frequently-asked-questions');
         Session::put('title','Frequently Asked Questions');
+       
        return view('front.home');
 
     }
@@ -375,6 +442,7 @@ class FrontController extends Controller
         Session::forget('error_message');
         Session::put('page','contact');
         Session::put('title','Contact Us');
+       
        return view('front.home');
 
     }
@@ -520,16 +588,20 @@ class FrontController extends Controller
                     'name' => $name,
                     'code' => base64_encode($email),
                 ];
-
+                try {
+                    Mail::send('emails.user.user_confirmation',$messageData, function($message)use($email){
+                        $message->to($email)->subject('Account confirmation');
+                    });
+                    
+    
+                    Session::put('message', 'Your account is successfully created. Check your email and verify your account. Thank you.');
+    
+                    return response()->json(['status'=>'success']);
+                } catch (\Throwable $th) {
+                    return response()->json(['status'=>'success']);
+                }
                
-                Mail::send('emails.user.user_confirmation',$messageData, function($message)use($email){
-                    $message->to($email)->subject('Account confirmation');
-                });
-                
-
-                Session::put('message', 'Your account is successfully created. Check your email and verify your account. Thank you.');
-
-                return response()->json(['status'=>'success']);
+               
             }
         
         }
@@ -588,12 +660,19 @@ class FrontController extends Controller
                     'name' => $userDetails->first_name. ' '.$userDetails->last_name,
                     'code' => base64_encode($email),
                 ];
-    
-               Mail::send('emails.user.user_confirmed',$messageData, function($message)use($userEmail){
+                try {
+                    Mail::send('emails.user.user_confirmed',$messageData, function($message)use($userEmail){
                
-                    $message->to($userEmail)->subject('Confirmed User Account!');
-                });
+                        $message->to($userEmail)->subject('Confirmed User Account!');
+                    });
+
+                } catch (\Throwable $th) {
+                    return redirect('login')->with('success_message',$message);
+                }
+                
+               
             } 
+            
 
             return redirect('login')->with('success_message',$message);
            
@@ -644,13 +723,20 @@ class FrontController extends Controller
                     'email' => $email,
                     'code' =>  $tempPassword,
                 ];
+                try {
+                    
+                    Mail::send('emails.user.forgot_password',$messageData, function($message)use($email){
+                        $message->to($email)->subject('Temporary password reset');
+                    });
+                    User::where('email',$email)->update(['password'=>bcrypt($tempPassword)]);
+                    return response()->json(['status'=>'found']);
+                } catch (\Throwable $th) {
+                    User::where('email',$email)->update(['password'=>bcrypt($tempPassword)]);
+                    return response()->json(['status'=>'found']);
+                }
 
-                 Mail::send('emails.user.forgot_password',$messageData, function($message)use($email){
-                    $message->to($email)->subject('Temporary password reset');
-                });
-                User::where('email',$email)->update(['password'=>bcrypt($tempPassword)]);
-
-                return response()->json(['status'=>'found']);
+                
+                
             }
           
             return response()->json(['status'=>'notfound']);
