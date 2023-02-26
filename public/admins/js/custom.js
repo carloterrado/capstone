@@ -1519,7 +1519,7 @@ $(function(){
                 $('.loading').hide()
                 $('.error-container').show()
                 $('.error-message').html('System error')
-                alert(JSON.stringify(error['data'],null,2))
+                alert(JSON.stringify(error,null,2))
                 
                 setTimeout(function(){
                     $('.error-container').hide()
