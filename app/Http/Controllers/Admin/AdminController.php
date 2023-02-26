@@ -661,9 +661,10 @@ class AdminController extends Controller
              
         if($request->ajax())
         {
-            try {
+          
             
             $data = $request->all();
+            return response()->json(['data'=>$data]);
            
             $car = new Car;
             $car->owner_id = Auth::guard('admin')->user()->owner_id;
@@ -779,20 +780,7 @@ class AdminController extends Controller
             
             return response()->json(['data'=>'success']);
 
-                //code...
-            } catch (\Illuminate\Validation\ValidationException $e) {
-                return response()->json(['data'=>$e->errors()],400);
-            }catch (\Illuminate\Database\QueryException $e) {
-                // Handle database query exceptions
-                return response()->json([
-                    'error' => $e->getMessage()
-                ], 500);
-            } catch (\Exception $e) {
-                // Handle all other exceptions
-                return response()->json([
-                    'error' => $e->getMessage()
-                ], 500);
-            }
+            
                     
         }
     }
