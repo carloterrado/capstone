@@ -1710,6 +1710,7 @@ $(function(){
                         $(bookingForm).find('.error-container').show()
                         $(bookingForm).find('button[type="submit"]').show()
                         $(bookingForm).find('.error-message').html('System book car failed!')
+                        alert(error)
                         setTimeout(function(){
                             $(bookingForm).find('.error-container').hide()
                             // window.location.href =  window.location.href;  

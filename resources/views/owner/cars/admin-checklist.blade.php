@@ -10,8 +10,8 @@
         <div class="max-w-md mx-auto">
             @include('message.ajax-error')
             @include('message.ajax-success')
+            @include('message.loading')
         </div>
-        @include('message.loading')
         
             <div class="view-step detail-one">
                 <div class="flex justify-end p-4 rounded-t ">     

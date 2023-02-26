@@ -143,35 +143,37 @@ class FrontController extends Controller
                     
                 }
             }
-            
-               
-            $img_tmp2 = $request->file('utility');
-            if($img_tmp2->isValid()){
-                // --- Get image extension --- // 
-                $extension2 = $img_tmp2->getClientOriginalExtension(); 
 
-                $utility =  Image::make($img_tmp2)->resize(800,800,function($constraint)
+            if($request->hasFile('utility'))
+            {
+                $img_tmp2 = $request->file('utility');
+                if($img_tmp2->isValid()){
+                    // --- Get image extension --- // 
+                    $extension2 = $img_tmp2->getClientOriginalExtension(); 
+
+                    $utility =  Image::make($img_tmp2)->resize(800,800,function($constraint)
                     {
                         $constraint->aspectRatio();
                     });
                     $utilityData = base64_encode($utility->encode($extension2));
                 
                     $booking_info->utility = $utilityData;
-            }
-           
+                }
             
+            }
            
             $booking_info->booking_id = $booking_table->id;
 
             $booking_info->save();
 
            
-           
-            $img_tmp3 = $request->file('valid-id');
-            if($img_tmp3->isValid())
+           if($request->hasFile('valid-id') && $request->hasFile('valid-id-2'))
+           {
+                $img_tmp3 = $request->file('valid-id');
+                if($img_tmp3->isValid())
                 {
                     $extension3 = $img_tmp3->getClientOriginalExtension();
-                     
+                    
                     $validId =  Image::make($img_tmp3)->resize(800,800,function($constraint)
                     {
                         $constraint->aspectRatio();
@@ -183,8 +185,8 @@ class FrontController extends Controller
                     $booking_id->booking_id = $booking_table->id;
                     $booking_id->save();
                 }
-            $img_tmp4 = $request->file('valid-id-2');
-            if($img_tmp4->isValid())
+                $img_tmp4 = $request->file('valid-id-2');
+                if($img_tmp4->isValid())
                 {
                     $extension4 = $img_tmp4->getClientOriginalExtension();
                     
@@ -199,13 +201,11 @@ class FrontController extends Controller
                     $booking_id->booking_id = $booking_table->id;
                     $booking_id->save();
                 }
+            }
 
-    
             $carBooked = Booking::where('user_id',Auth::user()->id)->count();
             Session::put('carBooked',$carBooked);
 
-            
-           
             // Send booking email to owner email
 
             if((int)$data['owner-id'] === 0)
@@ -235,11 +235,7 @@ class FrontController extends Controller
                 return response()->json(['data'=>'success']);
             } catch (\Throwable $th) {
                 return response()->json(['data'=>'success']);
-            }
-             
-           
-           
-            
+            }  
         }
     }
     public function reservedCar()
