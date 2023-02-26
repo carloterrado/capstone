@@ -784,9 +784,7 @@ class AdminController extends Controller
            
             
             return response()->json(['data'=>'success']);
-
-            
-                    
+        
         }
     }
     public function editCar(Request $request)

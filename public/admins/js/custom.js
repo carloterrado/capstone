@@ -1486,7 +1486,7 @@ $(function(){
                     {  
                         $('.error-container').show()
                         $('.error-message').html('Add car failed!')
-                        $('#add-car-form button[type="submit"]').addClass('hidden')
+                        $('#add-car-form button[type="submit"]').removeClass('hidden')
                         setTimeout(function(){
                             $('.error-container').hide()  
                         },3000)
@@ -1509,7 +1509,7 @@ $(function(){
         
         
         if(validated){
-            // $('#add-car-form button[type="submit"]').addClass('hidden')
+            $('#add-car-form button[type="submit"]').addClass('hidden')
             
             $('.loading').removeClass('hidden')
             $('.loading').addClass('grid')
@@ -1518,8 +1518,8 @@ $(function(){
                 $('.loading').removeClass('grid')
                 $('.loading').hide()
                 $('.error-container').show()
-                $('.error-message').html('System error')
-                alert(JSON.stringify(error,null,2))
+                $('.error-message').html('File size is too large')
+                $('#add-car-form button[type="submit"]').removeClass('hidden')
                 
                 setTimeout(function(){
                     $('.error-container').hide()

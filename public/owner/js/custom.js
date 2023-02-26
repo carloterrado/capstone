@@ -1303,7 +1303,7 @@ $(function(){
                     {  
                         $('.error-container').show()
                         $('.error-message').html('Add car failed!')
-                        $('#add-car-form button[type="submit"]').addClass('hidden')
+                        $('#add-car-form button[type="submit"]').removeClass('hidden')
                         setTimeout(function(){
                             $('.error-container').hide()  
                         },3000)
@@ -1335,7 +1335,8 @@ $(function(){
                 $('.loading').removeClass('grid')
                 $('.loading').hide()
                 $('.error-container').show()
-                $('.error-message').html('System add car failed!')
+                $('.error-message').html('File size is too large')
+                $('#add-car-form button[type="submit"]').removeClass('hidden')
                 setTimeout(function(){
                     location.reload()  
                 },3000)
