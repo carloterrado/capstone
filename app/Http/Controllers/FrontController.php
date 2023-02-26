@@ -32,19 +32,7 @@ class FrontController extends Controller
         Session::put('page','home');
         Session::put('title','Chesca Chen\'s Car Rental');
 
-        $email = 'iamterradocarlo@gmail.com';
-     
-        $messageData = [
-            'email' => $email,
-            'name' => 'Carlo Terrado',
-            'code' => base64_encode($email),
-            
-        ];
-        
-      
-            Mail::send('emails.user.user_confirmation',$messageData, function($message)use($email){
-                $message->to($email)->subject('Car Booking Cancellation Notification');
-            });
+       
 
         return view('front.home');
     }
