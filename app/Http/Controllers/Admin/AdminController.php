@@ -28,6 +28,7 @@ use Illuminate\Support\Facades\View;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Str;
 use Mpdf\Mpdf;
+use Illuminate\Support\Facades\Redis;
 
 
 
@@ -661,10 +662,8 @@ class AdminController extends Controller
              
         if($request->ajax())
         {
-          
-            
             $data = $request->all();
-            return response()->json(['data'=>$data]);
+            // return response()->json(['data'=>$data]);
            
             $car = new Car;
             $car->owner_id = Auth::guard('admin')->user()->owner_id;
@@ -688,7 +687,6 @@ class AdminController extends Controller
                
                  $car->main_photo = $imageData;
                 
-              
             }
            
               
