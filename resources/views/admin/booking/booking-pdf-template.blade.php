@@ -67,11 +67,7 @@ use Carbon\Carbon;
           <tr>
             <td colspan="2"></td>
             <td colspan="2" style="text-align: start;">SUBTOTAL</td>
-<<<<<<< HEAD
             <td colspan="2" style="text-align: start;" class="total">{{'Php '.number_format($history['car_price'],2,'.',',')}}</td>
-=======
-            <td colspan="2" style="text-align: start;" class="total">{{'Php'.number_format($history['car_price'],2,'.',',')}}</td>
->>>>>>> 45373e113209b475e65f008baade2003d46f643b
           </tr>
           <tr>
             <td colspan="2"></td>
