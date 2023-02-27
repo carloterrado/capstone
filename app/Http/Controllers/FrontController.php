@@ -32,6 +32,7 @@ class FrontController extends Controller
         Session::forget('error_message');
         Session::put('page','home');
         Session::put('title','Chesca Chen\'s Car Rental');
+      
 
        
 
@@ -39,13 +40,10 @@ class FrontController extends Controller
     }
     public function cars(Request $request)
     {
-        Session::forget('error_message');
+        
         Session::put('page','cars');
         Session::put('title','Cars');
-        $carBooked = Booking::where('user_id',Auth::user()->id)->count();
-        Session::put('carBooked',$carBooked);
-       
-     
+        
         $cartypes = CarType::where('status',1)->get()->toArray();
         $regions = Refregion::with('province')->where('status',1)->get()->toArray();
        
@@ -407,7 +405,6 @@ class FrontController extends Controller
     public function about(Request $request)
     {
        
-        Session::forget('error_message');
         Session::put('page','about');
         Session::put('title','About Us');
        return view('front.home');
@@ -415,7 +412,7 @@ class FrontController extends Controller
     }
     public function frequentlyAskedQuestions()
     {
-        Session::forget('error_message');
+        
         Session::put('page','frequently-asked-questions');
         Session::put('title','Frequently Asked Questions');
        
@@ -424,7 +421,7 @@ class FrontController extends Controller
     }
     public function contact(Request $request)
     {
-        Session::forget('error_message');
+      
         Session::put('page','contact');
         Session::put('title','Contact Us');
        

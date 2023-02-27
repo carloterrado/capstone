@@ -1,6 +1,24 @@
 @extends('front.layout.layout')
 @section('content')
 
+
+<?php
+        use App\Models\Booking;
+        use Illuminate\Support\Facades\Session;
+        use Illuminate\Support\Facades\Auth;
+        if(auth()->check())
+        {
+                $carBooked = Booking::where('user_id',Auth::user()->id)->count();
+                Session::put('carBooked',$carBooked);
+                Session::forget('login_message');
+        }
+        if(Session::get('page') !== 'login')
+        {
+              echo  Session::forget('login_message');
+        }
+?>
+
+
 @if (Session::get('page') === 'home')
         @include('front.front-home')
        
