@@ -1,10 +1,19 @@
 
-   <div class="max-w-[1500px] mx-auto">
-      <div class="h-screen grid place-items-center bg-white">
-        <p class="text-base"> Dear <b class="font-bold">{{ $email }}, </b></p> 
-       <p> We provided you a temporary password: <b>{{ $code }}</b> </p>
-       <p> Thanks and Regards,</p>
-        <p class="text-base">Chesca Chen's Car Rental</p>
-      </div>
-   </div>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>New Password</title>
+</head>
+<body>
+	<p>Dear {{ $email }},</p>
+	<p>We have generated a new password for your account:</p>
+	<p><strong>{{ $code }}</strong></p>
+	<p>Please use this password to log in to your account, and remember to change it to a new, secure password as soon as possible.</p>
+	<p>If you did not request a password reset, please contact us immediately.</p>
+	<p>Best regards,</p>
+	<p>Chesca Chen's Car Rental</p>
+</body>
+</html>
+
  

@@ -248,13 +248,17 @@ class AdminController extends Controller
              $account = $data['account'] ;
            
             if($data['account'] === 'approved'){
-                $accountMessage = 'All the information provided have been verified by the admin. Please check your reserved car. Thank you.';
+                $accountMessage = '<p>Dear ' . $name . ',</p><br>
+                <p>Your car booking request has been approved by the admin. Please check your reserved car and ensure to follow the car usage terms and conditions. </p>
+                <p>Thank you for booking with us!</p>';
               
             }
             else if ($data['account'] === 'declined')
             {
                 
-               $accountMessage = (string) 'All the information provided have been verified by the admin. However, the information you provided doesn\'t meet the requirement needed. Therefore, your car booking have been declined.';
+               $accountMessage = '<p>Dear ' . $name . ',</p><br>
+               <p>We regret to inform you that your car booking request has been declined by the admin. Our team has reviewed the information you provided and found that it doesn\'t meet our requirements. </p>
+               <p>We apologize for any inconvenience this may have caused. Please check our FAQs for further guidance.</p>';
             } 
             $messageData = [
                 'email' => $user->email,

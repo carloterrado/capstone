@@ -3168,6 +3168,9 @@ input[type="range"]::-ms-thumb {
 .font-thin {
   font-weight: 100;
 }
+.font-\[500\] {
+  font-weight: 500;
+}
 .uppercase {
   text-transform: uppercase;
 }

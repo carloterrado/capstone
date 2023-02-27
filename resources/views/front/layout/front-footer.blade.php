@@ -26,8 +26,8 @@
         </div>
         <div class="text-center md:text-left">
             <h3 class="lg:text-[1.5rem] uppercase font-bold text-accent-regular">Contact us</h3>
-            <p class="mt-4 whitespace-nowrap text-xs sm:text-base "><span class="font-bold">Address </span>Lorem ipsum dolor sit <br>
-             amet consectetur adipisicing elit.</p>
+            <p class="mt-4 whitespace-nowrap text-xs sm:text-base "><span class="font-bold">Address </span>Blk. A 11 Lot 3 Luzviminda 1, <br>
+            Dasmariñas Cavite.</p>
            <ul class="mt-4 grid gap-4 text-xs sm:text-base">
                 <li class="flex gap-2 justify-center md:justify-start">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"  preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g transform="translate(24 0) scale(-1 1)"><path fill="#e84949" d="M4.05 21q-.45 0-.75-.3t-.3-.75V15.9q0-.35.225-.613q.225-.262.575-.337l3.45-.7q.35-.05.713.062q.362.113.587.338L10.9 17q1.9-1.15 3.475-2.725Q15.95 12.7 17 10.9l-2.4-2.45q-.225-.225-.288-.513q-.062-.287-.012-.637l.65-3.5q.05-.35.325-.575Q15.55 3 15.9 3h4.05q.45 0 .75.3t.3.75q0 3.225-1.438 6.287q-1.437 3.063-3.8 5.425q-2.362 2.363-5.424 3.8Q7.275 21 4.05 21Z"/></g></svg><span>09123456789</span>

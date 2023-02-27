@@ -4,9 +4,8 @@
         <img class="w-full h-full object-cover" src="{{url('front/images/red-car-home.jpg')}}" alt="hero image">
         <div class="absolute inset-0 bg-black/10"></div>
         <div class="flex flex-col gap-4 w-auto sm:w-1/2  absolute top-1/3 -translate-y-1/3 left-8 md:left-32 font-[800] font-['Montserrat',sans-serif]">
-            <h1 class="text-[2rem] sm:text-[3rem] lg:text-[4.5rem] leading-none font-['Roboto',sans-serif] font-[600] ">Welcome</h1>
-            <h2 class="text-[.8rem] sm:text-[1.2rem] leading-6">Find the best deal on rental cars <br> and drive to your destination</h2>
-            <p class="text-[.8rem] sm:text-[1rem] font-[400]">Sedan cars at low cost, <br> starts at ₱1500.00</p>
+            <h1 class="text-[2rem] sm:text-[3rem] lg:text-[4.5rem] leading-none font-['Roboto',sans-serif] font-[500] ">Find the best <br> car for you </h1>
+            <p class="text-[.8rem] sm:text-[1rem] font-[400]">Rent with ease, never miss a breeze, <br> with just a few clicks!</p>
             <a href="{{url('/cars')}}"><button class="btn-1 bg-accent-regular uppercase border-none w-[fit-content] sm:mt-6 text-[.7rem] lg:text-[1rem]">Find a car</button></a>
         </div>
     </section>
@@ -148,7 +147,7 @@
             <div>
                <p>Our car rental web application offers a wide variety of affordable cars, providing you with the flexibility to find the right vehicle for your needs and budget. By choosing our user-friendly web application, you gain access to greater rental terms and conditions flexibility, saving you valuable time and effort. </p>
                <p>Our web application also provides a readily available Frequently Asked Questions (FAQs) section to address any questions or concerns you may have.<br> So, if you are looking for a convenient, affordable, and flexible car rental experience, consider using our web application.</p>
-               <button class="btn-1 bg-accent-regular uppercase border-none w-[fit-content] text-white mt-6">Book now</button>
+               <a href="{{url('/cars')}}"> <button class="btn-1 bg-accent-regular uppercase border-none w-[fit-content] text-white mt-6">Book now</button></a>
             </div>
         </div>
     </section>

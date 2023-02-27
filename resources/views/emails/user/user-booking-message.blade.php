@@ -1,10 +1,33 @@
 
-   <div class="max-w-[1500px] mx-auto">
-    <div class="h-screen grid place-items-center bg-white">
-        <p>Dear <b class="font-bold">{{ $name }},</b></p>
-        <p>{{$newmessage}}</p>
-        <p>Thanks and Regards,</p>
-      <p>Chesca Chen's Car Rental</p>
+ <!DOCTYPE html>
+<html>
+<head>
+    <title>Car Booking Status</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            color: #333333;
+            line-height: 1.5;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        h2 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Car Booking Status</h2>
+        <p>Hello {{ $name }},</p>
+        {!! $newmessage !!}
+        <br>
+        <p>Best regards,</p>
+        <p>Chesca Chen's Car Rental</p>
     </div>
-   </div>
- 
+</body>
+</html>
+

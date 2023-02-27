@@ -1,10 +1,22 @@
 
-   <div class="max-w-[1500px] mx-auto">
-    <div class="h-screen grid place-items-center bg-white">
-      <p class="text-base font-normal">Dear <b class="font-bold">{{ $name }},</b></p>
-        <p>Your email is confirmed </p>
-        <p>Please wait for admin to verify your credentials.</p>
-        <p>Thanks and Regards,</p>
-      <p class="text-base font-normal">Chesca Chen's Car Rental</p>
-    </div>
-   </div>
+
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Owner Registration Confirmation</title>
+</head>
+<body style="font-family: Arial, sans-serif;">
+
+    <h2 style="color: #333;">Thank you for registering as a car owner with our service!</h2>
+    
+    <p>We have received your registration information and are currently verifying it with our admin team. Your car listing will be visible to renters as soon as we have approved your registration.</p>
+    
+    <p>Please be patient as this process may take some time. We appreciate your interest in our service and look forward to working with you!</p>
+    
+    <p>Best regards,<br>
+    Chesca Chen's Car Rental</p>
+
+</body>
+</html>
