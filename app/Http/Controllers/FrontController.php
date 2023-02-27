@@ -387,13 +387,13 @@ class FrontController extends Controller
         $history =  History::find($booking_id)->toArray();
         $pdf = view('front.cars.booking-pdf-template',['history'=>$history])->render();
         $mpdf = new Mpdf(
-            [
-                'tempDir' => public_path('temp/mpdf')
-            ]
+            // [
+            //     'tempDir' => public_path('temp/mpdf')
+            // ]
         ); // Create new mPDF instance
         $mpdf->WriteHTML($pdf); // Load HTML
         $mpdf->Output('booking.pdf', 'D'); // Output the generated PDF to the browser
-        $mpdf->cleanup();
+        // $mpdf->cleanup();
 
     }
     public function downloadChecklist($book_id)
