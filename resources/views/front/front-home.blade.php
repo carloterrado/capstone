@@ -154,7 +154,7 @@
 
     <!-- Frequently ask section -->
     <section class="bg-white p-6 sm:p-14 grid gap-8 md:grid-cols-2">  
-        <div class="sm:h-[100vh] relative order-2 sm:order-1">
+        <div class="sm:h-[100vh] relative order-2 sm:order-1 ">
             <div class="mb-8 lg:-translate-y-4">
                 <h2 class="text-[1.5rem] sm:text-[2rem] lg:text-[3rem] font-bold whitespace-nowrap">
                  Frequently Asked <br>
@@ -164,20 +164,20 @@
                <!-- Set of questions with collapsible answers-->
                 <div id="accordion-open" class="  mb-4" data-accordion="collapse">
                     <h2 id="accordion-open-heading-1">
-                    <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-b-0 border-gray-200 rounded-t-xl hover:bg-gray-100" data-accordion-target="#accordion-open-body-1" aria-expanded="true" aria-controls="accordion-open-body-1">
+                    <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-accent-regular border border-b-0 border-gray-200 rounded-t-xl hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-1" aria-expanded="false" aria-controls="accordion-open-body-1">
                         <span class="flex items-center"><svg class="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 
                         1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>How can I pay?</span>
-                        <svg data-accordion-icon class="w-6 h-6 rotate-180 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                        <svg data-accordion-icon class="w-6 h-6  shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                     </button>
                     </h2>
                     <div id="accordion-open-body-1" class="hidden" aria-labelledby="accordion-open-heading-1">
                         <div class="p-5 font-normal border border-b-0 border-gray-200">
-                            <p class="mb-2 text-gray-500">Flowbite is an open-source library of interactive components built on top of Tailwind CSS including buttons, dropdowns, modals, navbars, and more.</p>
-                            <p class="text-gray-500">Check out this guide to learn how to <a href="/docs/getting-started/introduction/" class="text-blue-600 hover:underline">get started</a> and start developing websites even faster with components on top of Tailwind CSS.</p>
+                            <p class="mb-2 text-gray-600">You can pay directly to the car rental owner upon the delivery of your reserved car.</p>
+                            
                         </div>
                     </div>
                     <h2 id="accordion-open-heading-2">
-                    <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-b-0 border-gray-200 hover:bg-gray-100" data-accordion-target="#accordion-open-body-2" aria-expanded="false" aria-controls="accordion-open-body-2">
+                    <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-accent-regular border border-b-0 border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-2" aria-expanded="false" aria-controls="accordion-open-body-2">
                         <span class="flex items-center"><svg class="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 
                         0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>How to cancel my reservation?</span>
                         <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -185,22 +185,34 @@
                     </h2>
                     <div id="accordion-open-body-2" class="hidden" aria-labelledby="accordion-open-heading-2">
                         <div class="p-5 font-normal border border-b-0 border-gray-200">
-                            <p class="mb-2 text-gray-600">Flowbite is first conceptualized and designed using the Figma software so everything you see in the library has a design equivalent in our Figma file.</p>
-                            <p class="text-gray-600">Check out the <a href="https://flowbite.com/figma/" class="text-blue-600 hover:underline">Figma design system</a> based on the utility classes from Tailwind CSS and components from Flowbite.</p>
+                            <ul class="pl-5 text-gray-600 list-disc">
+                                <li>Log in to your account.</li>
+                                <li>On the upper right corner click your avatar/profile.</li>
+                                <li>Click the "Reserved Car" section.</li>
+                                <li>Find the reservation you wish to cancel and click "Cancel."</li>
+                            </ul>
                         </div>
                     </div>
                     <h2 id="accordion-open-heading-3">
-                    <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-gray-200 hover:bg-gray-100" data-accordion-target="#accordion-open-body-3" aria-expanded="false" aria-controls="accordion-open-body-3">
+                    <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-accent-regular border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-3" aria-expanded="false" aria-controls="accordion-open-body-3">
                         <span class="flex items-center"><svg class="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 
                         0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>How to rent a car?</span>
                         <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                     </button>
                     </h2>
                     <div id="accordion-open-body-3" class="hidden z-10" aria-labelledby="accordion-open-heading-3">
-                        <div class="p-5 font-normal border border-t-0 border-gray-200">
-                            <p class="mb-2 text-gray-600">The main difference is that the core components from Flowbite are open source under the MIT license, whereas Tailwind UI is a paid product. Another difference is that Flowbite relies on smaller and standalone components, whereas Tailwind UI offers sections of pages.</p>
-                            <p class="mb-2 text-gray-600">However, we actually recommend using both Flowbite, Flowbite Pro, and even Tailwind UI as there is no technical reason stopping you from using the best of two worlds.</p>
-                            <p class="mb-2 text-gray-600">Learn more about these technologies:</p>
+                        <div class="p-5 font-normal border border-t-0 border-gray-200 max-h-56 overflow-auto">
+                            <ul class="pl-5 text-gray-600 list-disc">
+                                <li>Create an account on the web app.</li>
+                                <li>Once you have created an account, go to the home page of the web app.</li>
+                                <li>Click on the "find a car" or "cars" on the navigation bar at the center top of the page.</li>
+                                <li>Search for a car based on your preferences. You can select the car type, capacity, and price range that you prefer. You can also choose whether to have a driver or just self-drive</li>
+                                <li>After choosing a car that suits your needs, click the "Reserve Now" button below the car you have chosen.</li>
+                                <li>The car details, description, and excluded details will appear. On the right side of the page, you will see a calendar where you can select the date and time you want to rent the car. You will also need to choose the region, province, and city of your destination.</li>
+                                <li>After selecting the date, time, and destination, click the "reserve this car" button.</li>
+                            </ul>
+                            <p class="indent-10 text-gray-600 mt-4">If you select the "self-drive" option, you will need to provide your full name, contact number, and address. You will also need to upload a picture of your driver's license, two valid IDs, and the latest electric or water bill.</p>
+                            <p class="indent-10 text-gray-600 mt-4">If you select the "with driver" option, you will need to provide your full name, contact number, and address. You will also need to provide two valid IDs and the latest water or electric bill.</p>
                             
                         </div>
                     </div>
@@ -219,3 +231,6 @@
         </div>  
     </section>
 </main>
+
+
+

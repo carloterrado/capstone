@@ -402,11 +402,11 @@ class FrontController extends Controller
         $book =  Booking::with('carInfo')->find($book_id)->toArray();
        
         // $pdf = view('admin.booking.booking-pdf-template',['history'=>$history])->render();
-        $pdf = view('front.cars.pdf-car-checklist',['book'=>$book])->render();
+        // $pdf = view('front.cars.pdf-car-checklist',['book'=>$book])->render();
       
-        $mpdf = new Mpdf(); // Create new mPDF instance
-        $mpdf->WriteHTML($pdf); // Load HTML
-        $mpdf->Output('checklist.pdf', 'D'); // Output the generated PDF to the browser
+        // $mpdf = new Mpdf(); // Create new mPDF instance
+        // $mpdf->WriteHTML($pdf); // Load HTML
+        // $mpdf->Output('checklist.pdf', 'D'); // Output the generated PDF to the browser
 
     }
     public function about(Request $request)

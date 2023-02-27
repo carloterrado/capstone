@@ -16,7 +16,7 @@ use Carbon\Carbon;
         <img src="{{public_path('admins/images/Chesca_logo.svg')}}">
       </div> -->
       <h1>INVOICE {{$history['id']}}</h1>
-      <div id="company"  >
+      <div id="company" style="margin-bottom: 32px;"  >
         <div>CCH Car Rental</div>
         <div><a href="{{url('/')}}">{{url('')}}</a></div>
         @if ($history['owner_id'] !== 0)

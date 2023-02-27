@@ -16,7 +16,7 @@ use Carbon\Carbon;
         <img src="{{public_path('admins/images/Chesca_logo.svg')}}">
       </div> -->
       <h1>INVOICE {{$history['id']}}</h1>
-      <div id="company"  >
+      <div id="company"  style="margin-bottom: 32px;">
         <div>CCH Car Rental</div>
         <div><a href="{{url('/')}}">{{url('')}}</a></div>
       </div>
@@ -61,16 +61,16 @@ use Carbon\Carbon;
         
           
           <tr>
-            <td colspan="5">SUBTOTAL</td>
-            <td class="total">{{'Php '.number_format($history['car_price'],2,'.',',')}}</td>
+            <td colspan="4">SUBTOTAL</td>
+            <td colspan="4" class="total">{{'Php '.number_format($history['car_price'],2,'.',',')}}</td>
           </tr>
           <tr>
-            <td colspan="5">DRIVER</td>
-            <td class="total">{{'Php '.number_format($history['driver_fee'],2,'.',',')}}</td>
+            <td colspan="4">DRIVER</td>
+            <td colspan="4" class="total">{{'Php '.number_format($history['driver_fee'],2,'.',',')}}</td>
           </tr>
           <tr>
-            <td colspan="5" class="grand total">GRAND TOTAL</td>
-            <td class="grand total">{{'Php '.number_format($history['grand_total'],2,'.',',')}}</td>
+            <td colspan="4" class="grand total">GRAND TOTAL</td>
+            <td colspan="4" class="grand total">{{'Php '.number_format($history['grand_total'],2,'.',',')}}</td>
           </tr>
         </tbody>
       </table>

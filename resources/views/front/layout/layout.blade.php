@@ -49,7 +49,7 @@
    <script src="{{url('front/js/custom.js')}}"></script>
    <script src="{{url('js/magnific-popup.min.js')}}"></script>
    <script src="{{url('js/jquery.Datatable.js')}}"></script>
-  -->
+  
    <script>
        $('#ongoing-transaction-table').DataTable({
         ordering: false,
@@ -69,6 +69,48 @@
             enabled: false
             }
         });
+
+       
+    $(document).on('click','.account-management',function(){
+        $('.questions').hide()
+        $('.category').removeClass('outline')
+        $('.category').children().removeClass('text-accent-regular').addClass('text-gray-600')
+        $(this).children().removeClass('text-gray-600').addClass('text-accent-regular')
+        $(this).addClass('outline')
+        $('#account-management').show()
+    })
+    $(document).on('click','.booking-and-payment',function(){
+        $('.questions').hide()
+        $('.category').removeClass('outline')
+        $('.category').children().removeClass('text-accent-regular').addClass('text-gray-600')
+        $(this).children().removeClass('text-gray-600').addClass('text-accent-regular')
+        $(this).addClass('outline')
+        $('#booking-and-payment').show()
+    })
+    $(document).on('click','.car-sharing',function(){
+        $('.questions').hide()
+        $('.category').removeClass('outline')
+        $('.category').children().removeClass('text-accent-regular').addClass('text-gray-600')
+        $(this).children().removeClass('text-gray-600').addClass('text-accent-regular')
+        $(this).addClass('outline')
+        $('#car-sharing').show()
+    })
+    $(document).on('click','.pickup-and-dropoff',function(){
+        $('.questions').hide()
+        $('.category').removeClass('outline')
+        $('.category').children().removeClass('text-accent-regular').addClass('text-gray-600')
+        $(this).children().removeClass('text-gray-600').addClass('text-accent-regular')
+        $(this).addClass('outline')
+        $('#pickup-and-dropoff').show()
+    })
+    $(document).on('click','.fees-and-policies',function(){
+        $('.questions').hide()
+        $('.category').removeClass('outline')
+        $('.category').children().removeClass('text-accent-regular').addClass('text-gray-600')
+        $(this).children().removeClass('text-gray-600').addClass('text-accent-regular')
+        $(this).addClass('outline')
+        $('#fees-and-policies').show()
+    })
      
    
 

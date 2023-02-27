@@ -55,7 +55,7 @@
             </a>
           </li>
           <li>
-            <a href="javascript:void(0)" class="navbar-close sidebar-list sidebar-hover">
+            <a href="{{url('/frequently-asked-questions')}}" class="navbar-close sidebar-list sidebar-hover">
                 <span class="ml-3">FAQs</span>
             </a>
           </li>
