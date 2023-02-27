@@ -28,6 +28,7 @@ use Illuminate\Support\Facades\View;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Str;
 use Mpdf\Mpdf;
+use Dompdf\Dompdf;
 
 
 
@@ -425,11 +426,14 @@ class AdminController extends Controller
         $history =  History::find($booking_id)->toArray();
         $pdf = view('admin.booking.booking-pdf-template',['history'=>$history])->render();
       
-        
-        $mpdf = new Mpdf(); // Create new mPDF instance
-        
-        $mpdf->WriteHTML($pdf); // Load HTML
-        $mpdf->Output('booking.pdf', 'D'); // Output the generated PDF to the browser
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($pdf);
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser
+        $dompdf->stream();
       
         
 
