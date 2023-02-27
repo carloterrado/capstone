@@ -388,7 +388,7 @@ class FrontController extends Controller
         $pdf = view('front.cars.booking-pdf-template',['history'=>$history])->render();
         $mpdf = new Mpdf(
             [
-                'tempDir' => public_path('temp/mpdf')
+                'tempDir' => public_path('temp')
             ]
         ); // Create new mPDF instance
         $mpdf->WriteHTML($pdf); // Load HTML
