@@ -28,7 +28,7 @@
                             </div>
                             <div  class="col-span-6 sm:col-span-3 p-2 space-y-2" >
                                 <div class="md:text-right">CCH Car Rental</div>
-                                <div class="md:text-right"><a href="{{url('/')}}">cch-car-rental.up.railway.app</a></div>
+                                <div class="md:text-right"><a href="{{url('/')}}">{{url('')}}</a></div>
                             </div>
                         </div>
                         
@@ -39,7 +39,8 @@
                             <li class="font-semibold">Car Description:</li>
                             <li><span>CAR ID: </span> {{$history['car_id']}}</li>
                             <li>CAR TYPE: </span> {{$history['car_type']}}</li>
-                            <li>CAR NAME: </span> {{$history['car_name']}}</li>
+                            <li>BRAND AND MODEL: </span> {{$history['car_name']}}</li>
+                            <li>FUEL TYPE: </span> {{$history['fuel_type']}}</li>
                             <li>PLATE NUMBER: </span> {{$history['plate_number']}}</li>
                             <li><span>CAPACITY: </span> {{$history['capacity']}}</li>
                         </ul>
@@ -72,7 +73,8 @@
                                 <td class="desc">
                                     <div class="left"><span>CAR ID: </span> {{$history['car_id']}}</div>
                                     <div class=""><span>CAR TYPE: </span> {{$history['car_type']}}</div>
-                                    <div class=""><span>CAR NAME: </span> {{$history['car_name']}}</div>
+                                    <div class=""><span>BRAND AND MODEL: </span> {{$history['car_name']}}</div>
+                                    <div class=""><span>FUEL TYPE: </span> {{$history['fuel_type']}}</div>
                                     <div class=""><span>PLATE NUMBER: </span> {{$history['plate_number']}}</div>
                                     <div class=""><span>CAPACITY: </span> {{$history['capacity']}}</div>
                                 </td>

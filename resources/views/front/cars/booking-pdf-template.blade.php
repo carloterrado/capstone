@@ -27,7 +27,7 @@ use Carbon\Carbon;
       </div>
       <div id="company"  >
         <div>CCH Car Rental</div>
-        <div><a href="{{url('/')}}">cch-car-rental.up.railway.app</a></div>
+        <div><a href="{{url('/')}}">{{url('')}}</a></div>
       </div>
     </header>
     <main>
@@ -48,7 +48,8 @@ use Carbon\Carbon;
             <td class="desc">
                 <div class="left"><span>CAR ID: </span> {{$history['car_id']}}</div>
                 <div class=""><span>CAR TYPE: </span> {{$history['car_type']}}</div>
-                <div class=""><span>CAR NAME: </span> {{$history['car_name']}}</div>
+                <div class=""><span>BRAND AND MODEL: </span> {{$history['car_name']}}</div>
+                <div class=""><span>FUEL TYPE: </span> {{$history['fuel_type']}}</div>
                 <div class=""><span>PLATE NUMBER: </span> {{$history['plate_number']}}</div>
                 <div class=""><span>CAPACITY: </span> {{$history['capacity']}}</div>
             </td>

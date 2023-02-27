@@ -22,7 +22,6 @@
 <body>
     <div class="container">
         <h2>Car Booking Status</h2>
-        <p>Hello {{ $name }},</p>
         {!! $newmessage !!}
         <br>
         <p>Best regards,</p>
