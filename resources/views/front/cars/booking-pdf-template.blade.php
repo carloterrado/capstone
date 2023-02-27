@@ -12,11 +12,14 @@ use Carbon\Carbon;
   </head>
   <body>
     <header class="clearfix">
-      <div id="logo">
+      <!-- <div id="logo">
         <img src="{{public_path('admins/images/Chesca_logo.svg')}}">
-      </div>
+      </div> -->
       <h1>INVOICE {{$history['id']}}</h1>
-      
+      <div id="company"  >
+        <div>CCH Car Rental</div>
+        <div><a href="{{url('/')}}">{{url('')}}</a></div>
+      </div>
       <div id="project" >
         <div><span>CLIENT</span> {{$history['name']}}</div>
         <div><span>EMAIL</span> {{$history['email']}}</div>
@@ -25,10 +28,7 @@ use Carbon\Carbon;
         <div><span>DATE</span> {{Carbon::parse($history['created_at'])->format('Y-m-d H:i a')}}</div>
        
       </div>
-      <div id="company"  >
-        <div>CCH Car Rental</div>
-        <div><a href="{{url('/')}}">{{url('')}}</a></div>
-      </div>
+      
     </header>
     <main>
       <table>
@@ -56,21 +56,21 @@ use Carbon\Carbon;
             <td class="desc">{{$history['destination']}}</td>
             <td class="desc">{{$history['start_date'].' '.$history['time']}}</td>
             <td class="desc">{{$history['end_date'].' '.$history['time']}}</td>
-            <td class="desc">{{'₱ '.number_format($history['car_price'],2,'.',',')}}</td>
+            <td class="desc">{{'Php '.number_format($history['car_price'],2,'.',',')}}</td>
           </tr>
         
           
           <tr>
             <td colspan="5">SUBTOTAL</td>
-            <td class="total">{{'₱ '.number_format($history['car_price'],2,'.',',')}}</td>
+            <td class="total">{{'Php '.number_format($history['car_price'],2,'.',',')}}</td>
           </tr>
           <tr>
             <td colspan="5">DRIVER</td>
-            <td class="total">{{'₱ '.number_format($history['driver_fee'],2,'.',',')}}</td>
+            <td class="total">{{'Php '.number_format($history['driver_fee'],2,'.',',')}}</td>
           </tr>
           <tr>
             <td colspan="5" class="grand total">GRAND TOTAL</td>
-            <td class="grand total">{{'₱ '.number_format($history['grand_total'],2,'.',',')}}</td>
+            <td class="grand total">{{'Php '.number_format($history['grand_total'],2,'.',',')}}</td>
           </tr>
         </tbody>
       </table>
