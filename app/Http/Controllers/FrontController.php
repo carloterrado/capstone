@@ -23,7 +23,10 @@ use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use Mpdf\Mpdf;
 use Dompdf\Dompdf;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 45373e113209b475e65f008baade2003d46f643b
 
 
 class FrontController extends Controller
@@ -387,9 +390,19 @@ class FrontController extends Controller
     {
         $history =  History::find($booking_id)->toArray();
         $pdf = view('front.cars.booking-pdf-template',['history'=>$history])->render();
+<<<<<<< HEAD
         $dompdf = new Dompdf();
         $dompdf->loadHtml($pdf);
 
+=======
+
+        // instantiate and use the dompdf class
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($pdf);
+
+        
+
+>>>>>>> 45373e113209b475e65f008baade2003d46f643b
         // Render the HTML as PDF
         $dompdf->render();
 

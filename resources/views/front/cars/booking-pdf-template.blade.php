@@ -12,9 +12,15 @@ use Carbon\Carbon;
   </head>
   <body>
     <header class="clearfix">
+<<<<<<< HEAD
       <!-- <div id="logo">
         <img src="{{public_path('admins/images/Chesca_logo.svg')}}">
       </div> -->
+=======
+      <div id="logo">
+        <!-- <img src="{{public_path('admins/images/Chesca_logo.svg')}}"> -->
+      </div>
+>>>>>>> 45373e113209b475e65f008baade2003d46f643b
       <h1>INVOICE {{$history['id']}}</h1>
       <div id="company"  >
         <div>CCH Car Rental</div>
