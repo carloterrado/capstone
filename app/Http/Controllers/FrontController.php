@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
-use Mpdf\Mpdf;
+// use Mpdf\Mpdf;
 use Dompdf\Dompdf;
 
 
