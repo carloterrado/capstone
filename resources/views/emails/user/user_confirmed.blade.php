@@ -11,12 +11,12 @@
 	<div style="font-family: Arial, sans-serif; font-size: 14px;">
 		<h2>Account Confirmed</h2>
 		<p>Dear {{ $name }},</p>
-		<p>Thank you for confirming your email address. Your account with Chesca Chen's Car Rental is now active and you can start using our services. </p>
+		<p>Thank you for confirming your email address. Your account with CCH Car Rentals is now active and you can start using our services. </p>
 		<p>If you have any questions or need assistance, please contact our support team.</p>
-		<p>Thank you for choosing Chesca Chen's Car Rental. We look forward to serving you.</p>
+		<p>Thank you for choosing CCH Car Rentals. We look forward to serving you.</p>
 		<br>
 		<p>Best regards,</p>
-		<p>Chesca Chen's Car Rental</p>
+		<p>CCH Car Rentals</p>
 	</div>
 </body>
 </html>

@@ -20,7 +20,7 @@
 		<p>Thank you for using our services. We look forward to serving you again in the future.</p>
 		<br>
 		<p>Best regards,</p>
-		<p>Chesca Chen's Car Rental</p>
+		<p>CCH Car Rentals</p>
 	</div>
     
 </body>

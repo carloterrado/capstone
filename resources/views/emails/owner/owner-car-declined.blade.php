@@ -22,6 +22,6 @@
     <p>Thank you for your interest in our car rental platform.</p>
     
     <p>Best regards,</p>
-    <p>Chesca Chen's Car Rental</p>
+    <p>CCH Car Rentals</p>
 </body>
 </html>

@@ -11,6 +11,6 @@
     <p>You can now start receiving bookings for your car. Please make sure to keep your calendar updated to avoid any double bookings.</p>
     <p>Thank you for choosing our platform.</p>
     <p>Best regards,</p>
-    <p>Chesca Chen's Car Rental</p>
+    <p>CCH Car Rentals</p>
 </body>
 </html>

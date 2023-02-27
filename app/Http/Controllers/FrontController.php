@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use Mpdf\Mpdf;
+use App\Jobs\AccountConfirmation as EmailSender;
 
 
 class FrontController extends Controller
@@ -31,7 +32,7 @@ class FrontController extends Controller
     {   
         Session::forget('error_message');
         Session::put('page','home');
-        Session::put('title','Chesca Chen\'s Car Rental');
+        Session::put('title','CCH Car Rentals');
       
 
        
@@ -514,19 +515,7 @@ class FrontController extends Controller
     }
     public function signup(Request $request)
     { 
-        // $email = 'iamterradocarlo@gmail.com';
-        //         $name = 'Carlo Terrado'; 
-                
-        //         $messageData = [
-        //             'email' => $email,
-        //             'name' => $name,
-        //             'code' => base64_encode($email),
-        //         ];
-
-               
-        //         Mail::send('emails.user.user_confirmation',$messageData, function($message)use($email){
-        //             $message->to($email)->subject('Account confirmation');
-        //         });
+       
        
        
         if( $request->ajax())
@@ -556,8 +545,7 @@ class FrontController extends Controller
                 $user->contact = $data['front-signup-contact'];
                 $user->address = $data['front-signup-address'];
                 $user->password = bcrypt($data['front-signup-password']);
-                // $user->valid_id = $data['front-signup-valid-id'];
-                // $user->valid_id_file =  $imgName2;
+                
                 $user->terms = $data['front-signup-terms'];
                 $user->save();
             
@@ -571,11 +559,11 @@ class FrontController extends Controller
                     'code' => base64_encode($email),
                 ];
                 try {
-                    Mail::send('emails.user.user_confirmation',$messageData, function($message)use($email){
+                    
+                    Mail::send('emails.user.user_confirmation',$messageData, function($message) use ($email){
                         $message->to($email)->subject('Account confirmation');
                     });
-                    
-    
+
                     Session::put('message', 'Your account is successfully created. Check your email and verify your account. Thank you.');
     
                     return response()->json(['status'=>'success']);
@@ -630,7 +618,7 @@ class FrontController extends Controller
             $userDetails =  User::where('email',$userEmail)->first();
             if($userDetails->status === 1)
             {
-                $message = 'Your account is already confirmed! Welcome to Chesca Chen\'s Car Rental';
+                $message = 'Your account is already confirmed! Welcome to CCH Car Rentals';
             }
             else
             {  

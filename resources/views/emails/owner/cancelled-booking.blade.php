@@ -22,7 +22,7 @@
 		<p>Thank you for considering our services.</p>
 		<br>
 		<p>Best regards,</p>
-		<p>Chesca Chen's Car Rental</p>
+		<p>CCH Car Rentals</p>
 	</div>
     
 </body>

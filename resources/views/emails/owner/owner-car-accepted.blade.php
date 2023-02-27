@@ -12,6 +12,6 @@
 	<p>If you have any questions or concerns, please feel free to contact us.</p>
 	<p>Thank you for choosing our platform.</p>
 	<p>Best regards,</p>
-	<p>Chesca Chen's Car Rental</p>
+	<p>CCH Car Rentals</p>
 </body>
 </html>

@@ -26,7 +26,7 @@
         {!! $newmessage !!}
         <br>
         <p>Best regards,</p>
-        <p>Chesca Chen's Car Rental</p>
+        <p>CCH Car Rentals</p>
     </div>
 </body>
 </html>

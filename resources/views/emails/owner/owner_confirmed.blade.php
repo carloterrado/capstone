@@ -16,7 +16,7 @@
     <p>Please be patient as this process may take some time. We appreciate your interest in our service and look forward to working with you!</p>
     
     <p>Best regards,<br>
-    Chesca Chen's Car Rental</p>
+    CCH Car Rentals</p>
 
 </body>
 </html>

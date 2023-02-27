@@ -16,7 +16,7 @@
         <p>Please make sure to review our requirements and try registering again when you meet all the criteria. We encourage you to make the necessary updates to your car and registration documents to comply with our guidelines.</p>
         <p>Thank you for your understanding.</p>
         <p>Sincerely,</p>
-        <p>Chesca Chen's Car Rental</p>
+        <p>CCH Car Rentals</p>
     </div>
 </body>
 </html>
