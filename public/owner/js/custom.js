@@ -372,7 +372,7 @@ $(function(){
                     {
                             window.location.href = '/success';  
                     }
-                    else if(resp["status"] === 'error')
+                    else 
                     {  
                         $('.loading').removeClass('grid')
                         $('.loading').hide()
@@ -381,17 +381,6 @@ $(function(){
                         $('#owner-signup-form button[type="submit"]').removeClass('hidden')
                         setTimeout(function(){
                             $('.error-container').hide()  
-                        },3000)
-                    }
-                    else
-                    {
-                        $('.loading').removeClass('grid')
-                        $('.loading').hide()
-                        $('.error-container').show()
-                        $('.error-message').html('Email is already registered!')
-                        $('#owner-signup-form button[type="submit"]').removeClass('hidden')
-                        setTimeout(function(){
-                            $('.error-container').hide()
                         },3000)
                     }
                     
@@ -421,9 +410,9 @@ $(function(){
                 $('.loading').removeClass('grid')
                 $('.loading').hide()
                 $('.error-container').show()
-                $('.error-message').html('System account registration failed!')
+                $('.error-message').html('File size is too large')
                 setTimeout(function(){
-                    window.location.href = '/admin/signup';  
+                    $('.error-container').hide()
                 },3000)
             })
         } 
@@ -835,7 +824,7 @@ $(function(){
                         $('.success-container').show()
                         $('.success-message').html('Details updated successfully!')
                         setTimeout(function(){
-                            window.location.href = '/admin/profile';   
+                            location.reload() 
                         },1500)  
                     }
                     else 
@@ -875,7 +864,7 @@ $(function(){
                 $('.error-container').show()
                 $('.error-message').html('System update details failed!')
                 setTimeout(function(){
-                    window.location.href = '/admin/profile';  
+                    $('.error-container').hide() 
                 },3000)
             })
         }
@@ -1650,7 +1639,7 @@ $(function(){
                           $('.success-container').show()
                           $('.success-message').html('Car updated successfully!')
                           setTimeout(function(){
-                              window.location.href = window.location.href;   
+                              location.reload()  
                           },1500)  
                       }
                       else 
@@ -1689,9 +1678,10 @@ $(function(){
                   $('.loading').removeClass('grid')
                   $('.loading').hide()
                   $('.error-container').show()
-                  $('.error-message').html('System edit car failed!')
+                  $('.error-message').html('File size is too large')
+                  $('#edit-car-form button[type="submit"]').removeClass('hidden')
                   setTimeout(function(){
-                      window.location.href = window.location.href;  
+                    $('.error-container').hide()
                   },3000)
               })
           }

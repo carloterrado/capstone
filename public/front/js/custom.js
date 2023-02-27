@@ -406,9 +406,9 @@ $(function(){
                 $('.loading').removeClass('grid')
                 $('.loading').hide()
                 $('.error-container').show()
-                $('.error-message').html('System account registration failed!')
+                $('.error-message').html('File is too large')
                 setTimeout(function(){
-                    location.reload();  
+                    $('.error-container').hide()
                 },3000)
             })
         } 
