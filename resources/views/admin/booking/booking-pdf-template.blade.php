@@ -12,18 +12,10 @@ use Carbon\Carbon;
   </head>
   <body>
     <header class="clearfix">
-<<<<<<< HEAD
       <!-- <div id="logo">
         <img src="{{public_path('admins/images/Chesca_logo.svg')}}">
       </div> -->
       <h1>INVOICE {{$history['id']}}</h1>
-=======
-      <div id="logo">
-        <!-- <img src="{{public_path('admins/images/Chesca_logo.svg')}}"> -->
-      </div>
-      <h1>INVOICE {{$history['id']}}</h1>
-
->>>>>>> 45373e113209b475e65f008baade2003d46f643b
       <div id="company"  >
         <div>CCH Car Rental</div>
         <div><a href="{{url('/')}}">{{url('')}}</a></div>
@@ -38,10 +30,7 @@ use Carbon\Carbon;
         <div><span>CONTACT</span> {{$history['contact']}}</div>
         <div><span>ADDRESS</span> {{$history['address']}}</div>
         <div><span>DATE ISSUED</span> {{Carbon::parse($history['created_at'])->format('Y-m-d H:i a')}}</div>
-<<<<<<< HEAD
        
-=======
->>>>>>> 45373e113209b475e65f008baade2003d46f643b
       </div>
       
     </header>
