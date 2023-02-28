@@ -1518,7 +1518,7 @@ $(function(){
                 $('.loading').removeClass('grid')
                 $('.loading').hide()
                 $('.error-container').show()
-                $('.error-message').html('File size is too large')
+                $('.error-message').html('File size is too large! Recommended 250 KB or lower')
                 $('#add-car-form button[type="submit"]').removeClass('hidden')
                 
                 setTimeout(function(){
@@ -1884,7 +1884,7 @@ $(function(){
                 $('.loading').removeClass('grid')
                 $('.loading').hide()
                 $('.error-container').show()
-                $('.error-message').html('File is too large')
+                $('.error-message').html('File is too large! Recommended 250 KB or lower')
                 setTimeout(function(){
                     $('.error-container').hide()
                 },3000)
