@@ -62,7 +62,7 @@ $(function(){
             $(errorElementID).html('Birthdate is required!');
             setTimeout(function(){
                 $(errorElementID).html('Birthdate (dd/mm/yyyy)');
-            },4000)
+            },1000)
             return false;
         }
         if(!birthdate.match(birthdatecheck))
