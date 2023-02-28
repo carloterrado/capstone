@@ -2029,6 +2029,9 @@ input[type="range"]::-ms-thumb {
 .h-\[calc\(100vh-112px\)\] {
   height: calc(100vh - 112px);
 }
+.h-36 {
+  height: 9rem;
+}
 .max-h-\[500px\] {
   max-height: 500px;
 }
@@ -4550,6 +4553,10 @@ input[type="range"]::-ms-thumb {
     grid-column: span 1 / span 1;
   }
 
+  .md\:col-span-2 {
+    grid-column: span 2 / span 2;
+  }
+
   .md\:mx-40 {
     margin-left: 10rem;
     margin-right: 10rem;
@@ -4645,6 +4652,10 @@ input[type="range"]::-ms-thumb {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .md\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
   .md\:flex-nowrap {
     flex-wrap: nowrap;
   }
@@ -4655,6 +4666,14 @@ input[type="range"]::-ms-thumb {
 
   .md\:gap-4 {
     gap: 1rem;
+  }
+
+  .md\:gap-3 {
+    gap: 0.75rem;
+  }
+
+  .md\:gap-y-8 {
+    row-gap: 2rem;
   }
 
   .md\:space-x-3 > :not([hidden]) ~ :not([hidden]) {
@@ -4905,6 +4924,10 @@ input[type="range"]::-ms-thumb {
     grid-template-columns: repeat(12, minmax(0, 1fr));
   }
 
+  .lg\:grid-cols-6 {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
   .lg\:gap-6 {
     gap: 1.5rem;
   }
@@ -5032,6 +5055,10 @@ input[type="range"]::-ms-thumb {
 
   .xl\:grid-cols-5 {
     grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .xl\:grid-cols-10 {
+    grid-template-columns: repeat(10, minmax(0, 1fr));
   }
 
   .xl\:gap-0 {
