@@ -60,7 +60,7 @@
             </a>
           </li>
           <li>
-            <a href="javascript:void(0)" class="navbar-close sidebar-list sidebar-hover">
+            <a href="javascript:void(0)" data-modal-toggle="terms-and-conditions" class="navbar-close sidebar-list sidebar-hover">
                 <span class="ml-3">Terms & Conditions</span>
             </a>
           </li>

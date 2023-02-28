@@ -94,7 +94,7 @@
                       <label id="front-signup-terms-error" for="front-signup-terms" class=" hidden pb-1 text-sm font-semibold lg:pl-2 text-[lightcoral]"></label>
                       <div class="flex items-center mt-4">
                         <input id="front-signup-terms" name="front-signup-terms" value="agree" type="checkbox" class="w-4 h-4 text-accent-regular bg-gray-100 rounded border-gray-300 focus:ring-0  ">
-                        <label  class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">I agree with the <a href="#" class="text-accent-regular  hover:underline">terms and conditions</a>.</label> 
+                        <label  class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">I agree with the <a href="javascript:void(0)" data-modal-toggle="terms-and-conditions" class="text-accent-regular  hover:underline">terms and conditions</a>.</label> 
                       </div>
 
                       <div class="mt-4 mb-6">
