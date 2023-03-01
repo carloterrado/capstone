@@ -1,7 +1,7 @@
 <main id="home">
     <!-- Hero section -->
     <section class="relative text-white h-[100vmin] md:h-[calc(100vmin-5.5rem)]">
-        <img class="w-full h-full object-cover" src="{{url('front/images/red-car-home.jpg')}}" alt="hero image">
+        <img class="w-full h-full object-cover" src="{{url('front/images/red-car-hom.jpg')}}" alt="hero image">
         <div class="absolute inset-0 bg-black/10"></div>
         <div class="flex flex-col gap-4 w-auto sm:w-1/2  absolute top-1/3 -translate-y-1/3 left-8 md:left-32 font-[800] font-['Montserrat',sans-serif]">
             <h1 class="text-[2rem] sm:text-[3rem] lg:text-[4.5rem] leading-none font-['Roboto',sans-serif] font-[500] ">Find the best <br> car for you </h1>

@@ -8,8 +8,11 @@
             <p>At CCH Car Rental, we are committed to providing a hassle-free car rental experience for both car owners and renters. We believe that everyone should have access to reliable and affordable transportation, and our platform is designed to make that possible.</p>
         </div>
         <div class="grid grid-cols-2 gap-4 mt-8">
-            <img class="w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/office-long-2.png" alt="office content 1">
-            <img class="mt-4 w-full lg:mt-10 rounded-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/office-long-1.png" alt="office content 2">
+            <div class="w-full h-full max-h-[462px]">
+                <img class="w-full h-full object-cover rounded-lg" src="{{url('front/images/owner2.jpg')}}" alt="office content 1">
+            </div>
+            <div class="w-full h-full max-h-[462px]">
+            <img class="mt-4 w-full h-full object-cover lg:mt-10 rounded-lg" src="{{url('front/images/owner1.jpg')}}" alt="office content 2"></div>
         </div>
     </div>
   </section>
@@ -17,13 +20,17 @@
   <!-- Our Vision -->
   <section class="bg-slate-50">
     <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
+        <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
+            <div class="w-full h-full max-h-[462px] md:mx-20">
+
+                <img class="w-full h-full object-cover rounded-lg" src="{{url('front/images/become.jpg')}}" alt="mockup">
+            </div>
+        </div> 
         <div class="mr-auto place-self-center lg:col-span-7">
             <h1 class="max-w-2xl mb-4 text-2xl font-bold tracking-tight leading-none md:text-4xl">CCH Car Rentals</h1>
             <p class="max-w-2xl mb-6 font-normal text-gray-500 lg:mb-8 md:text-lg lg:text-lg">CCH Car Rental is more than just a car rental platform - it's a community of people who share a passion for travel, adventure, and exploration. We believe that our platform has the power to change the way people think about car rental, and we're excited to be a part of that change! We have built a reputation for reliability, honesty, and affordability, and we take pride in serving the community we love.</p>
         </div>
-        <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
-            <img src="{{url('front/images/become.jpg')}}" alt="mockup">
-        </div>                
+                       
     </div>
   </section>
 
