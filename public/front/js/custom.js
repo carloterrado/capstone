@@ -406,7 +406,7 @@ $(function(){
                 $('.loading').removeClass('grid')
                 $('.loading').hide()
                 $('.error-container').show()
-                $('.error-message').html('File is too large! Recommended 250 KB or lower.')
+                $('.error-message').html('System Error!')
                 setTimeout(function(){
                     $('.error-container').hide()
                 },3000)
