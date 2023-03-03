@@ -1,6 +1,6 @@
 @foreach ($cars as $car)         
     <div class="max-w-sm w-full bg-white border border-gray-200 rounded-lg shadow-md p-5 col-span-6 md:col-span-3 xl:col-span-2 mx-auto">
-        <h2 class="text-2xl font-bold tracking-tight text-gray-900 text-center overflow-hidden whitespace-nowrap text-ellipsis ">zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzP{{$car['name']}}</h2>
+        <h2 class="text-2xl font-bold tracking-tight text-gray-900 text-center overflow-hidden whitespace-nowrap text-ellipsis ">{{$car['name']}}</h2>
         <h3 class="mb-2 text-xl tracking-tight text-accent-regular text-center ">
                 {{'₱ '.$car['carPrice'][3]['price'].' / Day'}}
         
