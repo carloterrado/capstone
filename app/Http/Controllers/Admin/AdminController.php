@@ -104,10 +104,11 @@ class AdminController extends Controller
         Session::put('page','new-booking');
         
         $owner_id = Auth::guard('admin')->user()->owner_id;
-        $booking = Booking::with('bookingInfo','bookingInfoId','carInfo')->whereHas('carInfo',
+        $booking = Booking::with('bookingInfo','bookingInfoId','carInfo','checkCarBooking')->whereHas('carInfo',
         function($query) use ($owner_id){
             $query->where(['owner_id'=>$owner_id]);
         })->where(['status'=>'pending'])->get()->toArray();
+       
         
         if(Auth::guard('admin')->user()->type === 'owner')
         {
@@ -135,7 +136,7 @@ class AdminController extends Controller
         Session::put('page','approved-booking');
        
         $owner_id = Auth::guard('admin')->user()->owner_id;
-        $booking = Booking::with('bookingInfo','bookingInfoId','carInfo')->whereHas('carInfo',
+        $booking = Booking::with('bookingInfo','bookingInfoId','carInfo','checkCarBooking')->whereHas('carInfo',
         function($query) use ($owner_id){
             $query->where(['owner_id'=>$owner_id]);
         })->where(['status'=>'approved'])->get()->toArray();
@@ -196,7 +197,7 @@ class AdminController extends Controller
         Session::put('page','cancelled-booking');
         
         $owner_id = Auth::guard('admin')->user()->owner_id;
-        $booking = Booking::with('bookingInfo','bookingInfoId','carInfo')->whereHas('carInfo',
+        $booking = Booking::with('bookingInfo','bookingInfoId','carInfo','checkCarBooking')->whereHas('carInfo',
         function($query) use ($owner_id){
             $query->where(['owner_id'=>$owner_id]);
         })->where(['status'=>'cancelled'])->get()->toArray();
@@ -305,6 +306,7 @@ class AdminController extends Controller
             $history->start_date = $returnBooking->start_date;
             $history->end_date = $returnBooking->end_date;
             $history->time = $returnBooking->time;
+            $history->time_end = $returnBooking->time_end;
             $history->destination = $returnBooking->bookingInfo->destination;
             if($returnBooking->bookingInfo->driver === "0")
             {
@@ -451,97 +453,12 @@ class AdminController extends Controller
         
 
     }
-    public function carChecklist(Request $request)
-    {
-        if($request->ajax())
-        {
-            $data = $request->all();
-            $fieldsToInsert = [
-                'windshield',
-                'hood',
-                'grill',
-                'frontPlate',
-                'bumper',
-                'headlights',
-                'rearWindow',
-                'bootTrunk',
-                'backPlate',
-                'rearBumper',
-                'tailLights',
-                'rightSideMirror',
-                'rightSideFrontFender',
-                'rightSideFrontDoorWindow',
-                'rightSideRearDoorWindow',
-                'rightSideFrontDoor',
-                'rightSideRearDoor',
-                'rightSideRearFender',
-                'rightSideFrontWheels',
-                'rightSideBackWheels',
-                'leftSideMirror',
-                'leftSideFrontFender',
-                'leftSideFrontDoorWindow',
-                'leftSideRearDoorWindow',
-                'leftSideFrontDoor',
-                'leftSideRearDoor',
-                'leftSideRearFender',
-                'leftSideFrontWheels',
-                'leftSideBackWheels',
-                'seatBelts',
-                'airbags',
-                'signalLights',
-                'hazardLights',
-                'frontExteriorLights',
-                'backExteriorLights',
-                'acceleratorPedal',
-                'breakPedal',
-                'clutchPedal',
-                'gearShift',
-                'steeringWheel',
-                'horn',
-            ];
-            $car = Car::with('carChecklist')->find($data['car_id']);
-        
-            if($car->carChecklist === null)
-            {
-                $checklist = new CarCheckList;
-                foreach($fieldsToInsert as $field)
-                {
-                        $propertyName = $field;
-                    $checklist->$propertyName = json_encode($data[$field]);
-                }
-                if($request->has('others'))
-                {
-                    $checklist->others = $data['others'];   
-                }
-                $checklist->car_id = $data['car_id'];
-                $checklist->save();  
-            }
-            else
-            {
-                foreach($fieldsToInsert as $field)
-                {
-                    $propertyName = $field;
-                    if( $car->carChecklist->$propertyName !== json_encode($data[$field]))
-                    {
-                        $car->carChecklist->$propertyName = json_encode($data[$field]);
-                    }
-                }
-                if($car->carChecklist->others !== $data['others'])
-                {
-                    $car->carChecklist->others = $data['others'];
-                }
-                $car->carChecklist->save();
-            }
-           
-            return response()->json(['data'=>'success']);
-        }
-    }
     public function booking()
     {
         Session::put('title','Booking');
         Session::put('page','booking');
         $owner_id = Auth::guard('admin')->user()->owner_id;
-        $booking = Booking::with('bookingInfo','bookingInfoId','carInfo')->whereHas('carInfo',
+        $booking = Booking::with('bookingInfo','bookingInfoId','carInfo','checkCarBooking')->whereHas('carInfo',
         function($query) use ($owner_id){
             $query->where(['owner_id'=>$owner_id]);
         })->where(['status'=>'ongoing'])->orWhere(['status'=>'returned'])->get()->toArray();
@@ -642,7 +559,7 @@ class AdminController extends Controller
         $cartypes = CarType::where('status',1)->get()->toArray();
         if(Auth::guard('admin')->user()->type === 'owner')
         {
-            $cars = Car::with(['carPhotos','carPrice','carTypes','carChecklist'])->where(['account'=>'verified','admin_id'=>Auth::guard('admin')->user()->id])->get()->toArray();
+            $cars = Car::with(['carPhotos','carPrice','carTypes','carChecklist','carBooking'])->where(['account'=>'verified','admin_id'=>Auth::guard('admin')->user()->id])->get()->toArray();
             $unpaidCount = History::where('owner_id',Auth::guard('admin')->user()->owner_id)->where('commission','unpaid')->count();
 
             if($unpaidCount > 3)
@@ -657,9 +574,9 @@ class AdminController extends Controller
             Session::forget('commission_error_message');
             return view('owner.dashboard')->with(compact('cartypes','cars'));
         }
-        $cars = Car::with(['carPhotos','carPrice','carTypes','carChecklist'])->where('owner_id',0)->get()->toArray();
+        $cars = Car::with(['carPhotos','carPrice','carTypes','carChecklist','carBooking'])->where('owner_id',0)->get()->toArray();
       
-        
+        // dd($cars);
        
         return view('admin.dashboard')->with(compact('cartypes','cars'));
 
@@ -896,6 +813,91 @@ class AdminController extends Controller
         }
             
  
+    }
+    public function carChecklist(Request $request)
+    {
+        if($request->ajax())
+        {
+            $data = $request->all();
+            $fieldsToInsert = [
+                'windshield',
+                'hood',
+                'grill',
+                'frontPlate',
+                'bumper',
+                'headlights',
+                'rearWindow',
+                'bootTrunk',
+                'backPlate',
+                'rearBumper',
+                'tailLights',
+                'rightSideMirror',
+                'rightSideFrontFender',
+                'rightSideFrontDoorWindow',
+                'rightSideRearDoorWindow',
+                'rightSideFrontDoor',
+                'rightSideRearDoor',
+                'rightSideRearFender',
+                'rightSideFrontWheels',
+                'rightSideBackWheels',
+                'leftSideMirror',
+                'leftSideFrontFender',
+                'leftSideFrontDoorWindow',
+                'leftSideRearDoorWindow',
+                'leftSideFrontDoor',
+                'leftSideRearDoor',
+                'leftSideRearFender',
+                'leftSideFrontWheels',
+                'leftSideBackWheels',
+                'seatBelts',
+                'airbags',
+                'signalLights',
+                'hazardLights',
+                'frontExteriorLights',
+                'backExteriorLights',
+                'acceleratorPedal',
+                'breakPedal',
+                'clutchPedal',
+                'gearShift',
+                'steeringWheel',
+                'horn',
+            ];
+            $car = Car::with('carChecklist')->find($data['car_id']);
+        
+            if($car->carChecklist === null)
+            {
+                $checklist = new CarCheckList;
+                foreach($fieldsToInsert as $field)
+                {
+                        $propertyName = $field;
+                    $checklist->$propertyName = json_encode($data[$field]);
+                }
+                if($request->has('others'))
+                {
+                    $checklist->others = $data['others'];   
+                }
+                $checklist->car_id = $data['car_id'];
+                $checklist->save();  
+            }
+            else
+            {
+                foreach($fieldsToInsert as $field)
+                {
+                    $propertyName = $field;
+                    if( $car->carChecklist->$propertyName !== json_encode($data[$field]))
+                    {
+                        $car->carChecklist->$propertyName = json_encode($data[$field]);
+                    }
+                }
+                if($car->carChecklist->others !== $data['others'])
+                {
+                    $car->carChecklist->others = $data['others'];
+                }
+                $car->carChecklist->save();
+            }
+           
+            return response()->json(['data'=>'success']);
+        }
     }
     public function updateCarStatus(Request $request)
     {      

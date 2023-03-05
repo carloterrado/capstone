@@ -47,4 +47,5 @@
         <p class="text-center sm:text-left text-xs sm:text-base">2022 All Rights Reserve <span class="text-accent-regular whitespace-nowrap">Terms of Use</span></p>
 
     </div>
+    @include('front.terms-and-conditions')
 </footer>

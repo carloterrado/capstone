@@ -92,6 +92,7 @@ class FrontController extends Controller
         if($request->ajax())
         {
             $data = $request->all();
+           
             
             $owner = Admin::where('owner_id',(int)$data['owner-id'])->get()->first();
             
@@ -105,6 +106,9 @@ class FrontController extends Controller
             $input_time = $data['book-time'];
             $time = date("g:i A", strtotime($input_time));
             $booking->time = $time;
+            $input_time_end = $data['book-time-end'];
+            $time_end = date("g:i A", strtotime($input_time_end));
+            $booking->time_end = $time_end;
             $booking->status = "pending";
             $booking->user_id = Auth::user()->id;
             $booking->car_id = (int)$data['car-id'];
@@ -160,7 +164,7 @@ class FrontController extends Controller
                 }
             
             }
-           
+            $booking_info->terms = $data['booking-terms'];
             $booking_info->booking_id = $booking_table->id;
 
             $booking_info->save();
@@ -316,7 +320,8 @@ class FrontController extends Controller
 
             if($owner->owner_id === 0)
             {
-                $email = 'cchcarrentals@gmail.com';
+                // $email = 'cchcarrentals@gmail.com';
+                $email = 'iamterradocarlo@gmail.com';
             }
             else{
                 $email = $owner->email;

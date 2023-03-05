@@ -61,11 +61,9 @@
                                     </p>
                                 </div>
                                 <?php
-                                    $date1 = new DateTime($book['start_date']);
-                                    $date2 = new DateTime($book['end_date']);
+                                    $date1 = new DateTime($book['start_date'].' '.$book['time']);
+                                    $date2 = new DateTime($book['end_date'].' '.$book['time_end'] );
                                     $interval = $date1->diff($date2);
-                                   
-                                   
                                 ?>
                                 <div class="grid grid-cols-6 border-b-2 mb-4">
                                     <h3 class="col-span-3 text-sm font-semibold">Driver's Fee:</h3>
@@ -74,9 +72,9 @@
                                         @if ($book['booking_info']['driver'] === '1')
                                             
                                             @if (intval($interval->format('%R%a')) > 1)
-                                                {{'₱ '.number_format($book['booking_info']['driver_fee'],2,'.',',') . ' / '.intval($interval->format('%R%a')).' Days' }}    
+                                                {{'₱ '.number_format($book['booking_info']['driver_fee'],2,'.',',') . ' / '.intval($interval->format('%R%a')).' days, '.' '.$interval->format('%H hr(s)') }}    
                                             @else
-                                                {{'₱ '.number_format($book['booking_info']['driver_fee'],2,'.',',') . ' / '.intval($interval->format('%R%a')).' Day' }} 
+                                                {{'₱ '.number_format($book['booking_info']['driver_fee'],2,'.',',') . ' / '.intval($interval->format('%R%a')).' day, '.' '.$interval->format('%H hr(s)') }} 
                                             @endif    
                                         @else
                                             {{'₱ '.number_format($book['booking_info']['driver_fee'],2,'.',',')}}
@@ -87,9 +85,9 @@
                                     <h3 class="col-span-3 text-sm font-semibold">Car Fee:</h3>
                                     <p class="col-span-3 text-sm font-semibold">
                                         @if (intval($interval->format('%R%a')) > 1)
-                                            {{'₱ '.number_format($book['booking_info']['car_price'],2,'.',',') . ' / '.intval($interval->format('%R%a')).' Days' }}    
+                                            {{'₱ '.number_format($book['booking_info']['car_price'],2,'.',',') . ' / '.intval($interval->format('%R%a')).' days, '.' '.$interval->format('%H hr(s)') }}    
                                         @else
-                                            {{'₱ '.number_format($book['booking_info']['car_price'],2,'.',',') . ' / '.intval($interval->format('%R%a')).' Day' }} 
+                                            {{'₱ '.number_format($book['booking_info']['car_price'],2,'.',',') . ' / '.intval($interval->format('%R%a')).' day, '.' '.$interval->format('%H hr(s)') }} 
                                         @endif 
                                     </p>
                                 </div>
@@ -125,15 +123,11 @@
                                 </div> 
                                 <div class="mt-4">   
                                     <h3 class="col-span-3 text-sm font-semibold">Start Date:</h3>
-                                    <p class="col-span-3 text-sm font-semibold">{{$book['start_date']}}</p>
+                                    <p class="col-span-3 text-sm font-semibold">{{$book['start_date'].' '.$book['time'] }}</p>
                                 </div> 
                                 <div class="mt-4">   
                                     <h3 class="col-span-3 text-sm font-semibold">End Date:</h3>
-                                    <p class="col-span-3 text-sm font-semibold">{{$book['end_date']}}</p>
-                                </div> 
-                                <div class="mt-4">   
-                                    <h3 class="col-span-3 text-sm font-semibold">Time:</h3>
-                                    <p class="col-span-3 text-sm font-semibold">{{$book['time']}}</p>
+                                    <p class="col-span-3 text-sm font-semibold">{{$book['end_date'].' '.$book['time_end']}}</p>
                                 </div> 
                             </div>
                             <div class="mx-2 sm:mx-6 mt-2 sm:mt-0  h-1 rounded-full bg-accent-regular">

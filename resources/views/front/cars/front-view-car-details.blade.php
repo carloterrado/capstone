@@ -120,19 +120,23 @@
                                                     <p>Available</p>
                                                 </div>
                                             </div>
-                                            <div class="flex mt-2 items-center">
-                                                <label class="w-fit mb-2 text-sm font-semibold text-gray-900 uppercase text-center mr-2 mt-1">Time: </label>
+                                            <div class="mt-2 items-center">
+                                                <label class="w-fit mb-2 text-sm font-semibold text-gray-900 uppercase text-center mr-2 mt-1">Pick Up Time: </label>
                                                 <input type="time" name="book-time" class="time-input w-full bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:outline-none focus:ring-0 focus:border-gray-900 block px-2.5 py-2 uppercase" placeholder="Select time" >
+                                            </div>
+                                            <div class=" mt-2 items-center">
+                                                <label class="w-fit mb-2 text-sm font-semibold text-gray-900 uppercase text-center mr-2 mt-1">Drop Off Time: </label>
+                                                <input type="time" name="book-time-end" class="time-end-input w-full bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:outline-none focus:ring-0 focus:border-gray-900 block px-2.5 py-2 uppercase" placeholder="Select time" >
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="mt-4">   
+                                    <input type="hidden" value="{{$car['carPrice'][3]['price']}}" name="car-price" class="car-price">
                                     <label class="block mb-2 text-sm font-semibold text-gray-900 uppercase ">Destination </label>
                                     <!-- <label class="block mb-2 text-xs font-medium text-gray-900 uppercase">Region: </label> -->
                                     <select name="region" data-price="{{json_encode($car['carPrice'])}}" class="region bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:outline-none focus:ring-0 focus:border-gray-900 block w-full p-2.5 ">
                                         <option disabled selected>Select Region</option>
-                                
                                     </select>
                                 </div> 
                                 <div class="mt-4">   
@@ -152,17 +156,19 @@
                                     </select>
                                 </div> 
                                 @if ($car['driver'] === '1')
-                                <div class="mt-4">   
+                                <div class="mt-4">  
+                                    <input type="hidden" value="0" name="driver-fee" class="driver-price"> 
                                     <label class="block mb-2 text-sm font-semibold text-gray-900 uppercase text-center">Rent option </label>
-                                    <select name="driver" data-fee="{{$car['drivers_fee']}}" class="driver bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:outline-none focus:ring-0 focus:border-gray-900 block w-full p-2.5 ">
+                                    <select name="driver" data-driver="{{$car['drivers_fee']}}" class="driver bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:outline-none focus:ring-0 focus:border-gray-900 block w-full p-2.5 ">
                                         <option value="1">With Driver</option>
                                         <option value="0" selected>Self Drive</option>
                                     </select>
                                 </div>
                                 @else
-                                <div class="mt-4 hidden">   
+                                <div class="mt-4 hidden">
+                                    <input type="hidden" value="0" name="driver-fee" class="driver-price">   
                                     <label class="block mb-2 text-sm font-semibold text-gray-900 uppercase text-center">Rent option </label>
-                                    <select name="driver" data-fee="{{json_encode($car['drivers_fee'])}}" class="driver bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:outline-none focus:ring-0 focus:border-gray-900 block w-full p-2.5 ">
+                                    <select name="driver"  class="driver bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:outline-none focus:ring-0 focus:border-gray-900 block w-full p-2.5 ">
                                         <option value="0" selected>Self Drive</option>
                                     </select>
                                 </div>
@@ -170,18 +176,7 @@
                             </div>
                             <div class="mx-2 sm:mx-6 mt-2 sm:mt-0  h-1 rounded-full bg-accent-regular">
                             </div>
-                            <div class="px-2 pt-4 md:px-6">
-                                <input type="hidden" value="" name="car-price" class="car-price">
-                                <h4 class="total">{{'Car Fee: ₱'.number_format($car['carPrice'][3]['price'],2,'.',',')}} </h4>
-                            </div>
-                            <div class="px-2 py-1 md:px-6">
-                                <input type="hidden" value="" name="driver-fee" class="driver-price">
-                                <h4 class="drivers-fee" >{{"Driver's Fee: ₱".number_format(0,2,'.',',')}} </h4>
-                            </div>
-                            <div class="px-2 pb-6 md:px-6">
-                                <input type="hidden" value="" name="total-price" class="total-price">
-                                <h4 class="grand-total font-semibold">{{'Total: ₱'.number_format($car['carPrice'][3]['price'],2,'.',',')}} </h4>
-                            </div>
+                            
                             <div class="step1-error p-2 sm:px-6 text-sm font-medium text-accent-regular hidden"> 
                                 The above information is required!  
                             </div> 
@@ -267,27 +262,27 @@
                     <div class="grid grid-cols-6 gap-2 md:gap-4 font-semibold">
                         <div class="col-span-6 gap-2 grid grid-cols-6">
                             <h3 class="col-span-6 sm:col-span-1">Destination:</h3>
-                            <p class="col-span-6 sm:col-span-5 bg-[#f5f5f5]  py-2 px-3 capitalize confirm-destination">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Explicabo repellendus</p>
+                            <p class="col-span-6 sm:col-span-5 bg-[#f5f5f5]  py-2 px-3 capitalize confirm-destination">Lorem </p>
                         </div>
                         <div class="col-span-6 gap-2 grid grid-cols-6">
-                            <h3 class="col-span-3 sm:col-span-1">Rent Option:</h3>
-                            <p class="col-span-3 sm:col-span-5 bg-[#f5f5f5] py-2 px-3 confirm-driver ">With Driver</p>
+                            <h3 class="col-span-6 sm:col-span-1">Car Fee:</h3>
+                            <p class="bg-[#f5f5f5]  py-2 px-3 col-span-6 sm:col-span-5 confirm-days-count">1500</p>
+                        </div>  
+                        <div class="col-span-6 gap-2 grid grid-cols-6">
+                            <h3 class="col-span-6 sm:col-span-1">Rent Option:</h3>
+                            <p class="col-span-6 sm:col-span-5 bg-[#f5f5f5] py-2 px-3 confirm-driver ">With Driver</p>
                         </div>
                         <div class="col-span-6 gap-2 grid grid-cols-6">
-                            <h3 class="col-span-3 sm:col-span-1">Start Date:</h3>
-                            <p class="bg-[#f5f5f5]  py-2 px-3 col-span-3 sm:col-span-5 confirm-start-date">dd-mm-yyyy</p>
+                            <h3 class="col-span-6 sm:col-span-1">Start Date:</h3>
+                            <p class="bg-[#f5f5f5]  py-2 px-3 col-span-6 sm:col-span-5 confirm-start-date">dd-mm-yyyy</p>
                         </div>
                         <div class="col-span-6 gap-2 grid grid-cols-6">
-                            <h3 class="col-span-3 sm:col-span-1">End Date:</h3>
-                            <p class="bg-[#f5f5f5]  py-2 px-3 col-span-3 sm:col-span-5 confirm-end-date">dd-mm-yyyy</p>
-                        </div> 
-                        <div class="col-span-6 gap-2 grid grid-cols-6">
-                            <h3 class="col-span-3 sm:col-span-1">Time:</h3>
-                            <p class="bg-[#f5f5f5]  py-2 px-3 col-span-3 sm:col-span-5 confirm-time">hh-mm-ss</p>
+                            <h3 class="col-span-6 sm:col-span-1">End Date:</h3>
+                            <p class="bg-[#f5f5f5]  py-2 px-3 col-span-6 sm:col-span-5 confirm-end-date">dd-mm-yyyy</p>
                         </div> 
                         <div class="bg-accent-regular rounded-full h-1 col-span-6"></div>
                         <div class="col-span-6 gap-2 grid grid-cols-6">
-                            <h3 class="col-span-3 sm:col-span-1">Car Fee:</h3>
+                            <h3 class="col-span-3 sm:col-span-1">Total Car Fee:</h3>
                             <p class="col-span-3 sm:col-span-5 confirm-car-fee">P 1000</p>
                         </div>
                         <div class="col-span-6 gap-2 grid grid-cols-6">
@@ -295,9 +290,15 @@
                             <p class="col-span-3 sm:col-span-5 confirm-driver-fee">P 1000</p>
                         </div>
                         <div class="col-span-6 gap-2 grid grid-cols-6">
+                            <input type="hidden" value="" name="total-price" class="total-price">
                             <h3 class="col-span-3 sm:col-span-1">Grand Total:</h3>
                             <p class="col-span-3 sm:col-span-5 confirm-total">P 1000</p>
                         </div>
+                        <div class="flex items-center mt-4 col-span-6">
+                            <input  name="booking-terms" value="agree" type="checkbox" class="booking-terms w-4 h-4 text-accent-regular bg-gray-100 rounded border-gray-300 focus:ring-0  ">
+                            <label  class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">I agree with the <a href="javascript:void(0)" data-modal-toggle="terms-and-conditions" class="text-accent-regular  hover:underline">terms and conditions</a>.</label> 
+                        </div>
+                        <label class="booking-form-error hidden col-span-6 pb-1 text-sm font-semibold lg:pl-2 text-[lightcoral]">Please check the Terms and Conditions</label>
                         <div class="bg-accent-regular rounded-full h-1 col-span-6"></div>
                     </div>
                 </div>

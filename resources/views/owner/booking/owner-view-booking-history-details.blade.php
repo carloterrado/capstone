@@ -23,12 +23,12 @@
                                 <div><span>EMAIL: </span> {{$history['email']}}</div>
                                 <div><span>CONTACT: </span> {{$history['contact']}}</div>
                                 <div><span>ADDRESS: </span> {{$history['address']}}</div>
-                                <div><span>DATE: </span> {{Carbon::parse($history['created_at'])->format('Y-m-d H:i a')}}</div>
+                                <div><span>DATE ISSUED: </span> {{Carbon::parse($history['created_at'])->tz('Asia/Manila')->format('Y-m-d H:i a')}}</div>
                             
                             </div>
                             <div  class="col-span-6 sm:col-span-3 p-2 space-y-2" >
                                 <div class="md:text-right">CCH Car Rental</div>
-                                <div class="md:text-right"><a href="{{url('/')}}">cch-car-rental.up.railway.app</a></div>
+                                <div class="md:text-right"><a href="{{url('/')}}">{{url('')}}</a></div>
                             </div>
                         </div>
                         
@@ -45,7 +45,7 @@
                         </ul>
                         <div class="left"><span class="font-semibold">Destination: </span> {{$history['destination']}}</div>
                         <div class="left"><span class="font-semibold">Start Date: </span> {{$history['start_date'].' '.$history['time']}}</div>
-                        <div class="left"><span class="font-semibold">End Date: </span> {{$history['end_date'].' '.$history['time']}}</div>
+                        <div class="left"><span class="font-semibold">End Date: </span> {{$history['end_date'].' '.$history['time_end']}}</div>
                         <div class="left"><span class="font-semibold">Price: </span> {{'₱ '.number_format($history['car_price'],2,'.',',')}}</div>
 
                         <div class="mt-4">
@@ -78,7 +78,7 @@
                                 </td>
                                 <td class="desc">{{$history['destination']}}</td>
                                 <td class="desc">{{$history['start_date'].' '.$history['time']}}</td>
-                                <td class="desc">{{$history['end_date'].' '.$history['time']}}</td>
+                                <td class="desc">{{$history['end_date'].' '.$history['time_end']}}</td>
                                 <td class="desc">{{'₱ '.number_format($history['car_price'],2,'.',',')}}</td>
                             </tr>
                             

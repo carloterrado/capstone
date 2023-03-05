@@ -907,17 +907,14 @@ $(function(){
       })
    
 
-      var url = window.location.href;
-
-  // Add the 'active' class to the corresponding link
-  $('.nav-list[href="'+url+'"]').addClass('underline');
+    
 
    
 
     // FUNCTION TO UPDATE ALL FEE
     function updateFee(element,fee,driverFee,times,text)
     {
-        $(element).text(text + ((fee + driverFee).toFixed(2)  * times).toLocaleString('en-US', {
+        $(element).text(text + ((parseFloat(fee) + parseFloat(driverFee)).toFixed(2)  * times).toLocaleString('en-US', {
             style: 'decimal',
             minimumFractionDigits: 2,
             maximumFractionDigits: 2,
@@ -932,7 +929,6 @@ $(function(){
         
         var data = $(input1).data('bookdates');
         var bookdates = [];
-        
 
         for (let i = 0; i < data.length; i++) {
             if(data[i].status === 'approved' || data[i].status === 'ongoing')
@@ -944,7 +940,7 @@ $(function(){
             
                 while (starts <= ends) {
                     bookdates.push(fecha.format(new Date(starts), 'YYYY-MM-DD'));
-                    starts.setDate(starts.getDate() + 1);
+                    starts.setDate(starts.getDate() + 1);   
                 }
             }
         }
@@ -952,84 +948,11 @@ $(function(){
             inline: true,
             autoClose: false,
             disabledDates: bookdates,
-            onSelectRange: function() {
-                var form = $(input1).closest('form')[0]
-                var total = $(form).find('.total')
-                var prices = $(form).find('.region').data('price')
-                var totalCarPrice = $(form).find('.car-price')
-                var totalDriverFee = $(form).find('.driver-price')
-                var grandTotalPrice = $(form).find('.total-price')
-                var region = $(form).find('.region').val()
-                var dateInput = $(form).find('.date-input').val()
-                var grandTotal = $(form).find('.grand-total')
-                var driverFeeText = $(form).find('.drivers-fee')
-                
-                
-                if(region !== null)
-                {
-                    var totalValue;
-                    $.each(prices, function(index, price){
-                        if(region === price.reg_id.toString())
-                        {
-                             totalValue = parseFloat(price.price);
-                        }
-                    })
-                }
-                else
-                {
-                    var totalValue = parseFloat(prices[3].price);
-                }
-
-                // CHECK IF WITH/WITHOUT DRIVER
-                var driverOption = $(form).find('.driver').val()
-                var driverFee = $(form).find('.driver').data('fee')
-              
-                if(driverOption === "0")
-                {
-                    driverFee = 0;
-                }
-
-                var dateRangeRegex = /^\d{4}-\d{2}-\d{2} - \d{4}-\d{2}-\d{2}$/;
-                if(dateRangeRegex.test(dateInput))
-                {
-                    const dates = dateInput.split(" - ");
-                    const startDate = new Date(dates[0]);
-                    const endDate = new Date(dates[1]);
-                    const diffTime = Math.abs(endDate - startDate);
-                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                    
-                    if(diffDays < 1) {
-                        var bookDays = diffDays + 1;
-                    }
-                    else
-                    {
-                        var bookDays = diffDays;
-                    }
-                    // UPDATE CAR FEE TEXT
-                    updateFee(total,totalValue,0,bookDays,'Car Fee: ₱')
-
-                    // UPDATE DRIVER FEE
-                    updateFee(driverFeeText,0,driverFee,bookDays,"Driver's Fee: ₱")
-                  
-                    // UPDATE TOTAL FEE FOR CAR AND DRIVER
-                    updateFee(grandTotal,totalValue,driverFee,bookDays,'Total: ₱')
-
-                    // UPDATA ALL CONFIRM FEE
-                    var confirmCarFee = $(form).find('.confirm-car-fee')
-                    var confirmDriverFee = $(form).find('.confirm-driver-fee')
-                    var confirmTotal = $(form).find('.confirm-total')
-                    updateFee(confirmCarFee,totalValue,0,bookDays,'₱')
-                    updateFee(confirmDriverFee,0,driverFee,bookDays,'₱')
-                    updateFee(confirmTotal,totalValue,driverFee,bookDays,'₱')
-                    
-                    // SET ALL INPUT FEE VALUE
-                    $(totalCarPrice).val(totalValue * bookDays)   
-                    $(totalDriverFee).val(driverFee * bookDays)   
-                    $(grandTotalPrice).val((totalValue + driverFee) * bookDays)   
-                }
-            }
+            // onSelectRange: function() {
+            //     console.log(input1.value)
+            // }
+            
         });
-        
         
     });
    
@@ -1043,101 +966,34 @@ $(function(){
     });
     
     $(document).on('change','.region', function(event) {
-    if(event.target === this)
-    {
-        var region_id = $(this).val();
-        const prices = $(this).data('price');
-       
-        $('.province').html('<option disabled selected>Select Province</option>');
-        $('.city').html('<option disabled selected>Select City</option>');
-        $.each(regions, function(index, region) {
-            if (region.id == region_id) {
-                $.each(region.province, function(index, province) {
-                    $("<option>").val(province.id).text(province.provDesc).appendTo('.province');
-                });
-            }   
-            
-        });
-        var form = $(this).closest('form')
-        var total = form.find('.total')
-        var dateInput = form.find('.date-input').val()
-        var driverFeeText = $(form).find('.drivers-fee')
-
-      
-      
-        // CHECK IF WITH/WITHOUT DRIVER
-        var driverOption = $(form).find('.driver').val()
-        var driverFee = $(form).find('.driver').data('fee')
-        
-        if(driverOption === "0")
+        if(event.target === this)
         {
-            driverFee = 0;
-        }
-
-        var totalCarPrice = $(form).find('.car-price')
-        var totalDriverFee = $(form).find('.driver-price')
-        var grandTotalPrice = $(form).find('.total-price')
-        var grandTotal = $(form).find('.grand-total')
-
-        $.each(prices, function(index, price){
-            if(region_id == price.reg_id)
-            {
-                var newPrice = price.price;
-                // console.log(typeof newPrice)
-                if(dateInput === '')
-                {
-                    // UPDATE CAR FEE TEXT
-                    updateFee(total,newPrice,0,1,'Car Fee: ₱')
-
-                    // UPDATE DRIVER FEE
-                    updateFee(driverFeeText,0,driverFee,1,"Driver's Fee: ₱")
-
-                    // UPDATE TOTAL FEE FOR CAR AND DRIVER
-                    updateFee(grandTotal,newPrice,driverFee,1,'Total: ₱')
-
-                    // SET ALL INPUT FEE VALUE
-                    $(totalCarPrice).val(newPrice * 1)   
-                    $(totalDriverFee).val(driverFee * 1)   
-                    $(grandTotalPrice).val((newPrice + driverFee) * bookDays)
-                }
-                else
-                {
-                    const dates = dateInput.split(" - ");
-                    const startDate = new Date(dates[0]);
-                    const endDate = new Date(dates[1]);
-                    const diffTime = Math.abs(endDate - startDate);
-                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                    
-                    if(diffDays < 1) {
-                        var bookDays = diffDays + 1;
-                    }
-                    else
-                    {
-                        var bookDays = diffDays;
-                    }
-                    updateFee(total,newPrice,0,bookDays,'Car Fee: ₱')
-                    // UPDATE DRIVER FEE
-                    updateFee(driverFeeText,0,driverFee,bookDays,"Driver's Fee: ₱")
-                    updateFee(grandTotal,newPrice,driverFee,bookDays,'Total: ₱')
-
-                    //  UPDATE CONFIRM RESERVATION
-                    var confirmCarFee = $(form).find('.confirm-car-fee')
-                    var confirmDriverFee = $(form).find('.confirm-driver-fee')
-                    var confirmTotal = $(form).find('.confirm-total')
-                    updateFee(confirmCarFee,newPrice,0,bookDays,'₱')
-                    updateFee(confirmDriverFee,0,driverFee,bookDays,'₱')
-                    updateFee(confirmTotal,newPrice,driverFee,bookDays,'₱')
-                   
-                    // SET ALL INPUT FEE VALUE
-                    $(totalCarPrice).val(newPrice * bookDays)   
-                    $(totalDriverFee).val(driverFee * bookDays)   
-                    $(grandTotalPrice).val((newPrice + driverFee) * bookDays)
-                  
-                }
-            }
+            const region_id = $(this).val();
+            const prices = $(this).data('price');
             
-        })
-    } 
+        
+            $('.province').html('<option disabled selected>Select Province</option>');
+            $('.city').html('<option disabled selected>Select City</option>');
+            $.each(regions, function(index, region) {
+                if (region.id == region_id) {
+                    $.each(region.province, function(index, province) {
+                        $("<option>").val(province.id).text(province.provDesc).appendTo('.province');
+                    });
+                }   
+                
+            });
+            const form = $(this).closest('form')
+            
+
+            $.each(prices, function(index, price){
+                if(region_id == price.reg_id)
+                {  
+                    $(form).find('.car-price').val(parseFloat(price.price))
+                  
+                }  
+            })
+            
+        } 
     });
     
     $(document).on('change','.province', function(event) {
@@ -1175,100 +1031,32 @@ $(function(){
     $(document).on('change','.driver', function(event) {
         if(event.target === this)
         {
-            var driverFee = $(this).data('fee');
+           
             const driver = $(this).val();
-            var form = $(this).closest('form')
-            var driverFeeText = $(form).find('.drivers-fee')
-            var grandTotal = $(form).find('.grand-total')
-            var totalCarPrice = $(form).find('.car-price')
-            var totalDriverFee = $(form).find('.driver-price')
-            var grandTotalPrice = form.find('.total-price')
-            var dateInput = form.find('.date-input').val()
-            var prices = $(form).find('.region').data('price')
-            var region = $(form).find('.region').val()
+            const driverFee = $(this).data('driver');
+            const form = $(this).closest('form')
             const licenseContainer = $(form).find('.license-container');
            
-
-            // CHECK IF THE REGION IS SELECTED
-            if(region !== null)
-            {
-                var totalValue;
-                $.each(prices, function(index, price){
-                    if(region === price.reg_id.toString())
-                    {
-                         totalValue = parseFloat(price.price);
-                    }
-                })
-            }
-            else
-            {
-                var totalValue = parseFloat(prices[3].price);
-            }
-
-            // CHECK IF WITH/WITHOUT DRIVER
-            if(driver === "0")
-            {
-                if($(licenseContainer).hasClass('hidden'))
-                {
-                    $(licenseContainer).removeClass('hidden')
-                }
-                driverFee = 0;
-            }
-            else
-            {
-                if(!$(licenseContainer).hasClass('hidden'))
-                {
-                    $(licenseContainer).addClass('hidden')  
-                }
-            }
+             // CHECK IF WITH/WITHOUT DRIVER
+             if(driver === "0")
+             {
+                 if($(licenseContainer).hasClass('hidden'))
+                 {
+                     $(licenseContainer).removeClass('hidden')
+                 }
+                 $(form).find('.driver-price').val(0)
+             }
+             else
+             {
+                 if(!$(licenseContainer).hasClass('hidden'))
+                 {
+                     $(licenseContainer).addClass('hidden')  
+                 }
+                 $(form).find('.driver-price').val(parseFloat(driverFee))
+             }
            
-            if(dateInput === '')
-            {
-                 // UPDATE DRIVER FEE
-                 updateFee(driverFeeText,0,driverFee,1,"Driver's Fee: ₱")
-                  
-                 // UPDATE TOTAL FEE FOR CAR AND DRIVER
-                 updateFee(grandTotal,totalValue,driverFee,1,'Total: ₱')
 
-                 // SET ALL INPUT FEE VALUE
-                 $(totalCarPrice).val(totalValue * bookDays)   
-                 $(totalDriverFee).val(driverFee * bookDays)   
-                 $(grandTotalPrice).val((totalValue + driverFee) * bookDays)
-                
-            }
-            else
-            {
-                const dates = dateInput.split(" - ");
-                const startDate = new Date(dates[0]);
-                const endDate = new Date(dates[1]);
-                const diffTime = Math.abs(endDate - startDate);
-                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                
-                if(diffDays < 1) {
-                    var bookDays = diffDays + 1;
-                }
-                else
-                {
-                    var bookDays = diffDays;
-                }
-               
-                // UPDATE DRIVER FEE
-                updateFee(driverFeeText,0,driverFee,bookDays,"Driver's Fee: ₱")
-                  
-                // UPDATE TOTAL FEE FOR CAR AND DRIVER
-                updateFee(grandTotal,totalValue,driverFee,bookDays,'Total: ₱')
-
-                //  UPDATE CONFIRM RESERVATION
-                var confirmDriverFee = $(form).find('.confirm-driver-fee')
-                var confirmTotal = $(form).find('.confirm-total')
-                updateFee(confirmDriverFee,0,driverFee,bookDays,'₱')
-                updateFee(confirmTotal,totalValue,driverFee,bookDays,'₱')
-                
-                // SET ALL INPUT FEE VALUE
-                $(totalCarPrice).val(totalValue * bookDays)   
-                $(totalDriverFee).val(driverFee * bookDays)   
-                $(grandTotalPrice).val((totalValue + driverFee) * bookDays)   
-            }
+            
         } 
     });
     
@@ -1466,6 +1254,7 @@ $(function(){
 
         }
     })
+  
         //    Add car form validation
     $('.step-2').on('click', async function(event){
         if(event.target === this)
@@ -1477,12 +1266,13 @@ $(function(){
             {
                 const dateInput = $(stepTwo).find('.date-input').val();
                 const timeInput = $(stepTwo).find('.time-input').val();
+                const timeEndInput = $(stepTwo).find('.time-end-input').val();
                 const regionID = $(stepTwo).find('.region').val();
                 const provinceID = $(stepTwo).find('.province').val();
                 const cityID = $(stepTwo).find('.city').val();
                 const driver = $(stepTwo).find('.driver').val();
             
-                const valid = stepOneValidation(dateInput) && stepOneValidation(timeInput) && stepOneValidation(regionID) && stepOneValidation(provinceID) && stepOneValidation(cityID);
+                const valid = stepOneValidation(dateInput) && stepOneValidation(timeInput) && stepOneValidation(timeEndInput) && stepOneValidation(regionID) && stepOneValidation(provinceID) && stepOneValidation(cityID);
             
             
                 if(valid)
@@ -1512,21 +1302,89 @@ $(function(){
                     // DISPLAY CONFIRM DRIVER OPTION
                     driver === "0" ? $(stepTwo).find('.confirm-driver').text('Self Drive') : $(stepTwo).find('.confirm-driver').text('With Driver');
                 
-                    const dates = dateInput.split(" - ");
-                    const startDate = new Date(dates[0]).toLocaleDateString("en-us", { weekday: "short", year: "numeric", month: "short", day: "numeric" });
-                    const endDate = new Date(dates[1]).toLocaleDateString("en-us", { weekday: "short", year: "numeric", month: "short", day: "numeric" });
-                    
-                    // DISPLAY START AND END DATE
-                    $(stepTwo).find('.confirm-start-date').text(startDate)
-                    $(stepTwo).find('.confirm-end-date').text(endDate)
+                    var dates = dateInput.split(" - ");
+                    var startDate = new Date(dates[0]).toLocaleDateString("en-us", { weekday: "short", year: "numeric", month: "short", day: "numeric" });
+                    var endDate = new Date(dates[1]).toLocaleDateString("en-us", { weekday: "short", year: "numeric", month: "short", day: "numeric" });
+
                     var time = timeInput;
                     var hours = parseInt(time.substr(0, 2));
                     var minutes = time.substr(3, 2);
                     var ampm = hours >= 12 ? 'PM' : 'AM';
                     hours = (hours % 12) || 12;
                     var formattedTimeInput = hours + ':' + minutes + ' ' + ampm;
-                    $(stepTwo).find('.confirm-time').text(formattedTimeInput)
 
+                    var timeEnd = timeEndInput;
+                    var hoursEnd = parseInt(timeEnd.substr(0, 2));
+                    var minutesEnd = timeEnd.substr(3, 2);
+                    var ampmEnd = hoursEnd >= 12 ? 'PM' : 'AM';
+                    hoursEnd = (hoursEnd % 12) || 12;
+                    var formattedTimeEndInput = hoursEnd + ':' + minutesEnd + ' ' + ampmEnd;
+                 
+                    
+                    // DISPLAY START AND END DATE
+                    $(stepTwo).find('.confirm-start-date').text(startDate + ' ' + formattedTimeInput)
+                    $(stepTwo).find('.confirm-end-date').text(endDate + ' ' + formattedTimeEndInput)
+
+
+
+                    // Combine the dates and times into timestamps
+                    var startTimestamp = Date.parse(`${dates[0]} ${timeInput}`);
+                    var endTimestamp = Date.parse(`${dates[1]} ${timeEndInput}`);
+
+                    // Calculate the difference between the timestamps in days
+                    var diffTime = Math.abs(endTimestamp - startTimestamp);
+                    var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+                    var bookDays = diffDays;
+
+                    // CHECK IF WITH/WITHOUT DRIVER
+                    if(driver === "0")
+                    {
+                        $(stepTwo).find('.driver-price').val(0)
+                    }
+                    else
+                    {
+                        var initialDriverFee = $(stepTwo).find('.driver').data('driver')
+                        $(stepTwo).find('.driver-price').val(parseFloat(initialDriverFee))
+                    }
+
+                    const region_id = $(stepTwo).find('.region').val();
+                    const prices = $(stepTwo).find('.region').data('price');
+                    $.each(prices, function(index, price){
+                        if(region_id == price.reg_id)
+                        {  
+                            $(stepTwo).find('.car-price').val(parseFloat(price.price))
+                          
+                        }  
+                    })
+                    
+                    // GET CAR PRICE AND DRIVER FEE VALUE
+                    var newPrice = $(stepTwo).find('.car-price').val()
+                    var driverFee = $(stepTwo).find('.driver-price').val()
+
+                    $(stepTwo).find('.confirm-days-count').text('₱ '+ parseFloat(newPrice).toLocaleString('en-US', {
+                        style: 'decimal',
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                        useGrouping: true
+                    }).replace(/^(\D+)/, '$1 ') + ' / Day')
+                       
+
+                    //  UPDATE CONFIRM RESERVATION
+                    var confirmCarFee = $(stepTwo).find('.confirm-car-fee')
+                    var confirmDriverFee = $(stepTwo).find('.confirm-driver-fee')
+                    var confirmTotal = $(stepTwo).find('.confirm-total')
+                    
+                    updateFee(confirmCarFee,newPrice,0,bookDays,'₱')
+                    updateFee(confirmDriverFee,0,driverFee,bookDays,'₱')
+                    updateFee(confirmTotal,newPrice,driverFee,bookDays,'₱')
+
+                   
+                   
+                    // SET ALL INPUT FEE VALUE
+                    $(stepTwo).find('.car-price').val(parseFloat(newPrice) * bookDays)   
+                    $(stepTwo).find('.driver-price').val(parseFloat(driverFee) * bookDays)   
+                    $(stepTwo).find('.total-price').val((parseFloat(newPrice) + parseFloat(driverFee)) * bookDays)
 
                     // SHOW CUSTOMER DETAILS FORM
                     $(stepTwo).find('.form-step').hide()
@@ -1610,6 +1468,7 @@ $(function(){
                 
                 const dateInput = $(bookingForm).find('.date-input').val();
                 const timeInput = $(bookingForm).find('.time-input').val();
+                const timeEndInput = $(bookingForm).find('.time-end-input').val();
                 const regionID = $(bookingForm).find('.region').val();
                 const provinceID = $(bookingForm).find('.province').val();
                 const cityID = $(bookingForm).find('.city').val();
@@ -1628,15 +1487,18 @@ $(function(){
                 const utilityImgError = $(utilityImg).siblings('label');
                 const address = $(bookingForm).find('.address');
                 const addressError = $(address).siblings('label');
+                const terms = $(bookingForm).find('.booking-terms');
+                var termsError = $(bookingForm).find('.booking-form-error');
+                
 
                 var valid = false;
                 if(driver === "1")
                 {
-                    valid = stepOneValidation(dateInput) && stepOneValidation(timeInput) && stepOneValidation(regionID) && stepOneValidation(provinceID) && stepOneValidation(cityID) && fullName(fullname,fullNameError,'Full Name') && contact(contactNumber,contactNumberError) && fileImage(validIDImg,validIDImgError,"Valid ID")  && fileImage(validIDImg2,validIDImg2Error,"Another Valid ID") && fileImage(utilityImg,utilityImgError, "Latest Electric/Water Bill") && validateAddress(address,addressError);
+                    valid = stepOneValidation(dateInput) && stepOneValidation(timeInput) && stepOneValidation(timeEndInput) && stepOneValidation(regionID) && stepOneValidation(provinceID) && stepOneValidation(cityID) && fullName(fullname,fullNameError,'Full Name') && contact(contactNumber,contactNumberError) && fileImage(validIDImg,validIDImgError,"Valid ID")  && fileImage(validIDImg2,validIDImg2Error,"Another Valid ID") && fileImage(utilityImg,utilityImgError, "Latest Electric/Water Bill") && validateAddress(address,addressError)  && validateTerms(terms,termsError);
                 }
                 else
                 {
-                    valid = stepOneValidation(dateInput) && stepOneValidation(regionID) && stepOneValidation(provinceID) && stepOneValidation(cityID) && fullName(fullname,fullNameError,'Full Name') && contact(contactNumber,contactNumberError) && fileImage(licenseImg,licenseImgError, "Driver's License") && fileImage(validIDImg,validIDImgError,"Valid ID")  && fileImage(validIDImg2,validIDImg2Error,"Another Valid ID") && fileImage(utilityImg,utilityImgError, "Latest Electric/Water Bill") && validateAddress(address,addressError);
+                    valid = stepOneValidation(dateInput) && stepOneValidation(timeInput) && stepOneValidation(timeEndInput) && stepOneValidation(regionID) && stepOneValidation(provinceID) && stepOneValidation(cityID) && fullName(fullname,fullNameError,'Full Name') && contact(contactNumber,contactNumberError) && fileImage(licenseImg,licenseImgError, "Driver's License") && fileImage(validIDImg,validIDImgError,"Valid ID")  && fileImage(validIDImg2,validIDImg2Error,"Another Valid ID") && fileImage(utilityImg,utilityImgError, "Latest Electric/Water Bill") && validateAddress(address,addressError) && validateTerms(terms,termsError);
                 }
                 if(valid)
                 {
@@ -1716,6 +1578,13 @@ $(function(){
                             // window.location.href =  window.location.href;  
                         },3000)
                     })
+            }
+            else
+            {
+                var termsError = $(bookingForm).find('.booking-form-error');
+                setTimeout(function(){
+                    $(termsError).hide()
+                },3000)
             }
             
         }
@@ -2109,6 +1978,41 @@ $(function(){
       });
 
  
+    // Cache elements that are repeatedly used
+    var $termsContent = $('.terms-content');
+    var $termsLinks = $('.terms-link');
+
+    function showContent(id, $link) {
+        // Hide all content, show the selected one
+        $termsContent.hide();
+        $('#' + id).show();
+
+        // Reset links and set the selected one to active
+        $termsLinks.removeClass('text-accent-regular underline').addClass('text-black ');
+        $link.removeClass('text-black ').addClass('text-accent-regular underline');
+    }
+
+    // Click event handlers
+    $(document).on('click', '.terms', function() {
+        showContent('terms', $(this));
+    });
+
+    $(document).on('click', '.privacy', function() {
+        showContent('privacy', $(this));
+    });
+
+    $(document).on('click', '.cancellation', function() {
+        showContent('cancellation', $(this));
+    });
+
+    $(document).on('click', '.guidelines', function() {
+        showContent('guidelines', $(this));
+    });
+
+    $(document).on('click', '.nondiscrimination', function() {
+        showContent('nondiscrimination', $(this));
+    });
+
    
     
    

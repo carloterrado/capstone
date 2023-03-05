@@ -2098,5 +2098,74 @@ $(function(){
            
         }
     });
+
+    //   CAR BOOKING CALENDAR
+            
+    $('.date-input').each(function() {
+        var input1 = $(this)[0];
+        
+        var data = $(input1).data('bookdates');
+        var bookdates = [];
+
+        for (let i = 0; i < data.length; i++) {
+            if(data[i].status === 'approved' || data[i].status === 'ongoing')
+            {
+                var starts = new Date(data[i].start_date);
+                var ends = new Date(data[i].end_date);
+                var set = new Date(data[0].end_date);
+                set.setDate(set.getDate() + 1);
+            
+                while (starts <= ends) {
+                    bookdates.push(fecha.format(new Date(starts), 'YYYY-MM-DD'));
+                    starts.setDate(starts.getDate() + 1);   
+                }
+            }
+        }
+        var picker = new Datepicker(input1, {
+            inline: true,
+            autoClose: false,
+            disabledDates: bookdates,
+            // onSelectRange: function() {
+            //     console.log(input1.value)
+            // }
+            
+        });
+        
+    });
+
+     // Cache elements that are repeatedly used
+     var $termsContent = $('.terms-content');
+     var $termsLinks = $('.terms-link');
+ 
+     function showContent(id, $link) {
+         // Hide all content, show the selected one
+         $termsContent.hide();
+         $('#' + id).show();
+ 
+         // Reset links and set the selected one to active
+         $termsLinks.removeClass('text-accent-regular underline').addClass('text-black ');
+         $link.removeClass('text-black ').addClass('text-accent-regular underline');
+     }
+ 
+     // Click event handlers
+     $(document).on('click', '.terms', function() {
+         showContent('terms', $(this));
+     });
+ 
+     $(document).on('click', '.privacy', function() {
+         showContent('privacy', $(this));
+     });
+ 
+     $(document).on('click', '.cancellation', function() {
+         showContent('cancellation', $(this));
+     });
+ 
+     $(document).on('click', '.guidelines', function() {
+         showContent('guidelines', $(this));
+     });
+ 
+     $(document).on('click', '.nondiscrimination', function() {
+         showContent('nondiscrimination', $(this));
+     });
    
 });

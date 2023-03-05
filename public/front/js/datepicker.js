@@ -32,7 +32,7 @@ var Datepicker = (function () {
         this.preventContainerClose = opts.preventContainerClose || false;
         this.container = opts.container || "";
         this.animationSpeed = opts.animationSpeed || ".5s";
-        this.hoveringTooltip = opts.hoveringTooltip || true; // Or a function
+        this.hoveringTooltip = opts.hoveringTooltip || false; // Or a function
         this.autoClose = opts.autoClose === undefined ? true : opts.autoClose;
         this.showTopbar =
             opts.showTopbar === undefined ? true : opts.showTopbar;

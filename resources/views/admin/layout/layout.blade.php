@@ -12,6 +12,7 @@
       rel="stylesheet">
       <link rel="stylesheet" href="{{url('css/app.css')}}">
       <link rel="stylesheet" href="{{url('css/dataTable.css')}}">
+      <link rel="stylesheet" href="{{url('css/date-picker-admin.css')}}">
       <link rel="stylesheet" href="{{url('css/magnific-popup.min.css')}}">
    
     
@@ -37,13 +38,13 @@
    @include('admin.layout.admin-footer')
    <!-- Footer end -->
     </div>
-   
+    
    <script src="{{url('js/app.js')}}"></script>
    <script src="{{url('js/jquery.min.js')}}"></script>
    <script src="{{url('front/js/index.js')}}"></script>
    <script src="{{url('js/magnific-popup.min.js')}}"></script>
-
    <script src="{{url('js/jquery.Datatable.js')}}"></script>
+   
    <script>
        $('#arkilla-table').DataTable({
         // ordering: false,
@@ -64,7 +65,8 @@
         });
    </script>
    <script src="{{url('admins/js/custom.js')}}"></script>
-   
+   <script src="{{url('js/fecha.min.js')}}"></script>
+    <script src="{{url('js/datepicker.js')}}"></script> 
    
 </body>
 

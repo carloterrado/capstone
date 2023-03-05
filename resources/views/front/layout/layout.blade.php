@@ -10,9 +10,9 @@
    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 
    <link rel="stylesheet" href="{{url('css/app.css')}}">
-   <link rel="stylesheet" href="{{url('css/date-picker.css')}}">
    <link rel="stylesheet" href="{{url('css/dataTable.css')}}">
    <link rel="stylesheet" href="{{url('css/magnific-popup.min.css')}}">
+   <link rel="stylesheet" href="{{url('css/date-picker.css')}}">
    
    <!-- <link rel="stylesheet" href="{{url('css/datepicker-main.css')}}"> -->
   
@@ -112,8 +112,18 @@
         $('#fees-and-policies').show()
     })
      
-   
+    const baseUrl = new URL(window.location.origin);
+    const url = new URL(window.location.href);
 
+    // Check if the URL starts with the base URL
+    if (url.href === baseUrl.href) {
+        // Add the 'active' class to the corresponding link
+        $('.home').addClass('underline');
+    } else {
+    // Add the 'active' class to the corresponding link
+    $('.nav-list[href="'+url+'"]').addClass('underline');
+    }
+    
 
    </script>
    

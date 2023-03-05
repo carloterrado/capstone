@@ -25,11 +25,11 @@ use Carbon\Carbon;
       </div>
       
       <div id="project" >
-        <div><span>CLIENT</span> {{$history['name']}}</div>
-        <div><span>EMAIL</span> {{$history['email']}}</div>
-        <div><span>CONTACT</span> {{$history['contact']}}</div>
-        <div><span>ADDRESS</span> {{$history['address']}}</div>
-        <div><span>DATE ISSUED</span> {{Carbon::parse($history['created_at'])->format('Y-m-d H:i a')}}</div>
+        <div><span>Client: </span> {{$history['name']}}</div>
+        <div><span>Email: </span> {{$history['email']}}</div>
+        <div><span>Contact: </span> {{$history['contact']}}</div>
+        <div><span>Address: </span> {{$history['address']}}</div>
+        <div><span>Date Issued: </span> {{Carbon::parse($history['created_at'])->tz('Asia/Manila')->format('Y-m-d H:i a')}}</div>
        
       </div>
       
@@ -38,50 +38,50 @@ use Carbon\Carbon;
       <table>
         <thead>
           <tr>
-            <th class="service">BOOK ID</th>
+            <th class="service">Book ID</th>
             <th class="desc">Car Description</th>
             <th class="desc">Destination</th>
             <th class="desc">Start Date</th>
             <th class="desc">End Date</th>
-            <th>PRICE</th>
+            <th>Price</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td class="service"> {{$history['booking_id']}}</td>
             <td class="desc">
-                <div class="left"><span>CAR ID: </span> {{$history['car_id']}}</div>
-                <div class=""><span>CAR TYPE: </span> {{$history['car_type']}}</div>
-                <div class=""><span>BRAND AND MODEL: </span> {{$history['car_name']}}</div>
-                <div class=""><span>FUEL TYPE: </span> {{$history['fuel_type']}}</div>
-                <div class=""><span>PLATE NUMBER: </span> {{$history['plate_number']}}</div>
-                <div class=""><span>CAPACITY: </span> {{$history['capacity']}}</div>
+                <div class="left"><span>Car ID: </span> {{$history['car_id']}}</div>
+                <div class=""><span>Car Type: </span> {{$history['car_type']}}</div>
+                <div class=""><span>Brand and Model: </span> {{$history['car_name']}}</div>
+                <div class=""><span>Fuel Type: </span> {{$history['fuel_type']}}</div>
+                <div class=""><span>Plate Number: </span> {{$history['plate_number']}}</div>
+                <div class=""><span>Capacity: </span> {{$history['capacity']}}</div>
             </td>
             <td class="desc">{{$history['destination']}}</td>
             <td class="desc">{{$history['start_date'].' '.$history['time']}}</td>
-            <td class="desc">{{$history['end_date'].' '.$history['time']}}</td>
+            <td class="desc">{{$history['end_date'].' '.$history['time_end']}}</td>
             <td class="desc">{{'Php '.number_format($history['car_price'],2,'.',',')}}</td>
           </tr>
         
           
           <tr>
             <td colspan="2"></td>
-            <td colspan="2" style="text-align: start;">SUBTOTAL</td>
+            <td colspan="2" style="text-align: start;">Subtotal</td>
             <td colspan="2" style="text-align: start;" class="total">{{'Php '.number_format($history['car_price'],2,'.',',')}}</td>
           </tr>
           <tr>
             <td colspan="2"></td>
-            <td colspan="2" style="text-align: start;">DRIVER</td>
+            <td colspan="2" style="text-align: start;">Driver Fee</td>
             <td colspan="2" style="text-align: start;" class="total">{{'Php '.number_format($history['driver_fee'],2,'.',',')}}</td>
           </tr>
           <tr>
             <td colspan="2" class="grand total"></td>
-            <td colspan="2" style="text-align: start;" class="grand total">GRAND TOTAL</td>
+            <td colspan="2" style="text-align: start;" class="grand total">Grand Total</td>
             <td colspan="2" style="text-align: start;" class="grand total">{{'Php '.number_format($history['grand_total'],2,'.',',')}}</td>
           </tr>
           @if ($history['owner_id'] !== 0)
             <tr>
-              <td colspan="2" class="grand total">COMMISSION FEE</td>
+              <td colspan="2" class="grand total">Commission Fee</td>
               <td colspan="2" style="text-align: start;" class="grand total">status: {{$history['commission']}}</td>
               <td colspan="2" style="text-align: start;" class="grand total">{{'Php '.number_format($history['commission_fee'],2,'.',',')}}</td>
             </tr> 

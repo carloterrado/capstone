@@ -3378,6 +3378,9 @@ input[type="range"]::-ms-thumb {
 .underline-offset-4 {
   text-underline-offset: 4px;
 }
+.underline-offset-2 {
+  text-underline-offset: 2px;
+}
 .antialiased {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -4715,6 +4718,10 @@ input[type="range"]::-ms-thumb {
 
   .md\:pr-\[25\%\] {
     padding-right: 25%;
+  }
+
+  .md\:pb-0 {
+    padding-bottom: 0px;
   }
 
   .md\:text-left {

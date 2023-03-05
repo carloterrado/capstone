@@ -57,7 +57,8 @@
                                     <div class="flex justify-center">
                                         <button type="button" data-modal-toggle="{{'view-booking'.$book['id']}}"  class="details btn-1 bg-accent-regular uppercase  w-[fit-content]   text-white whitespace-nowrap">View details</button>
                                     </div>
-                                    @include('admin.booking.admin-view-booking-details') 
+                                    @include('admin.booking.admin-view-booking-details')
+                                        
                                 </td>
                                 <td class="py-4 px-6 font-semibold text-gray-900 ">
                                     <div class="py-6 flex justify-center ">

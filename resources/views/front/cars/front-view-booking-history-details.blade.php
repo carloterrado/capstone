@@ -23,7 +23,7 @@
                                 <div><span>EMAIL: </span> {{$history['email']}}</div>
                                 <div><span>CONTACT: </span> {{$history['contact']}}</div>
                                 <div><span>ADDRESS: </span> {{$history['address']}}</div>
-                                <div><span>DATE ISSUED: </span> {{Carbon::parse($history['created_at'])->format('Y-m-d H:i a')}}</div>
+                                <div><span>DATE ISSUED: </span> {{Carbon::parse($history['created_at'])->tz('Asia/Manila')->format('Y-m-d H:i a')}}</div>
                             
                             </div>
                             <div  class="col-span-6 sm:col-span-3 p-2 space-y-2" >

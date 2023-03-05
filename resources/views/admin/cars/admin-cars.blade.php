@@ -35,13 +35,16 @@
                        Car ID
                     </th>
                     <th scope="col" class="py-3 px-6 whitespace-nowrap">
-                        Name of car
+                        Brand and Model
                     </th>
                     <th scope="col" class="py-3 px-6">
                         <span class="block text-center">Car image</span>   
                     </th>
                     <th scope="col" class="py-3 px-6">
                         <span class="block text-center">View details</span>  
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        <span class="block text-center">Schedule</span>  
                     </th>
                     <th scope="col" class="py-3 px-6">
                         <span class="block text-center">Checklist</span>  
@@ -77,6 +80,15 @@
                         </div>
                         @include('admin.cars.admin-view-car-details')
                     </td>
+                    
+                    <td class="py-4 px-6">
+                        <div class="flex justify-center">
+                            <button  data-modal-toggle="{{'car-schedule'.$car['id']}}" >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path fill="#e84949" d="M21 20V6c0-1.103-.897-2-2-2h-2V2h-2v2H9V2H7v2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2zM9 18H7v-2h2v2zm0-4H7v-2h2v2zm4 4h-2v-2h2v2zm0-4h-2v-2h2v2zm4 4h-2v-2h2v2zm0-4h-2v-2h2v2zm2-5H5V7h14v2z"/></svg>
+                            </button>
+                        </div>
+                        @include('admin.cars.admin-car-schedule')
+                    </td>
                     <td class="py-4 px-6">
                         <div class="flex justify-center">
                             <button  data-modal-toggle="{{'car-checklist'.$car['id']}}" class="details btn-1 bg-accent-regular uppercase  w-[fit-content]   text-white whitespace-nowrap">
@@ -90,7 +102,7 @@
                         @include('admin.cars.admin-checklist')
                     </td>
                     <td class="py-4 px-6 font-semibold text-gray-900 ">
-                    <div class="py-6">
+                        <div class="py-6">
                             @if ($car['status'] === 1) 
                             <a id="car-{{$car['id']}}" car_id="{{$car['id']}}" class="updateCarStatus cursor-pointer"><svg status="Active" xmlns="http://www.w3.org/2000/svg" width="40" height="40" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="#e84949" d="m10.6 13.8l-2.175-2.175q-.275-.275-.675-.275t-.7.3q-.275.275-.275.7q0 .425.275.7L9.9 15.9q.275.275.7.275q.425 0 .7-.275l5.675-5.675q.275-.275.275-.675t-.3-.7q-.275-.275-.7-.275q-.425 0-.7.275ZM12 22q-2.075 0-3.9-.788q-1.825-.787-3.175-2.137q-1.35-1.35-2.137-3.175Q2 14.075 2 12t.788-3.9q.787-1.825 2.137-3.175q1.35-1.35 3.175-2.138Q9.925 2 12 2t3.9.787q1.825.788 3.175 2.138q1.35 1.35 2.137 3.175Q22 9.925 22 12t-.788 3.9q-.787 1.825-2.137 3.175q-1.35 1.35-3.175 2.137Q14.075 22 12 22Z"/></svg></a>    
                             @else 

@@ -21,6 +21,10 @@ class Booking extends Model
     {
         return $this->belongsTo(User::class,'user_id');
     }
+    public function checkCarBooking()
+    {
+        return $this->belongsTo(Car::class,'car_id')->with('carBooking');
+    }
     public function carInfo()
     {
         return $this->belongsTo(Car::class,'car_id')->with('carTypes','carChecklist');
