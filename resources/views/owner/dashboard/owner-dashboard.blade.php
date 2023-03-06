@@ -9,6 +9,7 @@
         </ol>
     </nav>
     <section class="grid grid-cols-8 gap-2 lg:gap-6">
+        
         <div class="w-full mx-auto max-w-sm col-span-8 sm:col-span-4 lg:col-span-2 bg-white border border-gray-100 rounded-lg  shadow-lg">
             <div class="p-4">
                 <div class="flex flex-col gap-4 text-gray-700">
@@ -19,6 +20,21 @@
                         </div>
                         <div class="">
                             <h3 class=" text-4xl leading-normal m-auto ">{{ $dashboard['ownerCarCount'] }}</h3>
+                        </div>
+                    </div>
+                </div>  
+            </div>    
+        </div>
+        <div class="w-full mx-auto max-w-sm col-span-8 sm:col-span-4 lg:col-span-2 bg-white border border-gray-100 rounded-lg  shadow-lg">
+            <div class="p-4">
+                <div class="flex flex-col gap-4 text-gray-700">
+                    <h5 class=" font-medium text-xl">New Bookings</h5>
+                    <div class=" flex gap-6 text-gray-700 items-center ">
+                        <div class="p-3 bg-yellow-400/20 text-yellow-400 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-11 h-11"  viewBox="0 0 15 15"><path fill="currentColor" d="M10.5 1a1 1 0 0 0-1 1H2v1l1 1l1-1l1 1l1-1l1 1h2.5a1 1 0 0 0 1 1h2a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-2Zm.5 1.5a.5.5 0 0 1 1 0v1a.5.5 0 0 1-1 0v-1ZM2.146 9.354A.5.5 0 0 0 2 9.707V13.5a.5.5 0 0 0 .5.5H4a.5.5 0 0 0 .5-.5V13h6v.5a.5.5 0 0 0 .5.5h1.5a.5.5 0 0 0 .5-.5V9.707a.5.5 0 0 0-.146-.353L12 8.5l-1.354-2.257a.5.5 0 0 0-.43-.243H4.784a.5.5 0 0 0-.429.243L3 8.5l-.854.854ZM11.134 9H3.866l1.2-2h4.868l1.2 2ZM5.5 10.828v.372a.3.3 0 0 1-.3.3H3.3a.3.3 0 0 1-.3-.3v-.834a.3.3 0 0 1 .359-.294l1.82.364a.4.4 0 0 1 .321.392Zm6.5-.34v.712a.3.3 0 0 1-.3.3H9.8a.3.3 0 0 1-.3-.3v-.454a.3.3 0 0 1 .241-.294l1.78-.356a.4.4 0 0 1 .479.392Z"/></svg>
+                        </div>
+                        <div class="">
+                            <h3 class=" text-4xl leading-normal m-auto ">{{ $dashboard['newBooking'] }}</h3>
                         </div>
                     </div>
                 </div>  
@@ -54,7 +70,39 @@
                 </div>  
             </div>    
         </div>  
-    </section>
+        <div class="w-full mx-auto col-span-8   bg-white border border-gray-100 rounded-lg  shadow-lg p-2 sm:p-4">
+            <h3 class="font-medium text-xl">Most Booked Cars</h3>
+            <div id="barChart" ></div>
+            <script>document.addEventListener("DOMContentLoaded", () => {
+                new ApexCharts(document.querySelector("#barChart"), {
+                    series: [{
+                    name: "Booked",
+                    data: <?php echo json_encode($dashboard['carWithBookingCounts']) ?>
+                    }],
+                    chart: {
+                    type: 'bar',
+                    height: '100%',
 
-    
+                    },
+                    plotOptions: {
+                    bar: {
+                        borderRadius: 4,
+                        horizontal: true,
+                    }
+                    },
+                    fill: {
+                    colors: ['#e84949']
+                },
+                    dataLabels: {
+                    enabled: false
+                    },
+                    xaxis: {
+                    categories: <?php echo json_encode($dashboard['carWithBookingNames']) ?>,
+                    }
+                }).render();
+                });
+            </script> 
+        </div>
+    </section>
 </div>
+<script src="{{url('js/apexcharts.min.js')}}"></script>

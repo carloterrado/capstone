@@ -2013,7 +2013,35 @@ $(function(){
         showContent('nondiscrimination', $(this));
     });
 
+//    $(".download-btn").click(function() {
+//     var content = $(this).siblings(".content")[0];
+//     html2canvas(content).then(canvas => {
+//         var link = document.createElement("a");
+//         link.download = "checklist.png";
+//         link.href = canvas.toDataURL();
+//         link.click();
+//     });
+//     });
+$(document).on('click','.download-checklist',function(event){
    
+    if(event.target === this)
+    {
+        
+        const downloadBtn = $(this);
+        
+        const content = $(downloadBtn).closest('.content-container').find('.content')
+        
+        html2canvas(content[0]).then(canvas => {
+        const link = document.createElement("a");
+        link.download = "checklist.png";
+        link.href = canvas.toDataURL();
+        link.click();
+        });
+
+    }
+        
+  
+})
     
    
 });

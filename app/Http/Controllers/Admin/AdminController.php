@@ -53,46 +53,50 @@ class AdminController extends Controller
             }
             Session::forget('commission_error_message');
             $car = Car::where('admin_id',Auth::guard('admin')->user()->id)->get();
-            $ownerCar = $car->where('account','verified')->count();
-            $ownerCarRequest = $car->where('account','unverified')->count();
-            $ownerCarDeclined = $car->where('account','declined')->count();
+            $cars = Car::select('cars.id', 'cars.name')
+            ->selectRaw('count(histories.id) as total_bookings')
+            ->leftJoin('histories', 'cars.id', '=', 'histories.car_id')
+            ->where('cars.owner_id', Auth::guard('admin')->user()->owner_id)
+            ->groupBy('cars.id', 'cars.name')
+            ->orderByDesc('total_bookings')
+            ->limit(5)
+            ->get();
             $dashboard = [
-                'ownerCarCount' => $ownerCar,
-                'ownerCarRequestCount' => $ownerCarRequest,
-                'ownerCarDeclinedCount' => $ownerCarDeclined,
+                'newBooking' => Booking::where(['owner_id' => Auth::guard('admin')->user()->owner_id, 'status' => 'pending'])->count(),
+                'ownerCarCount' => $car->where('account','verified')->count(),
+                'ownerCarRequestCount' => $car->where('account','unverified')->count(),
+                'ownerCarDeclinedCount' => $car->where('account','declined')->count(),
+                'carWithBookingNames' => $cars->pluck('name')->toArray(),
+                'carWithBookingCounts' => $cars->pluck('total_bookings')->toArray(),
             ];
             return view('owner.dashboard')->with(compact('dashboard'));
         }
-        $cartype = CarType::count();
-        $car = Car::all();
-        $adminCar = $car->where('owner_id',0)->count();
-        $ownerCar = $car->where('owner_id','!=',0)->count();
-        $ownerCarRequest = $car->where('account','unverified')->count();
-        $ownerCarDeclined = $car->where('account','declined')->count();
-        $admin = Admin::all();
-        $admins = $admin->where('type','admin')->count();
-        $staff = $admin->where('type','staff')->count();
-        $owner = $admin->where('type','owner')->where('account','verified')->count();
-        $ownerRequest = $admin->where('type','owner')->where('account','unverified')->count();
-        $ownerDeclined = $admin->where('type','owner')->where('account','declined')->count();
-        $user = User::all();
-        $users = $user->where('status',1)->count();
-        $userInactive = $user->where('status',0)->count();
-        // dd($owner);
+        $cars = Car::select('cars.id', 'cars.name')
+        ->selectRaw('count(histories.id) as total_bookings')
+        ->leftJoin('histories', 'cars.id', '=', 'histories.car_id')
+        ->where('cars.owner_id', 0)
+        ->groupBy('cars.id', 'cars.name')
+        ->orderByDesc('total_bookings')
+        ->limit(5)
+        ->get();
+     
+
         $dashboard = [
-            'cartypeCount' => $cartype,
-            'adminCarCount' => $adminCar,
-            'ownerCarCount' => $ownerCar,
-            'ownerCarRequestCount' => $ownerCarRequest,
-            'ownerCarDeclinedCount' => $ownerCarDeclined,
-            'adminCount' => $admins,
-            'staffCount' => $staff,
-            'ownerCount' => $owner,
-            'ownerRequestCount' => $ownerRequest,
-            'ownerDeclinedCount' => $ownerDeclined,
-            'userCount' => $users,
-            'userInactiveCount' => $userInactive,
+            'newBooking' => Booking::where(['owner_id' => 0, 'status' => 'pending'])->count(),
+            'adminCarCount' => Car::where('owner_id', 0)->count(),
+            'ownerCarRequestCount' => Car::where('account', 'unverified')->count(),
+            'adminCount' => Admin::where('type', 'admin')->count(),
+            'staffCount' => Admin::where('type', 'staff')->count(),
+            'ownerCount' => Admin::where('type', 'owner')->where('account', 'verified')->count(),
+            'ownerRequestCount' => Admin::where('type', 'owner')->where('account', 'unverified')->count(),
+            'userCount' => User::where('status', 1)->count(),
+            'carWithBookingNames' => $cars->pluck('name')->toArray(),
+            'carWithBookingCounts' => $cars->pluck('total_bookings')->toArray(),
         ];
+        
+     
+
+    //    dd($dashboard);
        
         return view('admin.dashboard')->with(compact('dashboard'));
         

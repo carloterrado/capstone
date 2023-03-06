@@ -211,3 +211,18 @@
         </div>
     </div>
  </main> 
+
+  <script>
+    // const downloadButton = document.querySelector("#download");
+    // const content = document.querySelector("#content");
+
+    // downloadButton.addEventListener("click", function() {
+    //   html2canvas(content).then(canvas => {
+    //     const link = document.createElement("a");
+    //     link.download = "checklist.png";
+    //     link.href = canvas.toDataURL();
+    //     link.click();
+    //   });
+    // });
+   
+  </script>
