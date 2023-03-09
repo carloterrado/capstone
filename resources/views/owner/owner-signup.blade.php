@@ -1,16 +1,12 @@
 
   <div class="flex justify-center h-max relative p-4 lg:p-0">
       <div class="absolute inset-0 -z-10 lg:relative  lg:w-2/3" >
-      <img src="{{url('front/images/road.jpg')}}" class="absolute inset-0 w-full h-full object-cover -z-10" alt="">
+      <img src="{{url('front/images/resized-road.jpg')}}" class="absolute inset-0 w-full h-full object-cover -z-10" alt="">
           <div class="flex items-center h-full px-20 bg-gray-900 bg-opacity-40 ">
               <div>
-                  <h2 class="text-4xl font-bold text-white">Brand</h2>
+                  <h2 class="text-4xl font-bold text-white">Welcome to CCH Car Rentals</h2>
 
-                  <p class="max-w-xl mt-3 text-gray-300">
-                      Lorem ipsum dolor sit, amet consectetur adipisicing elit. In
-                      autem ipsa, nulla laboriosam dolores, repellendus perferendis libero suscipit nam temporibus
-                      molestiae
-                  </p>
+                  
               </div>
           </div>
       </div>
@@ -147,7 +143,7 @@
                       <label id="owner-signup-terms-error" for="owner-signup-terms" class=" hidden pb-1 text-sm font-semibold lg:pl-2 text-[lightcoral]"></label>
                       <div class="flex items-center mt-4">
                         <input id="owner-signup-terms" name="owner-signup-terms" value="agree" type="checkbox" class="w-4 h-4 text-accent-regular bg-gray-100 rounded border-gray-300 focus:ring-0">
-                        <label  class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">I agree with the <a href="#" class="text-accent-regular  hover:underline">terms and conditions</a>.</label> 
+                        <label  class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">I agree with the <a href="javascript:void(0)" data-modal-toggle="terms-and-conditions" class="text-accent-regular  hover:underline">terms and conditions</a>.</label> 
                       </div>
                       
                       <div class="mt-4 mb-6">
@@ -164,3 +160,4 @@
       </div>
       </div>
   </div>
+  @include('front.terms-and-conditions')

@@ -2022,26 +2022,34 @@ $(function(){
 //         link.click();
 //     });
 //     });
-$(document).on('click','.download-checklist',function(event){
+$(document).on('click','.download-checklist', async function(event){
    
     if(event.target === this)
     {
-        
         const downloadBtn = $(this);
-        
-        const content = $(downloadBtn).closest('.content-container').find('.content')
-        
-        html2canvas(content[0]).then(canvas => {
-        const link = document.createElement("a");
-        link.download = "checklist.png";
-        link.href = canvas.toDataURL();
-        link.click();
-        });
+       async function download(){
+            $(downloadBtn).parent().addClass('pointer-events-none')
+            
+            
+            const content = $(downloadBtn).closest('.content-container').find('.content')
+            
+            html2canvas(content[0]).then(canvas => {
+            const link = document.createElement("a");
+            link.download = "checklist.png";
+            link.href = canvas.toDataURL();
+            link.click();
+            });
+            setTimeout(function(){
+                $(downloadBtn).parent().removeClass('pointer-events-none')
+            },2000)
+        }
+        await download();
 
     }
         
   
 })
     
-   
+
+  
 });

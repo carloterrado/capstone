@@ -1,7 +1,7 @@
 <main id="contact">
-   <div class="container my-24 px-6 mx-auto">
+   <div class="container my-10 md:my-24 px-2 sm:px-6 mx-auto">
       <!-- Section: Design Block -->
-      <section class="mb-32 text-gray-800">
+      <section class="md:mb-32 text-gray-800">
          <style>
             .map-container-2 {
             height: 500px;
@@ -69,7 +69,7 @@
                            </div>
                            <div class="grow ml-6 w-auto">
                               <p class="font-bold mb-1">Facebook Page</p>
-                              <a href="https://www.facebook.com/paulines.general.merchandize" class="text-gray-500 break-all md:break-normal underline  dark:text-blue-500 hover:no-underline">www.facebook.com/paulines.general.merchandize</a>
+                              <a href="https://www.facebook.com/paulines.general.merchandize" class="text-gray-500 break-all md:break-normal underline  dark:text-blue-500 hover:no-underline"><p class="break-all md:break-normal">www.facebook.com/paulines.general.merchandize</p></a>
                               <br>
                               <br>
                            </div>

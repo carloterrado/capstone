@@ -1,15 +1,47 @@
 <main id="home">
     <!-- Hero section -->
     <section class="relative text-white h-[100vmin] md:h-[calc(100vmin-5.5rem)]">
-        <img class="w-full h-full object-cover" src="{{url('front/images/red-car-hom.jpg')}}" alt="hero image">
-        <div class="absolute inset-0 bg-black/10"></div>
-        <div class="flex flex-col gap-4 w-auto sm:w-1/2  absolute top-1/3 -translate-y-1/3 left-8 md:left-32 font-[800] font-['Montserrat',sans-serif]">
-            <h1 class="text-[2rem] sm:text-[3rem] lg:text-[4.5rem] leading-none font-['Roboto',sans-serif] font-[500] ">Find the best <br> car for you </h1>
-            <p class="text-[.8rem] sm:text-[1rem] font-[400]">Rent with ease, never miss a breeze, <br> with just a few clicks!</p>
-            <a href="{{url('/cars')}}"><button class="btn-1 bg-accent-regular uppercase border-none w-[fit-content] sm:mt-6 text-[.7rem] lg:text-[1rem]">Find a car</button></a>
+        <img class="w-full h-full object-cover" src="{{url('front/images/resized-cover-photo.jpg')}}" alt="hero image">
+        <div class="absolute inset-0 bg-black/40"></div>
+        
+        <div class="flex flex-col gap-2 md:gap-4  w-full absolute top-1/2 -translate-y-1/2 md:translate-y-0 md:top-[30%] -translate-x-1/2 left-1/2  font-[800] font-['Montserrat',sans-serif]">
+            <h1 class="text-[2rem] sm:text-[3rem] lg:text-[4.5rem] text-center leading-none font-['Roboto',sans-serif] font-[500] ">Find the <span class="text-accent-regular font-['Roboto',sans-serif] font-[500]">Best</span>   </h1>
+            <h2 class="text-[2rem] sm:text-[3rem] lg:text-[4.5rem] text-center leading-none font-['Roboto',sans-serif] font-[500] "><span class="text-accent-regular font-['Roboto',sans-serif] font-[500]">Car</span> for You </h2>
+            <p class="text-[.8rem] text-center sm:text-[1rem] font-[400]">Rent with ease, never miss a breeze, <br> with just a few clicks!</p>
+            <div class="flex items-center justify-center md:mt-6" >
+                <a class="grid place-content-center" href="{{url('/cars')}}"><button class="btn-1 my-auto bg-accent-regular uppercase border-none w-[fit-content]  text-[.5rem] rounded-full px-3 py-1 md:py-3 md:px-7 lg:text-[1rem]">Find a car</button></a>
+            </div>
+            
         </div>
     </section>
 
+    <!-- Car section -->
+    <section class="bg-[#F5F5F5] px-2 py-6 sm:py-16  sm:px-24 ">
+        <div class="font-bold mb-6 md:mb-10">
+            <h2 class="text-center text-[1.5rem] lg:text-[2.5rem]  leading-none">Featured <span class="text-accent-regular">Cars</span></h2>
+        </div>
+        <div class="grid grid-cols-6 gap-4 w-full mx-auto owl-carousel owl-theme overflow-hidden">
+            <div class=" col-span-6 h-[250px] sm:h-[325px] md:col-span-3 mx-1 lg:col-span-2  relative bg-white overflow-hidden border-gray-200 rounded-lg shadow">
+                <h1 class=" my-4 text-center ">Brand and Model</h1>
+                <div class="h-full w-full "><img class="w-full h-full object-contain" src="{{url('front/images/phpDeikzB-564979fb536f8.jpg')}}" alt=""></div>
+            </div>
+            <div class="col-span-6 h-[250px] sm:h-[325px] md:col-span-3 mx-1 lg:col-span-2  relative bg-white overflow-hidden border-gray-200 rounded-lg shadow ">
+                <h1 class=" my-4 text-center ">Brand and Model</h1>
+                <div class="h-full w-full "><img class="w-full h-full object-contain" src="{{url('front/images/toyota-vios-black-5ad05abcf1bb3.jpg')}}" alt=""></div>
+            </div>
+            <div class="col-span-6 h-[250px] sm:h-[325px] md:col-span-3 mx-1 lg:col-span-2  relative bg-white overflow-hidden border-gray-200 rounded-lg shadow ">
+                <h1 class=" my-4 text-center p-4">Brand and Model</h1>
+                <div class="h-full w-full "><img class="w-full h-full object-contain" src="{{url('front/images/toyota-vios-front-side-0-512402.jpg')}}" alt=""></div>
+            </div>
+            <div class="col-span-6 h-[250px] sm:h-[325px] md:col-span-3 mx-1 lg:col-span-2  relative bg-white overflow-hidden border-gray-200 rounded-lg shadow ">
+                <h1 class=" my-4 text-center ">Brand and Model</h1>
+                <div class="h-full w-full "><img class="w-full h-full object-contain" src="{{url('front/images/USD10MIC071B021001.jpg')}}" alt=""></div>
+            </div>
+        </div>
+    </section>
+    
+   
+    
     <!-- Ride with our service section -->
     <section class="bg-white p-6 sm:p-14 flex flex-col gap-6 sm:gap-24 justify-between">
         <div class="font-bold">
@@ -81,8 +113,8 @@
     <section class="bg-white p-6 sm:p-14 grid gap-8 md:grid-cols-2">
         <div class="sm:h-[fit-content] relative">
             <div class="mb-8     lg:-translate-y-6">
-                <h2 class="text-[1.5rem] sm:text-[2rem] lg:text-[3rem] font-bold whitespace-nowrap ">As our car <br>
-                  <span class="relative before:content-[''] before:absolute before:-bottom-2 before:left-0 before:h-[3px] before:w-1/4 before:bg-accent-regular">rental owner</span> </h2>
+                <h2 class="text-[1.5rem] sm:text-[2rem] lg:text-[3rem] font-bold whitespace-nowrap ">As our <span class="text-accent-regular">car</span>  <br>
+                  <span class="relative before:content-[''] before:absolute before:-bottom-2 before:left-0 before:h-[3px] before:w-1/4 before:bg-accent-regular"><span class="text-accent-regular">rental</span>  owner</span> </h2>
             </div>
             <div>
                 <ul class="grid sm:grid-cols-2 gap-y-8 gap-x-4">
@@ -125,7 +157,7 @@
             <div class="absolute inset-0 bg-black/40"></div>
             <div class="absolute top-[10%] sm:top-1/4 lg:top-1/2 left-1/2 translate-x-[-50%] w-[90%] md:w-9/12 ">
                 <p class="text-center text-white mb-4 lg:mb-8">Join us and embrace the future of car rental! Take advantage of the endless opportunities to grow your business, reach a wider audience, and provide a seamless rental experience to your customers.  </p>
-                <a href="{{url('admin/login')}}"><button class=" btn-orange-sidebar w-[fit-content] lg:w-[300px] outline-offset-0 whitespace-nowrap mx-auto block">Become a car rental owner</button></a>
+                <a href="{{url('admin/login')}}"><button class="rounded-full px-6  btn-orange-sidebar w-[fit-content] lg:w-[300px] outline-offset-0 whitespace-nowrap mx-auto block">Become a car rental owner</button></a>
             </div>
         </div>
 
@@ -140,9 +172,9 @@
         </div>
         <div class="h-[fit-content] lg:h-screen relative ">
             <div class="mb-8 lg:-translate-y-5">
-                <h2 class="text-[1.5rem] sm:text-[2rem] lg:text-[3rem] font-bold whitespace-nowrap ">Why should <br>
-                you choose <br>
-                  <span class="relative before:content-[''] before:absolute before:-bottom-2 before:left-0 before:h-[3px] before:w-1/4 before:bg-accent-regular">us?</span> </h2>
+                <h2 class="text-[1.5rem] sm:text-[2rem] lg:text-[3rem] font-bold whitespace-nowrap "><span class="text-accent-regular"> Why</span> should <br>
+                you <span class="text-accent-regular">choose</span>  <br>
+                  <span class="relative before:content-[''] before:absolute before:-bottom-2 before:left-0 before:h-[3px] before:w-1/4 before:bg-accent-regular text-accent-regular">us?</span> </h2>
             </div>
             <div>
                <p>Our car rental web application offers a wide variety of affordable cars, providing you with the flexibility to find the right vehicle for your needs and budget. By choosing our user-friendly web application, you gain access to greater rental terms and conditions flexibility, saving you valuable time and effort. </p>
@@ -157,7 +189,7 @@
         <div class="sm:h-[100vh] relative order-2 sm:order-1 ">
             <div class="mb-8 lg:-translate-y-4">
                 <h2 class="text-[1.5rem] sm:text-[2rem] lg:text-[3rem] font-bold whitespace-nowrap">
-                 Frequently Asked <br>
+                <span class="text-accent-regular"> Frequently </span>Asked<br>
                   <span class="relative before:content-[''] before:absolute before:-bottom-2 before:left-0 before:h-[3px] before:w-1/4 before:bg-accent-regular">Questions</span> </h2>
             </div>
             <div class="grid mb-8 relative">
@@ -177,11 +209,11 @@
                         </div>
                     </div>
                     <h2 id="accordion-open-heading-2">
-                    <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-accent-regular border border-b-0 border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-2" aria-expanded="false" aria-controls="accordion-open-body-2">
-                        <span class="flex items-center"><svg class="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 
-                        0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>How to cancel my reservation?</span>
-                        <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                    </button>
+                        <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-black border border-b-0 border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-2" aria-expanded="false" aria-controls="accordion-open-body-2">
+                            <span class="flex items-center"><svg class="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 
+                            0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>How to cancel my reservation?</span>
+                            <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                        </button>
                     </h2>
                     <div id="accordion-open-body-2" class="hidden" aria-labelledby="accordion-open-heading-2">
                         <div class="p-5 font-normal border border-b-0 border-gray-200">
@@ -217,10 +249,11 @@
                         </div>
                     </div>
                 </div >
-                <button type="button" class="btn-1 absolute -bottom-10 left-0 -z-0 text-accent-regular border border-accent-regular hover:bg-accent-regular hover:text-white font-semibold rounded-full  p-2.5 text-center inline-flex items-center w-[fit-content]">
-                <a href="{{url('frequently-asked-questions')}}"><span class="mr-3"> More FAQs</span></a>
+                <a href="{{url('frequently-asked-questions')}}">
+                <button type="button" class="btn-1 px-6 absolute -bottom-10 left-0 -z-0 text-accent-regular border border-accent-regular hover:bg-accent-regular hover:text-white font-semibold rounded-full  p-2.5 text-center inline-flex items-center w-[fit-content]">
+                <span class="mr-3"> More FAQs</span>
                 <svg aria-hidden="true" class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-              </button>
+              </button></a>
               
             </div>
             

@@ -612,12 +612,7 @@
         </h2>
         <div id="accordion-open-body-32" class="hidden" aria-labelledby="accordion-open-heading-32">
             <div class="p-5 font-normal border border-b-0 border-gray-200 max-h-56 overflow-auto">
-                <ul class="pl-5 text-gray-600 list-disc">
-                    <li>Log in to your account.</li>
-                    <li>On the upper right corner click your avatar/profile.</li>
-                    <li>Click the "Reserved Car" section.</li>
-                    <li>Find the reservation you wish to cancel and click "Cancel."</li>
-                </ul>
+                <p class="mb-4 text-gray-600">It is stated in our policy, and it depends on the car owner's preferences. For further details, check our terms and conditions.</p>
             </div>
         </div>
 

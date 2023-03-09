@@ -33,7 +33,14 @@ class FrontController extends Controller
         Session::forget('error_message');
         Session::put('page','home');
         Session::put('title','CCH Car Rentals');
+        // $imagePath = public_path('front/images/road.jpg');
+
+        // $image = Image::make($imagePath)->resize(800, 800, function($constraint) {
+        //     $constraint->aspectRatio();
+        // });
+
       
+        // $image->save(public_path('front/images/resized-road.jpg'));
 
        
 

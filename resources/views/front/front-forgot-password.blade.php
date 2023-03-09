@@ -3,16 +3,10 @@
 <div class="flex justify-center lg:min-h-[90vh] relative p-4 lg:p-0">
     
     <div class="absolute lg:relative -z-10  inset-0 bg-cover  lg:w-2/3" >
-    <img src="{{url('front/images/road.jpg')}}" class="absolute inset-0 w-full h-full object-cover -z-10" alt="">
+    <img src="{{url('front/images/resized-road.jpg')}}" class="absolute inset-0 w-full h-full object-cover -z-10" alt="">
         <div class="flex items-center h-full px-20 bg-gray-900 bg-opacity-40">
             <div>
-                <h2 class="text-4xl font-bold text-white">Brand</h2>
-
-                <p class="max-w-xl mt-3 text-gray-300">
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. In
-                    autem ipsa, nulla laboriosam dolores, repellendus perferendis libero suscipit nam temporibus
-                    molestiae
-                </p>
+                <h2 class="text-4xl font-bold text-white">Welcome to CCH Car Rentals</h2>
             </div>
         </div>
        
@@ -48,7 +42,7 @@
                     </div>
                 </form>
             </div>
-                <p class="mt-6 text-sm text-center text-gray-400">Don&#x27;t have an account yet? <a href="{{url('signup')}}" class="text-accent-regular focus:outline-none focus:underline hover:underline">Sign up</a>.</p>  
+                <p class="my-6 text-sm text-center text-gray-400">Don&#x27;t have an account yet? <a href="{{url('signup')}}" class="text-accent-regular focus:outline-none focus:underline hover:underline">Sign up</a>.</p>  
         </div>
     </div>
     </div>

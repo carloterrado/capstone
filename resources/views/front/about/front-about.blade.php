@@ -52,9 +52,9 @@
   <section class="py-8 px-4 bg-slate-50 w-full flex flex-col items-center">
     <h1 class="max-w-2xl mb-4 text-2xl md:text-4xl font-bold tracking-tight leading-none sm:text-left py-10">Our Satisfied Customers</h1>
     <div class="flex flex-wrap justify-center -mx-4">
-      <div class="md:w-3/12 px-4 mb-8 md:mb-0"><img class="rounded shadow-md" src="https://source.unsplash.com/random/1280x720" alt=""></div>
-      <div class="md:w-3/12 px-4 mb-8 md:mb-0"><img class="rounded shadow-md" src="https://source.unsplash.com/random/1280x720" alt=""></div>
-      <div class="md:w-3/12 px-4 mb-8 md:mb-0"><img class="rounded shadow-md" src="https://source.unsplash.com/random/1280x720" alt=""></div>
+      <div class="md:w-4/12 h-56 w-full px-4 mb-8 md:mb-0"><img class="w-full h-full object-contain md:object-cover rounded shadow-md" src="{{url('front/images/customer1.jpg')}}" alt=""></div>
+      <div class="md:w-4/12 h-56 w-full px-4 mb-8 md:mb-0"><img class="w-full h-full object-contain md:object-cover rounded shadow-md" src="{{url('front/images/customer2.jpg')}}" alt=""></div>
+      <div class="md:w-4/12 h-56 w-full px-4 mb-8 md:mb-0"><img class="w-full h-full object-contain md:object-cover rounded shadow-md" src="{{url('front/images/customer3.jpg')}}" alt=""></div>
     </div>
 
     <!-- feedback -->
