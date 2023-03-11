@@ -20,22 +20,30 @@
         <div class="font-bold mb-6 md:mb-10">
             <h2 class="text-center text-[1.5rem] lg:text-[2.5rem]  leading-none">Featured <span class="text-accent-regular">Cars</span></h2>
         </div>
-        <div class="grid grid-cols-6 gap-4 w-full mx-auto owl-carousel owl-theme overflow-hidden">
+        <div class="grid grid-cols-6 gap-4 w-full mx-auto owl-carousel owl-theme overflow-hidden uppercase">
             <div class=" col-span-6 h-[250px] sm:h-[325px] md:col-span-3 mx-1 lg:col-span-2  relative bg-white overflow-hidden border-gray-200 rounded-lg shadow">
-                <h1 class=" my-4 text-center ">Brand and Model</h1>
-                <div class="h-full w-full "><img class="w-full h-full object-contain" src="{{url('front/images/phpDeikzB-564979fb536f8.jpg')}}" alt=""></div>
+                <h1 class=" mt-4 text-center ">Mitsubishi Hatchback</h1>
+                <div class="h-full w-full "><img class="w-full h-full object-contain" src="{{url('front/images/mitsubishi-hatchback.png')}}" alt=""></div>
             </div>
             <div class="col-span-6 h-[250px] sm:h-[325px] md:col-span-3 mx-1 lg:col-span-2  relative bg-white overflow-hidden border-gray-200 rounded-lg shadow ">
-                <h1 class=" my-4 text-center ">Brand and Model</h1>
-                <div class="h-full w-full "><img class="w-full h-full object-contain" src="{{url('front/images/toyota-vios-black-5ad05abcf1bb3.jpg')}}" alt=""></div>
+                <h1 class=" mt-4 text-center ">mitsubishi mirage gls</h1>
+                <div class="h-full w-full "><img class="w-full h-full object-contain" src="{{url('front/images/mitsubishi-mirage-gls.png')}}" alt=""></div>
             </div>
             <div class="col-span-6 h-[250px] sm:h-[325px] md:col-span-3 mx-1 lg:col-span-2  relative bg-white overflow-hidden border-gray-200 rounded-lg shadow ">
-                <h1 class=" my-4 text-center p-4">Brand and Model</h1>
-                <div class="h-full w-full "><img class="w-full h-full object-contain" src="{{url('front/images/toyota-vios-front-side-0-512402.jpg')}}" alt=""></div>
+                <h1 class=" mt-4 text-center ">nissan almera</h1>
+                <div class="h-full w-full "><img class="w-full h-full object-contain" src="{{url('front/images/nissan-almera.png')}}" alt=""></div>
             </div>
             <div class="col-span-6 h-[250px] sm:h-[325px] md:col-span-3 mx-1 lg:col-span-2  relative bg-white overflow-hidden border-gray-200 rounded-lg shadow ">
-                <h1 class=" my-4 text-center ">Brand and Model</h1>
-                <div class="h-full w-full "><img class="w-full h-full object-contain" src="{{url('front/images/USD10MIC071B021001.jpg')}}" alt=""></div>
+                <h1 class=" mt-4 text-center ">toyota hiace grandia</h1>
+                <div class="h-full w-full "><img class="w-full h-full object-contain" src="{{url('front/images/toyota-hiace-grandia.png')}}" alt=""></div>
+            </div>
+            <div class="col-span-6 h-[250px] sm:h-[325px] md:col-span-3 mx-1 lg:col-span-2  relative bg-white overflow-hidden border-gray-200 rounded-lg shadow ">
+                <h1 class=" mt-4 text-center ">toyota vios black</h1>
+                <div class="h-full w-full "><img class="w-full h-full object-contain" src="{{url('front/images/toyota-vios-black.png')}}" alt=""></div>
+            </div>
+            <div class="col-span-6 h-[250px] sm:h-[325px] md:col-span-3 mx-1 lg:col-span-2  relative bg-white overflow-hidden border-gray-200 rounded-lg shadow ">
+                <h1 class=" mt-4 text-center ">toyota vios silver</h1>
+                <div class="h-full w-full "><img class="w-full h-full object-contain" src="{{url('front/images/toyota-vios-silver.png')}}" alt=""></div>
             </div>
         </div>
     </section>
