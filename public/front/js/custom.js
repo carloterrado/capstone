@@ -2013,42 +2013,30 @@ $(function(){
         showContent('nondiscrimination', $(this));
     });
 
-//    $(".download-btn").click(function() {
-//     var content = $(this).siblings(".content")[0];
-//     html2canvas(content).then(canvas => {
-//         var link = document.createElement("a");
-//         link.download = "checklist.png";
-//         link.href = canvas.toDataURL();
-//         link.click();
-//     });
-//     });
-$(document).on('click','.download-checklist', async function(event){
+
+
+$(document).on('click','.download-checklist',async function(event){
+    var downloadBtn = $(this);
+    
+    $(downloadBtn).hide();
+    $(downloadBtn).siblings('.small-loading').show();
    
-    if(event.target === this)
-    {
-        const downloadBtn = $(this);
-       async function download(){
-            $(downloadBtn).parent().addClass('pointer-events-none')
-            
-            
-            const content = $(downloadBtn).closest('.content-container').find('.content')
-            
-            html2canvas(content[0]).then(canvas => {
+   async function download(){
+        var content = $(downloadBtn).closest('.content-container').find('.content');
+           
+        html2canvas(content[0]).then(canvas => {
             const link = document.createElement("a");
             link.download = "checklist.png";
             link.href = canvas.toDataURL();
             link.click();
-            });
-            setTimeout(function(){
-                $(downloadBtn).parent().removeClass('pointer-events-none')
-            },2000)
-        }
-        await download();
-
+            $(downloadBtn).siblings('.small-loading').hide();
+            $(downloadBtn).show();
+        });
     }
-        
-  
-})
+      
+   await download();
+});
+
     
 
   

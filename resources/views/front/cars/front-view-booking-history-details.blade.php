@@ -6,7 +6,7 @@
 
         <form  class=" relative bg-white rounded-lg shadow" enctype="multipart/form-data" >
         
-            <div class="form-step step-one pb-6">
+            <div class=" pb-6">
                 <div class="flex justify-between px-2 pt-6 pb-4 sm:p-6 rounded-t items-center ">
                     <h2 class="text-lg sm:text-xl font-semibold uppercase leading-4">Booking details</h2>
                     <button data-modal-toggle="{{'view-booking'.$history['id']}}" type="button" class="cursor-pointer text-gray-400 bg-transparent hover:bg-accent-regular hover:text-white rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" >

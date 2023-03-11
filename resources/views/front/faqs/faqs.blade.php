@@ -53,9 +53,9 @@
     </div>
 
     <!-- Set of questions with collapsible answers-->
-    <div id="account-management" class=" mx-6 md:mx-40 mb-10 questions" data-accordion="collapse" >
+    <div id="account-management" class=" mx-6 md:mx-40 mb-10 questions text-gray-600" data-active-classes="bg-accent-regular text-white" data-accordion="collapse" >
         <h2 id="accordion-open-heading-1">
-            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-accent-regular border border-b-0 border-gray-200 rounded-t-xl hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-1" aria-expanded="true" aria-controls="accordion-open-body-1">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left  border border-b-0 border-gray-200 rounded-t-xl hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-1" aria-expanded="true" aria-controls="accordion-open-body-1">
                 <span class="flex items-center"><svg class="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 
                 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>How do I create an account on the CCH Car Rental web app?</span>
                 <svg data-accordion-icon class="w-6 h-6 rotate-180 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -102,7 +102,7 @@
         </div>
 
         <h2 id="accordion-open-heading-2">
-            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-accent-regular border border-b-0 border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-2" aria-expanded="false" aria-controls="accordion-open-body-2">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left  border border-b-0 border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-2" aria-expanded="false" aria-controls="accordion-open-body-2">
                 <span class="flex items-center"><svg class="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 
                 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>How do I edit my user profile information?</span>
                 <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -122,7 +122,7 @@
         </div>
 
         <h2 id="accordion-open-heading-3">
-            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-accent-regular border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-3" aria-expanded="false" aria-controls="accordion-open-body-3">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left  border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-3" aria-expanded="false" aria-controls="accordion-open-body-3">
                 <span class="flex items-center"><svg class="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 
                 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>How do I reset my password if I forget it?</span>
                 <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -148,7 +148,7 @@
         </div>
 
         <h2 id="accordion-open-heading-4">
-            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-accent-regular border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-4" aria-expanded="false" aria-controls="accordion-open-body-4">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left  border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-4" aria-expanded="false" aria-controls="accordion-open-body-4">
                 <span class="flex items-center"><svg class="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 
                 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>Can I have multiple user profiles on the same account?</span>
                 <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -163,7 +163,7 @@
         </div>
 
         <h2 id="accordion-open-heading-5">
-            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-accent-regular border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-5" aria-expanded="false" aria-controls="accordion-open-body-5">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left  border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-5" aria-expanded="false" aria-controls="accordion-open-body-5">
                 <span class="flex items-center"><svg class="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 
                 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>Can I delete my account?</span>
                 <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -178,7 +178,7 @@
         </div>
 
         <h2 id="accordion-open-heading-6">
-            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-accent-regular border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-6" aria-expanded="false" aria-controls="accordion-open-body-6">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left  border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-6" aria-expanded="false" aria-controls="accordion-open-body-6">
                 <span class="flex items-center"><svg class="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 
                 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>How do I view the status of the car I’ve booked?</span>
                 <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -202,7 +202,7 @@
         </div>
 
         <h2 id="accordion-open-heading-7">
-            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-accent-regular border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-7" aria-expanded="false" aria-controls="accordion-open-body-7">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left  border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-7" aria-expanded="false" aria-controls="accordion-open-body-7">
                 <span class="flex items-center"><svg class="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 
                 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>How do I view my rental history on the website?</span>
                 <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -224,10 +224,9 @@
             </div>
         </div>
     </div>
-
-    <div id="booking-and-payment" class=" mx-6 md:mx-40 mb-10 questions hidden" data-accordion="collapse" >
+    <div id="booking-and-payment" class=" mx-6 md:mx-40 mb-10 questions text-gray-600 hidden" data-active-classes="bg-accent-regular text-white" data-accordion="collapse" >
         <h2 id="accordion-open-heading-8">
-            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-accent-regular border border-b-0 border-gray-200 rounded-t-xl hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-8" aria-expanded="true" aria-controls="accordion-open-body-8">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left  border border-b-0 border-gray-200 rounded-t-xl hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-8" aria-expanded="true" aria-controls="accordion-open-body-8">
                 <span class="flex items-center"><svg class="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 
                 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>How to rent a car?</span>
                 <svg data-accordion-icon class="w-6 h-6 rotate-180 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -254,7 +253,7 @@
         </div>
 
         <h2 id="accordion-open-heading-9">
-            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-accent-regular border border-b-0 border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-9" aria-expanded="false" aria-controls="accordion-open-body-9">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left  border border-b-0 border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-9" aria-expanded="false" aria-controls="accordion-open-body-9">
                 <span class="flex items-center"><svg class="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 
                 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>How can I view my existing reservations?</span>
                 <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -273,7 +272,7 @@
         </div>
 
         <h2 id="accordion-open-heading-10">
-            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-accent-regular border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-10" aria-expanded="false" aria-controls="accordion-open-body-10">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left  border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-10" aria-expanded="false" aria-controls="accordion-open-body-10">
                 <span class="flex items-center"><svg class="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 
                 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>Can I modify an existing reservation?</span>
                 <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -288,7 +287,7 @@
         </div>
 
         <h2 id="accordion-open-heading-11">
-            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-accent-regular border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-11" aria-expanded="false" aria-controls="accordion-open-body-11">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left  border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-11" aria-expanded="false" aria-controls="accordion-open-body-11">
                 <span class="flex items-center"><svg class="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 
                 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>Can I cancel my reservation?</span>
                 <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -303,7 +302,7 @@
         </div>
 
         <h2 id="accordion-open-heading-12">
-            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-accent-regular border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-12" aria-expanded="false" aria-controls="accordion-open-body-12">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left  border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-12" aria-expanded="false" aria-controls="accordion-open-body-12">
                 <span class="flex items-center"><svg class="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 
                 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>How to cancel my reservation?</span>
                 <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -320,7 +319,7 @@
         </div>
 
         <h2 id="accordion-open-heading-13">
-            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-accent-regular border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-13" aria-expanded="false" aria-controls="accordion-open-body-13">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left  border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-13" aria-expanded="false" aria-controls="accordion-open-body-13">
                 <span class="flex items-center"><svg class="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 
                 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>How far in advance can I make a reservation?</span>
                 <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -335,7 +334,7 @@
         </div>
 
         <h2 id="accordion-open-heading-14">
-            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-accent-regular border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-14" aria-expanded="false" aria-controls="accordion-open-body-14">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left  border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-14" aria-expanded="false" aria-controls="accordion-open-body-14">
                 <span class="flex items-center"><svg class="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 
                 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>What if the vehicle I reserved got cancelled by the car rental owner?</span>
                 <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -350,7 +349,7 @@
         </div>
 
         <h2 id="accordion-open-heading-15">
-            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-accent-regular border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-15" aria-expanded="false" aria-controls="accordion-open-body-15">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left  border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-15" aria-expanded="false" aria-controls="accordion-open-body-15">
                 <span class="flex items-center"><svg class="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 
                 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>What payment methods are accepted?</span>
                 <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -365,7 +364,7 @@
         </div>
 
         <h2 id="accordion-open-heading-16">
-            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-accent-regular border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-16" aria-expanded="false" aria-controls="accordion-open-body-16">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left  border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-16" aria-expanded="false" aria-controls="accordion-open-body-16">
                 <span class="flex items-center"><svg class="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 
                 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>How can I pay?</span>
                 <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -380,7 +379,7 @@
         </div>
 
         <h2 id="accordion-open-heading-17">
-            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-accent-regular border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-17" aria-expanded="false" aria-controls="accordion-open-body-17">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left  border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-17" aria-expanded="false" aria-controls="accordion-open-body-17">
                 <span class="flex items-center"><svg class="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 
                 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>When is my payment processed for my reservation?</span>
                 <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -394,10 +393,9 @@
             </div>
         </div>
     </div>
-
-    <div id="car-sharing" class=" mx-6 md:mx-40 mb-10 questions hidden" data-accordion="collapse" >
+    <div id="car-sharing" class=" mx-6 md:mx-40 mb-10 questions text-gray-600 hidden" data-active-classes="bg-accent-regular text-white" data-accordion="collapse" >
         <h2 id="accordion-open-heading-18">
-            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-accent-regular border border-b-0 border-gray-200 rounded-t-xl hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-18" aria-expanded="true" aria-controls="accordion-open-body-18">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left  border border-b-0 border-gray-200 rounded-t-xl hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-18" aria-expanded="true" aria-controls="accordion-open-body-18">
                 <span class="flex items-center"><svg class="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 
                 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>Are there any age restrictions for being a car rental owner?</span>
                 <svg data-accordion-icon class="w-6 h-6 rotate-180 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -410,7 +408,7 @@
         </div>
 
         <h2 id="accordion-open-heading-19">
-            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-accent-regular border border-b-0 border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-19" aria-expanded="false" aria-controls="accordion-open-body-19">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left  border border-b-0 border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-19" aria-expanded="false" aria-controls="accordion-open-body-19">
                 <span class="flex items-center"><svg class="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 
                 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>How do I start sharing my car on the car sharing platform?</span>
                 <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -425,7 +423,7 @@
         </div>
 
         <h2 id="accordion-open-heading-20">
-            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-accent-regular border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-20" aria-expanded="false" aria-controls="accordion-open-body-20">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left  border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-20" aria-expanded="false" aria-controls="accordion-open-body-20">
                 <span class="flex items-center"><svg class="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 
                 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>What are the requirements for my car to be approved for sharing?</span>
                 <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -440,7 +438,7 @@
         </div>
 
         <h2 id="accordion-open-heading-21">
-            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-accent-regular border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-21" aria-expanded="false" aria-controls="accordion-open-body-21">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left  border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-21" aria-expanded="false" aria-controls="accordion-open-body-21">
                 <span class="flex items-center"><svg class="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 
                 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>How do I set my availability for my car?</span>
                 <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -455,7 +453,7 @@
         </div>
 
         <h2 id="accordion-open-heading-22">
-            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-accent-regular border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-22" aria-expanded="false" aria-controls="accordion-open-body-22">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left  border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-22" aria-expanded="false" aria-controls="accordion-open-body-22">
                 <span class="flex items-center"><svg class="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 
                 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>How do I handle pickup and drop off of the car with the renter?</span>
                 <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -470,7 +468,7 @@
         </div>
 
         <h2 id="accordion-open-heading-23">
-            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-accent-regular border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-23" aria-expanded="false" aria-controls="accordion-open-body-23">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left  border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-23" aria-expanded="false" aria-controls="accordion-open-body-23">
                 <span class="flex items-center"><svg class="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 
                 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>How do I get paid for my car rentals?</span>
                 <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -485,7 +483,7 @@
         </div>
 
         <h2 id="accordion-open-heading-24">
-            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-accent-regular border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-24" aria-expanded="false" aria-controls="accordion-open-body-24">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left  border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-24" aria-expanded="false" aria-controls="accordion-open-body-24">
                 <span class="flex items-center"><svg class="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 
                 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>Can I decline a rental request?</span>
                 <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -500,7 +498,7 @@
         </div>
 
         <h2 id="accordion-open-heading-25">
-            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-accent-regular border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-25" aria-expanded="false" aria-controls="accordion-open-body-25">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left  border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-25" aria-expanded="false" aria-controls="accordion-open-body-25">
                 <span class="flex items-center"><svg class="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 
                 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>What if the renter is late returning my car?</span>
                 <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -515,7 +513,7 @@
         </div>
 
         <h2 id="accordion-open-heading-26">
-            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-accent-regular border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-26" aria-expanded="false" aria-controls="accordion-open-body-26">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left  border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-26" aria-expanded="false" aria-controls="accordion-open-body-26">
                 <span class="flex items-center"><svg class="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 
                 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>What if I need to cancel a rental reservation?</span>
                 <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -529,9 +527,9 @@
             </div>
         </div>
     </div>
-    <div id="pickup-and-dropoff" class=" mx-6 md:mx-40 mb-10 questions hidden" data-accordion="collapse" >
+    <div id="pickup-and-dropoff" class=" mx-6 md:mx-40 mb-10 questions text-gray-600 hidden" data-active-classes="bg-accent-regular text-white" data-accordion="collapse" >
         <h2 id="accordion-open-heading-27">
-            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-accent-regular border border-b-0 border-gray-200 rounded-t-xl hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-27" aria-expanded="true" aria-controls="accordion-open-body-27">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left  border border-b-0 border-gray-200 rounded-t-xl hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-27" aria-expanded="true" aria-controls="accordion-open-body-27">
                 <span class="flex items-center"><svg class="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 
                 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>How do I locate the vehicle I reserved for pick-up?</span>
                 <svg data-accordion-icon class="w-6 h-6 rotate-180 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -544,7 +542,7 @@
         </div>
 
         <h2 id="accordion-open-heading-28">
-            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-accent-regular border border-b-0 border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-28" aria-expanded="false" aria-controls="accordion-open-body-28">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left  border border-b-0 border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-28" aria-expanded="false" aria-controls="accordion-open-body-28">
                 <span class="flex items-center"><svg class="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 
                 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>How do I return the vehicle to its original location?</span>
                 <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -559,7 +557,7 @@
         </div>
 
         <h2 id="accordion-open-heading-29">
-            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-accent-regular border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-29" aria-expanded="false" aria-controls="accordion-open-body-29">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left  border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-29" aria-expanded="false" aria-controls="accordion-open-body-29">
                 <span class="flex items-center"><svg class="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 
                 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>What if I damage the vehicle during the rental period?</span>
                 <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -574,7 +572,7 @@
         </div>
 
         <h2 id="accordion-open-heading-30">
-            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-accent-regular border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-30" aria-expanded="false" aria-controls="accordion-open-body-30">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left  border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-30" aria-expanded="false" aria-controls="accordion-open-body-30">
                 <span class="flex items-center"><svg class="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 
                 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>What if I can't return the vehicle to its original location?</span>
                 <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -588,9 +586,9 @@
             </div>
         </div>
     </div>
-    <div id="fees-and-policies" class=" mx-6 md:mx-40 mb-10 questions hidden" data-accordion="collapse" >
+    <div id="fees-and-policies" class=" mx-6 md:mx-40 mb-10 questions text-gray-600 hidden" data-active-classes="bg-accent-regular text-white" data-accordion="collapse" >
         <h2 id="accordion-open-heading-31">
-            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-accent-regular border border-b-0 border-gray-200 rounded-t-xl hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-31" aria-expanded="true" aria-controls="accordion-open-body-31">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left  border border-b-0 border-gray-200 rounded-t-xl hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-31" aria-expanded="true" aria-controls="accordion-open-body-31">
                 <span class="flex items-center"><svg class="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 
                 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>What fees should I expect when using the web app?</span>
                 <svg data-accordion-icon class="w-6 h-6 rotate-180 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -604,7 +602,7 @@
         </div>
 
         <h2 id="accordion-open-heading-32">
-            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-accent-regular border border-b-0 border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-32" aria-expanded="false" aria-controls="accordion-open-body-32">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left  border border-b-0 border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-32" aria-expanded="false" aria-controls="accordion-open-body-32">
                 <span class="flex items-center"><svg class="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 
                 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>Are there any restrictions on how I can use the vehicle?</span>
                 <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -617,7 +615,7 @@
         </div>
 
         <h2 id="accordion-open-heading-33">
-            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-accent-regular border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-33" aria-expanded="false" aria-controls="accordion-open-body-33">
+            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left  border border-gray-200 hover:bg-accent-regular hover:text-white" data-accordion-target="#accordion-open-body-33" aria-expanded="false" aria-controls="accordion-open-body-33">
                 <span class="flex items-center"><svg class="w-5 h-5 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 
                 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg>Are there any age restrictions for renting a vehicle?</span>
                 <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>

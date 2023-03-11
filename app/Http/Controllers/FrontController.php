@@ -33,6 +33,9 @@ class FrontController extends Controller
         Session::forget('error_message');
         Session::put('page','home');
         Session::put('title','CCH Car Rentals');
+        
+
+      
         // $imagePath = public_path('front/images/road.jpg');
 
         // $image = Image::make($imagePath)->resize(800, 800, function($constraint) {
@@ -327,8 +330,8 @@ class FrontController extends Controller
 
             if($owner->owner_id === 0)
             {
-                // $email = 'cchcarrentals@gmail.com';
-                $email = 'iamterradocarlo@gmail.com';
+                $email = 'cchcarrentals@gmail.com';
+                // $email = 'iamterradocarlo@gmail.com';
             }
             else{
                 $email = $owner->email;

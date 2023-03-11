@@ -34,6 +34,8 @@
                     <label class="block mb-2 text-sm font-medium text-gray-900 uppercase">Capacity: </label>
                     <select name="capacity" id="capacity" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-0 focus:border-gray-900 block w-full p-2.5 ">
                     <option disabled selected>Select</option> 
+                    <option value="1" @if ((isset($_POST['capacity']) && $_POST['capacity'] === '1') || (isset($_GET['capacity']) && $_GET['capacity'] === '1') ) selected @endif >1</option>
+                    <option value="5" @if ((isset($_POST['capacity']) && $_POST['capacity'] === '5') || (isset($_GET['capacity']) && $_GET['capacity'] === '5') ) selected @endif >5</option>
                     <option value="10" @if ((isset($_POST['capacity']) && $_POST['capacity'] === '10') || (isset($_GET['capacity']) && $_GET['capacity'] === '10') ) selected @endif >10</option>
                     <option value="15" @if ((isset($_POST['capacity']) && $_POST['capacity'] === '15') || (isset($_GET['capacity']) && $_GET['capacity'] === '15')) selected @endif>15</option>
                     <option value="20" @if ((isset($_POST['capacity']) && $_POST['capacity'] === '20') || (isset($_GET['capacity']) && $_GET['capacity'] === '20')) selected @endif>20</option>

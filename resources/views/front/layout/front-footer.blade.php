@@ -6,13 +6,11 @@
             <div class="grid gap-12 mt-4">   
                 <!-- <p class="text-xs sm:text-base">Lorem ipsum dolor sit amet <br>
                  consectetur adipisicing elit.</p> -->
-                <div class="mt-auto grid grid-cols-4  md:block text-center md:text-left">
-                    
-                        
-                        <a href="https://www.facebook.com/paulines.general.merchandize" target="_blank">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 col-span-1 inline mr-4 justify-self-center" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="#e84949" d="M9.198 21.5h4v-8.01h3.604l.396-3.98h-4V7.5a1 1 0 0 1 1-1h3v-4h-3a5 5 0 0 0-5 5v2.01h-2l-.396 3.98h2.396v8.01Z"/></svg></a>
-                        <a href="mailto:cchcarrentals@gmail.com" target="_blank">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 col-span-1 inline mr-4 justify-self-center" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="#e84949" d="M4 20q-.825 0-1.412-.587Q2 18.825 2 18V6q0-.825.588-1.412Q3.175 4 4 4h16q.825 0 1.413.588Q22 5.175 22 6v12q0 .825-.587 1.413Q20.825 20 20 20Zm8-7.175q.125 0 .262-.038q.138-.037.263-.112L19.6 8.25q.2-.125.3-.312q.1-.188.1-.413q0-.5-.425-.75T18.7 6.8L12 11L5.3 6.8q-.45-.275-.875-.013Q4 7.05 4 7.525q0 .25.1.437q.1.188.3.288l7.075 4.425q.125.075.263.112q.137.038.262.038Z"/></svg></a>
+                <div class="mt-auto grid grid-cols-4  md:block text-center md:text-left">    
+                        <a href="https://www.facebook.com/paulines.general.merchandize" class="hover:text-white text-accent-regular" target="_blank">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 col-span-1 inline mr-4 justify-self-center" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" d="M9.198 21.5h4v-8.01h3.604l.396-3.98h-4V7.5a1 1 0 0 1 1-1h3v-4h-3a5 5 0 0 0-5 5v2.01h-2l-.396 3.98h2.396v8.01Z"/></svg></a>
+                        <a href="mailto:cchcarrentals@gmail.com" class="hover:text-white text-accent-regular" target="_blank">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 col-span-1 inline mr-4 justify-self-center" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" d="M4 20q-.825 0-1.412-.587Q2 18.825 2 18V6q0-.825.588-1.412Q3.175 4 4 4h16q.825 0 1.413.588Q22 5.175 22 6v12q0 .825-.587 1.413Q20.825 20 20 20Zm8-7.175q.125 0 .262-.038q.138-.037.263-.112L19.6 8.25q.2-.125.3-.312q.1-.188.1-.413q0-.5-.425-.75T18.7 6.8L12 11L5.3 6.8q-.45-.275-.875-.013Q4 7.05 4 7.525q0 .25.1.437q.1.188.3.288l7.075 4.425q.125.075.263.112q.137.038.262.038Z"/></svg></a>
                 </div>
             </div>
         </div>

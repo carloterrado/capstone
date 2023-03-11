@@ -40,7 +40,7 @@
                                 <span class="block text-center">Car image</span>   
                             </th>
                             <th scope="col" class="py-3 px-6">
-                                <span class="block text-center">View details</span>  
+                                <span class="block text-center">Details</span>  
                             </th>
                             <th scope="col" class="py-3 px-6 ">
                                 <span class="block text-center">Status</span>  
@@ -70,13 +70,13 @@
                             </td>
                             <td class="py-4 px-6">
                                 <div class="flex justify-center">
-                                    <button type="button" data-modal-toggle="{{'view-booking'.$book['id']}}"  class="details btn-1 bg-accent-regular uppercase  w-[fit-content]   text-white whitespace-nowrap">View details</button>
+                                    <button type="button" data-modal-toggle="{{'view-booking'.$book['id']}}"  class="details btn-1 bg-accent-regular w-[fit-content]   text-white whitespace-nowrap">View Details</button>
                                 </div>
                                 @include('front.cars.front-view-booking-details') 
                             </td>
                             <td class="py-4 px-6 font-semibold text-gray-900 ">
                                 <div class="py-6 flex justify-center ">
-                                    <div class="btn-1 pointer-events-none
+                                    <div class="btn-1 pointer-events-none capitalize
                                     @if ($book['status'] === 'approved' || $book['status'] === 'ongoing' || $book['status'] === 'returned')
                                         bg-accent-green
                                     @elseif ($book['status'] === 'pending')
@@ -107,9 +107,9 @@
                                     @elseif (($book['status'] === 'approved' && Carbon::now() >= $start_date->subDay()) || $book['status'] === 'ongoing' )
                                         <button data-modal-toggle="{{'view-checklist'.$book['id']}}"   class="btn-1 bg-accent-green w-[fit-content]   text-white whitespace-nowrap">
                                             @if ($book['status'] === 'approved')
-                                                confirm checklist
+                                                Confirm Checklist
                                             @else
-                                                view checklist
+                                                View Checklist
                                             @endif
                                         </button>
                                         @include('front.cars.front-car-view-checklist')
@@ -126,7 +126,7 @@
 
                                     @if ($book['status'] === 'ongoing')
                                         <a module="booking"   moduleid="{{$book['id']}}" class="confirmReturn cursor-pointer ml-4"><div class="btn-1 bg-accent-green w-[fit-content]  text-white whitespace-nowrap">
-                                            return
+                                            Return
                                             </div></a>
                                     @endif
 
@@ -145,24 +145,24 @@
             <div class="overflow-x-auto relative shadow-md sm:rounded-lg pt-4 border">
                 <table id="history-transaction-table" class="cell-border hover w-full text-sm text-left  text-gray-500 mt-8">
                 
-                    <thead class=" text-gray-700 uppercase ">
+                    <thead class=" text-gray-700  uppercase">
                         <tr class="border-y">
                             <th scope="col" class="py-3 px-6 ">
                             Reference No.
                             </th>
                             <th scope="col" class="py-3 px-6">
-                                <span class="block text-center">View details</span>  
+                                <span class="block text-center">Details</span>  
                             </th>
                             <th scope="col" class="py-3 px-6">
-                                <span class="block text-center">Date started</span>   
+                                <span class="block text-center">Date Started</span>   
                             </th>
                             <th scope="col" class="py-3 px-6">
-                                <span class="block text-center">Date ended</span>   
+                                <span class="block text-center">Date Ended</span>   
                             </th>
                           
-                            <th scope="col" class="py-3 px-6">
+                            <!-- <th scope="col" class="py-3 px-6">
                                 <span class="block text-center">Download</span>  
-                            </th>
+                            </th> -->
                           
                             
                             
@@ -180,8 +180,8 @@
                            
                             <td class="py-4 px-6">
                                 <div class="flex justify-center">
-                                    <button type="button" data-modal-toggle="{{'view-booking'.$history['id']}}"   class="details btn-1 bg-accent-regular uppercase  w-[fit-content]   text-white whitespace-nowrap">View details</button>
-                                    @include('front.cars.front-view-booking-history-details')
+                                    <button type="button" data-modal-toggle="{{'view-booking'.$history['id']}}"   class="details btn-1 bg-accent-regular  w-[fit-content]   text-white whitespace-nowrap">View Details</button>
+                                    @include('front.cars.booking-details')
                                 </div>
                             </td>
                             <td class="py-4 px-6 font-semibold text-gray-900 ">
@@ -194,13 +194,6 @@
                                       {{$history['end_date']}}
                                 </div>
                             </td>
-                           
-                            <td class="py-4 px-6 font-semibold text-gray-900 ">
-                                <a href="{{url('download-booking-history/'.$history['id'])}}">
-                                <button historyid="{{$history['id']}}" class="flex justify-center w-full text-accent-regular">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 32 32"><path fill="currentColor" d="M9 16a1 1 0 0 0-1 1v5a1 1 0 1 0 2 0v-1h.5a2.5 2.5 0 0 0 0-5H9Zm1.5 3H10v-1h.5a.5.5 0 0 1 0 1Zm3.5-2a1 1 0 0 1 1-1h.5a3.5 3.5 0 1 1 0 7H15a1 1 0 0 1-1-1v-5Zm2 3.915a1.5 1.5 0 0 0 0-2.83v2.83ZM20 22v-5a1 1 0 0 1 1-1h3a1 1 0 1 1 0 2h-2v1h2a1 1 0 1 1 0 2h-2v1a1 1 0 1 1-2 0ZM17 9V2H8a3 3 0 0 0-3 3v8a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2v1a3 3 0 0 0 3 3h16a3 3 0 0 0 3-3v-1a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2v-1h-7a3 3 0 0 1-3-3Zm10 6v9H5v-9h22Zm-8-6V2.117a3 3 0 0 1 1.293.762l5.828 5.828A3 3 0 0 1 26.883 10H20a1 1 0 0 1-1-1Z"/></svg></a>
-                                </button>
-                            </td>
                             
                         </tr>
                         
@@ -212,17 +205,4 @@
     </div>
  </main> 
 
-  <script>
-    // const downloadButton = document.querySelector("#download");
-    // const content = document.querySelector("#content");
 
-    // downloadButton.addEventListener("click", function() {
-    //   html2canvas(content).then(canvas => {
-    //     const link = document.createElement("a");
-    //     link.download = "checklist.png";
-    //     link.href = canvas.toDataURL();
-    //     link.click();
-    //   });
-    // });
-   
-  </script>

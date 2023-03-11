@@ -1195,7 +1195,7 @@ class AdminController extends Controller
         }
         Session::put('title','New Owners');
         Session::put('page','new-owners');
-        $admins = Admin::where([['type','owner'],['status',1],['account','unverified']])->with('admins')->get()->toArray();
+        $admins = Admin::where([['type','owner'],['account','unverified']])->with('admins')->get()->toArray();
        
         return view('admin.dashboard')->with(compact('admins'));
 
