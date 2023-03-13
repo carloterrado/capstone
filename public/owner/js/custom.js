@@ -2167,5 +2167,27 @@ $(function(){
      $(document).on('click', '.nondiscrimination', function() {
          showContent('nondiscrimination', $(this));
      });
+
+     $(document).on('click','.download-checklist',async function(event){
+        var downloadBtn = $(this);
+        
+        $(downloadBtn).hide();
+        $(downloadBtn).siblings('.small-loading').show();
+       
+       async function download(){
+            var content = $(downloadBtn).closest('.content-container').find('.content');
+               
+            html2canvas(content[0]).then(canvas => {
+                const link = document.createElement("a");
+                link.download = "document.png";
+                link.href = canvas.toDataURL();
+                link.click();
+                $(downloadBtn).siblings('.small-loading').hide();
+                $(downloadBtn).show();
+            });
+        }
+          
+       await download();
+    });
    
 });

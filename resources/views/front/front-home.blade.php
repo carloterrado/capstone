@@ -163,7 +163,7 @@
         <div class="max-h-[500px] relative">
             <img class="w-full h-full object-cover" src="{{url('front/images/become.jpg')}}" alt="">
             <div class="absolute inset-0 bg-black/40"></div>
-            <div class="absolute top-[10%] sm:top-1/4 lg:top-1/2 left-1/2 translate-x-[-50%] w-[90%] md:w-9/12 ">
+            <div class="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 w-full max-w-md px-2 m-auto ">
                 <p class="text-center text-white mb-4 lg:mb-8">Join us and embrace the future of car rental! Take advantage of the endless opportunities to grow your business, reach a wider audience, and provide a seamless rental experience to your customers.  </p>
                 <a href="{{url('admin/login')}}"><button class="rounded-full px-6  btn-orange-sidebar w-[fit-content] lg:w-[300px] outline-offset-0 whitespace-nowrap mx-auto block">Become a car rental owner</button></a>
             </div>
@@ -172,13 +172,13 @@
     </section>
 
     <!-- Book Now section -->
-    <section class="bg-white p-6 sm:p-14 sm:pb-28 grid gap-16 md:grid-cols-2">  
-        <div class="h-[200px] w-full sm:h-[fit-content] lg:h-screen relative">
+    <section class="bg-white p-6 sm:p-14  grid gap-16 md:grid-cols-2">  
+        <div class="h-[200px] w-full sm:h-full max-h-[85vh]  relative">
             <img class="w-full h-full object-cover" src="{{url('front/images/booknow.png')}}" alt="">
             <div class="absolute inset-0 bg-black/40"></div>
             <img class="absolute top-full left-0 w-full -translate-y-[70%]" src="{{url('front/images/red_car_booknow.png')}}" alt="">
         </div>
-        <div class="h-[fit-content] lg:h-screen relative ">
+        <div class=" relative ">
             <div class="mb-8 lg:-translate-y-5">
                 <h2 class="text-[1.5rem] sm:text-[2rem] lg:text-[3rem] font-bold whitespace-nowrap "><span class="text-accent-regular"> Why</span> should <br>
                 you <span class="text-accent-regular">choose</span>  <br>
@@ -194,7 +194,7 @@
 
     <!-- Frequently ask section -->
     <section class="bg-white p-6 sm:p-14 grid gap-8 md:grid-cols-2">  
-        <div class="sm:h-[100vh] relative order-2 sm:order-1 ">
+        <div class=" relative order-2 sm:order-1 ">
             <div class="mb-8 lg:-translate-y-4">
                 <h2 class="text-[1.5rem] sm:text-[2rem] lg:text-[3rem] font-bold whitespace-nowrap">
                 <span class="text-accent-regular"> Frequently </span>Asked<br>
@@ -266,7 +266,7 @@
             </div>
             
         </div> 
-        <div class="h-[200px] w-full sm:h-[100vh] relative order-1 sm:order-2 ">
+        <div class="h-[200px] w-full sm:h-full max-h-[85vh] relative order-1 sm:order-2 ">
             <img class="w-full h-full object-cover" src="{{url('front/images/faqs.jpg')}}" alt="">
             <div class="absolute inset-0 bg-black/40"></div>
         </div>  

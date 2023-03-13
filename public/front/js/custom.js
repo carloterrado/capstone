@@ -2026,7 +2026,7 @@ $(document).on('click','.download-checklist',async function(event){
            
         html2canvas(content[0]).then(canvas => {
             const link = document.createElement("a");
-            link.download = "checklist.png";
+            link.download = "document.png";
             link.href = canvas.toDataURL();
             link.click();
             $(downloadBtn).siblings('.small-loading').hide();

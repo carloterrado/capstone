@@ -53,8 +53,8 @@
                                         {{'#'.$book['car_id']}}
                                     </td>
                                     <td class="p-4">
-                                        <div class="w-32 mx-auto overflow-hidden rounded-lg">
-                                        <img src="data:image/jpeg;base64,{{$book['car_info']['main_photo']}}" alt="Car photo">
+                                        <div class="w-32 h-24 mx-auto overflow-hidden rounded-lg">
+                                        <img class="object-contain" src="data:image/jpeg;base64,{{$book['car_info']['main_photo']}}" alt="Car photo">
                                         </div> 
                                     </td>
                                     <td class="py-4 px-6">
@@ -76,6 +76,11 @@
                                         ?>
                                         <div class="flex gap-4 py-6 justify-center"> 
                                         @if (Carbon::now() > $start_date && $book['status'] === 'pending') 
+                                        
+                                            <a module="booking"   moduleid="{{$book['id']}}" class="confirmDeleteBooking cursor-pointer"><div class="btn-1 bg-accent-regular w-[fit-content]  text-white whitespace-nowrap">
+                                            Delete
+                                            </div></a>
+                                    
                                         @else
                                             <a class="updateBooking"  booking_id="{{$book['id']}}" user_id="{{$book['user_id']}}">
                                             <button account="approved"  class="btn-1 bg-accent-green w-[fit-content]   text-white whitespace-nowrap">approve</button></a>

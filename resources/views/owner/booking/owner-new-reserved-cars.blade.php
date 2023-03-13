@@ -29,7 +29,7 @@
                                 <span class="block text-center">Car image</span>   
                             </th>
                             <th scope="col" class="py-3 px-6">
-                                <span class="block text-center">View details</span>  
+                                <span class="block text-center">Details</span>  
                             </th>
                             <th scope="col" class="py-3 px-6">
                                 <span class="block text-center">Status</span>  
@@ -59,11 +59,11 @@
                                     </td>
                                     <td class="py-4 px-6">
                                         <div class="flex justify-center">
-                                            <button type="button" data-modal-toggle="{{'view-booking'.$book['id']}}"  class="details btn-1 bg-accent-regular uppercase  w-[fit-content]   text-white whitespace-nowrap">View details</button>
+                                            <button type="button" data-modal-toggle="{{'view-booking'.$book['id']}}"  class="details btn-1 bg-accent-regular  w-[fit-content]   text-white whitespace-nowrap">View Details</button>
                                         </div>
                                         @include('owner.booking.owner-view-booking-details') 
                                     </td>
-                                    <td class="py-4 px-6 font-semibold text-gray-900 ">
+                                    <td class="py-4 px-6 font-semibold text-gray-900 capitalize">
                                         <div class="py-6 flex justify-center ">
                                             <div class="btn-1 pointer-events-none bg-[#F28123] w-[fit-content]  text-white whitespace-nowrap">
                                                 {{$book['status']}}
@@ -78,9 +78,9 @@
                                         @if (Carbon::now() > $start_date && $book['status'] === 'pending') 
                                         @else
                                             <a class="updateBooking"  booking_id="{{$book['id']}}" user_id="{{$book['user_id']}}">
-                                            <button account="approved"  class="btn-1 bg-accent-green w-[fit-content]   text-white whitespace-nowrap">approve</button></a>
+                                            <button account="approved"  class="btn-1 bg-accent-green w-[fit-content]   text-white whitespace-nowrap capitalize">approve</button></a>
                                             <a class="updateBooking"  booking_id="{{$book['id']}}" user_id="{{$book['user_id']}}">
-                                            <button account="declined"  class="btn-1 bg-accent-regular w-[fit-content]   text-white whitespace-nowrap">decline</button></a>
+                                            <button account="declined"  class="btn-1 bg-accent-regular w-[fit-content]   text-white whitespace-nowrap capitalize">decline</button></a>
                                         @endif
                                         </div> 
                                     </td>

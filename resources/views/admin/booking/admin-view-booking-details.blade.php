@@ -160,19 +160,21 @@
 
                     <div class="col-span-8 md:col-span-3">
                         <div class="bg-[#f5f5f5] pb-4">
-                            <div class="p-2 md:p-6 md:pb-0 sm:pt-0">
-                                <h3 class=" text-sm font-semibold mb-2">Car Schedule:</h3>
-                                <div class="relative overflow-auto">
-                                    <input type="hidden" data-bookdates="{{json_encode($book['check_car_booking']['car_booking'])}}"  value="" name="date"  class="date-input block px-2.5 py-2 w-full text-xs text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-300 mb-2" placeholder="choose date" readonly>
-                                </div>
-                                <div class="text-[10px] grid grid-cols-4 mt-2">
-                                    <div class="flex items-center gap-1 col-span-2 ">
-                                        <div class="w-2 h-2 bg-accent-regular"></div>
-                                        <p>Not Available</p>
+                            @if ($book['status'] === 'pending')
+                                <div class="p-2 md:p-6 md:pb-0 sm:pt-0">
+                                    <h3 class=" text-sm font-semibold mb-2">Car Schedule:</h3>
+                                    <div class="relative overflow-auto">
+                                        <input type="hidden" data-bookdates="{{json_encode($book['check_car_booking']['car_booking'])}}"  value="" name="date"  class="date-input block px-2.5 py-2 w-full text-xs text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-300 mb-2" placeholder="choose date" readonly>
                                     </div>
-                                   
+                                    <div class="text-[10px] grid grid-cols-4 mt-2">
+                                        <div class="flex items-center gap-1 col-span-2 ">
+                                            <div class="w-2 h-2 bg-accent-regular"></div>
+                                            <p>Not Available</p>
+                                        </div>
+                                    
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
                             
                             <div class="p-2 md:p-6 md:pb-4 sm:pt-0">
                                 <div class="mt-0">   
