@@ -2029,20 +2029,14 @@ input[type="range"]::-ms-thumb {
 .max-h-\[500px\] {
   max-height: 500px;
 }
-.max-h-\[calc\(100vh-15\%\)\] {
-  max-height: calc(100vh - 15%);
+.max-h-\[85vh\] {
+  max-height: 85vh;
 }
 .max-h-56 {
   max-height: 14rem;
 }
 .max-h-\[462px\] {
   max-height: 462px;
-}
-.max-h-\[\] {
-  max-height: ;
-}
-.max-h-\[85vh\] {
-  max-height: 85vh;
 }
 .min-h-\[calc\(100vh-5rem\)\] {
   min-height: calc(100vh - 5rem);
@@ -3606,6 +3600,34 @@ input[type="range"]::-ms-thumb {
   content: var(--tw-content);
   right: 100%;
 }
+.before\:right-\[102\%\]::before {
+  content: var(--tw-content);
+  right: 102%;
+}
+.before\:bottom-1::before {
+  content: var(--tw-content);
+  bottom: 0.25rem;
+}
+.before\:bottom-\[\]::before {
+  content: var(--tw-content);
+  bottom: ;
+}
+.before\:bottom-\[102\]::before {
+  content: var(--tw-content);
+  bottom: 102;
+}
+.before\:bottom-\[102\%\]::before {
+  content: var(--tw-content);
+  bottom: 102%;
+}
+.before\:right-1\/2::before {
+  content: var(--tw-content);
+  right: 50%;
+}
+.before\:right-0::before {
+  content: var(--tw-content);
+  right: 0px;
+}
 .before\:hidden::before {
   content: var(--tw-content);
   display: none;
@@ -3641,6 +3663,21 @@ input[type="range"]::-ms-thumb {
 .before\:-translate-y-1\/2::before {
   content: var(--tw-content);
   --tw-translate-y: -50%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.before\:-translate-x-1\/2::before {
+  content: var(--tw-content);
+  --tw-translate-x: -50%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.before\:-translate-x-0::before {
+  content: var(--tw-content);
+  --tw-translate-x: -0px;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.before\:translate-x-1\/2::before {
+  content: var(--tw-content);
+  --tw-translate-x: 50%;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 .before\:scale-x-0::before {

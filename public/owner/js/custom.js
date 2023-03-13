@@ -763,29 +763,8 @@ $(function(){
         function validateSignupForm(){
                 
             
-            let valid_id_file = $('#edit-id-file').val() 
-                
             
-                if(valid_id_file.length !== 0)
-            {
-                
-                let valid = validateName('#edit-first-name','#edit-first-name-error','First name') && validateName('#edit-last-name','#edit-last-name-error', 'Last name') && validateBirthdate('#edit-birthdate','#edit-birthdate-error') && validateContact('#edit-contact','#edit-contact-error') && validateAddress('#edit-address','#edit-address-error')  && validateValidID('#edit-valid-id','#edit-valid-id-error') && validateImageFile('#edit-id-file','#edit-id-file-error') ;
-                if(!valid)
-                {  
-                    $('#edit-submit-form-error').show();
-                    $('#edit-submit-form-error').text('Please fill up the form correctly');
-                    setTimeout(function()
-                    {
-                        $('#edit-submit-form-error').hide();
-                    },3000);
-                    return false;
-                }
-                return true;
-            }
-            
-            else
-            {
-                let valid = validateName('#edit-first-name','#edit-first-name-error','First name') && validateName('#edit-last-name','#edit-last-name-error', 'Last name') && validateBirthdate('#edit-birthdate','#edit-birthdate-error') && validateContact('#edit-contact','#edit-contact-error') &&  validateAddress('#edit-address','#edit-address-error')  && validateValidID('#edit-valid-id','#edit-valid-id-error');
+                let valid = validateName('#edit-first-name','#edit-first-name-error','First name') && validateName('#edit-last-name','#edit-last-name-error', 'Last name') && validateBirthdate('#edit-birthdate','#edit-birthdate-error') && validateContact('#edit-contact','#edit-contact-error') &&  validateAddress('#edit-address','#edit-address-error');
                 if(!valid)
                 {  
                     $('#edit-submit-form-error').show();
@@ -798,7 +777,7 @@ $(function(){
                 }
                 return true;
 
-            }
+            
                 
         }
             
@@ -1355,6 +1334,7 @@ $(function(){
     {
         var status = $(this).children("svg").attr("status");
         var car_id = $(this).attr("car_id");
+        var tooltip = $(this);
         var newStatus;
         if (status === "Inactive") newStatus = "Active";
         else newStatus = "Inactive";
@@ -1372,11 +1352,13 @@ $(function(){
         success: function (resp) {
             // alert(JSON.stringify(resp['status']))
             if (resp["status"] === 0) {
+                $(tooltip).attr("before", newStatus)
                 $("#car-" + car_id).html(
                     '<svg status="Inactive" xmlns="http://www.w3.org/2000/svg" width="40" height="40" preserveAspectRatio="xMidYMid meet" viewBox="0 0 20 20"><path fill="#e84949" fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16a8 8 0 0 0 0 16ZM8.28 7.22a.75.75 0 0 0-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 1 0 1.06 1.06L10 11.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L11.06 10l1.72-1.72a.75.75 0 0 0-1.06-1.06L10 8.94L8.28 7.22Z" clip-rule="evenodd"/></svg>'
                 );
                 $(".car"+car_id).html('Status: <span class="font-semibold">Inactive</span>');
             } else if (resp["status"] === 1) {
+                $(tooltip).attr("before", newStatus)
                 $("#car-" + car_id).html(
                     '<svg status="Active" xmlns="http://www.w3.org/2000/svg" width="40" height="40" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="#e84949" d="m10.6 13.8l-2.175-2.175q-.275-.275-.675-.275t-.7.3q-.275.275-.275.7q0 .425.275.7L9.9 15.9q.275.275.7.275q.425 0 .7-.275l5.675-5.675q.275-.275.275-.675t-.3-.7q-.275-.275-.7-.275q-.425 0-.7.275ZM12 22q-2.075 0-3.9-.788q-1.825-.787-3.175-2.137q-1.35-1.35-2.137-3.175Q2 14.075 2 12t.788-3.9q.787-1.825 2.137-3.175q1.35-1.35 3.175-2.138Q9.925 2 12 2t3.9.787q1.825.788 3.175 2.138q1.35 1.35 2.137 3.175Q22 9.925 22 12t-.788 3.9q-.787 1.825-2.137 3.175q-1.35 1.35-3.175 2.137Q14.075 22 12 22Z"/></svg>'
                 );

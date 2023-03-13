@@ -33,13 +33,13 @@
                       
                         <div class="col-span-8 sm:col-span-4">
                             <p  class="block mb-2 text-sm font-medium text-gray-900 ">License</p>
-                           <a href="{{url('owner/images/license/'. $owner[0]['license'] )}}" target="_blank"> <img src="{{url('owner/images/license/'. $owner[0]['license'] )}}" alt="license"> </a>
+                           <a class="zoomable-image" href="data:image/jpeg;base64,{{$owner[0]['license']}}" target="_blank"> <img src="data:image/jpeg;base64,{{$owner[0]['license']}}" alt="license"> </a>
                         </div> 
                    
                         
                         <div class="col-span-8 sm:col-span-4">
                             <p  class="block mb-2 text-sm font-medium text-gray-900 ">Valid ID: <span class="font-semibold">{{ $owner[0]['valid_id'] }}</span></p>
-                           <a href="{{url('owner/images/id/'.$owner[0]['valid_id_file'] )}}" target="_blank"> <img src="{{url('owner/images/id/'.$owner[0]['valid_id_file'] )}}" alt="ID"> </a>
+                           <a class="zoomable-image" href="data:image/jpeg;base64,{{$owner[0]['valid_id_file']}}" target="_blank"> <img src="data:image/jpeg;base64,{{$owner[0]['valid_id_file']}}" alt="ID"> </a>
                         </div>  
                     </div>
                 </div>

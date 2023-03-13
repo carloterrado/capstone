@@ -10,11 +10,11 @@
         <form id="edit-profile-form" method="POST"  enctype="multipart/form-data" class="relative bg-white rounded-lg shadow ">
             @csrf
             
-            <div class="flex justify-between items-start p-4 rounded-t border-b dark:border-gray-600">
+            <div class="flex justify-between items-start p-4 rounded-t border-b dark:border-gray-600 relative">
                 <h3 class="text-xl font-semibold text-gray-900 ">
                     Edit Profile
                 </h3>
-                <button data-modal-toggle="edit-profile" type="button" class="cursor-pointer text-gray-400 bg-transparent hover:bg-accent-regular hover:text-white rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" >
+                <button data-modal-toggle="edit-profile" type="button" before="Close" class="cursor-pointer text-gray-400 bg-transparent hover:bg-accent-regular hover:text-white rounded-lg text-sm p-1.5 ml-auto inline-flex items-center before:content-[attr(before)] before:w-auto before:absolute before:hidden hover:before:block before:whitespace-nowrap  before:bg-accent-regular/80 before:top-1/2 before:-translate-y-1/2 before:right-[102%] before:rounded-md before:px-2 before:py-1.5 before:text-white relative font-semibold" >
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>  
                 </button>
             </div>
@@ -52,27 +52,7 @@
                         <label id="edit-address-error" for="edit-address" class="pointer-events-none absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-gray-900 peer-focus:font-semibold peer-placeholder-shown:scale-100 
                         peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 whitespace-nowrap">Address</label>
                     </div>
-                    <div class="col-span-6 sm:col-span-3 relative">
-                        <select id="edit-valid-id" name="edit-valid-id" class="cursor-pointer-none block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-900 appearance-none peer">
-                            <option value="SSS ID" 
-                                @if($owner[0]['valid_id'] === 'SSS ID') selected @endif class="cursor-pointer">SSS ID</option>
-                            <option value="PhilHealth ID"
-                                @if($owner[0]['valid_id'] === 'PhilHealth ID') selected @endif 
-                                class="cursor-pointer">PhilHealth ID</option>
-                            <option value="PRC ID" 
-                                @if($owner[0]['valid_id'] === 'PRC ID') selected @endif class="cursor-pointer">PRC ID</option>
-                            <option value="Passport" 
-                                @if($owner[0]['valid_id'] === 'Passport') selected @endif class=cursor-pointer">Passport</option>
-                        </select>
-                        <label id="edit-valid-id-error" for="edit-valid-id" class="pointer-events-none absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-gray-900 peer-focus:font-semibold peer-placeholder-shown:scale-100 
-                        peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 whitespace-nowrap">Choose one valid id</label>
-                    </div>
-                    
-                    <div class="col-span-6 sm:col-span-3 relative">
-                        <input id="edit-id-file" name="edit-id-file" class="w-full mt-2 text-sm text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" aria-describedby="file_input_help" type="file">
-                        <label id="edit-id-file-error" for="edit-id-file" class=" hidden pb-1 text-sm font-semibold lg:pl-2 text-gray-500">Valid id file</label>
-                        <input type="text" name="current-id-file" value="{{ $owner[0]['valid_id_file'] }}"  class="hidden">
-                    </div>   
+                  
              
                 </div>
                 <label id="edit-submit-form-error" class=" hidden py-4 text-sm  font-semibold lg:pl-2 text-[lightcoral]"></label>

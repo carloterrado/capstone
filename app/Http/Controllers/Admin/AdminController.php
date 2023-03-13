@@ -1387,35 +1387,9 @@ class AdminController extends Controller
                 {
                     $owner->address = $data['edit-address'];
                 }
-                if($owner->valid_id !== $data['edit-valid-id'])
-                {
-                    $owner->valid_id = $data['edit-valid-id'];
-                }
                 
-                if($request->hasFile('edit-id-file'))
-                { 
-                    $img_tmp2 = $request->file('edit-id-file');
-                    if($img_tmp2->isValid())
-                    {
-                        // Get image extension 
-                        $extension2 = $img_tmp2->getClientOriginalExtension(); 
-
-                        // Generate new image name 
-                        $imgName2 = rand(111,99999).'.'.$extension2;
-                        $imgPath2 ='owner/images/id/'.$imgName2;
-                    
-                        // Upload and resize the image
-                        Image::make($img_tmp2)->resize(1000,1000,function($constraint){
-                                $constraint->aspectRatio();
-                            })->save($imgPath2);
-                        if($data['current-id-file'] !== null)
-                        {
-                            $currentIDFile = public_path('owner/images/id/'.$data['current-id-file']);
-                                File::delete($currentIDFile);
-                        }
-                    }
-                    $owner->valid_id_file = $imgName2;
-                }
+                
+              
                 $owner->save();
              
                 return response()->json(['data'=>'success']);
