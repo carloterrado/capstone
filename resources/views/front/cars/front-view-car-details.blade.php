@@ -7,7 +7,7 @@
             <div class="form-step step-one pb-6">
                 <div class="flex justify-between px-2 pt-6 pb-4 sm:p-6 rounded-t items-center relative">
                     <h2 class="text-lg sm:text-xl font-semibold uppercase leading-4">{{$car['name']}}</h2>
-                    <button data-modal-toggle="{{'view-car'.$car['id']}}" type="button" before="Close" class="cursor-pointer text-gray-400 bg-transparent hover:bg-accent-regular hover:text-white rounded-lg text-sm p-1.5 ml-auto inline-flex items-center before:content-[attr(before)] before:w-auto before:absolute before:hidden hover:before:block before:bg-accent-regular/80 before:top-0 before:right-[105%] before:rounded-md before:px-2 before:py-1.5 before:text-white relative" >
+                    <button data-modal-toggle="{{'view-car'.$car['id']}}" type="button" before="Close" class="cursor-pointer text-gray-400 bg-transparent hover:bg-accent-regular hover:text-white rounded-lg text-sm p-1.5 ml-auto inline-flex items-center before:content-[attr(before)] before:w-auto before:absolute before:hidden hover:before:block before:bg-accent-regular/80 before:top-0 before:right-[105%] before:rounded-md before:px-2 before:py-1.5 before:text-white relative font-semibold" >
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>  
                     </button>
                 </div>
@@ -194,7 +194,7 @@
                     <h3 class="text-xl font-semibold text-gray-900 ">
                         Customer Details
                     </h3>
-                    <button data-modal-toggle="{{'view-car'.$car['id']}}" type="button" before="Close" class="cursor-pointer text-gray-400 bg-transparent hover:bg-accent-regular hover:text-white rounded-lg text-sm p-1.5 ml-auto inline-flex items-center before:content-[attr(before)] before:w-auto before:absolute before:hidden hover:before:block before:bg-accent-regular/80 before:top-0 before:right-[105%] before:rounded-md before:px-2 before:py-1.5 before:text-white relative" >
+                    <button data-modal-toggle="{{'view-car'.$car['id']}}" type="button" before="Close" class="cursor-pointer text-gray-400 bg-transparent hover:bg-accent-regular hover:text-white rounded-lg text-sm p-1.5 ml-auto inline-flex items-center before:content-[attr(before)] before:w-auto before:absolute before:hidden hover:before:block before:bg-accent-regular/80 before:top-0 before:right-[105%] before:rounded-md before:px-2 before:py-1.5 before:text-white relative font-semibold" >
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>  
                     </button>
                 </div>
@@ -249,7 +249,7 @@
                     <h3 class="text-xl font-semibold text-gray-900 ">
                         Confirm Reservation
                     </h3>
-                    <button data-modal-toggle="{{'view-car'.$car['id']}}" type="button" before="Close" class="cursor-pointer text-gray-400 bg-transparent hover:bg-accent-regular hover:text-white rounded-lg text-sm p-1.5 ml-auto inline-flex items-center before:content-[attr(before)] before:w-auto before:absolute before:hidden hover:before:block before:bg-accent-regular/80 before:top-0 before:right-[105%] before:rounded-md before:px-2 before:py-1.5 before:text-white relative" >
+                    <button data-modal-toggle="{{'view-car'.$car['id']}}" type="button" before="Close" class="cursor-pointer text-gray-400 bg-transparent hover:bg-accent-regular hover:text-white rounded-lg text-sm p-1.5 ml-auto inline-flex items-center before:content-[attr(before)] before:w-auto before:absolute before:hidden hover:before:block before:bg-accent-regular/80 before:top-0 before:right-[105%] before:rounded-md before:px-2 before:py-1.5 before:text-white relative font-semibold" >
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>  
                     </button>
                 </div>

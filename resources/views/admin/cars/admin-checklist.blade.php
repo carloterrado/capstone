@@ -7,15 +7,12 @@
         <form   class="check-list-form relative bg-white rounded-lg shadow ">
 
         @csrf
-        <div class="max-w-md mx-auto">
-            @include('message.ajax-error')
-            @include('message.ajax-success')
-        </div>
+        
         @include('message.loading')
         
             <div class="view-step detail-one">
                 <div class="flex justify-end p-4 rounded-t ">     
-                    <button data-modal-toggle="{{'car-checklist'.$car['id']}}" type="button" class="cursor-pointer text-gray-400 bg-transparent hover:bg-accent-regular hover:text-white rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" >
+                    <button before="Close" data-modal-toggle="{{'car-checklist'.$car['id']}}" type="button" class="cursor-pointer text-gray-400 bg-transparent hover:bg-accent-regular hover:text-white rounded-lg text-sm p-1.5 ml-auto inline-flex items-center before:content-[attr(before)] before:w-auto before:absolute before:hidden hover:before:block before:whitespace-nowrap  before:bg-accent-regular/80 before:top-1/2 before:-translate-y-1/2 before:right-[102%] before:rounded-md before:px-2 before:py-1.5 before:text-white relative font-semibold" >
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>  
                     </button>
                 </div>
@@ -747,6 +744,10 @@
                             </div>
                         </div>
                     </div>
+                    <div class="max-w-md mx-auto col-span-8">
+                        @include('message.ajax-error')
+                        @include('message.ajax-success')
+                    </div>
                     <div class="col-span-8  mt-6 ">
                         <div class="max-w-md mx-auto">
                             <h2 class="text-sm text-accent-regular text-center mb-2 ">*Indicate other car concerns if not included above </h2>
@@ -765,6 +766,7 @@
                     </div> 
                 </div>
                 <div class="text-center text-accent-regular checklist-error mt-4 capitalize hidden">Please fill up the checklist correctly!</div>
+                
                 <div class="flex items-center justify-end p-6 space-x-2 mt-6 rounded-b border-t border-gray-200 "> 
                     <button type="submit" class="btn-1 bg-accent-regular uppercase  w-full sm:w-[fit-content]   text-white whitespace-nowrap">Submit</button>
                 </div>

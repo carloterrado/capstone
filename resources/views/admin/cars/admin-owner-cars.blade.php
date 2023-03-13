@@ -43,7 +43,7 @@
                         Owner
                     </th>
                     <th scope="col" class="py-3 px-6">
-                        <span class="block text-center">View details</span>  
+                        <span class="block text-center">Details</span>  
                     </th>
                     <th scope="col" class="py-3 px-6">
                         Status
@@ -65,7 +65,7 @@
                         {{$car['name']}}
                     </td>
                     <td class="p-4">
-                        <div class="w-32 mx-auto overflow-hidden rounded-lg">
+                        <div class="w-32 h-24 mx-auto overflow-hidden rounded-lg">
                         <img src="data:image/jpeg;base64,{{$car['main_photo']}}" alt="Car photo">
                         </div>
                       
@@ -80,28 +80,29 @@
                     <td class="py-4 px-6">
                         <div class="flex justify-center">
                            
-                            <button  data-modal-toggle="{{'view-car'.$car['id']}}" class="details btn-1 bg-accent-regular uppercase  w-[fit-content]   text-white whitespace-nowrap">View details</button>
+                            <button  data-modal-toggle="{{'view-car'.$car['id']}}" class="details btn-1 bg-accent-regular w-[fit-content]   text-white whitespace-nowrap">View Details</button>
                         </div>
+                        @include('admin.cars.admin-view-owner-car-details')
                     </td>
                     <td class="py-4 px-6 font-semibold text-gray-900 ">
                     <div class="py-6">
                             @if ($car['status'] === 1) 
-                            <a id="car-{{$car['id']}}" car_id="{{$car['id']}}" class="updateCarStatus cursor-pointer"><svg status="Active" xmlns="http://www.w3.org/2000/svg" width="40" height="40" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="#e84949" d="m10.6 13.8l-2.175-2.175q-.275-.275-.675-.275t-.7.3q-.275.275-.275.7q0 .425.275.7L9.9 15.9q.275.275.7.275q.425 0 .7-.275l5.675-5.675q.275-.275.275-.675t-.3-.7q-.275-.275-.7-.275q-.425 0-.7.275ZM12 22q-2.075 0-3.9-.788q-1.825-.787-3.175-2.137q-1.35-1.35-2.137-3.175Q2 14.075 2 12t.788-3.9q.787-1.825 2.137-3.175q1.35-1.35 3.175-2.138Q9.925 2 12 2t3.9.787q1.825.788 3.175 2.138q1.35 1.35 2.137 3.175Q22 9.925 22 12t-.788 3.9q-.787 1.825-2.137 3.175q-1.35 1.35-3.175 2.137Q14.075 22 12 22Z"/></svg></a>    
+                            <a before="Active" id="car-{{$car['id']}}" car_id="{{$car['id']}}" class="updateCarStatus block  w-fit cursor-pointer before:content-[attr(before)] before:w-auto before:absolute before:hidden hover:before:block before:whitespace-nowrap  before:bg-accent-regular/80 before:bottom-[102%]  before:right-1/2 before:translate-x-1/2  before:rounded-md before:px-2 before:py-1.5 before:text-white relative"><svg status="Active" xmlns="http://www.w3.org/2000/svg" width="40" height="40" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="#e84949" d="m10.6 13.8l-2.175-2.175q-.275-.275-.675-.275t-.7.3q-.275.275-.275.7q0 .425.275.7L9.9 15.9q.275.275.7.275q.425 0 .7-.275l5.675-5.675q.275-.275.275-.675t-.3-.7q-.275-.275-.7-.275q-.425 0-.7.275ZM12 22q-2.075 0-3.9-.788q-1.825-.787-3.175-2.137q-1.35-1.35-2.137-3.175Q2 14.075 2 12t.788-3.9q.787-1.825 2.137-3.175q1.35-1.35 3.175-2.138Q9.925 2 12 2t3.9.787q1.825.788 3.175 2.138q1.35 1.35 2.137 3.175Q22 9.925 22 12t-.788 3.9q-.787 1.825-2.137 3.175q-1.35 1.35-3.175 2.137Q14.075 22 12 22Z"/></svg></a>    
                             @else 
-                            <a id="car-{{$car['id']}}" car_id="{{$car['id']}}" class="updateCarStatus cursor-pointer"><svg status="Inactive" xmlns="http://www.w3.org/2000/svg" width="40" height="40" preserveAspectRatio="xMidYMid meet" viewBox="0 0 20 20"><path fill="#e84949" fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16a8 8 0 0 0 0 16ZM8.28 7.22a.75.75 0 0 0-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 1 0 1.06 1.06L10 11.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L11.06 10l1.72-1.72a.75.75 0 0 0-1.06-1.06L10 8.94L8.28 7.22Z" clip-rule="evenodd"/></svg></a>
+                            <a before="Inactive" id="car-{{$car['id']}}" car_id="{{$car['id']}}" class="updateCarStatus block  w-fit cursor-pointer before:content-[attr(before)] before:w-auto before:absolute before:hidden hover:before:block before:whitespace-nowrap  before:bg-accent-regular/80 before:bottom-[102%]  before:right-1/2 before:translate-x-1/2  before:rounded-md before:px-2 before:py-1.5 before:text-white relative"><svg status="Inactive" xmlns="http://www.w3.org/2000/svg" width="40" height="40" preserveAspectRatio="xMidYMid meet" viewBox="0 0 20 20"><path fill="#e84949" fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16a8 8 0 0 0 0 16ZM8.28 7.22a.75.75 0 0 0-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 1 0 1.06 1.06L10 11.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L11.06 10l1.72-1.72a.75.75 0 0 0-1.06-1.06L10 8.94L8.28 7.22Z" clip-rule="evenodd"/></svg></a>
                             @endif
                         </div>
                     </td>
                     <td class="py-4 px-6">
                         <div class="flex items-center">
-                            <a car="{{ $car['name'] }}" moduleid="{{$car['id']}}" class="confirmDeleteCar cursor-pointer">
+                            <a before="Delete" car="{{ $car['name'] }}" moduleid="{{$car['id']}}" class="confirmDeleteCar cursor-pointer before:content-[attr(before)] before:w-auto before:absolute before:hidden hover:before:block before:whitespace-nowrap  before:bg-accent-regular/80 before:bottom-[102%]  before:right-1/2 before:translate-x-1/2  before:rounded-md before:px-2 before:py-1.5 before:text-white relative font-semibold">
                             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="#e84949" d="M7 21q-.825 0-1.412-.587Q5 19.825 5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413Q17.825 21 17 21Zm2-4h2V8H9Zm4 0h2V8h-2Z"/></svg>
                             </a>
                            
                         </div>
                     </td>
                 </tr>
-                @include('admin.cars.admin-view-owner-car-details')
+                
             @endforeach
                 
             </tbody>

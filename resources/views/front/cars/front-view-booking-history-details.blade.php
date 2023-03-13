@@ -46,7 +46,7 @@
                         </ul>
                         <div class="left"><span class="font-semibold">Destination: </span> {{$history['destination']}}</div>
                         <div class="left"><span class="font-semibold">Start Date: </span> {{$history['start_date'].' '.$history['time']}}</div>
-                        <div class="left"><span class="font-semibold">End Date: </span> {{$history['end_date'].' '.$history['time']}}</div>
+                        <div class="left"><span class="font-semibold">End Date: </span> {{$history['end_date'].' '.$history['time_end']}}</div>
                         <div class="left"><span class="font-semibold">Price: </span> {{'₱ '.number_format($history['car_price'],2,'.',',')}}</div>
 
                         <div class="mt-4">
@@ -80,7 +80,7 @@
                                 </td>
                                 <td class="desc">{{$history['destination']}}</td>
                                 <td class="desc">{{$history['start_date'].' '.$history['time']}}</td>
-                                <td class="desc">{{$history['end_date'].' '.$history['time']}}</td>
+                                <td class="desc">{{$history['end_date'].' '.$history['time_end']}}</td>
                                 <td class="desc">{{'₱ '.number_format($history['car_price'],2,'.',',')}}</td>
                             </tr>
                             

@@ -43,7 +43,7 @@
                         Owner
                     </th>
                     <th scope="col" class="py-3 px-6">
-                        <span class="block text-center">View details</span>  
+                        <span class="block text-center">Details</span>  
                     </th>
                    
                     <th scope="col" class="py-3 px-6">
@@ -63,7 +63,7 @@
                         {{$car['name']}}
                     </td>
                     <td class="p-4">
-                        <div class="w-32 mx-auto overflow-hidden rounded-lg">
+                        <div class="w-32 h-24 mx-auto overflow-hidden rounded-lg">
                         <img src="data:image/jpeg;base64,{{$car['main_photo']}}" alt="Car photo">
                         </div>
                       
@@ -78,20 +78,21 @@
                     <td class="py-4 px-6">
                         <div class="flex justify-center">
                            
-                            <button  data-modal-toggle="{{'view-car'.$car['id']}}" class="details btn-1 bg-accent-regular uppercase  w-[fit-content]   text-white whitespace-nowrap">View details</button>
+                            <button  data-modal-toggle="{{'view-car'.$car['id']}}" class="details btn-1 bg-accent-regular w-[fit-content]   text-white whitespace-nowrap">View Details</button>
                         </div>
+                        @include('admin.cars.admin-view-owner-car-details')
                     </td>
                     
                     <td class="py-4 px-6">
                         <div class="flex items-center">
-                            <a car="{{ $car['name'] }}" moduleid="{{$car['id']}}" class="confirmDeleteCar cursor-pointer">
+                            <a before="Delete" car="{{ $car['name'] }}" moduleid="{{$car['id']}}" class="confirmDeleteCar cursor-pointer before:content-[attr(before)] before:w-auto before:absolute before:hidden hover:before:block before:whitespace-nowrap  before:bg-accent-regular/80 before:bottom-[102%]  before:right-1/2 before:translate-x-1/2  before:rounded-md before:px-2 before:py-1.5 before:text-white relative font-semibold">
                             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="#e84949" d="M7 21q-.825 0-1.412-.587Q5 19.825 5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413Q17.825 21 17 21Zm2-4h2V8H9Zm4 0h2V8h-2Z"/></svg>
                             </a>
                            
                         </div>
                     </td>
                 </tr>
-                @include('admin.cars.admin-view-owner-car-details')
+               
             @endforeach
                 
             </tbody>

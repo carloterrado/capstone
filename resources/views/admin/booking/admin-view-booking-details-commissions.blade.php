@@ -75,6 +75,11 @@
                                 <td colspan="4" class="font-semibold">GRAND TOTAL</td>
                                 <td colspan="2" class="font-semibold ">{{'₱ '.number_format($history['grand_total'],2,'.',',')}}</td>
                             </tr>
+                            <tr>
+                                <td colspan="2" class="font-semibold">COMMISSION FEE</td>
+                                <td colspan="2" class="font-semibold">Status: {{$history['commission']}}</td>
+                                <td colspan="2" class="font-semibold">{{'₱ '.number_format($history['commission_fee'],2,'.',',')}}</td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -99,6 +104,8 @@
                             <div class="left"><span class="font-semibold">SUBTOTAL: </span> {{'₱ '.number_format($history['car_price'],2,'.',',')}}</div> 
                             <div class="left"><span class="font-semibold">DRIVER: </span> {{'₱ '.number_format($history['driver_fee'],2,'.',',')}}</div> 
                             <div class="left"><span class="font-semibold">GRAND TOTAL: </span> {{'₱ '.number_format($history['grand_total'],2,'.',',')}}</div> 
+                            <div class="left"><span class="font-semibold">COMMISSION FEE: </span> {{'₱ '.number_format($history['commission_fee'],2,'.',',')}}</div> 
+                            <div class="left"><span class="font-semibold">COMMISSION FEE STATUS: </span> {{$history['commission']}}</div>
                         </div>
                     </div>
                 </div>
@@ -108,4 +115,9 @@
     </div>
 </div>
 <script src="{{url('js/html2canvas.min.js')}}"></script>
+
+
+
+
+
 

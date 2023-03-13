@@ -633,6 +633,7 @@ $(function(){
         var status = $(this).children("svg").attr("status");
         var admin_id = $(this).attr("admin_id");
         var newStatus;
+        var tooltip = $(this);
         if (status === "Inactive") newStatus = "Active";
         else newStatus = "Inactive";
         if(!confirm("Update status to "+ newStatus + "?")) return false
@@ -649,10 +650,12 @@ $(function(){
         success: function (resp) {
             // alert(JSON.stringify(resp['status']))
             if (resp["status"] === 0) {
+                $(tooltip).attr("before", newStatus)
                 $("#admin-" + admin_id).html(
                     '<svg status="Inactive" xmlns="http://www.w3.org/2000/svg" width="40" height="40" preserveAspectRatio="xMidYMid meet" viewBox="0 0 20 20"><path fill="#e84949" fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16a8 8 0 0 0 0 16ZM8.28 7.22a.75.75 0 0 0-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 1 0 1.06 1.06L10 11.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L11.06 10l1.72-1.72a.75.75 0 0 0-1.06-1.06L10 8.94L8.28 7.22Z" clip-rule="evenodd"/></svg>'
                 );
             } else if (resp["status"] === 1) {
+                $(tooltip).attr("before", newStatus)
                 $("#admin-" + admin_id).html(
                     '<svg status="Active" xmlns="http://www.w3.org/2000/svg" width="40" height="40" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="#e84949" d="m10.6 13.8l-2.175-2.175q-.275-.275-.675-.275t-.7.3q-.275.275-.275.7q0 .425.275.7L9.9 15.9q.275.275.7.275q.425 0 .7-.275l5.675-5.675q.275-.275.275-.675t-.3-.7q-.275-.275-.7-.275q-.425 0-.7.275ZM12 22q-2.075 0-3.9-.788q-1.825-.787-3.175-2.137q-1.35-1.35-2.137-3.175Q2 14.075 2 12t.788-3.9q.787-1.825 2.137-3.175q1.35-1.35 3.175-2.138Q9.925 2 12 2t3.9.787q1.825.788 3.175 2.138q1.35 1.35 2.137 3.175Q22 9.925 22 12t-.788 3.9q-.787 1.825-2.137 3.175q-1.35 1.35-3.175 2.137Q14.075 22 12 22Z"/></svg>'
                 );
@@ -670,6 +673,7 @@ $(function(){
         var status = $(this).children("svg").attr("status");
         var user_id = $(this).attr("user_id");
         var newStatus;
+        var tooltip = $(this);
         if (status === "Inactive") newStatus = "Active";
         else newStatus = "Inactive";
         if(!confirm("Update status to "+ newStatus + "?")) return false
@@ -686,10 +690,12 @@ $(function(){
         success: function (resp) {
             // alert(JSON.stringify(resp['status']))
             if (resp["status"] === 0) {
+                $(tooltip).attr("before", newStatus)
                 $(".updateUserStatus").html(
                     '<svg status="Inactive" xmlns="http://www.w3.org/2000/svg" width="40" height="40" preserveAspectRatio="xMidYMid meet" viewBox="0 0 20 20"><path fill="#e84949" fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16a8 8 0 0 0 0 16ZM8.28 7.22a.75.75 0 0 0-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 1 0 1.06 1.06L10 11.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L11.06 10l1.72-1.72a.75.75 0 0 0-1.06-1.06L10 8.94L8.28 7.22Z" clip-rule="evenodd"/></svg>'
                 );
             } else if (resp["status"] === 1) {
+                $(tooltip).attr("before", newStatus)
                 $(".updateUserStatus").html(
                     '<svg status="Active" xmlns="http://www.w3.org/2000/svg" width="40" height="40" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="#e84949" d="m10.6 13.8l-2.175-2.175q-.275-.275-.675-.275t-.7.3q-.275.275-.275.7q0 .425.275.7L9.9 15.9q.275.275.7.275q.425 0 .7-.275l5.675-5.675q.275-.275.275-.675t-.3-.7q-.275-.275-.7-.275q-.425 0-.7.275ZM12 22q-2.075 0-3.9-.788q-1.825-.787-3.175-2.137q-1.35-1.35-2.137-3.175Q2 14.075 2 12t.788-3.9q.787-1.825 2.137-3.175q1.35-1.35 3.175-2.138Q9.925 2 12 2t3.9.787q1.825.788 3.175 2.138q1.35 1.35 2.137 3.175Q22 9.925 22 12t-.788 3.9q-.787 1.825-2.137 3.175q-1.35 1.35-3.175 2.137Q14.075 22 12 22Z"/></svg>'
                 );
@@ -1033,6 +1039,7 @@ $(function(){
          var status = $(this).children("svg").attr("status");
          var cartype_id = $(this).attr("cartype_id");
          var newStatus;
+         var tooltip = $(this);
          if (status === "Inactive") newStatus = "Active";
          else newStatus = "Inactive";
          if(!confirm("Update status to "+ newStatus + "?")) return false
@@ -1049,10 +1056,12 @@ $(function(){
          success: function (resp) {
              // alert(JSON.stringify(resp['status']))
              if (resp["status"] === 0) {
+                $(tooltip).attr("before", newStatus)
                  $("#cartype-" + cartype_id).html(
                      '<svg status="Inactive" xmlns="http://www.w3.org/2000/svg" width="40" height="40" preserveAspectRatio="xMidYMid meet" viewBox="0 0 20 20"><path fill="#e84949" fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16a8 8 0 0 0 0 16ZM8.28 7.22a.75.75 0 0 0-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 1 0 1.06 1.06L10 11.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L11.06 10l1.72-1.72a.75.75 0 0 0-1.06-1.06L10 8.94L8.28 7.22Z" clip-rule="evenodd"/></svg>'
                  );
              } else if (resp["status"] === 1) {
+                $(tooltip).attr("before", newStatus)
                  $("#cartype-" + cartype_id).html(
                      '<svg status="Active" xmlns="http://www.w3.org/2000/svg" width="40" height="40" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="#e84949" d="m10.6 13.8l-2.175-2.175q-.275-.275-.675-.275t-.7.3q-.275.275-.275.7q0 .425.275.7L9.9 15.9q.275.275.7.275q.425 0 .7-.275l5.675-5.675q.275-.275.275-.675t-.3-.7q-.275-.275-.7-.275q-.425 0-.7.275ZM12 22q-2.075 0-3.9-.788q-1.825-.787-3.175-2.137q-1.35-1.35-2.137-3.175Q2 14.075 2 12t.788-3.9q.787-1.825 2.137-3.175q1.35-1.35 3.175-2.138Q9.925 2 12 2t3.9.787q1.825.788 3.175 2.138q1.35 1.35 2.137 3.175Q22 9.925 22 12t-.788 3.9q-.787 1.825-2.137 3.175q-1.35 1.35-3.175 2.137Q14.075 22 12 22Z"/></svg>'
                  );
@@ -1552,6 +1561,7 @@ $(function(){
         var status = $(this).children("svg").attr("status");
         var car_id = $(this).attr("car_id");
         var newStatus;
+        var tooltip = $(this);
         if (status === "Inactive") newStatus = "Active";
         else newStatus = "Inactive";
         if(!confirm("Update status to "+ newStatus + "?")) return false
@@ -1568,11 +1578,13 @@ $(function(){
         success: function (resp) {
             // alert(JSON.stringify(resp['status']))
             if (resp["status"] === 0) {
+                $(tooltip).attr("before", newStatus)
                 $("#car-" + car_id).html(
                     '<svg status="Inactive" xmlns="http://www.w3.org/2000/svg" width="40" height="40" preserveAspectRatio="xMidYMid meet" viewBox="0 0 20 20"><path fill="#e84949" fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16a8 8 0 0 0 0 16ZM8.28 7.22a.75.75 0 0 0-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 1 0 1.06 1.06L10 11.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L11.06 10l1.72-1.72a.75.75 0 0 0-1.06-1.06L10 8.94L8.28 7.22Z" clip-rule="evenodd"/></svg>'
                 );
                 $(".car"+car_id).html('Status: <span class="font-semibold">Inactive</span>');
             } else if (resp["status"] === 1) {
+                $(tooltip).attr("before", newStatus)
                 $("#car-" + car_id).html(
                     '<svg status="Active" xmlns="http://www.w3.org/2000/svg" width="40" height="40" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="#e84949" d="m10.6 13.8l-2.175-2.175q-.275-.275-.675-.275t-.7.3q-.275.275-.275.7q0 .425.275.7L9.9 15.9q.275.275.7.275q.425 0 .7-.275l5.675-5.675q.275-.275.275-.675t-.3-.7q-.275-.275-.7-.275q-.425 0-.7.275ZM12 22q-2.075 0-3.9-.788q-1.825-.787-3.175-2.137q-1.35-1.35-2.137-3.175Q2 14.075 2 12t.788-3.9q.787-1.825 2.137-3.175q1.35-1.35 3.175-2.138Q9.925 2 12 2t3.9.787q1.825.788 3.175 2.138q1.35 1.35 2.137 3.175Q22 9.925 22 12t-.788 3.9q-.787 1.825-2.137 3.175q-1.35 1.35-3.175 2.137Q14.075 22 12 22Z"/></svg>'
                 );
@@ -2472,7 +2484,7 @@ $(function(){
                         if(resp["data"] === 'success')
                         {
                             $(checklistForm).find('.success-container').show()
-                            $(checklistForm).find('.success-message').html('Car checklist added successfully!')
+                            $(checklistForm).find('.success-message').html('Car checklist updated successfully!')
                             setTimeout(function(){
                                 location.reload() 
                             },2000)  
@@ -2480,7 +2492,7 @@ $(function(){
                         else 
                         {  
                             $(checklistForm).find('.error-container').show()
-                            $(checklistForm).find('.error-message').html('Add car checklist failed!')
+                            $(checklistForm).find('.error-message').html('Update checklist failed!')
                             $(checklistForm).find('button[type="submit"]').addClass('hidden')
                             setTimeout(function(){
                                 $('.error-container').hide()  
@@ -2492,7 +2504,7 @@ $(function(){
                         $(checklistForm).find('.loading').removeClass('grid')
                         $(checklistForm).find('.loading').hide()
                         $(checklistForm).find('.error-container').show()
-                        $(checklistForm).find('.error-message').html('Internal error! add car checklist failed!')
+                        $(checklistForm).find('.error-message').html('Internal error! Update checklist failed!')
                         $(checklistForm).find('button[type="submit"]').removeClass('hidden')
                         setTimeout(function(){
                             $('.error-container').hide()
@@ -2512,7 +2524,7 @@ $(function(){
                         $(checklistForm).find('.loading').removeClass('grid')
                         $(checklistForm).find('.loading').hide()
                         $(checklistForm).find('.error-container').show()
-                        $(checklistForm).find('.error-message').html('System error! add car checklist failed!')
+                        $(checklistForm).find('.error-message').html('System error! Update checklist failed!')
                         setTimeout(function(){
                             $(checklistForm).find('.error-container').hide()
                             // window.location.href =  window.location.href;  
@@ -2531,6 +2543,28 @@ $(function(){
         const cleanedText = text.replace(firstLine, firstLine.trim()); // remove leading white space from the first line
         $(this).val(cleanedText);
       });
+
+      $(document).on('click','.download-checklist',async function(event){
+        var downloadBtn = $(this);
+        
+        $(downloadBtn).hide();
+        $(downloadBtn).siblings('.small-loading').show();
+       
+       async function download(){
+            var content = $(downloadBtn).closest('.content-container').find('.content');
+               
+            html2canvas(content[0]).then(canvas => {
+                const link = document.createElement("a");
+                link.download = "document.png";
+                link.href = canvas.toDataURL();
+                link.click();
+                $(downloadBtn).siblings('.small-loading').hide();
+                $(downloadBtn).show();
+            });
+        }
+          
+       await download();
+    });
     
     
     
