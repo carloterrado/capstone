@@ -48,32 +48,21 @@
    <script src="{{url('js/fecha.min.js')}}"></script>
     <script src="{{url('js/datepicker.js')}}"></script> 
    <script>
-    async function arkillaTable(){
-        await $('#arkilla-table').DataTable({
+    $('#arkilla-table').DataTable({
             stateSave: true,
             order: [[0, 'desc']],
         });
-    }
-    arkillaTable();
-       
-    async function ongoingTransactionTable(){
-        await $('#ongoing-transaction-table').DataTable({
+   $('#ongoing-transaction-table').DataTable({
             stateSave: true,
             order: [[0, 'desc']],
         });
-    }
-    ongoingTransactionTable();
-
-    async function zoomableImage()
-    {
-        await $('.zoomable-image').magnificPopup({
+    $('.zoomable-image').magnificPopup({
             type: 'image',
             gallery: {
             enabled: true
             }
         });
-    }
-    zoomableImage();
+    
        
        
    </script>

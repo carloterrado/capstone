@@ -3,16 +3,10 @@
 <div class="flex justify-center lg:min-h-screen relative p-4 lg:p-0">
     
     <div class="absolute lg:relative -z-10  inset-0 bg-cover  lg:w-2/3" >
-    <img src="{{url('front/images/road.jpg')}}" class="absolute inset-0 w-full h-full object-cover -z-10" alt="">
+    <img src="{{url('front/images/resized-road.jpg')}}" class="absolute inset-0 w-full h-full object-cover -z-10" alt="">
         <div class="flex items-center h-full px-20 bg-gray-900 bg-opacity-40">
             <div>
-                <h2 class="text-4xl font-bold text-white">Brand</h2>
-
-                <p class="max-w-xl mt-3 text-gray-300">
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. In
-                    autem ipsa, nulla laboriosam dolores, repellendus perferendis libero suscipit nam temporibus
-                    molestiae
-                </p>
+                <h2 class="text-4xl font-bold text-white">Welcome to CCH Car Rentals</h2>
             </div>
         </div>
        

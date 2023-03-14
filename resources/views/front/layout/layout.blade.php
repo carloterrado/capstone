@@ -55,35 +55,22 @@
    <script src="{{url('js/slick.min.js')}}"></script>
   
    <script>
-    async function ongoingTable(){
-      await  $('#ongoing-transaction-table').DataTable({
+    $('#ongoing-transaction-table').DataTable({
         ordering: false,
         stateSave: true,
        });
-    }
-    ongoingTable();
-
-    async function transactionTable(){
-        await $('#history-transaction-table').DataTable({
+     $('#history-transaction-table').DataTable({
       //   ordering: false,
         stateSave: true,
         order: [[0, 'desc']],
        });
-    }
-    transactionTable();
-       
-    async function zoomableImage(){
-        await $('.zoomable-image').magnificPopup({
+     $('.zoomable-image').magnificPopup({
             type: 'image',
             gallery: {
             enabled: false
             }
         });
-    }
-    zoomableImage();
-       
-    async function accountManagement(){
-        await $(document).on('click','.account-management',function(){
+     $(document).on('click','.account-management',function(){
             $('.questions').hide()
             $('.category').removeClass('outline')
             $('.category').children().removeClass('text-accent-regular').addClass('text-gray-600')
@@ -91,12 +78,7 @@
             $(this).addClass('outline')
             $('#account-management').show()
         })
-    }
-    accountManagement();
-    
-
-    async function bookingAndPayment(){
-        await $(document).on('click','.booking-and-payment',function(){
+     $(document).on('click','.booking-and-payment',function(){
             $('.questions').hide()
             $('.category').removeClass('outline')
             $('.category').children().removeClass('text-accent-regular').addClass('text-gray-600')
@@ -104,11 +86,7 @@
             $(this).addClass('outline')
             $('#booking-and-payment').show()
         })
-    }
-    bookingAndPayment();
-    
-    async function carSharing(){
-        await $(document).on('click','.car-sharing',function(){
+     $(document).on('click','.car-sharing',function(){
             $('.questions').hide()
             $('.category').removeClass('outline')
             $('.category').children().removeClass('text-accent-regular').addClass('text-gray-600')
@@ -116,12 +94,7 @@
             $(this).addClass('outline')
             $('#car-sharing').show()
         })
-    }
-    carSharing();
-    
-
-    async function pickupAndDropOff(){
-        await $(document).on('click','.pickup-and-dropoff',function(){
+     $(document).on('click','.pickup-and-dropoff',function(){
             $('.questions').hide()
             $('.category').removeClass('outline')
             $('.category').children().removeClass('text-accent-regular').addClass('text-gray-600')
@@ -129,12 +102,7 @@
             $(this).addClass('outline')
             $('#pickup-and-dropoff').show()
         })
-    }
-    pickupAndDropOff();
-    
-
-    async function feesAndPolicies(){
-        await  $(document).on('click','.fees-and-policies',function(){
+    $(document).on('click','.fees-and-policies',function(){
             $('.questions').hide()
             $('.category').removeClass('outline')
             $('.category').children().removeClass('text-accent-regular').addClass('text-gray-600')
@@ -142,8 +110,7 @@
             $(this).addClass('outline')
             $('#fees-and-policies').show()
         })
-    }
-    feesAndPolicies();
+    
    
      
     const baseUrl = new URL(window.location.origin);
@@ -158,8 +125,7 @@
     $('.nav-list[href="'+url+'"]').addClass('underline');
     }
 
-    async function homeCarousel(){
-        await $(".owl-carousel").owlCarousel({
+     $(".owl-carousel").owlCarousel({
             center: true,
             items:1,
             loop:true,
@@ -180,8 +146,7 @@
                 }
             }
         });
-    }
-    homeCarousel();
+   
     
     
    

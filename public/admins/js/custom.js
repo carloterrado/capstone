@@ -1907,8 +1907,7 @@ $(function(){
 
     // VIEW BOOKING CALENDAR
     //   CAR BOOKING CALENDAR
-      async function calendarSchedule(){
-        await $('.date-input').each(function() {
+      $('.date-input').each(function() {
             var input1 = $(this)[0];
             
             var data = $(input1).data('bookdates');
@@ -1940,8 +1939,7 @@ $(function(){
             });
             
         });
-      }
-      calendarSchedule();      
+         
     
 
     //         Approve or Decline Car
@@ -2011,14 +2009,12 @@ $(function(){
     });
 
     var $tabLinks = $("[role='tab']");
-    async function tabLinks(){
-        await  $tabLinks.each(function(){
+      $tabLinks.each(function(){
             if ($(this).attr("aria-selected") === "true") {
                 $(this).removeClass('text-blue-600 border-blue-600 border-transparent').addClass('text-accent-regular border-accent-regular');
             } 
         });
-    }
-    tabLinks();
+   
    
 
     $(document).on('click','[role="tab"]', function() {

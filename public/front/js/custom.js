@@ -862,14 +862,12 @@ $(function(){
     })
 
     var $tabLinks = $("[role='tab']");
-    async function tabLinks(){
-        await $tabLinks.each(function(){
+     $tabLinks.each(function(){
             if ($(this).attr("aria-selected") === "true") {
                 $(this).removeClass('text-blue-600 border-blue-600 border-transparent').addClass('text-accent-regular border-accent-regular');
             } 
         });
-    }
-    tabLinks();
+  
     
 
     $(document).on('click','[role="tab"]', function() {
@@ -927,8 +925,7 @@ $(function(){
     }
     
     //   CAR BOOKING CALENDAR
-      async function calendarSchedule(){
-        await   $('.date-input').each(function() {
+       $('.date-input').each(function() {
             var input1 = $(this)[0];
             
             var data = $(input1).data('bookdates');
@@ -959,20 +956,16 @@ $(function(){
             });
             
         });
-      }      
    
-   calendarSchedule();
 
     //   DESTINATION
 
     const regions = $('div[data-regions]').data('regions');
 
-    async function regionsData(){
-        await  $.each(regions, function(index, region) {
+     $.each(regions, function(index, region) {
             $("<option>").val(region.id).text(region.regDesc).appendTo('.region');
         });
-    }
-    regionsData();
+   
    
     
     $(document).on('change','.region', function(event) {
@@ -1980,15 +1973,13 @@ $(function(){
         });
     });
 
-    async function textArea(){
-       await $('textarea').each(function() {
+     $('textarea').each(function() {
             const text = $(this).val();
             const firstLine = text.split('\n')[0]; // get the first line of the text
             const cleanedText = text.replace(firstLine, firstLine.trim()); // remove leading white space from the first line
             $(this).val(cleanedText);
           });
-    }
-    textArea()
+    
    
 
  
