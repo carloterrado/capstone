@@ -1856,6 +1856,9 @@ input[type="range"]::-ms-thumb {
 .mr-3 {
   margin-right: 0.75rem;
 }
+.mr-auto {
+  margin-right: auto;
+}
 .mr-\[1rem\] {
   margin-right: 1rem;
 }
@@ -1873,9 +1876,6 @@ input[type="range"]::-ms-thumb {
 }
 .mb-5 {
   margin-bottom: 1.25rem;
-}
-.mr-auto {
-  margin-right: auto;
 }
 .ml-4 {
   margin-left: 1rem;
@@ -2670,10 +2670,6 @@ input[type="range"]::-ms-thumb {
   --tw-border-opacity: 1;
   border-color: rgb(141 162 251 / var(--tw-border-opacity));
 }
-.border-\[\#5D6975\] {
-  --tw-border-opacity: 1;
-  border-color: rgb(93 105 117 / var(--tw-border-opacity));
-}
 .border-black\/50 {
   border-color: rgb(0 0 0 / 0.5);
 }
@@ -2704,6 +2700,10 @@ input[type="range"]::-ms-thumb {
 .border-blue-500 {
   --tw-border-opacity: 1;
   border-color: rgb(63 131 248 / var(--tw-border-opacity));
+}
+.border-\[\#5D6975\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(93 105 117 / var(--tw-border-opacity));
 }
 .border-t-accent-regular {
   --tw-border-opacity: 1;
@@ -3572,6 +3572,14 @@ input[type="range"]::-ms-thumb {
   content: var(--tw-content);
   right: 105%;
 }
+.before\:top-1\/2::before {
+  content: var(--tw-content);
+  top: 50%;
+}
+.before\:right-\[102\%\]::before {
+  content: var(--tw-content);
+  right: 102%;
+}
 .before\:left-0::before {
   content: var(--tw-content);
   left: 0px;
@@ -3588,17 +3596,9 @@ input[type="range"]::-ms-thumb {
   content: var(--tw-content);
   bottom: -2px;
 }
-.before\:top-1\/2::before {
-  content: var(--tw-content);
-  top: 50%;
-}
 .before\:left-\[105\%\]::before {
   content: var(--tw-content);
   left: 105%;
-}
-.before\:right-\[102\%\]::before {
-  content: var(--tw-content);
-  right: 102%;
 }
 .before\:bottom-\[102\%\]::before {
   content: var(--tw-content);
@@ -3608,29 +3608,21 @@ input[type="range"]::-ms-thumb {
   content: var(--tw-content);
   right: 50%;
 }
-.before\:right-\[100\%\]::before {
-  content: var(--tw-content);
-  right: 100%;
-}
-.before\:right-\[10\%\]::before {
-  content: var(--tw-content);
-  right: 10%;
-}
 .before\:left-1\/2::before {
   content: var(--tw-content);
   left: 50%;
 }
-.before\:bottom-\[105\%\]::before {
-  content: var(--tw-content);
-  bottom: 105%;
-}
-.before\:bottom-\[10\%\]::before {
-  content: var(--tw-content);
-  bottom: 10%;
-}
 .before\:bottom-\[103\%\]::before {
   content: var(--tw-content);
   bottom: 103%;
+}
+.before\:right-\[100\%\]::before {
+  content: var(--tw-content);
+  right: 100%;
+}
+.before\:bottom-\[105\%\]::before {
+  content: var(--tw-content);
+  bottom: 105%;
 }
 .before\:hidden::before {
   content: var(--tw-content);

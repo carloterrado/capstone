@@ -44,29 +44,40 @@
    <script src="{{url('front/js/index.js')}}"></script>
    <script src="{{url('js/magnific-popup.min.js')}}"></script>
    <script src="{{url('js/jquery.Datatable.js')}}"></script>
-   
+   <script src="{{url('admins/js/custom.js')}}"></script>
+   <script src="{{url('js/fecha.min.js')}}"></script>
+    <script src="{{url('js/datepicker.js')}}"></script> 
    <script>
-       $('#arkilla-table').DataTable({
-        // ordering: false,
-        stateSave: true,
-        order: [[0, 'desc']],
-       });
-   
-       $('#ongoing-transaction-table').DataTable({
-        // ordering: false,
-        stateSave: true,
-        order: [[0, 'desc']],
-       });
-       $('.zoomable-image').magnificPopup({
+    async function arkillaTable(){
+        await $('#arkilla-table').DataTable({
+            stateSave: true,
+            order: [[0, 'desc']],
+        });
+    }
+    arkillaTable();
+       
+    async function ongoingTransactionTable(){
+        await $('#ongoing-transaction-table').DataTable({
+            stateSave: true,
+            order: [[0, 'desc']],
+        });
+    }
+    ongoingTransactionTable();
+
+    async function zoomableImage()
+    {
+        await $('.zoomable-image').magnificPopup({
             type: 'image',
             gallery: {
             enabled: true
             }
         });
+    }
+    zoomableImage();
+       
+       
    </script>
-   <script src="{{url('admins/js/custom.js')}}"></script>
-   <script src="{{url('js/fecha.min.js')}}"></script>
-    <script src="{{url('js/datepicker.js')}}"></script> 
+   
    
 </body>
 

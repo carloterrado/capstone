@@ -55,66 +55,96 @@
    <script src="{{url('js/slick.min.js')}}"></script>
   
    <script>
-       $('#ongoing-transaction-table').DataTable({
+    async function ongoingTable(){
+      await  $('#ongoing-transaction-table').DataTable({
         ordering: false,
         stateSave: true,
-      
-      
        });
-       $('#history-transaction-table').DataTable({
+    }
+    ongoingTable();
+
+    async function transactionTable(){
+        await $('#history-transaction-table').DataTable({
       //   ordering: false,
         stateSave: true,
         order: [[0, 'desc']],
-       
        });
-       $('.zoomable-image').magnificPopup({
+    }
+    transactionTable();
+       
+    async function zoomableImage(){
+        await $('.zoomable-image').magnificPopup({
             type: 'image',
             gallery: {
             enabled: false
             }
         });
-
+    }
+    zoomableImage();
        
-    $(document).on('click','.account-management',function(){
-        $('.questions').hide()
-        $('.category').removeClass('outline')
-        $('.category').children().removeClass('text-accent-regular').addClass('text-gray-600')
-        $(this).children().removeClass('text-gray-600').addClass('text-accent-regular')
-        $(this).addClass('outline')
-        $('#account-management').show()
-    })
-    $(document).on('click','.booking-and-payment',function(){
-        $('.questions').hide()
-        $('.category').removeClass('outline')
-        $('.category').children().removeClass('text-accent-regular').addClass('text-gray-600')
-        $(this).children().removeClass('text-gray-600').addClass('text-accent-regular')
-        $(this).addClass('outline')
-        $('#booking-and-payment').show()
-    })
-    $(document).on('click','.car-sharing',function(){
-        $('.questions').hide()
-        $('.category').removeClass('outline')
-        $('.category').children().removeClass('text-accent-regular').addClass('text-gray-600')
-        $(this).children().removeClass('text-gray-600').addClass('text-accent-regular')
-        $(this).addClass('outline')
-        $('#car-sharing').show()
-    })
-    $(document).on('click','.pickup-and-dropoff',function(){
-        $('.questions').hide()
-        $('.category').removeClass('outline')
-        $('.category').children().removeClass('text-accent-regular').addClass('text-gray-600')
-        $(this).children().removeClass('text-gray-600').addClass('text-accent-regular')
-        $(this).addClass('outline')
-        $('#pickup-and-dropoff').show()
-    })
-    $(document).on('click','.fees-and-policies',function(){
-        $('.questions').hide()
-        $('.category').removeClass('outline')
-        $('.category').children().removeClass('text-accent-regular').addClass('text-gray-600')
-        $(this).children().removeClass('text-gray-600').addClass('text-accent-regular')
-        $(this).addClass('outline')
-        $('#fees-and-policies').show()
-    })
+    async function accountManagement(){
+        await $(document).on('click','.account-management',function(){
+            $('.questions').hide()
+            $('.category').removeClass('outline')
+            $('.category').children().removeClass('text-accent-regular').addClass('text-gray-600')
+            $(this).children().removeClass('text-gray-600').addClass('text-accent-regular')
+            $(this).addClass('outline')
+            $('#account-management').show()
+        })
+    }
+    accountManagement();
+    
+
+    async function bookingAndPayment(){
+        await $(document).on('click','.booking-and-payment',function(){
+            $('.questions').hide()
+            $('.category').removeClass('outline')
+            $('.category').children().removeClass('text-accent-regular').addClass('text-gray-600')
+            $(this).children().removeClass('text-gray-600').addClass('text-accent-regular')
+            $(this).addClass('outline')
+            $('#booking-and-payment').show()
+        })
+    }
+    bookingAndPayment();
+    
+    async function carSharing(){
+        await $(document).on('click','.car-sharing',function(){
+            $('.questions').hide()
+            $('.category').removeClass('outline')
+            $('.category').children().removeClass('text-accent-regular').addClass('text-gray-600')
+            $(this).children().removeClass('text-gray-600').addClass('text-accent-regular')
+            $(this).addClass('outline')
+            $('#car-sharing').show()
+        })
+    }
+    carSharing();
+    
+
+    async function pickupAndDropOff(){
+        await $(document).on('click','.pickup-and-dropoff',function(){
+            $('.questions').hide()
+            $('.category').removeClass('outline')
+            $('.category').children().removeClass('text-accent-regular').addClass('text-gray-600')
+            $(this).children().removeClass('text-gray-600').addClass('text-accent-regular')
+            $(this).addClass('outline')
+            $('#pickup-and-dropoff').show()
+        })
+    }
+    pickupAndDropOff();
+    
+
+    async function feesAndPolicies(){
+        await  $(document).on('click','.fees-and-policies',function(){
+            $('.questions').hide()
+            $('.category').removeClass('outline')
+            $('.category').children().removeClass('text-accent-regular').addClass('text-gray-600')
+            $(this).children().removeClass('text-gray-600').addClass('text-accent-regular')
+            $(this).addClass('outline')
+            $('#fees-and-policies').show()
+        })
+    }
+    feesAndPolicies();
+   
      
     const baseUrl = new URL(window.location.origin);
     const url = new URL(window.location.href);
@@ -127,28 +157,33 @@
     // Add the 'active' class to the corresponding link
     $('.nav-list[href="'+url+'"]').addClass('underline');
     }
-    
-    $(".owl-carousel").owlCarousel({
-        center: true,
-        items:1,
-        loop:true,
-        margin:4,
-        dots:true,
-        mouseDrag:true,
-        touchDrag:true,
-        autoplay:true,
-        autoplayTimeout: 4000,
-        slideTransition: "linear",
-        animateOut: 'fadeOut',
-        responsive:{
-            600:{
-                items:2
-            },
-            768:{
-                items:3
+
+    async function homeCarousel(){
+        await $(".owl-carousel").owlCarousel({
+            center: true,
+            items:1,
+            loop:true,
+            margin:4,
+            dots:true,
+            mouseDrag:true,
+            touchDrag:true,
+            autoplay:true,
+            autoplayTimeout: 4000,
+            slideTransition: "linear",
+            animateOut: 'fadeOut',
+            responsive:{
+                600:{
+                    items:2
+                },
+                768:{
+                    items:3
+                }
             }
-        }
-    });
+        });
+    }
+    homeCarousel();
+    
+    
    
 
    </script>

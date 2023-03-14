@@ -862,11 +862,15 @@ $(function(){
     })
 
     var $tabLinks = $("[role='tab']");
-    $tabLinks.each(function(){
-        if ($(this).attr("aria-selected") === "true") {
-            $(this).removeClass('text-blue-600 border-blue-600 border-transparent').addClass('text-accent-regular border-accent-regular');
-        } 
-    });
+    async function tabLinks(){
+        await $tabLinks.each(function(){
+            if ($(this).attr("aria-selected") === "true") {
+                $(this).removeClass('text-blue-600 border-blue-600 border-transparent').addClass('text-accent-regular border-accent-regular');
+            } 
+        });
+    }
+    tabLinks();
+    
 
     $(document).on('click','[role="tab"]', function() {
         if($([role="tab"]).hasClass('transaction-tab'))
@@ -923,47 +927,53 @@ $(function(){
     }
     
     //   CAR BOOKING CALENDAR
+      async function calendarSchedule(){
+        await   $('.date-input').each(function() {
+            var input1 = $(this)[0];
             
-    $('.date-input').each(function() {
-        var input1 = $(this)[0];
-        
-        var data = $(input1).data('bookdates');
-        var bookdates = [];
-
-        for (let i = 0; i < data.length; i++) {
-            if(data[i].status === 'approved' || data[i].status === 'ongoing')
-            {
-                var starts = new Date(data[i].start_date);
-                var ends = new Date(data[i].end_date);
-                var set = new Date(data[0].end_date);
-                set.setDate(set.getDate() + 1);
-            
-                while (starts <= ends) {
-                    bookdates.push(fecha.format(new Date(starts), 'YYYY-MM-DD'));
-                    starts.setDate(starts.getDate() + 1);   
+            var data = $(input1).data('bookdates');
+            var bookdates = [];
+    
+            for (let i = 0; i < data.length; i++) {
+                if(data[i].status === 'approved' || data[i].status === 'ongoing')
+                {
+                    var starts = new Date(data[i].start_date);
+                    var ends = new Date(data[i].end_date);
+                    var set = new Date(data[0].end_date);
+                    set.setDate(set.getDate() + 1);
+                
+                    while (starts <= ends) {
+                        bookdates.push(fecha.format(new Date(starts), 'YYYY-MM-DD'));
+                        starts.setDate(starts.getDate() + 1);   
+                    }
                 }
             }
-        }
-        var picker = new Datepicker(input1, {
-            inline: true,
-            autoClose: false,
-            disabledDates: bookdates,
-            // onSelectRange: function() {
-            //     console.log(input1.value)
-            // }
+            var picker = new Datepicker(input1, {
+                inline: true,
+                autoClose: false,
+                disabledDates: bookdates,
+                // onSelectRange: function() {
+                //     console.log(input1.value)
+                // }
+                
+            });
             
         });
-        
-    });
+      }      
    
+   calendarSchedule();
 
     //   DESTINATION
 
     const regions = $('div[data-regions]').data('regions');
 
-    $.each(regions, function(index, region) {
-        $("<option>").val(region.id).text(region.regDesc).appendTo('.region');
-    });
+    async function regionsData(){
+        await  $.each(regions, function(index, region) {
+            $("<option>").val(region.id).text(region.regDesc).appendTo('.region');
+        });
+    }
+    regionsData();
+   
     
     $(document).on('change','.region', function(event) {
         if(event.target === this)
@@ -1970,12 +1980,16 @@ $(function(){
         });
     });
 
-    $('textarea').each(function() {
-        const text = $(this).val();
-        const firstLine = text.split('\n')[0]; // get the first line of the text
-        const cleanedText = text.replace(firstLine, firstLine.trim()); // remove leading white space from the first line
-        $(this).val(cleanedText);
-      });
+    async function textArea(){
+       await $('textarea').each(function() {
+            const text = $(this).val();
+            const firstLine = text.split('\n')[0]; // get the first line of the text
+            const cleanedText = text.replace(firstLine, firstLine.trim()); // remove leading white space from the first line
+            $(this).val(cleanedText);
+          });
+    }
+    textArea()
+   
 
  
     // Cache elements that are repeatedly used
@@ -2015,27 +2029,27 @@ $(function(){
 
 
 
-$(document).on('click','.download-checklist',async function(event){
-    var downloadBtn = $(this);
+    $(document).on('click','.download-checklist',async function(event){
+        var downloadBtn = $(this);
+        
+        $(downloadBtn).hide();
+        $(downloadBtn).siblings('.small-loading').show();
     
-    $(downloadBtn).hide();
-    $(downloadBtn).siblings('.small-loading').show();
-   
-   async function download(){
-        var content = $(downloadBtn).closest('.content-container').find('.content');
-           
-        html2canvas(content[0]).then(canvas => {
-            const link = document.createElement("a");
-            link.download = "document.png";
-            link.href = canvas.toDataURL();
-            link.click();
-            $(downloadBtn).siblings('.small-loading').hide();
-            $(downloadBtn).show();
-        });
-    }
-      
-   await download();
-});
+    async function download(){
+            var content = $(downloadBtn).closest('.content-container').find('.content');
+            
+            html2canvas(content[0]).then(canvas => {
+                const link = document.createElement("a");
+                link.download = "document.png";
+                link.href = canvas.toDataURL();
+                link.click();
+                $(downloadBtn).siblings('.small-loading').hide();
+                $(downloadBtn).show();
+            });
+        }
+        
+    await download();
+    });
 
     
 

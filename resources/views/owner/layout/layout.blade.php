@@ -47,22 +47,32 @@
    <script src="{{url('js/jquery.Datatable.js')}}"></script>
    <script src="{{url('owner/js/custom.js')}}"></script>
    <script>
-       $('#arkilla-table').DataTable({
-         ordering: false,
-        stateSave: true,
-       });
-  
-       $('#ongoing-transaction-table').DataTable({
-        ordering: false,
-        stateSave: true,
-       });
-
-       $('.zoomable-image').magnificPopup({
+      async function arkillaTable(){
+         await $('#arkilla-table').DataTable({
+            ordering: false,
+         stateSave: true,
+         });
+      }
+      arkillaTable();
+       
+      async function ongoingTable(){
+         await $('#ongoing-transaction-table').DataTable({
+            ordering: false,
+            stateSave: true,
+         });
+      }
+      ongoingTable();
+       
+      async function zoomableImage(){
+         await $('.zoomable-image').magnificPopup({
             type: 'image',
             gallery: {
             enabled: true
             }
         });
+      }
+      zoomableImage();
+       
    </script>
 
  
