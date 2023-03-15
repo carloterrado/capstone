@@ -368,11 +368,8 @@ class FrontController extends Controller
         {
             $data = $request->all();
             
-            $canceledBooking = Booking::with('bookingInfoId','bookingInfo')->find($data['booking_id']);
+            Booking::with('bookingInfoId','bookingInfo')->find($data['booking_id'])->delete();
           
-            $canceledBooking->delete();
-            BookingInfo::where('booking_id',$data['booking_id'])->delete();
-            BookingInfoId::where('booking_id',$data['booking_id'])->delete();
            
             return response()->json(['data'=>'success']);
         }

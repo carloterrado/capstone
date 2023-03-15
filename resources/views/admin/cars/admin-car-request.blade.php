@@ -71,7 +71,7 @@
                         {{$car['name']}}
                     </td>
                     <td class="p-4">
-                        <div class="w-32 mx-auto overflow-hidden rounded-lg">
+                        <div class="w-32 h-24 mx-auto overflow-hidden rounded-lg">
                         <img src="data:image/jpeg;base64,{{$car['main_photo']}}" alt="Car photo">
                         </div>
                       

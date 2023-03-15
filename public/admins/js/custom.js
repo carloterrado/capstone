@@ -649,6 +649,7 @@ $(function(){
         data: { status: status, admin_id: admin_id },
         success: function (resp) {
             // alert(JSON.stringify(resp['status']))
+            // return
             if (resp["status"] === 0) {
                 $(tooltip).attr("before", newStatus)
                 $("#admin-" + admin_id).html(

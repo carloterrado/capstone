@@ -552,7 +552,7 @@ class AdminController extends Controller
         if($request->ajax())
         {
             $data = $request->all();
-            CarType::where('id',$data['id'])->delete();  
+            CarType::where('id',$data['id'])->delete(); 
             return response()->json(['status'=>'deleted']);
         }
     }
@@ -924,9 +924,7 @@ class AdminController extends Controller
         {
             $data = $request->all();
             Car::where('id',$data['id'])->delete();
-            CarCheckList::where('car_id',$data['id'])->delete(); 
-            CarPhoto::where('car_id',$data['id'])->delete();
-            CarPrice::where('car_id',$data['id'])->delete();
+          
             return response()->json(['status'=>'deleted']);
         }
     }
@@ -1224,11 +1222,16 @@ class AdminController extends Controller
             }else{
                 $status = 1;
             }
-            Admin::where('id',$data['admin_id'])->update(['status'=>$status]);
-            // $ownerID = Car::select('owner_id')->where('admin_id',$data['admin_id'])->first();
-            // if($ownerID['owner_id'] !== 0){
-            //     Car::where('admin_id',$data['admin_id'])->update(['status'=>$status]);
-            // }
+             $owner = Admin::where('id',$data['admin_id'])->get()->first();
+             $owner->status = $status;
+             $owner->save();
+            //  return response()->json(['status'=>$owner->owner_id]);
+            if($owner->owner_id !== 0)
+            {
+                Car::where('admin_id',$data['admin_id'])->update(['status'=>$status]);
+            }
+         
+           
             return response()->json(['status'=>$status]);
         }
     }
@@ -1302,7 +1305,10 @@ class AdminController extends Controller
             $admin = Admin::find($data['admin_id']);
             if($admin->type === 'owner')
             {
-                OwnerDetail::where('id',$admin->owner_id)->delete();  
+                OwnerDetail::where('id',$admin->owner_id)->delete(); 
+                Car::where('owner_id',$admin->owner_id)->delete(); 
+               
+
             }
            Admin::where('id',$data['admin_id'])->delete();  
            return response()->json(['status'=>'deleted']);
