@@ -138,6 +138,55 @@ $(function(){
         $(errorElementID).css('color','black');
         return true; 
     }
+    //       Validation current password input
+    function validateCurrentPassword(passwordID,errorElementID)
+    {
+        let password = $(passwordID).val();
+        if(password.length === 0)
+        {
+        $(errorElementID).html('Current Password is required!');
+        $(errorElementID).css('color','lightcoral');
+        return false;
+        }
+        const isWhitespace = /^(?=.*\s)/;
+        if (isWhitespace.test(password)) {
+            $(errorElementID).html('Remove space!');
+            $(errorElementID).css('color','lightcoral');
+            return false;
+        }
+    
+        const isContainsUppercase = /^(?=.*[A-Z])/;
+        if (!isContainsUppercase.test(password)) {
+            $(errorElementID).html('Required uppercase!');
+            $(errorElementID).css('color','lightcoral');
+            return false;
+        }
+    
+        const isContainsLowercase = /^(?=.*[a-z])/;
+        if (!isContainsLowercase.test(password)) {
+            $(errorElementID).html('Required lowercase!');
+            $(errorElementID).css('color','lightcoral');
+            return false;
+        }
+    
+        const isContainsNumber = /^(?=.*[0-9])/;
+        if (!isContainsNumber.test(password)) {
+            $(errorElementID).html('Required a digit!');
+            $(errorElementID).css('color','lightcoral');
+            return false;
+        }
+        const isValidLength = /^.{6,20}$/;
+        if (!isValidLength.test(password)) {
+            $(errorElementID).html('6-20 characters only!');
+            $(errorElementID).css('color','lightcoral');
+            return false;
+        }
+
+        $(errorElementID).html('Current Password');
+        $(errorElementID).css('color','Black');
+        return true;
+
+    }
     //       Validation password input
     function validatePassword(passwordID,errorElementID)
     {
@@ -632,7 +681,7 @@ $(function(){
                     $("#current-password-error").css('color','lightcoral');
                 } else {
                     // $("#current-pass-error").html('');
-                    validatePassword('#current-password','#current-password-error');
+                    validateCurrentPassword('#current-password','#current-password-error');
                 }
             },
             error: function () {
@@ -653,13 +702,13 @@ $(function(){
         validateConfirmPassword('#new-password','#confirm-password','#confirm-password-error');
     })
     //         Validate change password form upon submission 
-    $('#change-pass-form').on('submit', function(event)
+    $('#change-pass-form').on('submit',async function(event)
     {
         event.preventDefault();
 
-        function validateChangePassForm()
+       async function validateChangePassForm()
         {  
-            let valid = validatePassword('#current-password','#current-password-error') &&  validatePassword('#new-password','#new-password-error') && validateConfirmPassword('#new-password','#confirm-password','#confirm-password-error');
+            let valid = validateCurrentPassword('#current-password','#current-password-error') &&  validatePassword('#new-password','#new-password-error') && validateConfirmPassword('#new-password','#confirm-password','#confirm-password-error');
                 if(!valid)
                 { 
                     $('.error-container').show();
@@ -711,10 +760,10 @@ $(function(){
                 },
             });
         }
-        const validated = validateChangePassForm()
+        const validated = await validateChangePassForm()
         if(validated){
             $('#change-pass-form button[type="submit"]').addClass('hidden')
-            submitPassword().catch(function(error){
+         await  submitPassword().catch(function(error){
                 $('#change-pass-form button[type="submit"]').removeClass('hidden')
                 $('.error-container').show();
                 $(".error-message").text('Update password failed!');
@@ -992,7 +1041,7 @@ $(function(){
             }
 
         } 
-        if(imageType === 'Photos of cars' && files.length < 2)
+        if(imageType === 'Photos of car(min 2)' && files.length < 2)
         {
             $(errorElementID).html( 'Need more photos!');
             $(errorElementID).css('color','lightcoral');
@@ -1000,7 +1049,7 @@ $(function(){
         }
         if(files.length > 4)
         {
-            $(errorElementID).html(imageType + ' maximum is 4!');
+            $(errorElementID).html(imageType + ' maximum of 4!');
             $(errorElementID).css('color','lightcoral');
             return false; 
         }
@@ -1122,7 +1171,7 @@ $(function(){
         validateCarImageFile('#add-admin-car-registration','#add-admin-car-registration-error','Car registration')
     })
     $('#add-admin-car-photos').on('change', function(){
-        validateCarImageFile('#add-admin-car-photos','#add-admin-car-photos-error','Photos of cars')
+        validateCarImageFile('#add-admin-car-photos','#add-admin-car-photos-error','Photos of car(min 2)')
     })
    
     $('#add-admin-car-main-photo').on('change', function(){
@@ -1134,7 +1183,7 @@ $(function(){
     })
     $('#add-admin-car-pickup-location').on('keyup keypress',function()
     {
-        validatePickupLocation('#add-admin-car-pickup-location','#add-admin-car-pickup-location-error','Pick-up location');
+        validatePickupLocation('#add-admin-car-pickup-location','#add-admin-car-pickup-location-error','Location');
     })
     $('#add-admin-car-with-driver').on('click', function(){
         $('#add-admin-car-drivers-fee').removeAttr('readonly')
@@ -1189,7 +1238,7 @@ $(function(){
     $('.step-2').on('click', function(){
 
         
-        let valid = validateCarName('#add-admin-car-name','#add-admin-car-name-error','Brand and Model') && validatePlateNumber('#add-admin-car-plate-number','#add-admin-car-plate-number-error','Plate number') && validateCarType('#add-admin-set-car-type','#add-admin-set-car-type-error') && validateName('#add-admin-car-fuel-type','#add-admin-car-fuel-type-error','Fuel Type') && validateCarCapacity('#add-admin-car-capacity','#add-admin-car-capacity-error') && validateCarImageFile('#add-admin-car-registration','#add-admin-car-registration-error','Car registration') && validateCarImageFile('#add-admin-car-main-photo','#add-admin-car-main-photo-error','Main car photo') && validateCarImageFile('#add-admin-car-photos','#add-admin-car-photos-error','Photos of cars') ;
+        let valid = validateCarName('#add-admin-car-name','#add-admin-car-name-error','Brand and Model') && validatePlateNumber('#add-admin-car-plate-number','#add-admin-car-plate-number-error','Plate number') && validateCarType('#add-admin-set-car-type','#add-admin-set-car-type-error') && validateName('#add-admin-car-fuel-type','#add-admin-car-fuel-type-error','Fuel Type') && validateCarCapacity('#add-admin-car-capacity','#add-admin-car-capacity-error') && validateCarImageFile('#add-admin-car-registration','#add-admin-car-registration-error','Car registration') && validateCarImageFile('#add-admin-car-main-photo','#add-admin-car-main-photo-error','Main car photo') && validateCarImageFile('#add-admin-car-photos','#add-admin-car-photos-error','Photos of car(min 2)') ;
        
 
       
@@ -1206,7 +1255,7 @@ $(function(){
         $('.step-one').show()
     })
     $('.step-3').on('click', function(){
-        let valid =  validatePickupLocation('#add-admin-car-pickup-location','#add-admin-car-pickup-location-error','Pick-up location') && validateCarDescription('#add-admin-car-description','#add-admin-car-description-error');
+        let valid =  validatePickupLocation('#add-admin-car-pickup-location','#add-admin-car-pickup-location-error','Location') && validateCarDescription('#add-admin-car-description','#add-admin-car-description-error');
         let driversFee = true;
         if($('#add-admin-car-with-driver').is(':checked'))
         {
@@ -1228,7 +1277,7 @@ $(function(){
       async  function validateAddCarForm()
         {
 
-            let valid = validateCarName('#add-admin-car-name','#add-admin-car-name-error','Brand and Model') && validatePlateNumber('#add-admin-car-plate-number','#add-admin-car-plate-number-error','Plate number') && validateCarType('#add-admin-set-car-type','#add-admin-set-car-type-error') && validateName('#add-admin-car-fuel-type','#add-admin-car-fuel-type-error','Fuel Type') && validateCarCapacity('#add-admin-car-capacity','#add-admin-car-capacity-error') && validateCarImageFile('#add-admin-car-registration','#add-admin-car-registration-error','Car registration') && validateCarImageFile('#add-admin-car-main-photo','#add-admin-car-main-photo-error','Main car photo') && validateCarImageFile('#add-admin-car-photos','#add-admin-car-photos-error','Photos of cars') && validatePickupLocation('#add-admin-car-pickup-location','#add-admin-car-pickup-location-error','Pick-up location') && validateCarDescription('#add-admin-car-description','#add-admin-car-description-error') && validateCarPrice('#add-admin-car-price-cagayan-valley','#add-admin-car-price-cagayan-valley-error','REGION II (CAGAYAN VALLEY)') && validateCarPrice('#add-admin-car-price-central-luzon','#add-admin-car-price-central-luzon-error','REGION III (CENTRAL LUZON)') &&  validateCarPrice('#add-admin-car-price-calabarzon','#add-admin-car-price-calabarzon-error','REGION IV-A (CALABARZON)') && validateCarPrice('#add-admin-car-price-mimaropa','#add-admin-car-price-mimaropa-error','REGION IV-B (MIMAROPA)') && validateCarPrice('#add-admin-car-price-bicol-region','#add-admin-car-price-bicol-region-error','REGION V (BICOL REGION)') && validateCarPrice('#add-admin-car-price-ncr','#add-admin-car-price-ncr-error','NATIONAL CAPITAL REGION (NCR)') && validateCarPrice('#add-admin-car-price-car','#add-admin-car-price-car-error','CORDILLERA ADMINISTRATIVE REGION (CAR)') && validateTerms('#add-admin-terms','#add-admin-terms-error') ;
+            let valid = validateCarName('#add-admin-car-name','#add-admin-car-name-error','Brand and Model') && validatePlateNumber('#add-admin-car-plate-number','#add-admin-car-plate-number-error','Plate number') && validateCarType('#add-admin-set-car-type','#add-admin-set-car-type-error') && validateName('#add-admin-car-fuel-type','#add-admin-car-fuel-type-error','Fuel Type') && validateCarCapacity('#add-admin-car-capacity','#add-admin-car-capacity-error') && validateCarImageFile('#add-admin-car-registration','#add-admin-car-registration-error','Car registration') && validateCarImageFile('#add-admin-car-main-photo','#add-admin-car-main-photo-error','Main car photo') && validateCarImageFile('#add-admin-car-photos','#add-admin-car-photos-error','Photos of car(min 2)') && validatePickupLocation('#add-admin-car-pickup-location','#add-admin-car-pickup-location-error','Location') && validateCarDescription('#add-admin-car-description','#add-admin-car-description-error') && validateCarPrice('#add-admin-car-price-cagayan-valley','#add-admin-car-price-cagayan-valley-error','REGION II (CAGAYAN VALLEY)') && validateCarPrice('#add-admin-car-price-central-luzon','#add-admin-car-price-central-luzon-error','REGION III (CENTRAL LUZON)') &&  validateCarPrice('#add-admin-car-price-calabarzon','#add-admin-car-price-calabarzon-error','REGION IV-A (CALABARZON)') && validateCarPrice('#add-admin-car-price-mimaropa','#add-admin-car-price-mimaropa-error','REGION IV-B (MIMAROPA)') && validateCarPrice('#add-admin-car-price-bicol-region','#add-admin-car-price-bicol-region-error','REGION V (BICOL REGION)') && validateCarPrice('#add-admin-car-price-ncr','#add-admin-car-price-ncr-error','NATIONAL CAPITAL REGION (NCR)') && validateCarPrice('#add-admin-car-price-car','#add-admin-car-price-car-error','CORDILLERA ADMINISTRATIVE REGION (CAR)') && validateTerms('#add-admin-terms','#add-admin-terms-error') ;
             let driversFee = true;
             if($('#add-admin-car-with-driver').is(':checked'))
             {
@@ -1481,10 +1530,10 @@ $(function(){
       //     validateImageFile('#edit-admin-car-registration','#edit-admin-car-registration-error','Car registration')
       // })
       $('#edit-admin-car-photos').on('change', function(){
-          validateImageFile('#edit-admin-car-photos','#edit-admin-car-photos-error','Photos of cars')
+          validateCarImageFile('#edit-admin-car-photos','#edit-admin-car-photos-error','Photos of car(min 2)')
       })
       $('#edit-admin-car-main-photo').on('change', function(){
-          validateImageFile('#edit-admin-car-main-photo','#edit-admin-car-main-photo-error','Main car photo')
+          validateCarImageFile('#edit-admin-car-main-photo','#edit-admin-car-main-photo-error','Main car photo')
       })
       $('#edit-admin-car-description').on('keyup keypress',function()
       {
@@ -1492,7 +1541,7 @@ $(function(){
       })
       $('#edit-admin-car-pickup-location').on('keyup keypress',function()
       {
-          validatePickupLocation('#edit-admin-car-pickup-location','#edit-admin-car-pickup-location-error','Pick-up location');
+          validatePickupLocation('#edit-admin-car-pickup-location','#edit-admin-car-pickup-location-error','Location');
       }) 
       $('#edit-admin-car-drivers-fee').on('keyup keypress',function()
       {
@@ -1537,7 +1586,7 @@ $(function(){
           var valid;
           if(carPhotos.length !== 0 && mainPhoto.length !== 0)
           {
-               valid = validateCarName('#edit-admin-car-name','#edit-admin-car-name-error','Brand and Model') && validatePlateNumber('#edit-admin-car-plate-number','#edit-admin-car-plate-number-error','Plate number') && validateCarType('#edit-admin-set-car-type','#edit-admin-set-car-type-error') && validateName('#edit-admin-car-fuel-type','#edit-admin-car-fuel-type-error','Fuel Type') && validateCarCapacity('#edit-admin-car-capacity','#edit-admin-car-capacity-error') && validateImageFile('#edit-admin-car-main-photo','#edit-admin-car-main-photo-error','Main car photo') && validateImageFile('#edit-admin-car-photos','#edit-admin-car-photos-error','Photos of cars') && validateCarDescription('#edit-admin-car-description','#edit-admin-car-description-error');
+               valid = validateCarName('#edit-admin-car-name','#edit-admin-car-name-error','Brand and Model') && validatePlateNumber('#edit-admin-car-plate-number','#edit-admin-car-plate-number-error','Plate number') && validateCarType('#edit-admin-set-car-type','#edit-admin-set-car-type-error') && validateName('#edit-admin-car-fuel-type','#edit-admin-car-fuel-type-error','Fuel Type') && validateCarCapacity('#edit-admin-car-capacity','#edit-admin-car-capacity-error') && validateCarImageFile('#edit-admin-car-main-photo','#edit-admin-car-main-photo-error','Main car photo') && validateCarImageFile('#edit-admin-car-photos','#edit-admin-car-photos-error','Photos of car(min 2)') && validateCarDescription('#edit-admin-car-description','#edit-admin-car-description-error');
           }
           if(carPhotos.length === 0 && mainPhoto.length === 0)
           {
@@ -1545,15 +1594,15 @@ $(function(){
           }
           if(carPhotos.length !== 0 && mainPhoto.length === 0)
           {
-               valid = validateCarName('#edit-admin-car-name','#edit-admin-car-name-error','Brand and Model') && validatePlateNumber('#edit-admin-car-plate-number','#edit-admin-car-plate-number-error','Plate number') && validateCarType('#edit-admin-set-car-type','#edit-admin-set-car-type-error') && validateName('#edit-admin-car-fuel-type','#edit-admin-car-fuel-type-error','Fuel Type') && validateCarCapacity('#edit-admin-car-capacity','#edit-admin-car-capacity-error') && validateImageFile('#edit-admin-car-photos','#edit-admin-car-photos-error','Photos of cars') && validateCarDescription('#edit-admin-car-description','#edit-admin-car-description-error');
+               valid = validateCarName('#edit-admin-car-name','#edit-admin-car-name-error','Brand and Model') && validatePlateNumber('#edit-admin-car-plate-number','#edit-admin-car-plate-number-error','Plate number') && validateCarType('#edit-admin-set-car-type','#edit-admin-set-car-type-error') && validateName('#edit-admin-car-fuel-type','#edit-admin-car-fuel-type-error','Fuel Type') && validateCarCapacity('#edit-admin-car-capacity','#edit-admin-car-capacity-error') && validateCarImageFile('#edit-admin-car-photos','#edit-admin-car-photos-error','Photos of car(min 2)') && validateCarDescription('#edit-admin-car-description','#edit-admin-car-description-error');
           }
           if(carPhotos.length === 0 && mainPhoto.length !== 0)
           {
-              valid = validateCarName('#edit-admin-car-name','#edit-admin-car-name-error','Brand and Model') && validatePlateNumber('#edit-admin-car-plate-number','#edit-admin-car-plate-number-error','Plate number') && validateCarType('#edit-admin-set-car-type','#edit-admin-set-car-type-error') && validateName('#edit-admin-car-fuel-type','#edit-admin-car-fuel-type-error','Fuel Type') && validateCarCapacity('#edit-admin-car-capacity','#edit-admin-car-capacity-error') && validateImageFile('#edit-admin-car-main-photo','#edit-admin-car-main-photo-error','Main car photo') && validateCarDescription('#edit-admin-car-description','#edit-admin-car-description-error');
+              valid = validateCarName('#edit-admin-car-name','#edit-admin-car-name-error','Brand and Model') && validatePlateNumber('#edit-admin-car-plate-number','#edit-admin-car-plate-number-error','Plate number') && validateCarType('#edit-admin-set-car-type','#edit-admin-set-car-type-error') && validateName('#edit-admin-car-fuel-type','#edit-admin-car-fuel-type-error','Fuel Type') && validateCarCapacity('#edit-admin-car-capacity','#edit-admin-car-capacity-error') && validateCarImageFile('#edit-admin-car-main-photo','#edit-admin-car-main-photo-error','Main car photo') && validateCarDescription('#edit-admin-car-description','#edit-admin-car-description-error');
           }
   
      
-      // let valid = validateCarName('#edit-admin-car-name','#add-admin-car-name-error','Name of car ') && validatePlateNumber('#add-admin-car-plate-number','#add-admin-car-plate-number-error','Plate number') && validateCarType('#add-admin-set-car-type','#add-admin-set-car-type-error') && validateCarCapacity('#add-admin-car-capacity','#add-admin-car-capacity-error') && validateImageFile('#add-admin-car-registration','#add-admin-car-registration-error','Car registration') && validateImageFile('#add-admin-car-photos','#add-admin-car-photos-error','Photos of cars') && validateCarDescription('#add-admin-car-description','#add-admin-car-description-error');
+      // let valid = validateCarName('#edit-admin-car-name','#add-admin-car-name-error','Name of car ') && validatePlateNumber('#add-admin-car-plate-number','#add-admin-car-plate-number-error','Plate number') && validateCarType('#add-admin-set-car-type','#add-admin-set-car-type-error') && validateCarCapacity('#add-admin-car-capacity','#add-admin-car-capacity-error') && validateImageFile('#add-admin-car-registration','#add-admin-car-registration-error','Car registration') && validateImageFile('#add-admin-car-photos','#add-admin-car-photos-error','Photos of car(min 2)') && validateCarDescription('#add-admin-car-description','#add-admin-car-description-error');
   
       if(valid)
       {
@@ -1568,7 +1617,7 @@ $(function(){
           $('.edit-step-one').show()
       })
       $('.edit-step-3').on('click', function(){
-          let valid =  validatePickupLocation('#edit-admin-car-pickup-location','#edit-admin-car-pickup-location-error','Pick-up location');
+          let valid =  validatePickupLocation('#edit-admin-car-pickup-location','#edit-admin-car-pickup-location-error','Location');
           let driversFee = true;
           if($('#edit-admin-car-with-driver').is(':checked'))
           {
@@ -2083,40 +2132,6 @@ $(function(){
         }
     });
 
-    //   CAR BOOKING CALENDAR
-           
-    $('.date-input').each(function() {
-            var input1 = $(this)[0];
-            
-            var data = $(input1).data('bookdates');
-            var bookdates = [];
-    
-            for (let i = 0; i < data.length; i++) {
-                if(data[i].status === 'approved' || data[i].status === 'ongoing')
-                {
-                    var starts = new Date(data[i].start_date);
-                    var ends = new Date(data[i].end_date);
-                    var set = new Date(data[0].end_date);
-                    set.setDate(set.getDate() + 1);
-                
-                    while (starts <= ends) {
-                        bookdates.push(fecha.format(new Date(starts), 'YYYY-MM-DD'));
-                        starts.setDate(starts.getDate() + 1);   
-                    }
-                }
-            }
-            var picker = new Datepicker(input1, {
-                inline: true,
-                autoClose: false,
-                disabledDates: bookdates,
-                // onSelectRange: function() {
-                //     console.log(input1.value)
-                // }
-                
-            });
-            
-        });
-    
     
 
      // Cache elements that are repeatedly used

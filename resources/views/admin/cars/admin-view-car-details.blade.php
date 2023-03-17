@@ -80,7 +80,7 @@
                     <div class="mt-6">
                         <h3 class="text-lg sm:text-xl font-semibold text-accent-regular mb-2 ">Service Details</h3>
                         <div>
-                            <h4  class="block text-sm font-semibold text-gray-900 ">Pick-up Location: </h4>
+                            <h4  class="block text-sm font-semibold text-gray-900 ">Location: </h4>
                             <p class="text-sm sm:text-base" >{{$car['pickup_location']}}</p>
                         </div>
                         <div class="mt-2 grid grid-cols-2">

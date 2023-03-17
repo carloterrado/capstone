@@ -107,4 +107,5 @@
         </div>
     </div>
 </div>
+<script src="{{url('js/html2canvas.min.js')}}"></script>
 

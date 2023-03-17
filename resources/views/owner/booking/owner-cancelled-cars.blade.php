@@ -41,7 +41,7 @@
                     </thead>
                     <tbody>
                         @foreach($booking as $book)  
-                            @if ($book['status'] === 'cancelled')
+                            
                                 <tr class="bg-white border-b  hover:bg-gray-50  ">
                                     <td class="py-4 px-6 font-semibold text-gray-900 ">
                                         {{'#'.$book['id']}}
@@ -76,7 +76,6 @@
                                 
                                 </tr>
                                
-                            @endif 
                         @endforeach   
                     </tbody>
                 </table>

@@ -64,6 +64,39 @@
         stateSave: true,
         order: [[0, 'desc']],
        });
+
+     //   CAR BOOKING CALENDAR
+     $('.date-input').each(function() {
+        var input1 = $(this)[0];
+        
+        var data = $(input1).data('bookdates');
+        var bookdates = [];
+
+        for (let i = 0; i < data.length; i++) {
+            if(data[i].status === 'approved' || data[i].status === 'ongoing')
+            {
+                var starts = new Date(data[i].start_date);
+                var ends = new Date(data[i].end_date);
+                var set = new Date(data[0].end_date);
+                set.setDate(set.getDate() + 1);
+            
+                while (starts <= ends) {
+                    bookdates.push(fecha.format(new Date(starts), 'YYYY-MM-DD'));
+                    starts.setDate(starts.getDate() + 1);   
+                }
+            }
+        }
+        var picker = new Datepicker(input1, {
+            inline: true,
+            autoClose: false,
+            disabledDates: bookdates,
+            // onSelectRange: function() {
+            //     console.log(input1.value)
+            // }
+            
+        });
+        
+    });
      $('.zoomable-image').magnificPopup({
             type: 'image',
             gallery: {

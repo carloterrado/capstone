@@ -201,10 +201,15 @@ class AdminController extends Controller
         Session::put('page','cancelled-booking');
         
         $owner_id = Auth::guard('admin')->user()->owner_id;
+      
         $booking = Booking::with('bookingInfo','bookingInfoId','carInfo','checkCarBooking')->whereHas('carInfo',
         function($query) use ($owner_id){
             $query->where(['owner_id'=>$owner_id]);
-        })->where(['status'=>'cancelled'])->get()->toArray();
+        })->where(function ($query) {
+            $query->where('status', 'cancelled')
+              ->orWhere('status', 'declined');
+          })->get()->toArray();
+         
 
         if(Auth::guard('admin')->user()->type === 'owner')
         {

@@ -23,7 +23,7 @@
             </ul>
         </nav>
         <button data-modal-toggle="add-car" before="Add Car"  class="cursor-pointer 
-         mb-4 sm:mb-6 lg:mb-7 font-semibold before:content-[attr(before)] before:w-auto before:absolute before:hidden hover:before:block before:whitespace-nowrap  before:bg-accent-regular/80 before:top-1/2 before:-translate-y-1/2  before:right-[102%] before:rounded-md before:px-2 before:py-1.5 before:text-white relative"><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="#e84949" fill-rule="evenodd" d="M12 1C5.925 1 1 5.925 1 12s4.925 11 11 11s11-4.925 11-11S18.075 1 12 1Zm1 15a1 1 0 1 1-2 0v-3H8a1 1 0 1 1 0-2h3V8a1 1 0 1 1 2 0v3h3a1 1 0 1 1 0 2h-3v3Z" clip-rule="evenodd"/></svg></button>
+         mb-4 sm:mb-6 lg:mb-7 font-semibold text-sm before:content-[attr(before)] before:w-auto before:absolute before:hidden hover:before:block before:whitespace-nowrap  before:bg-accent-regular/80 before:top-1/2 before:-translate-y-1/2  before:right-[102%] before:rounded-md before:px-2 before:py-1.5 before:text-white relative"><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="#e84949" fill-rule="evenodd" d="M12 1C5.925 1 1 5.925 1 12s4.925 11 11 11s11-4.925 11-11S18.075 1 12 1Zm1 15a1 1 0 1 1-2 0v-3H8a1 1 0 1 1 0-2h3V8a1 1 0 1 1 2 0v3h3a1 1 0 1 1 0 2h-3v3Z" clip-rule="evenodd"/></svg></button>
     </div>
     <div class="overflow-x-auto relative shadow-md sm:rounded-lg pt-4 border">
         

@@ -178,6 +178,55 @@ $(function(){
         return true;
 
     }
+    // Validation current password input
+    function validateCurrentPassword(passwordID,errorElementID)
+    {
+        let password = $(passwordID).val();
+        if(password.length === 0)
+        {
+        $(errorElementID).html('Current Password is required!');
+        $(errorElementID).css('color','lightcoral');
+        return false;
+        }
+        const isWhitespace = /^(?=.*\s)/;
+        if (isWhitespace.test(password)) {
+            $(errorElementID).html('Remove space!');
+            $(errorElementID).css('color','lightcoral');
+            return false;
+        }
+    
+        const isContainsUppercase = /^(?=.*[A-Z])/;
+        if (!isContainsUppercase.test(password)) {
+            $(errorElementID).html('Required uppercase!');
+            $(errorElementID).css('color','lightcoral');
+            return false;
+        }
+    
+        const isContainsLowercase = /^(?=.*[a-z])/;
+        if (!isContainsLowercase.test(password)) {
+            $(errorElementID).html('Required lowercase!');
+            $(errorElementID).css('color','lightcoral');
+            return false;
+        }
+    
+        const isContainsNumber = /^(?=.*[0-9])/;
+        if (!isContainsNumber.test(password)) {
+            $(errorElementID).html('Required a digit!');
+            $(errorElementID).css('color','lightcoral');
+            return false;
+        }
+        const isValidLength = /^.{6,20}$/;
+        if (!isValidLength.test(password)) {
+            $(errorElementID).html('6-20 characters only!');
+            $(errorElementID).css('color','lightcoral');
+            return false;
+        }
+
+        $(errorElementID).html('Current Password');
+        $(errorElementID).css('color','Black');
+        return true;
+
+    }
     // Validation for confirm password input
     function validateConfirmPassword(passwordID,confirmPasswordID,errorElementID)
     {
@@ -610,14 +659,14 @@ $(function(){
                      $("#current-password-error").css('color','lightcoral');
                  } else {
                      // $("#current-pass-error").html('');
-                     validatePassword('#current-password','#current-password-error');
+                     validateCurrentPassword('#current-password','#current-password-error');
                  }
              },
              error: function () {
                  $('#error-message').show();
                  $("#error-text").html('Current password not found');
                  setTimeout(function(){
-                     $('#error-message').show();
+                     $('#error-message').hide();
                  },3000)
              },
          });
@@ -638,7 +687,7 @@ $(function(){
  
         async function validateChangePassForm()
          {  
-             let valid = validatePassword('#current-password','#current-password-error') &&  validatePassword('#new-password','#new-password-error') && validateConfirmPassword('#new-password','#confirm-password','#confirm-password-error');
+             let valid = validateCurrentPassword('#current-password','#current-password-error') &&  validatePassword('#new-password','#new-password-error') && validateConfirmPassword('#new-password','#confirm-password','#confirm-password-error');
                  if(!valid)
                  { 
                      $('#submit-error').show();
@@ -924,38 +973,7 @@ $(function(){
         }));
     }
     
-    //   CAR BOOKING CALENDAR
-       $('.date-input').each(function() {
-            var input1 = $(this)[0];
-            
-            var data = $(input1).data('bookdates');
-            var bookdates = [];
-    
-            for (let i = 0; i < data.length; i++) {
-                if(data[i].status === 'approved' || data[i].status === 'ongoing')
-                {
-                    var starts = new Date(data[i].start_date);
-                    var ends = new Date(data[i].end_date);
-                    var set = new Date(data[0].end_date);
-                    set.setDate(set.getDate() + 1);
-                
-                    while (starts <= ends) {
-                        bookdates.push(fecha.format(new Date(starts), 'YYYY-MM-DD'));
-                        starts.setDate(starts.getDate() + 1);   
-                    }
-                }
-            }
-            var picker = new Datepicker(input1, {
-                inline: true,
-                autoClose: false,
-                disabledDates: bookdates,
-                // onSelectRange: function() {
-                //     console.log(input1.value)
-                // }
-                
-            });
-            
-        });
+   
    
 
     //   DESTINATION
@@ -1011,8 +1029,8 @@ $(function(){
                 if (province.id == province_id) {
                     $.each(province.city, function(index, city) {
                         $("<option>").val(city.id).text(city.citymunDesc).appendTo('.city');
-                        $(form).find('.book-province').val(city.citymunDesc)
                     });
+                    $(form).find('.book-province').val(province.provDesc)
                 }
             });
         });
@@ -1086,7 +1104,7 @@ $(function(){
             $(errorElement).css('color','lightcoral');
             return false;
         }
-        if(!name.match(/^[A-Za-z]*\s{1}[A-Za-z]*$/)){
+        if(!name.match(/^[A-Za-z\s]*$/)){
             // /^[A-Za-z]*$/ - characters only
             // /^[A-Za-z]*\s{1}[A-Za-z]*$/  name and lastname
             $(errorElement).html('Invalid fullname!');

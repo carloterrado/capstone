@@ -56,7 +56,7 @@
                             <input id="add-admin-car-main-photo" name="add-admin-car-main-photo" type="file" class="block w-full text-sm text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" aria-describedby="file_input_help">
                         </div>
                         <div class="col-span-6 md:col-span-3">
-                            <label id="add-admin-car-photos-error" for="add-admin-car-photos" class="block pb-1 text-sm font-semibold lg:pl-2 text-gray-500" >Photos of car</label>
+                            <label id="add-admin-car-photos-error" for="add-admin-car-photos" class="block pb-1 text-sm font-semibold lg:pl-2 text-gray-500" >Photos of car(min 2)</label>
                             <input id="add-admin-car-photos" name="add-admin-car-photos[]" type="file" class="block w-full text-sm text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" aria-describedby="file_input_help"  multiple>
                         </div>
                         <div class="col-span-6 ">
@@ -89,7 +89,7 @@
                         <div class="col-span-6 relative">
                             <input type="text" name="add-admin-car-pickup-location" id="add-admin-car-pickup-location" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-900 peer" placeholder=" " >
                             <label id="add-admin-car-pickup-location-error" for="add-admin-car-pickup-location" class="pointer-events-none absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-gray-900 peer-focus:font-semibold peer-placeholder-shown:scale-100 
-                            peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 whitespace-nowrap ">Pick-up location</label>
+                            peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 whitespace-nowrap ">Location</label>
                         </div>
                         <div class="col-span-6 sm:col-span-3 relative">
                             <div class="flex items-center pb-2.5 pt-4">
