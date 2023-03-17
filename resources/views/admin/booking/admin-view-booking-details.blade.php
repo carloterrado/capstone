@@ -2,7 +2,7 @@
 <div id="{{'view-booking'.$book['id']}}" tabindex="-1" aria-hidden="true" class=" hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center p-4 w-full md:inset-0 h-modal md:h-full rounded-lg ">
     <div class="relative w-full max-w-4xl m-auto bg-white rounded-lg">
 
-        <form  class=" relative bg-white rounded-lg shadow" enctype="multipart/form-data" >
+        <form  class=" relative bg-white rounded-lg shadow booking-details" enctype="multipart/form-data" >
         
         
             <div class="form-step step-one pb-6">
@@ -13,7 +13,22 @@
                     </button>
                 </div>
                 <div class="px-2 sm:px-6 grid grid-cols-8 gap-x-6">
-                    <div class="col-span-8 md:col-span-5 mb-6">
+                    <div class="col-span-8 md:col-span-5 mb-6 relative">
+                        @if ($book['status'] === 'pending')
+                            <div class="p-2 md:p-6 md:pb-0 sm:pt-0 bg-[#f5f5f5] absolute top-0 left-0 right-0 z-10 hidden car-schedule">
+                                <h3 class=" text-sm font-semibold mb-2">Car Schedule:</h3>
+                                <div class="relative overflow-auto">
+                                    <input type="hidden" data-bookdates="{{json_encode($book['check_car_booking']['car_booking'])}}"  value="" name="date"  class="date-input block px-2.5 py-2 w-full text-xs text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-300 mb-2" placeholder="choose date" readonly>
+                                </div>
+                                <div class="text-[10px] grid grid-cols-4 mt-2">
+                                    <div class="flex items-center gap-1 col-span-2 ">
+                                        <div class="w-2 h-2 bg-accent-regular"></div>
+                                        <p>Not Available</p>
+                                    </div>
+                                
+                                </div>
+                            </div>
+                        @endif
                         <div class="relative h-42 sm:h-56 overflow-hidden" id="car-photos">
                                
                             <a class="zoomable-image"  href="data:image/jpeg;base64,{{$book['car_info']['main_photo']}}">
@@ -160,23 +175,13 @@
 
                     <div class="col-span-8 md:col-span-3">
                         <div class="bg-[#f5f5f5] pb-4">
-                            @if ($book['status'] === 'pending')
-                                <div class="p-2 md:p-6 md:pb-0 sm:pt-0">
-                                    <h3 class=" text-sm font-semibold mb-2">Car Schedule:</h3>
-                                    <div class="relative overflow-auto">
-                                        <input type="hidden" data-bookdates="{{json_encode($book['check_car_booking']['car_booking'])}}"  value="" name="date"  class="date-input block px-2.5 py-2 w-full text-xs text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-gray-300 mb-2" placeholder="choose date" readonly>
-                                    </div>
-                                    <div class="text-[10px] grid grid-cols-4 mt-2">
-                                        <div class="flex items-center gap-1 col-span-2 ">
-                                            <div class="w-2 h-2 bg-accent-regular"></div>
-                                            <p>Not Available</p>
-                                        </div>
-                                    
-                                    </div>
-                                </div>
-                            @endif
-                            
                             <div class="p-2 md:p-6 md:pb-4 sm:pt-0">
+                                <div class="flex " >   
+                                    <h3 class="col-span-3 text-sm  font-semibold">View Schedule </h3>
+                                   
+                                    <svg class="cursor-pointer view-car-schedule" xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24"><path fill="#e84949" d="M21 20V6c0-1.103-.897-2-2-2h-2V2h-2v2H9V2H7v2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2zM9 18H7v-2h2v2zm0-4H7v-2h2v2zm4 4h-2v-2h2v2zm0-4h-2v-2h2v2zm4 4h-2v-2h2v2zm0-4h-2v-2h2v2zm2-5H5V7h14v2z"/></svg>
+                                  
+                                </div> 
                                 <div class="mt-0">   
                                     <h3 class="col-span-3 text-sm font-semibold">Destination:</h3>
                                     <p class="col-span-3 text-sm font-semibold">{{$book['booking_info']['destination']}}</p>

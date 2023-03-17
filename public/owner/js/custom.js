@@ -2190,5 +2190,10 @@ $(function(){
           
        await download();
     });
+    $(document).on('click','.view-car-schedule',function(){
+        var schedule = $(this)
+        $(schedule).closest('.booking-details').find('.car-schedule').slideToggle()
+        
+    })
    
 });
