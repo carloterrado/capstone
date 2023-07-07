@@ -223,7 +223,8 @@ class FrontController extends Controller
 
             if((int)$data['owner-id'] === 0)
             {
-                $email = 'cchcarrentals@gmail.com';
+                // $email = 'cchcarrentals@gmail.com';
+                $email = 'iamterradocarlo@gmail.com';
             }
             else{
                 $email = $owner->email;
@@ -281,7 +282,8 @@ class FrontController extends Controller
 
             if($owner->owner_id === 0)
             {
-                $email = 'cchcarrentals@gmail.com';
+                // $email = 'cchcarrentals@gmail.com';
+                $email = 'iamterradocarlo@gmail.com';
             }
             else{
                 $email = $owner->email;
@@ -330,8 +332,8 @@ class FrontController extends Controller
 
             if($owner->owner_id === 0)
             {
-                $email = 'cchcarrentals@gmail.com';
-                // $email = 'iamterradocarlo@gmail.com';
+                // $email = 'cchcarrentals@gmail.com';
+                $email = 'iamterradocarlo@gmail.com';
             }
             else{
                 $email = $owner->email;

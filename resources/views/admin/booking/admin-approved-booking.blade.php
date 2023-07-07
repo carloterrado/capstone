@@ -13,7 +13,7 @@
     <!-- Tab content -->
     <div id="transaction">
        
-        <div class=" p-4" id="approved-booking" role="tabpanel" aria-labelledby="history">
+        <div class=" p-4 " id="approved-booking" role="tabpanel" aria-labelledby="history">
             <div class="overflow-x-auto relative shadow-md sm:rounded-lg pt-4 border">
                 <table id="ongoing-transaction-table" class="cell-border hover w-full text-sm text-left  text-gray-500 mt-8">
                 
