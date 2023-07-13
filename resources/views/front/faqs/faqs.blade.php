@@ -551,7 +551,7 @@
         <div id="accordion-open-body-28" class="hidden" aria-labelledby="accordion-open-heading-28">
             <div class="p-5 font-normal border border-b-0 border-gray-200 max-h-56 overflow-auto">
                 <ul class="pl-5 text-gray-600 list-disc">
-                    <li>The vehicle should be returned to the original pick-up location or as specified in the agreement between the renter and the car owne</li>
+                    <li>The vehicle should be returned to the original pick-up location or as specified in the agreement between the renter and the car owner.</li>
                 </ul>
             </div>
         </div>

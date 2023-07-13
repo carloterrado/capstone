@@ -73,7 +73,8 @@ Route::prefix('admin')->group(function()
         Route::post('delete-booking',[AdminController::class,'deleteBooking']);
         Route::post('booking-return-confirmed',[AdminController::class,'bookingReturnConfirmed']);
         Route::get('booking-history',[AdminController::class,'bookingHistory']);
-        Route::get('commission-history',[AdminController::class,'commissionHistory']);
+        Route::match(['get','post'],'commission-history',[AdminController::class,'commissionHistory'])->name('commission.history');
+      
         Route::post('delete-booking-history',[AdminController::class,'deleteBookingHistory']);
         Route::get('download-booking-history/{id}',[AdminController::class,'downloadBookingHistory']);
         Route::post('confirm-commission-fee',[AdminController::class,'confirmCommissionFee']);

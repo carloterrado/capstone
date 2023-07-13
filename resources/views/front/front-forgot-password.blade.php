@@ -42,7 +42,7 @@
                     </div>
                 </form>
             </div>
-                <p class="my-6 text-sm text-center text-gray-400">Don&#x27;t have an account yet? <a href="{{url('signup')}}" class="text-accent-regular focus:outline-none focus:underline hover:underline">Sign up</a>.</p>  
+                {{-- <p class="my-6 text-sm text-center text-gray-400">Don&#x27;t have an account yet? <a href="{{url('signup')}}" class="text-accent-regular focus:outline-none focus:underline hover:underline">Sign up</a>.</p>   --}}
         </div>
     </div>
     </div>

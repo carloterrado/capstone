@@ -1,12 +1,12 @@
 
-<footer class="bg-[#1F1F1F] text-white">
+<footer class="bg-[#1F1F1F] text-white ">
     <div class="grid md:grid-cols-3 p-6 sm:p-14">
         <div class="text-center md:text-left mb-12 md:mb-0">
             <h3 class=" lg:text-[1.5rem] uppercase font-bold text-accent-regular">Socials</h3>
             <div class="grid gap-12 mt-4">   
                 <!-- <p class="text-xs sm:text-base">Lorem ipsum dolor sit amet <br>
                  consectetur adipisicing elit.</p> -->
-                <div class="mt-auto grid grid-cols-4  md:block text-center md:text-left">    
+                <div class="mt-auto md:grid grid-cols-4  md:block text-center md:text-left">    
                         <a href="https://www.facebook.com/paulines.general.merchandize" class="hover:text-white text-accent-regular" target="_blank">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 col-span-1 inline mr-4 justify-self-center" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" d="M9.198 21.5h4v-8.01h3.604l.396-3.98h-4V7.5a1 1 0 0 1 1-1h3v-4h-3a5 5 0 0 0-5 5v2.01h-2l-.396 3.98h2.396v8.01Z"/></svg></a>
                         <a href="mailto:cchcarrentals@gmail.com" class="hover:text-white text-accent-regular" target="_blank">

@@ -87,6 +87,7 @@ class FrontController extends Controller
             {
                 
                 $cars = Car::with('carPhotos','carPrice','carTypes','carBooking')->where(['status'=>1,'account'=>'verified'])->orderBy('id')->paginate(6);
+                // ->get()->toArray();
             }
             // dd($cars);
             return view('front.home')->with(compact('cars','cartypes','regions'));

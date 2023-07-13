@@ -224,7 +224,7 @@ $(function () {
             $(errorElementID).css("color", "lightcoral");
             return false;
         }
-        $(errorElementID).html("Confirn Password!");
+        $(errorElementID).html("Confirm Password!");
         $(errorElementID).css("color", "black");
         return true;
     }
