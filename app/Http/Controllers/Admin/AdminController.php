@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\AdminSalesReportExport;
+use App\Exports\CommissionReportExport;
+use App\Exports\OwnerSalesReportExport;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\Booking;
@@ -31,9 +34,9 @@ use Illuminate\Support\Str;
 use Mpdf\Mpdf;
 use Dompdf\Dompdf;
 use Illuminate\Support\Facades\DB;
-use Maatwebsite\Excel\Concerns\FromCollection;
+
 use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Support\Collection;
+
 
 
 class AdminController extends Controller
@@ -592,18 +595,18 @@ class AdminController extends Controller
     {
         $request_data = json_decode($request->commission, true);
 
+
         // Filter the data based on the commission status
         $filtered_data = array_filter($request_data, function ($data) {
             return $data['commission'] === 'paid';
         });
 
-       
 
         // Create an array to store the report data
-        $report_data = [];
+        $reportData = [];
 
         foreach ($filtered_data as $data) {
-            $report_data[] = [
+            $reportData[] = [
                 'Reference' => $data['booking_id'],
                 'Name' => $data['name'],
                 'Email' => $data['email'],
@@ -621,9 +624,7 @@ class AdminController extends Controller
             ];
         }
 
-        // Generate monthly and yearly sales report
-        $current_year = Carbon::now()->year;
-        $current_month = Carbon::now()->month;
+
 
         $monthly_sales = collect($filtered_data)->groupBy(function ($data) {
             return Carbon::parse($data['created_at'])->format('F');
@@ -637,42 +638,114 @@ class AdminController extends Controller
             return $sales->sum('commission_fee');
         });
 
+        // Create an instance of CommissionReportExport
+        $export = new CommissionReportExport($reportData, $monthly_sales, $yearly_sales);
         // Export the data to an Excel file
-        $filename = 'SalesReport.xlsx';
+        return Excel::download($export, 'commission_report.xlsx');
 
-        return Excel::download(new class($report_data) implements FromCollection {
-            protected $data;
-
-            public function __construct(array $data)
-            {
-                $this->data = $data;
-            }
-
-            public function collection()
-            {
-                return collect($this->data);
-            }
-        }, $filename, public_path('exports'));
-
-        // // Export the data to an Excel file
-        // Excel::create('SalesReport', function ($excel) use ($report_data, $monthly_sales, $yearly_sales) {
-        //     $excel->sheet('Sales', function ($sheet) use ($report_data) {
-        //         $sheet->fromArray($report_data, null, 'A1', false, false);
-        //     });
-
-        //     $excel->sheet('Monthly Sales', function ($sheet) use ($monthly_sales) {
-        //         $sheet->fromArray($monthly_sales, null, 'A1', true, false);
-        //     });
-
-        //     $excel->sheet('Yearly Sales', function ($sheet) use ($yearly_sales) {
-        //         $sheet->fromArray($yearly_sales, null, 'A1', true, false);
-        //     });
-        // })->store('xlsx', public_path('exports'));
 
        
-        // return response()->download($file, 'SalesReport.xlsx', $headers);
-        // dd($report_data);
     }
+    public function downloadAdminSalesReport(Request $request)
+    {
+        $filtered_data  = json_decode($request->commission, true);
+
+        // Create an array to store the report data
+        $reportData = [];
+
+        foreach ($filtered_data as $data) {
+            $reportData[] = [
+                'Reference' => $data['booking_id'],
+                'Name' => $data['name'],
+                'Email' => $data['email'],
+                'Contact' => $data['contact'],
+                'Address' => $data['address'],
+                'Car' => $data['car_name'],
+                'Plate Number' => $data['plate_number'],
+                'Driver Option' => $data['driver'],
+                'Driver Fee' => $data['driver_fee'],
+                'Amount' => $data['car_price'],
+                'Total' => $data['grand_total'],
+                'Start Date' => $data['start_date'] . " " . $data['time'],
+                'End Date' => $data['end_date'] . " " . $data['time_end'],
+            ];
+        }
+
+
+
+        $monthly_sales = collect($filtered_data)->groupBy(function ($data) {
+            return Carbon::parse($data['created_at'])->format('F');
+        })->map(function ($sales) {
+            return $sales->sum('grand_total');
+        });
+
+        $yearly_sales = collect($filtered_data)->groupBy(function ($data) {
+            return Carbon::parse($data['created_at'])->format('Y');
+        })->map(function ($sales) {
+            return $sales->sum('grand_total');
+        });
+
+        // Create an instance of CommissionReportExport
+        $export = new AdminSalesReportExport($reportData, $monthly_sales, $yearly_sales);
+        // Export the data to an Excel file
+        return Excel::download($export, 'sales_report.xlsx');
+
+
+       
+    }
+    public function downloadOwnerSalesReport(Request $request)
+    {
+        $filtered_data  = json_decode($request->commission, true);
+
+        // Create an array to store the report data
+        $reportData = [];
+
+        foreach ($filtered_data as $data) {
+            $reportData[] = [
+                'Reference' => $data['booking_id'],
+                'Name' => $data['name'],
+                'Email' => $data['email'],
+                'Contact' => $data['contact'],
+                'Address' => $data['address'],
+                'Car' => $data['car_name'],
+                'Plate Number' => $data['plate_number'],
+                'Driver Option' => $data['driver'],
+                'Driver Fee' => $data['driver_fee'],
+                'Amount' => $data['car_price'],
+                'Total' => $data['grand_total'],
+                'Commission' => $data['commission_fee'],
+                'Start Date' => $data['start_date'] . " " . $data['time'],
+                'End Date' => $data['end_date'] . " " . $data['time_end'],
+            ];
+        }
+
+
+
+        $monthly_sales = collect($filtered_data)->groupBy(function ($data) {
+            return Carbon::parse($data['created_at'])->format('F');
+        })->map(function ($sales) {
+            return $sales->sum(function ($data) {
+                return $data['grand_total'] - $data['commission_fee'];
+            });
+        });
+
+        $yearly_sales = collect($filtered_data)->groupBy(function ($data) {
+            return Carbon::parse($data['created_at'])->format('Y');
+        })->map(function ($sales) {
+            return $sales->sum(function ($data) {
+                return $data['grand_total'] - $data['commission_fee'];
+            });
+        });
+
+        // Create an instance of CommissionReportExport
+        $export = new OwnerSalesReportExport($reportData, $monthly_sales, $yearly_sales);
+        // Export the data to an Excel file
+        return Excel::download($export, 'sales_report.xlsx');
+
+
+       
+    }
+    
     public function deleteBookingHistory(Request $request)
     {
         if ($request->ajax()) {

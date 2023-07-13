@@ -75,6 +75,8 @@ Route::prefix('admin')->group(function()
         Route::match(['get','post'],'booking-history',[AdminController::class,'bookingHistory'])->name('admin.history');
         Route::match(['get','post'],'commission-history',[AdminController::class,'commissionHistory'])->name('commission.history');
         Route::post('download-commission',[AdminController::class, 'downloadCommissionReport'])->name('commission.report');
+        Route::post('download-admin-sales',[AdminController::class, 'downloadAdminSalesReport'])->name('admin.sales.report');
+        Route::post('download-owner-sales',[AdminController::class, 'downloadOwnerSalesReport'])->name('owner.sales.report');
       
         Route::post('delete-booking-history',[AdminController::class,'deleteBookingHistory']);
         Route::get('download-booking-history/{id}',[AdminController::class,'downloadBookingHistory']);

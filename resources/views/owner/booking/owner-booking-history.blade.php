@@ -12,7 +12,7 @@ use Carbon\Carbon; ?>
     <div class="mb-6 md:flex justify-between">
         <h2 class="inline-block p-4 border-b-2 border-accent-regular text-accent-regular rounded-t-lg sm:text-lg lg:text-2xl font-bold">Booking History</h2>
         <div class="flex gap-4">
-            <form method="Post"  action="#">
+            <form method="Post"  action="{{route('owner.sales.report')}}">
                 @csrf
                 <input type="hidden" name="commission" value="{{json_encode($histories)}}">
                 <button type="submit" before="Download Sales Report" 
