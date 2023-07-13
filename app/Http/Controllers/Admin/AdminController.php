@@ -31,6 +31,10 @@ use Illuminate\Support\Str;
 use Mpdf\Mpdf;
 use Dompdf\Dompdf;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Collection;
+
 
 class AdminController extends Controller
 {
@@ -40,6 +44,32 @@ class AdminController extends Controller
         Session::put('page', 'dashboard');
         if (Auth::guard('admin')->user()->type === 'owner') {
             $unpaidCount = History::where('owner_id', Auth::guard('admin')->user()->owner_id)->where('commission', 'unpaid')->count();
+
+            $yearlySales = History::select(DB::raw('YEAR(created_at) as year, SUM(grand_total - commission_fee) as total_sales'))
+                ->where('owner_id', Auth::guard('admin')->user()->owner_id)
+                ->groupBy(DB::raw('YEAR(created_at)'))
+                ->get()
+                ->toArray();
+
+            $currentYear = date('Y');
+            $currentMonth = date('m');
+
+            $monthlySales = History::select(DB::raw('MONTHNAME(created_at) as month, YEAR(created_at) as year, MONTH(created_at) as month_number, SUM(grand_total - commission_fee) as total_sales'))
+                ->where('owner_id', Auth::guard('admin')->user()->owner_id)
+                ->where(function ($query) use ($currentYear, $currentMonth) {
+                    $query->whereYear('created_at', '=', $currentYear)
+                        ->whereMonth('created_at', '<=', $currentMonth);
+                })
+                ->orWhere(function ($query) use ($currentYear, $currentMonth) {
+                    $query->whereYear('created_at', '=', $currentYear - 1)
+                        ->whereMonth('created_at', '>', $currentMonth)
+                        ->where('owner_id', Auth::guard('admin')->user()->owner_id);
+                })
+                ->groupBy('month', 'year', 'month_number')
+                ->orderBy('year', 'ASC')
+                ->orderBy('month_number', 'ASC')
+                ->get()
+                ->toArray();
 
             if ($unpaidCount > 3) {
                 Session::put('title', 'Booking History');
@@ -67,7 +97,7 @@ class AdminController extends Controller
                 'carWithBookingNames' => $cars->pluck('name')->toArray(),
                 'carWithBookingCounts' => $cars->pluck('total_bookings')->toArray(),
             ];
-            return view('owner.dashboard')->with(compact('dashboard'));
+            return view('owner.dashboard')->with(compact('dashboard', 'yearlySales', 'monthlySales'));
         }
         $cars = Car::select('cars.id', 'cars.name')
             ->selectRaw('count(histories.id) as total_bookings')
@@ -97,7 +127,7 @@ class AdminController extends Controller
             ->orWhere(function ($query) use ($currentYear, $currentMonth) {
                 $query->whereYear('created_at', '=', $currentYear - 1)
                     ->whereMonth('created_at', '>', $currentMonth)
-                    ->where('owner_id',0);
+                    ->where('owner_id', 0);
             })
             ->groupBy('month', 'year', 'month_number')
             ->orderBy('year', 'ASC')
@@ -113,7 +143,7 @@ class AdminController extends Controller
             ->toArray();
 
         $monthlyCommissions = History::select(DB::raw('MONTHNAME(created_at) as month, YEAR(created_at) as year, MONTH(created_at) as month_number, SUM(commission_fee) as total_commissions'))
-            ->where('owner_id','!=', 0)
+            ->where('owner_id', '!=', 0)
             ->where('commission', 'paid')
             ->where(function ($query) use ($currentYear, $currentMonth) {
                 $query->whereYear('created_at', '=', $currentYear)
@@ -121,7 +151,8 @@ class AdminController extends Controller
             })
             ->orWhere(function ($query) use ($currentYear, $currentMonth) {
                 $query->whereYear('created_at', '=', $currentYear - 1)
-                    ->whereMonth('created_at', '>', $currentMonth);
+                    ->whereMonth('created_at', '>', $currentMonth)
+                    ->where('owner_id', '!=', 0);
             })
             ->groupBy('month', 'year', 'month_number')
             ->orderBy('year', 'ASC')
@@ -150,7 +181,7 @@ class AdminController extends Controller
 
         //    dd($dashboard);
 
-        return view('admin.dashboard')->with(compact('dashboard', 'yearlySales', 'monthlySales', 'yearlyCommissions','monthlyCommissions'));
+        return view('admin.dashboard')->with(compact('dashboard', 'yearlySales', 'monthlySales', 'yearlyCommissions', 'monthlyCommissions'));
     }
     //     CAR Modules
     public function newBooking()
@@ -406,26 +437,98 @@ class AdminController extends Controller
             }
         }
     }
-    public function bookingHistory()
+    public function bookingHistory(Request $request)
     {
         Session::put('title', 'Booking History');
         Session::put('page', 'booking-history');
-        $owner_id = Auth::guard('admin')->user()->owner_id;
+        // $owner_id = Auth::guard('admin')->user()->owner_id;
         $commission = Setting::select('value')->find(1);
-        $histories = History::where('owner_id', $owner_id)->get()->toArray();
+
         if (Auth::guard('admin')->user()->type === 'owner') {
+            if ($request->isMethod('POST')) {
+                // dd(date('Y-m-d', strtotime($request->input('date'))));
+                $histories = History::where('owner_id', Auth::guard('admin')->user()->owner_id)
+                    ->when($request->filled('client'), function ($query) use ($request) {
+                        return $query->where('name', $request->input('client'));
+                    })
+                    ->when($request->filled('email'), function ($query) use ($request) {
+                        return $query->where('email', $request->input('email'));
+                    })
+                    ->when($request->filled('car'), function ($query) use ($request) {
+                        return $query->where('car_name', $request->input('car'));
+                    })
+                    ->when($request->filled('type'), function ($query) use ($request) {
+                        return $query->where('car_type', $request->input('type'));
+                    })
+                    ->when($request->filled('fuel'), function ($query) use ($request) {
+                        return $query->where('fuel_type', $request->input('fuel'));
+                    })
+                    ->when($request->filled('options'), function ($query) use ($request) {
+                        return $query->where('driver', $request->input('options'));
+                    })
+                    ->when($request->filled('date'), function ($query) use ($request) {
+                        return $query->whereDate('created_at', date('Y-m-d', strtotime($request->input('date'))));
+                    })
+                    ->when($request->filled('month'), function ($query) use ($request) {
+                        return $query->whereMonth('created_at', $request->input('month'));
+                    })
+                    ->when($request->filled('year'), function ($query) use ($request) {
+                        return $query->whereYear('created_at', $request->input('year'));
+                    })
+                    ->get()->makeHidden(['valid_id'])->toArray();
+            } else {
+
+                $histories = History::where('owner_id',  Auth::guard('admin')->user()->owner_id)->get()->makeHidden(['valid_id'])->toArray();
+            }
             $unpaidCount = History::where('owner_id', Auth::guard('admin')->user()->owner_id)->where('commission', 'unpaid')->count();
 
             if ($unpaidCount > 3) {
-                Session::put('title', 'Booking History');
-                Session::put('page', 'booking-history');
+                // Session::put('title', 'Booking History');
+                // Session::put('page', 'booking-history');
                 Session::put('commission_error_message', 'You need to settle the unpaid commissions first');
-                $owner_id = Auth::guard('admin')->user()->owner_id;
-                $histories = History::where('owner_id', $owner_id)->get()->toArray();
+                // $owner_id = Auth::guard('admin')->user()->owner_id;
+                // $histories = History::where('owner_id', $owner_id)->get()->toArray();
                 return view('owner.dashboard')->with(compact('histories', 'commission'));
             }
             Session::forget('commission_error_message');
+
             return view('owner.dashboard')->with(compact('histories', 'commission'));
+        }
+
+        if ($request->isMethod('POST')) {
+            // dd(date('Y-m-d', strtotime($request->input('date'))));
+            $histories = History::where('owner_id', 0)
+                ->when($request->filled('client'), function ($query) use ($request) {
+                    return $query->where('name', $request->input('client'));
+                })
+                ->when($request->filled('email'), function ($query) use ($request) {
+                    return $query->where('email', $request->input('email'));
+                })
+                ->when($request->filled('car'), function ($query) use ($request) {
+                    return $query->where('car_name', $request->input('car'));
+                })
+                ->when($request->filled('type'), function ($query) use ($request) {
+                    return $query->where('car_type', $request->input('type'));
+                })
+                ->when($request->filled('fuel'), function ($query) use ($request) {
+                    return $query->where('fuel_type', $request->input('fuel'));
+                })
+                ->when($request->filled('options'), function ($query) use ($request) {
+                    return $query->where('driver', $request->input('options'));
+                })
+                ->when($request->filled('date'), function ($query) use ($request) {
+                    return $query->whereDate('created_at', date('Y-m-d', strtotime($request->input('date'))));
+                })
+                ->when($request->filled('month'), function ($query) use ($request) {
+                    return $query->whereMonth('created_at', $request->input('month'));
+                })
+                ->when($request->filled('year'), function ($query) use ($request) {
+                    return $query->whereYear('created_at', $request->input('year'));
+                })
+                ->get()->makeHidden(['valid_id'])->toArray();
+        } else {
+
+            $histories = History::where('owner_id', 0)->get()->makeHidden(['valid_id'])->toArray();
         }
 
         return view('admin.dashboard')->with(compact('histories', 'commission'));
@@ -434,17 +537,141 @@ class AdminController extends Controller
     {
         Session::put('title', 'Commission');
         Session::put('page', 'commission');
-        if ($request->isMethod('POST') && $request->percentage !== null) {
+        if ($request->isMethod('POST') && $request->has('percentage')) {
             Setting::where('id', 1)->update(['value' => $request->percentage]);
         }
         $commission = Setting::select('value')->find(1);
 
-        $histories = History::where('owner_id', '!=', 0)->get()->toArray();
         if (Auth::guard('admin')->user()->type === 'owner') {
+            $histories = History::where('owner_id',  Auth::guard('admin')->user()->owner_id)->get()->makeHidden(['valid_id'])->toArray();
             return view('owner.dashboard')->with(compact('histories'));
         }
+        if ($request->isMethod('POST') && $request->missing('percentage')) {
+            // dd(date('Y-m-d', strtotime($request->input('date'))));
+            $histories = History::where('owner_id', '!=', 0)
+                ->when($request->filled('client'), function ($query) use ($request) {
+                    return $query->where('name', $request->input('client'));
+                })
+                ->when($request->filled('email'), function ($query) use ($request) {
+                    return $query->where('email', $request->input('email'));
+                })
+                ->when($request->filled('car'), function ($query) use ($request) {
+                    return $query->where('car_name', $request->input('car'));
+                })
+                ->when($request->filled('type'), function ($query) use ($request) {
+                    return $query->where('car_type', $request->input('type'));
+                })
+                ->when($request->filled('fuel'), function ($query) use ($request) {
+                    return $query->where('fuel_type', $request->input('fuel'));
+                })
+                ->when($request->filled('options'), function ($query) use ($request) {
+                    return $query->where('driver', $request->input('options'));
+                })
+                ->when($request->filled('status'), function ($query) use ($request) {
+                    return $query->where('commission', $request->input('status'));
+                })
+                ->when($request->filled('date'), function ($query) use ($request) {
+                    return $query->whereDate('created_at', date('Y-m-d', strtotime($request->input('date'))));
+                })
+                ->when($request->filled('month'), function ($query) use ($request) {
+                    return $query->whereMonth('created_at', $request->input('month'));
+                })
+                ->when($request->filled('year'), function ($query) use ($request) {
+                    return $query->whereYear('created_at', $request->input('year'));
+                })
+                ->get()->makeHidden(['valid_id'])->toArray();
+        } else {
+
+            $histories = History::where('owner_id', '!=', 0)->get()->makeHidden(['valid_id'])->toArray();
+        }
+        // dd($histories); 
 
         return view('admin.dashboard')->with(compact('histories', 'commission'));
+    }
+    public function downloadCommissionReport(Request $request)
+    {
+        $request_data = json_decode($request->commission, true);
+
+        // Filter the data based on the commission status
+        $filtered_data = array_filter($request_data, function ($data) {
+            return $data['commission'] === 'paid';
+        });
+
+       
+
+        // Create an array to store the report data
+        $report_data = [];
+
+        foreach ($filtered_data as $data) {
+            $report_data[] = [
+                'Reference' => $data['booking_id'],
+                'Name' => $data['name'],
+                'Email' => $data['email'],
+                'Contact' => $data['contact'],
+                'Address' => $data['address'],
+                'Car' => $data['car_name'],
+                'Plate Number' => $data['plate_number'],
+                'Driver Option' => $data['driver'],
+                'Driver Fee' => $data['driver_fee'],
+                'Amount' => $data['car_price'],
+                'Total' => $data['grand_total'],
+                'Commission' => $data['commission_fee'],
+                'Start Date' => $data['start_date'] . " " . $data['time'],
+                'End Date' => $data['end_date'] . " " . $data['time_end'],
+            ];
+        }
+
+        // Generate monthly and yearly sales report
+        $current_year = Carbon::now()->year;
+        $current_month = Carbon::now()->month;
+
+        $monthly_sales = collect($filtered_data)->groupBy(function ($data) {
+            return Carbon::parse($data['created_at'])->format('F');
+        })->map(function ($sales) {
+            return $sales->sum('commission_fee');
+        });
+
+        $yearly_sales = collect($filtered_data)->groupBy(function ($data) {
+            return Carbon::parse($data['created_at'])->format('Y');
+        })->map(function ($sales) {
+            return $sales->sum('commission_fee');
+        });
+
+        // Export the data to an Excel file
+        $filename = 'SalesReport.xlsx';
+
+        return Excel::download(new class($report_data) implements FromCollection {
+            protected $data;
+
+            public function __construct(array $data)
+            {
+                $this->data = $data;
+            }
+
+            public function collection()
+            {
+                return collect($this->data);
+            }
+        }, $filename, public_path('exports'));
+
+        // // Export the data to an Excel file
+        // Excel::create('SalesReport', function ($excel) use ($report_data, $monthly_sales, $yearly_sales) {
+        //     $excel->sheet('Sales', function ($sheet) use ($report_data) {
+        //         $sheet->fromArray($report_data, null, 'A1', false, false);
+        //     });
+
+        //     $excel->sheet('Monthly Sales', function ($sheet) use ($monthly_sales) {
+        //         $sheet->fromArray($monthly_sales, null, 'A1', true, false);
+        //     });
+
+        //     $excel->sheet('Yearly Sales', function ($sheet) use ($yearly_sales) {
+        //         $sheet->fromArray($yearly_sales, null, 'A1', true, false);
+        //     });
+        // })->store('xlsx', public_path('exports'));
+
+       
+        // return response()->download($file, 'SalesReport.xlsx', $headers);
+        // dd($report_data);
     }
     public function deleteBookingHistory(Request $request)
     {

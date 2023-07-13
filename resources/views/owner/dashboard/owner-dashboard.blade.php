@@ -103,6 +103,164 @@
                 });
             </script> 
         </div>
+        <div
+            class="w-full mx-auto col-span-8 sm:col-span-4  bg-white border border-gray-100 rounded-lg  shadow-lg p-2 sm:p-4">
+            <h3 class="font-medium text-xl">Yearly Sales</h3>
+            <div id="yearSales"></div>
+            <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                    const salesData = <?php echo json_encode($yearlySales); ?>;
+                    const chartData = salesData.map(item => item.total_sales);
+                    new ApexCharts(document.querySelector("#yearSales"), {
+                        series: [{
+                            name: 'Sales',
+                            data: chartData
+                        }],
+                        chart: {
+                            height: 350,
+                            type: 'bar',
+                        },
+                        plotOptions: {
+                            bar: {
+                                // borderRadius: 10,
+                                columnWidth: '50%',
+                            }
+                        },
+                        dataLabels: {
+                            enabled: false
+                        },
+                        stroke: {
+                            width: 2
+                        },
+
+                        grid: {
+                            row: {
+                                colors: ['#fff', '#f2f2f2']
+                            }
+                        },
+                        xaxis: {
+                            labels: {
+                                rotate: -45
+                            },
+                            categories: salesData.map(item => item.year),
+                            tickPlacement: 'on'
+                        },
+                        yaxis: {
+                            labels: {
+                                formatter: (value) => new Intl.NumberFormat('en-PH', {
+                                    style: 'currency',
+                                    currency: 'PHP'
+                                }).format(value)
+                            },
+                              
+                        },
+                        tooltip: {
+                            y: {
+
+                                formatter: (value) => new Intl.NumberFormat('en-PH', {
+                                    style: 'currency',
+                                    currency: 'PHP'
+                                }).format(value),
+                            }
+                        },
+                        fill: {
+                            type: 'gradient',
+                            gradient: {
+                                shade: 'light',
+                                type: "horizontal",
+                                shadeIntensity: 0.25,
+                                gradientToColors: undefined,
+                                inverseColors: true,
+                                opacityFrom: 0.85,
+                                opacityTo: 0.85,
+                                stops: [50, 0, 100]
+                            },
+                        }
+                    }).render();
+                });
+            </script>
+
+        </div>
+        <div
+            class="w-full mx-auto col-span-8 sm:col-span-4  bg-white border border-gray-100 rounded-lg  shadow-lg p-2 sm:p-4">
+            <h3 class="font-medium text-xl">Monthly Sales</h3>
+            <div id="monthlySales"></div>
+            <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                    const monthlySalesData = <?php echo json_encode($monthlySales); ?>;
+                    const monthlyChartData = monthlySalesData.map(item => item.total_sales);
+                    const categories = monthlySalesData.map(item => `${item.month} ${item.year}`);
+
+
+                    new ApexCharts(document.querySelector("#monthlySales"), {
+                        series: [{
+                            name: 'Sales',
+                            data: monthlyChartData
+                        }],
+                        chart: {
+                            height: 350,
+                            type: 'bar',
+                        },
+                        plotOptions: {
+                            bar: {
+                                // borderRadius: 10,
+                                columnWidth: '50%',
+                            }
+                        },
+                        dataLabels: {
+                            enabled: false,
+
+
+                        },
+                        stroke: {
+                            width: 2
+                        },
+
+                        grid: {
+                            row: {
+                                colors: ['#fff', '#f2f2f2']
+                            }
+                        },
+                        xaxis: {
+                            categories: categories,
+                            tickPlacement: 'on'
+                        },
+                        yaxis: {
+                            
+                            labels: {
+                                formatter: (value) => new Intl.NumberFormat('en-PH', {
+                                    style: 'currency',
+                                    currency: 'PHP'
+                                }).format(value)
+                            },
+                        },
+                        tooltip: {
+                            y: {
+
+                                formatter: (value) => new Intl.NumberFormat('en-PH', {
+                                    style: 'currency',
+                                    currency: 'PHP'
+                                }).format(value),
+                            }
+                        },
+                        fill: {
+                            type: 'gradient',
+                            gradient: {
+                                shade: 'light',
+                                type: "horizontal",
+                                shadeIntensity: 0.25,
+                                gradientToColors: undefined,
+                                inverseColors: true,
+                                opacityFrom: 0.85,
+                                opacityTo: 0.85,
+                                stops: [50, 0, 100]
+                            },
+                        }
+                    }).render();
+                });
+            </script>
+
+        </div>
     </section>
 </div>
 <script src="{{url('js/apexcharts.min.js')}}"></script>

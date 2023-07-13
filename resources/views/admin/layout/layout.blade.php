@@ -47,10 +47,12 @@
    <script src="{{url('admins/js/custom.js')}}"></script>
    <script src="{{url('js/fecha.min.js')}}"></script>
     <script src="{{url('js/datepicker.js')}}"></script> 
+    
    <script>
     $('#arkilla-table').DataTable({
             stateSave: true,
             order: [[0, 'desc']],
+            
         });
    $('#ongoing-transaction-table').DataTable({
             stateSave: true,

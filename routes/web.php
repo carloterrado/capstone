@@ -64,7 +64,7 @@ Route::prefix('admin')->group(function()
     //  Admin group with middleware auth guard 
     Route::group(['middleware'=>['admin']], function()
     {       
-        Route::get('dashboard',[AdminController::class,'dashboard']);
+        Route::get('dashboard',[AdminController::class,'dashboard'])->name('admin.dashboard');
         Route::get('booking',[AdminController::class,'booking']);
         Route::get('new-booking',[AdminController::class,'newBooking']);
         Route::get('approved-booking',[AdminController::class,'approvedBooking']);
@@ -72,8 +72,9 @@ Route::prefix('admin')->group(function()
         Route::match(['get','post'],'cancel-booking',[AdminController::class,'cancelBooking']);
         Route::post('delete-booking',[AdminController::class,'deleteBooking']);
         Route::post('booking-return-confirmed',[AdminController::class,'bookingReturnConfirmed']);
-        Route::get('booking-history',[AdminController::class,'bookingHistory']);
+        Route::match(['get','post'],'booking-history',[AdminController::class,'bookingHistory'])->name('admin.history');
         Route::match(['get','post'],'commission-history',[AdminController::class,'commissionHistory'])->name('commission.history');
+        Route::post('download-commission',[AdminController::class, 'downloadCommissionReport'])->name('commission.report');
       
         Route::post('delete-booking-history',[AdminController::class,'deleteBookingHistory']);
         Route::get('download-booking-history/{id}',[AdminController::class,'downloadBookingHistory']);

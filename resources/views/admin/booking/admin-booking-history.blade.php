@@ -6,8 +6,26 @@
     </div>
     
      <!-- Tab link -->
-    <div class="mb-6 ">
+    <div class="mb-6 md:flex justify-between">
         <h2 class="inline-block p-4 border-b-2 border-accent-regular text-accent-regular rounded-t-lg sm:text-lg lg:text-2xl font-bold">Booking History</h2>
+        <div class="flex gap-4">
+            <form method="Post"  action="#">
+                @csrf
+                <input type="hidden" name="commission" value="{{json_encode($histories)}}">
+                <button type="submit" before="Download Sales Report" 
+                class="py-1 px-4 border-2 border-accent-regular rounded cursor-pointer text-accent-regular  mb-4 sm:mb-6 text-sm lg:mb-7 font-semibold before:content-[attr(before)] before:w-auto before:absolute before:hidden hover:before:block before:whitespace-nowrap  before:bg-accent-regular/80 before:bottom-[106%] before:-translate-x-1/2  before:left-1/2 before:rounded-md before:px-2 before:py-1.5 before:text-white relative"><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24"><path fill="#e84949" d="M6 20q-.825 0-1.413-.588T4 18v-3h2v3h12v-3h2v3q0 .825-.588 1.413T18 20H6Zm6-4l-5-5l1.4-1.45l2.6 2.6V4h2v8.15l2.6-2.6L17 11l-5 5Z"/></svg></button>
+            </form>
+            <a href="{{route('admin.history')}}">
+                <button type="button" before="Reset Filter" 
+                class="py-1 px-4 border-2 border-accent-regular rounded cursor-pointer text-accent-regular  mb-4 sm:mb-6 text-sm lg:mb-7 font-semibold before:content-[attr(before)] before:w-auto before:absolute before:hidden hover:before:block before:whitespace-nowrap  before:bg-accent-regular/80 before:bottom-[106%] before:-translate-x-1/2  before:left-1/2 before:rounded-md before:px-2 before:py-1.5 before:text-white relative">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 32 32"><path fill="#e84949" d="M22.5 9a7.452 7.452 0 0 0-6.5 3.792V8h-2v8h8v-2h-4.383a5.494 5.494 0 1 1 4.883 8H22v2h.5a7.5 7.5 0 0 0 0-15Z"/><path fill="#e84949" d="M26 6H4v3.171l7.414 7.414l.586.586V26h4v-2h2v2a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-8l-7.414-7.415A2 2 0 0 1 2 9.171V6a2 2 0 0 1 2-2h22Z"/></svg></button>
+            </a>
+            <button type="button" before="More Filter" data-modal-toggle="histories"
+                class="py-1 px-4 border-2 border-accent-regular rounded cursor-pointer text-accent-regular  mb-4 sm:mb-6 text-sm lg:mb-7 font-semibold before:content-[attr(before)] before:w-auto before:absolute before:hidden hover:before:block before:whitespace-nowrap  before:bg-accent-regular/80 before:bottom-[106%] before:-translate-x-1/2  before:left-1/2 before:rounded-md before:px-2 before:py-1.5 before:text-white relative"><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24"><path fill="#e84949" d="M12 18.88a1 1 0 0 1-.29.83a1 1 0 0 1-1.41 0l-4-4a1 1 0 0 1-.3-.84V9.75L1.21 3.62a1 1 0 0 1 .17-1.4A1 1 0 0 1 2 2h14a1 1 0 0 1 .62.22a1 1 0 0 1 .17 1.4L12 9.75v9.13M4 4l4 5.06v5.52l2 2V9.05L14 4m-1 12l5 5l5-5Z"/></svg></button>
+                @include('admin.booking.admin-history-filter')
+           
+        </div>
     </div>
 
     <!-- Tab content -->
