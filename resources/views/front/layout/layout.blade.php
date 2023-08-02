@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{{ url('css/magnific-popup.min.css') }}">
     <link rel="stylesheet" href="{{ url('css/date-picker.css') }}">
     <link rel="stylesheet" href="{{ url('css/slick-theme.css') }}">
+    <link href="https://cdn.jsdelivr.net/gh/yesiamrocks/cssanimation.io@1.0.3/cssanimation.min.css" rel="stylesheet">
 
 
 
@@ -56,6 +57,13 @@
     <script src="{{ url('js/magnific-popup.min.js') }}"></script>
     <script src="{{ url('js/jquery.Datatable.js') }}"></script>
     <script src="{{ url('js/slick.min.js') }}"></script>
+    <script src="https://rawcdn.githack.com/yesiamrocks/scrolly.js/2a3d10b8065c42ad000859cf38ef55e6fff60973/scrolly.min.js"></script>
+
+    <script>
+       window.onload = function() {
+          scrolly();
+       }; 
+    </script>
 
     <script>
         $('#ongoing-transaction-table').DataTable({

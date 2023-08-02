@@ -3109,14 +3109,14 @@ input[type="range"]::-ms-thumb {
 .pt-5 {
   padding-top: 1.25rem;
 }
-.pr-3 {
-  padding-right: 0.75rem;
-}
 .pl-3\.5 {
   padding-left: 0.875rem;
 }
 .pl-10 {
   padding-left: 2.5rem;
+}
+.pr-3 {
+  padding-right: 0.75rem;
 }
 .text-left {
   text-align: left;
@@ -3632,6 +3632,10 @@ input[type="range"]::-ms-thumb {
   content: var(--tw-content);
   right: 50%;
 }
+.before\:bottom-\[106\%\]::before {
+  content: var(--tw-content);
+  bottom: 106%;
+}
 .before\:right-\[100\%\]::before {
   content: var(--tw-content);
   right: 100%;
@@ -3639,22 +3643,6 @@ input[type="range"]::-ms-thumb {
 .before\:bottom-\[105\%\]::before {
   content: var(--tw-content);
   bottom: 105%;
-}
-.before\:top-\[102\]::before {
-  content: var(--tw-content);
-  top: 102;
-}
-.before\:top-\[102\%\]::before {
-  content: var(--tw-content);
-  top: 102%;
-}
-.before\:bottom-\[104\%\]::before {
-  content: var(--tw-content);
-  bottom: 104%;
-}
-.before\:bottom-\[106\%\]::before {
-  content: var(--tw-content);
-  bottom: 106%;
 }
 .before\:hidden::before {
   content: var(--tw-content);
